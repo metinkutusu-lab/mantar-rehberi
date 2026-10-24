@@ -53,24 +53,27 @@ const DURUM_ADLARI = {
   yok: 'Büyük yağmur yok',
 };
 
-// Pencerenin başlığı, sağ üst yazısı, çubuk yüzdeleri ve açıklama satırları.
-// Sağ üstteki gün sayısı başlıktaki döneme aittir: "En verimli dönem"de en verimli günlerin,
-// "Azalıyor"da mantarların bitmesine kalan gün. Çubuğun koyu kısmı en verimli, açık kısmı azalma günleridir.
+// Pencerenin başlığı, sağ üst yazısı, çubuk yüzdesi ve açıklama satırları.
+// Çubuk, mevsim çubuğu gibi tek renktir ve yalnızca başlıktaki dönemi gösterir:
+// tamamı o dönemin toplam günü, koyu kısım sağ üstte yazan kalan gün kadardır.
 function pencereBilgisi(p, { elle = false } = {}) {
   const s = p.simdiki;
-  const yuzde = Math.round((s ? s.kalanOran : 0) * 100);
-  const koyuYuzde = s ? Math.round((s.verimliKalanGun / s.kalanGun) * 100) : 100;
+  let yuzde = 0;
   let sagUst = '';
-  if (p.durum === 'verimli') sagUst = `${s.verimliKalanGun} gün kaldı`;
-  else if (p.durum === 'azaliyor') sagUst = `${s.kalanGun} gün kaldı`;
-  else if (p.siradaki) sagUst = `${p.siradaki.kalanGun} gün sonra`;
+  if (p.durum === 'verimli') {
+    yuzde = Math.round((s.verimliKalanGun / s.verimliToplamGun) * 100);
+    sagUst = `${s.verimliKalanGun} gün kaldı`;
+  } else if (p.durum === 'azaliyor') {
+    yuzde = Math.round((s.kalanGun / s.azalmaToplamGun) * 100);
+    sagUst = `${s.kalanGun} gün kaldı`;
+  } else if (p.siradaki) {
+    sagUst = `${p.siradaki.kalanGun} gün sonra`;
+  }
 
   const satirlar = [];
   if (p.durum === 'verimli') {
-    const azalmaGunu = s.kalanGun - s.verimliKalanGun;
-    satirlar.push(`En verimli dönem: ${tarihYaz(s.bas)} – ${tarihYaz(s.verimliBit)}, bitmesine ${s.verimliKalanGun} gün var.`);
-    satirlar.push(`Sonra yeni yağmur yağmazsa mantarlar yaklaşık ${azalmaGunu} gün azalarak sürer ve ${tarihYaz(s.bitis)} civarı kurur.`);
-    satirlar.push('Çubukta koyu kısım en verimli günleri, açık kısım azalma günlerini gösterir.');
+    satirlar.push(`En verimli dönem: ${tarihYaz(s.bas)} – ${tarihYaz(s.verimliBit)} (${s.verimliToplamGun} gün). Bitmesine ${s.verimliKalanGun} gün var.`);
+    satirlar.push(`Sonra yeni yağmur yağmazsa mantarlar yaklaşık ${s.azalmaToplamGun} gün azalarak sürer ve ${tarihYaz(s.bitis)} civarı kurur.`);
   } else if (p.durum === 'azaliyor') {
     satirlar.push(`Mantarlar azalıyor. Yeni yağmur yağmazsa ${tarihYaz(s.bitis)} civarı biter.`);
   } else if (p.durum === 'bekle') {
@@ -92,7 +95,7 @@ function pencereBilgisi(p, { elle = false } = {}) {
   }
   if (p.sicaklikNotu) satirlar.push(p.sicaklikNotu);
 
-  return { baslik: DURUM_ADLARI[p.durum], sagUst, yuzde, koyuYuzde, satirlar };
+  return { baslik: DURUM_ADLARI[p.durum], sagUst, yuzde, satirlar };
 }
 
 const satirlariCiz = (satirlar) => satirlar.map((s) => el('p', { className: 'pencere-satir', textContent: s }));
@@ -105,7 +108,7 @@ function pencereCiz(p, secenekler) {
       el('strong', { textContent: b.baslik }),
       el('span', { className: 'mevsim-gun', textContent: b.sagUst }),
     ),
-    cubukCiz(b.yuzde, 'Mantar döneminin kalan kısmı', b.koyuYuzde),
+    cubukCiz(b.yuzde, 'Mantar döneminin kalan kısmı'),
     ...satirlariCiz(b.satirlar),
   );
 }
@@ -170,7 +173,6 @@ function takipKartiCiz() {
       altBaslik: durumYazisi,
       sag: b?.sagUst ?? '',
       yuzde: b?.yuzde ?? 0,
-      koyuYuzde: b?.koyuYuzde ?? 100,
       cubukEtiketi: 'Mantar döneminin kalan kısmı',
       durum: takipKarti,
     },

@@ -109,10 +109,11 @@ function sicaklikNotu(kayitlar) {
 /**
  * Bir yerin günlük kayıtlarından mantar penceresini hesaplar.
  * durum: 'yok' | 'bekle' | 'verimli' | 'azaliyor'
- * simdiki: içinde bulunulan pencere { bas, verimliBit, bitis, kalanGun, verimliKalanGun, kalanOran } (yoksa null)
+ * simdiki: içinde bulunulan pencere (yoksa null):
+ *   { bas, verimliBit, bitis, kalanGun, verimliKalanGun, verimliToplamGun, azalmaToplamGun }
  *   kalanGun: pencerenin tamamen bitmesine (azalma dahil) kalan gün
  *   verimliKalanGun: en verimli dönemin bitmesine kalan gün (azalma döneminde 0)
- *   kalanOran: 1 = pencere yeni açıldı, 0'a yaklaştıkça bitiyor.
+ *   verimliToplamGun / azalmaToplamGun: iki dönemin toplam gün sayısı (çubuğun tamamı)
  * siradaki: henüz başlamamış pencere { bas, verimliBit, bitis, kalanGun } (kalanGun: başlamasına kalan)
  * sonYagmur: son büyük yağmur { tarih, miktar } (miktar elle girilmişse null)
  * tahmin: önümüzdeki günlerde beklenen ilk büyük yağmur { tarih, miktar, mantarBas }
@@ -131,7 +132,8 @@ export function mantarPenceresi(kayitlar, bugun = new Date()) {
     ...icinde,
     kalanGun: gunFarki(gun, icinde.bitis) + 1,
     verimliKalanGun: gun <= icinde.verimliBit ? gunFarki(gun, icinde.verimliBit) + 1 : 0,
-    kalanOran: (gunFarki(gun, icinde.bitis) + 1) / (gunFarki(icinde.bas, icinde.bitis) + 1),
+    verimliToplamGun: gunFarki(icinde.bas, icinde.verimliBit) + 1,
+    azalmaToplamGun: gunFarki(icinde.verimliBit, icinde.bitis),
   };
   const siradaki = sonraki && { ...sonraki, kalanGun: gunFarki(gun, sonraki.bas) };
 
