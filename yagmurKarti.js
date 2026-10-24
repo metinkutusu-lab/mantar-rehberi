@@ -53,18 +53,26 @@ const DURUM_ADLARI = {
   yok: 'Büyük yağmur yok',
 };
 
-// Pencerenin başlığı, sağ üst yazısı, çubuk yüzdesi ve açıklama satırları.
+// Pencerenin başlığı, sağ üst yazısı, çubuk yüzdeleri ve açıklama satırları.
+// Sağ üstteki gün sayısı başlıktaki döneme aittir: "En verimli dönem"de en verimli günlerin,
+// "Azalıyor"da mantarların bitmesine kalan gün. Çubuğun koyu kısmı en verimli, açık kısmı azalma günleridir.
 function pencereBilgisi(p, { elle = false } = {}) {
-  const yuzde = Math.round((p.simdiki ? p.simdiki.kalanOran : 0) * 100);
+  const s = p.simdiki;
+  const yuzde = Math.round((s ? s.kalanOran : 0) * 100);
+  const koyuYuzde = s ? Math.round((s.verimliKalanGun / s.kalanGun) * 100) : 100;
   let sagUst = '';
-  if (p.simdiki) sagUst = `${p.simdiki.kalanGun} gün kaldı`;
+  if (p.durum === 'verimli') sagUst = `${s.verimliKalanGun} gün kaldı`;
+  else if (p.durum === 'azaliyor') sagUst = `${s.kalanGun} gün kaldı`;
   else if (p.siradaki) sagUst = `${p.siradaki.kalanGun} gün sonra`;
 
   const satirlar = [];
   if (p.durum === 'verimli') {
-    satirlar.push(`En verimli dönem: ${tarihYaz(p.simdiki.bas)} – ${tarihYaz(p.simdiki.verimliBit)}. Yeni yağmur yağmazsa ${tarihYaz(p.simdiki.bitis)} civarı mantarlar kurumaya başlar.`);
+    const azalmaGunu = s.kalanGun - s.verimliKalanGun;
+    satirlar.push(`En verimli dönem: ${tarihYaz(s.bas)} – ${tarihYaz(s.verimliBit)}, bitmesine ${s.verimliKalanGun} gün var.`);
+    satirlar.push(`Sonra yeni yağmur yağmazsa mantarlar yaklaşık ${azalmaGunu} gün azalarak sürer ve ${tarihYaz(s.bitis)} civarı kurur.`);
+    satirlar.push('Çubukta koyu kısım en verimli günleri, açık kısım azalma günlerini gösterir.');
   } else if (p.durum === 'azaliyor') {
-    satirlar.push(`Mantarlar azalıyor. Yeni yağmur yağmazsa ${tarihYaz(p.simdiki.bitis)} civarı biter.`);
+    satirlar.push(`Mantarlar azalıyor. Yeni yağmur yağmazsa ${tarihYaz(s.bitis)} civarı biter.`);
   } else if (p.durum === 'bekle') {
     satirlar.push(`Yağmurdan sonra mantarlar oluşuyor. En verimli dönem: ${tarihYaz(p.siradaki.bas)} – ${tarihYaz(p.siradaki.verimliBit)}.`);
   } else {
@@ -84,7 +92,7 @@ function pencereBilgisi(p, { elle = false } = {}) {
   }
   if (p.sicaklikNotu) satirlar.push(p.sicaklikNotu);
 
-  return { baslik: DURUM_ADLARI[p.durum], sagUst, yuzde, satirlar };
+  return { baslik: DURUM_ADLARI[p.durum], sagUst, yuzde, koyuYuzde, satirlar };
 }
 
 const satirlariCiz = (satirlar) => satirlar.map((s) => el('p', { className: 'pencere-satir', textContent: s }));
@@ -97,7 +105,7 @@ function pencereCiz(p, secenekler) {
       el('strong', { textContent: b.baslik }),
       el('span', { className: 'mevsim-gun', textContent: b.sagUst }),
     ),
-    cubukCiz(b.yuzde, 'Mantar döneminin kalan kısmı'),
+    cubukCiz(b.yuzde, 'Mantar döneminin kalan kısmı', b.koyuYuzde),
     ...satirlariCiz(b.satirlar),
   );
 }
@@ -162,6 +170,7 @@ function takipKartiCiz() {
       altBaslik: durumYazisi,
       sag: b?.sagUst ?? '',
       yuzde: b?.yuzde ?? 0,
+      koyuYuzde: b?.koyuYuzde ?? 100,
       cubukEtiketi: 'Mantar döneminin kalan kısmı',
       durum: takipKarti,
     },

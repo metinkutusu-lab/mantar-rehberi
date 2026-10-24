@@ -43,8 +43,13 @@ export function bildirim(tur, ...icerik) {
 }
 
 // Mevsim ve mantar dönemi çubuğu: kalan süre (yuzde, 0–100) sağa yaslı koyu renkle gösterilir.
-export function cubukCiz(yuzde, etiket) {
-  const cubuk = el('div', { className: 'mevsim-cubugu' }, el('span', { style: `width: ${yuzde}%` }));
+// koyuYuzde verilirse kalan kısmın yalnızca ilk koyuYuzde'si koyu, gerisi açık tondadır
+// (mantar döneminde: koyu = en verimli günler, açık = azalma günleri).
+export function cubukCiz(yuzde, etiket, koyuYuzde = 100) {
+  const dolgu = el('span', { style: `width: ${yuzde}%` });
+  if (koyuYuzde < 100) dolgu.classList.add('iki-ton');
+  dolgu.style.setProperty('--koyu', `${koyuYuzde}%`);
+  const cubuk = el('div', { className: 'mevsim-cubugu' }, dolgu);
   cubuk.setAttribute('role', 'progressbar');
   cubuk.setAttribute('aria-valuenow', String(yuzde));
   cubuk.setAttribute('aria-valuemin', '0');
@@ -55,7 +60,7 @@ export function cubukCiz(yuzde, etiket) {
 
 // Ana ekrandaki açılır kart: kapalıyken tek satır başlık ve çubuk görünür, dokununca ayrıntılar açılır.
 // durum: { acik } nesnesi; açık/kapalı bilgisi yeniden çizimlerde korunsun diye burada tutulur.
-export function acilirKart({ sinif = '', baslik, altBaslik = '', sag = '', yuzde, cubukEtiketi, durum }, ...govde) {
+export function acilirKart({ sinif = '', baslik, altBaslik = '', sag = '', yuzde, koyuYuzde = 100, cubukEtiketi, durum }, ...govde) {
   const kart = el('details', { className: `kart acilir ${sinif}` },
     el('summary', {},
       el('div', { className: 'acilir-ust' },
@@ -66,7 +71,7 @@ export function acilirKart({ sinif = '', baslik, altBaslik = '', sag = '', yuzde
         el('span', { className: 'mevsim-gun', textContent: sag }),
         el('span', { className: 'acilir-ok', textContent: '›' }),
       ),
-      cubukCiz(yuzde, cubukEtiketi),
+      cubukCiz(yuzde, cubukEtiketi, koyuYuzde),
     ),
     el('div', { className: 'acilir-govde' }, ...govde),
   );
