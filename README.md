@@ -1,6 +1,6 @@
-# Mantar Rehberi
+# MushKey
 
-Doğada mantar toplayanlar için Türkçe, internetsiz çalışan bir güvenlik rehberi.
+Doğada mantar toplayanlar için internetsiz çalışan bir güvenlik rehberi. İlk sürüm Türkçe.
 
 Uygulama: https://metinkutusu-lab.github.io/mantar-rehberi/
 

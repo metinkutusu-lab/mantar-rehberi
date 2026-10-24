@@ -108,15 +108,11 @@ svg { width: 100%; height: 100%; display: block; }
 }
 
 .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 750; font-size: 17px; letter-spacing: -0.01em; }
-.logo-ikon {
-  display: inline-flex;
-  width: 34px;
-  height: 34px;
-  padding: 6px;
-  border-radius: 10px;
-  background: var(--marka-acik);
-  color: var(--marka);
-}
+.logo-ikon { display: inline-flex; width: 36px; height: 36px; }
+.logo { font-size: 19px; font-weight: 850; }
+.logo-mush { color: var(--marka); }
+.logo-key { color: #c4642f; }
+@media (prefers-color-scheme: dark) { .logo-key { color: #f0a868; } }
 
 .acil-buton {
   display: inline-flex;

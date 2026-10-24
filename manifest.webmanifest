@@ -1,6 +1,6 @@
 {
-  "name": "Mantar Rehberi",
-  "short_name": "Mantar",
+  "name": "MushKey",
+  "short_name": "MushKey",
   "lang": "tr",
   "start_url": "./index.html",
   "scope": "./",

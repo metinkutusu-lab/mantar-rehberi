@@ -54,7 +54,7 @@ function yuvarlakKirp(ctx, x, y, g, y2, r) {
 }
 
 function basligiYaz(ctx, ciz, veri, y) {
-  y = yaz(ctx, ciz, 'MANTAR TANIMLAMA ÖZETİ', { y, boyut: 26, kalinlik: 700, renk: veri.yaziRengi });
+  y = yaz(ctx, ciz, 'MUSHKEY · MANTAR TANIMLAMA ÖZETİ', { y, boyut: 26, kalinlik: 700, renk: veri.yaziRengi });
   y += 8;
   y = yaz(ctx, ciz, veri.sonuc.baslik, { y, boyut: 56, kalinlik: 800, renk: veri.yaziRengi });
   y = yaz(ctx, ciz, veri.sonuc.mesaj, { y, boyut: 34, kalinlik: 650, renk: veri.yaziRengi });
