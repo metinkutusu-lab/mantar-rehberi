@@ -1,11 +1,13 @@
 import { ETIKETLER, egitimTamamlanabilirMi, tanimlamaAcilabilirMi } from './kurallar.js';
 import { DERSLER, FERAGAT_MADDELERI, FERAGAT_TASLAK_NOTU, SORULAR } from './egitim.js';
 import { durumuOku, durumuYaz } from './durum.js';
-import { bildirim, cizim, el, ilerlemeCiz } from './dom.js';
+import { bildirim, cizim, cubukCiz, el, ilerlemeCiz } from './dom.js';
 import { tanimlamaCiz } from './tanimla.js';
 import { SOZLUK } from './sozluk.js';
 import { oku } from './depo.js';
 import { ZEHIRLILIK_ADLARI, ozellikSatirlari, tehlikeyeGoreSirala, turleriYukle } from './turler.js';
+import { MEVSIM_NOTU, mevsimDurumu } from './mevsim.js';
+import { takibiYenile, yagmurKarti } from './yagmurKarti.js';
 
 const EKRANLAR = ['tanimla', 'ansiklopedi', 'tarifler', 'acil'];
 const EGITIM_ADIM_SAYISI = DERSLER.length + SORULAR.length + 1;
@@ -169,6 +171,31 @@ function sozlukCiz() {
   );
 }
 
+// Mantar mevsimi çubuğu: mevsim içinde dolu başlar, mevsim ilerledikçe soldan sağa boşalır.
+function mevsimCiz() {
+  const d = mevsimDurumu();
+  const tarih = (t) => t.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' });
+  const cubuk = cubukCiz(Math.round((d.icinde ? d.kalanOran : 0) * 100), 'Mantar mevsiminin kalan kısmı');
+
+  document.getElementById('mevsim').replaceChildren(
+    el('div', { className: `mevsim-karti${d.icinde ? '' : ' mevsim-disi'}` },
+      el('div', { className: 'mevsim-ust' },
+        el('strong', { textContent: d.icinde ? d.ad : 'Şu an mantar mevsimi değil' }),
+        el('span', { className: 'mevsim-gun', textContent: d.icinde ? `${d.kalanGun} gün kaldı` : `${d.kalanGun} gün sonra` }),
+      ),
+      cubuk,
+      el('p', {
+        className: 'mevsim-alt',
+        textContent: d.icinde
+          ? `${tarih(d.baslangic)} – ${tarih(d.bitis)}`
+          : `Sıradaki: ${d.ad}, başlangıç ${tarih(d.baslangic)}`,
+      }),
+      el('p', { className: 'mevsim-not', textContent: MEVSIM_NOTU }),
+    ),
+    yagmurKarti(),
+  );
+}
+
 // Kural 8: yenen her türün sayfasında zehirli benzerleri ve ayırt edici farklar yan yana durur.
 function turKartiCiz(tur) {
   const govde = el('div', { className: 'tur-govde' }, el('p', { textContent: tur.aciklama ?? '' }));
@@ -256,11 +283,41 @@ function ekraniGoster() {
 }
 
 window.addEventListener('hashchange', ekraniGoster);
+// Uygulama günlerce açık kalabilir; öne gelince mevsim çubuğu ve takip edilen yerin yağmuru güncellenir.
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') {
+    mevsimCiz();
+    takibiYenile();
+  }
+});
+mevsimCiz();
 tanimlaCiz();
 sozlukCiz();
 turleriCiz();
 ekraniGoster();
 
+// Yeni sürüm indirilince kullanıcıya haber verilir. Sayfa kendiliğinden yenilenmez:
+// yarım kalan bir tanımlama ve fotoğrafları kaybolmasın.
+function guncellemeUyarisiGoster() {
+  if (document.getElementById('guncelleme')) return;
+  document.body.append(
+    el('div', { id: 'guncelleme', className: 'guncelleme-bandi', role: 'status' },
+      el('span', { textContent: 'Uygulamanın yeni sürümü hazır.' }),
+      el('button', { type: 'button', className: 'birincil', textContent: 'Yenile', onclick: () => location.reload() }),
+    ),
+  );
+}
+
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js');
+  // İlk kurulumda da denetleyici değişir; uyarı yalnızca eski bir sürüm çalışıyorken gösterilir.
+  const eskiSurumVardi = Boolean(navigator.serviceWorker.controller);
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (eskiSurumVardi) guncellemeUyarisiGoster();
+  });
+  navigator.serviceWorker.register('./sw.js').then((kayit) => {
+    // Uygulama arka plandan öne gelince yeni sürüm var mı diye bakılır (internet yoksa sessizce geçilir).
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') kayit.update().catch(() => {});
+    });
+  });
 }

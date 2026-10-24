@@ -27,6 +27,8 @@ export function tanimlamaCiz(hedef, secenekler) {
 }
 
 function ciz() {
+  // Mevsim çubuğu yalnızca giriş ekranında görünür; adımlar ve sonuç sırasında yer kaplamasın.
+  document.getElementById('mevsim').hidden = durum.asama !== 'giris';
   if (durum.asama === 'soru') kap.replaceChildren(adimCiz());
   else if (durum.asama === 'sonuc') kap.replaceChildren(sonucCiz());
   else kap.replaceChildren(girisCiz());

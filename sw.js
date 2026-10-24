@@ -1,6 +1,6 @@
 // Çevrimdışı çalışma: uygulamanın bütün dosyaları ilk açılışta cihaza kaydedilir.
 // Yeni dosya eklenince DOSYALAR listesine ekle ve SURUM'u artır.
-const SURUM = 'v9';
+const SURUM = 'v13';
 // GitHub Pages'te aynı adreste başka uygulamalar da olabilir: önbellek adı bu uygulamaya ve adresine özeldir,
 // yalnızca kendi eski sürümlerini siler.
 const ONEK = `mantar-rehberi:${self.registration.scope}:`;
@@ -17,19 +17,25 @@ const DOSYALAR = [
   './durum.js',
   './egitim.js',
   './kurallar.js',
+  './mevsim.js',
   './ozet.js',
   './sorular.js',
   './sozluk.js',
   './tanimla.js',
   './turler.js',
   './uygulama.js',
+  './yagmur.js',
+  './yagmurKarti.js',
   './turler.json',
   './ikon-192.png',
   './ikon-512.png',
 ];
 
 self.addEventListener('install', (olay) => {
-  olay.waitUntil(caches.open(ONBELLEK).then((onbellek) => onbellek.addAll(DOSYALAR)));
+  // Tarayıcının HTTP önbelleği atlanır: yeni sürüme eski bir dosya karışmasın.
+  olay.waitUntil(
+    caches.open(ONBELLEK).then((onbellek) => onbellek.addAll(DOSYALAR.map((d) => new Request(d, { cache: 'reload' })))),
+  );
   self.skipWaiting();
 });
 

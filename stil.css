@@ -501,6 +501,117 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 
 .feragat-satiri { margin: 28px 0 20px; font-size: 12.5px; text-align: center; color: var(--soluk); }
 
+/* Mantar mevsimi çubuğu */
+#mevsim[hidden] { display: none; }
+.mevsim-karti {
+  margin: 16px 0 0;
+  padding: 12px 16px 10px;
+  border-radius: 16px;
+  background: var(--yuzey);
+  border: 1px solid var(--cizgi);
+  box-shadow: var(--golge);
+}
+.mevsim-ust { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: 15.5px; }
+.mevsim-gun { color: var(--marka); font-weight: 750; font-size: 14.5px; white-space: nowrap; }
+.mevsim-disi .mevsim-gun { color: var(--soluk); }
+.mevsim-cubugu {
+  height: 12px;
+  margin: 9px 0 6px;
+  border-radius: 999px;
+  background: var(--cizgi);
+  overflow: hidden;
+}
+.mevsim-cubugu span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #e8963f, #b85c38);
+  transition: width 0.6s ease;
+}
+.mevsim-alt { font-size: 14px; color: var(--yazi); margin: 0; }
+.mevsim-not { font-size: 12.5px; color: var(--soluk); margin: 2px 0 0; }
+
+/* Yağmur ipucu */
+.yagmur-karti { padding: 0; margin: 10px 0 0; }
+.yagmur-karti > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 15.5px;
+}
+.yagmur-karti > summary::-webkit-details-marker { display: none; }
+.yagmur-karti > summary::after { content: "›"; font-size: 22px; color: var(--soluk); transition: transform 0.2s ease; }
+.yagmur-karti[open] > summary::after { transform: rotate(90deg); }
+.yagmur-ozet { display: block; font-size: 13.5px; color: var(--soluk); font-weight: 500; }
+.yagmur-govde { padding: 0 16px 14px; }
+.yagmur-etiket { font-weight: 700; font-size: 14.5px; margin: 6px 0 6px; }
+.yagmur-arama { display: flex; gap: 8px; }
+.yagmur-arama .birincil { min-height: 46px; padding: 8px 18px; }
+.yagmur-girdi {
+  flex: 1;
+  min-width: 0;
+  min-height: 46px;
+  padding: 10px 14px;
+  font: inherit;
+  font-size: 16px;
+  color: var(--yazi);
+  background: var(--yuzey-2);
+  border: 1.5px solid var(--cizgi);
+  border-radius: 12px;
+}
+.yagmur-girdi:focus { outline: 3px solid var(--marka); outline-offset: 1px; }
+.yer-listesi { display: flex; flex-direction: column; gap: 8px; margin: 10px 0; }
+.yer-listesi .secenek { min-height: 48px; font-size: 15.5px; }
+.yer-listesi .secenek::before { display: none; }
+.yer-cipleri { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 2px; }
+.cip {
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--cizgi);
+  background: var(--marka-acik);
+  color: var(--marka);
+  font-weight: 650;
+  font-size: 14.5px;
+}
+.yagmur-elle { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 4px; font-size: 14.5px; color: var(--soluk); }
+.takip-karti { margin: 10px 0 0; padding: 12px 16px 6px; }
+.takip-baslik { margin-bottom: 8px; }
+.takip-etiket { display: block; font-size: 12.5px; font-weight: 700; color: var(--marka); text-transform: uppercase; letter-spacing: 0.06em; }
+.takip-dugmeleri { display: flex; justify-content: space-between; }
+.takip-dugmeleri .metin-dugme { margin: 0; padding: 10px 0; font-size: 14.5px; }
+.metin-dugme.soluk { color: var(--soluk); }
+.pencere { font-size: 15px; }
+.pencere-satir { margin: 0 0 6px; }
+.pencere-yok .mevsim-ust strong, .pencere-azaliyor .mevsim-ust strong { color: var(--soluk); }
+.tek-seferlik { margin: 4px 0 12px; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--cizgi); background: var(--yuzey-2); }
+.tek-seferlik .yagmur-etiket { margin-top: 0; }
+
+/* Yeni sürüm uyarısı */
+.guncelleme-bandi {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: calc(var(--menu) + env(safe-area-inset-bottom) + 12px);
+  z-index: 20;
+  max-width: 576px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 10px 10px 18px;
+  border-radius: 16px;
+  background: var(--yazi);
+  color: var(--zemin);
+  font-weight: 650;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+.guncelleme-bandi .birincil { min-height: 42px; padding: 8px 18px; flex: 0 0 auto; }
+
 /* Alt menü */
 .alt-menu {
   position: fixed;
