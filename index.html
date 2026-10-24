@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f3ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#14110f" media="(prefers-color-scheme: dark)">
+  <title>Mantar Rehberi</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="ikon-192.png">
+  <link rel="apple-touch-icon" href="ikon-192.png">
+  <link rel="stylesheet" href="stil.css">
+</head>
+<body>
+  <!-- Kural 9: Acil butonu <main> dışında, her ekranda görünür. -->
+  <header class="ust-bar">
+    <span class="logo">
+      <span class="logo-ikon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 8 0 0 1 18 0z"/><path d="M9.5 12v6a2.5 2.5 0 0 0 5 0v-6"/></svg></span>
+      Mantar Rehberi
+    </span>
+    <a id="acil-buton" class="acil-buton" href="#acil">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+      ACİL
+    </a>
+  </header>
+
+  <main>
+    <section id="tanimla" class="ekran">
+      <h1>Tanımla</h1>
+      <!-- Kural 11: eğitim bitmeden burada eğitim gösterilir (uygulama.js). -->
+      <div id="tanimla-icerik">
+        <div class="bildirim bildirim-uyari">
+          <div>
+            <p><strong>Tanımlama kapalı.</strong></p>
+            <p>Güvenlik eğitimi yüklenemedi. Sayfayı yeniden aç.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ansiklopedi" class="ekran">
+      <h1>Ansiklopedi</h1>
+      <div class="bildirim bildirim-bilgi">
+        <div>
+          <p><strong>Tür sayfaları hazırlanıyor.</strong> Türler ve zehirli benzerleri, bir mantar uzmanı bilgileri onayladıktan sonra burada olacak.</p>
+        </div>
+      </div>
+      <h2 class="bolum-basligi">Terimler sözlüğü</h2>
+      <div id="sozluk" class="sozluk"></div>
+    </section>
+
+    <section id="tarifler" class="ekran">
+      <h1>Tarifler</h1>
+      <div class="bos-durum">
+        <span class="bos-ikon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h16v4a6 6 0 0 1-6 6h-4a6 6 0 0 1-6-6z"/><path d="M8 6c0-1 1-1 1-2"/><path d="M12 6c0-1 1-1 1-2"/><path d="M16 6c0-1 1-1 1-2"/></svg></span>
+        <h2>Hazırlanıyor</h2>
+        <p>Tarifler, tür bir uzman tarafından onaylandıktan ve sen "uzman onayladı" adımını işaretledikten sonra açılır.</p>
+      </div>
+    </section>
+
+    <!-- Acil ekranı düz HTML'dir: JavaScript çalışmasa bile görünür. -->
+    <section id="acil" class="ekran">
+      <h1>Acil Durum</h1>
+      <p class="alt-baslik">Mantar yedikten sonra kendini kötü hissediyorsan ya da yediğin mantardan emin değilsen <strong>hemen ara</strong>.</p>
+
+      <a class="arama arama-114" href="tel:114">
+        <span class="arama-ikon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
+        <span class="arama-metin"><span class="numara">114</span><span>Zehir Danışma Hattı (UZEM)</span></span>
+      </a>
+      <a class="arama arama-112" href="tel:112">
+        <span class="arama-ikon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
+        <span class="arama-metin"><span class="numara">112</span><span>Acil Çağrı</span></span>
+      </a>
+
+      <div class="bildirim bildirim-uyari">
+        <div>
+          <p><strong>Mantarın bir parçasını sakla.</strong> Yenmemiş mantarı veya artığını bir kâğıda sarıp hastaneye götür. Doktorun türü anlaması için çok önemli.</p>
+        </div>
+      </div>
+
+      <!-- Son tanımlamanın özeti varsa burada gösterilir (uygulama.js). -->
+      <div id="son-ozet"></div>
+
+      <div class="kart">
+        <h2 class="kart-baslik">Ne yapmalı?</h2>
+        <ol class="adim-listesi">
+          <li>114'ü veya 112'yi ara.</li>
+          <li>Mantarın bir parçasını saklayıp yanına al.</li>
+          <li>Aynı mantardan yiyen herkes, belirtisi olmasa bile hastaneye gitmeli.</li>
+          <li>Doktor söylemeden ilaç alma veya kendini kusturmaya çalışma.</li>
+        </ol>
+      </div>
+
+      <div class="kart">
+        <h2 class="kart-baslik" id="belirtiler">Belirtiler</h2>
+        <div class="bildirim bildirim-tehlike">
+          <div>
+            <p><strong>Belirtiler yemekten saatler sonra başlayabilir.</strong> Belirtiler geçmiş gibi görünse bile hastaneye git: en tehlikeli zehirlenmelerde önce bir iyileşme dönemi olur, sonra karaciğer zarar görür.</p>
+          </div>
+        </div>
+        <ul class="belirti-listesi">
+          <li>Bulantı, kusma</li>
+          <li>İshal, karın ağrısı</li>
+          <li>Aşırı terleme, ağızda sulanma</li>
+          <li>Baş dönmesi, görme bozukluğu</li>
+          <li>Bilinç bulanıklığı, sersemlik</li>
+          <li>Gözlerde veya ciltte sararma</li>
+          <li>İdrarın azalması veya koyulaşması</li>
+        </ul>
+      </div>
+      <p class="not">Bu sayfadaki bilgiler taslaktır; Ulusal Zehir Danışma Merkezi yayınları ve bir hekimle doğrulanacak.</p>
+    </section>
+
+    <p class="feragat-satiri">Eğitim amaçlı bir rehberdir. Bir mantarı yemeye tek başına bu uygulamayla karar verilemez.</p>
+  </main>
+
+  <nav class="alt-menu">
+    <a href="#tanimla">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <span>Tanımla</span>
+    </a>
+    <a href="#ansiklopedi">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg>
+      <span>Ansiklopedi</span>
+    </a>
+    <a href="#tarifler">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h16v4a6 6 0 0 1-6 6h-4a6 6 0 0 1-6-6z"/><path d="M8 6c0-1 1-1 1-2"/><path d="M12 6c0-1 1-1 1-2"/><path d="M16 6c0-1 1-1 1-2"/></svg>
+      <span>Tarifler</span>
+    </a>
+    <a href="#acil" class="alt-acil">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 21h20z"/><path d="M12 10v5"/><path d="M12 18h.01"/></svg>
+      <span>Acil</span>
+    </a>
+  </nav>
+
+  <script type="module" src="uygulama.js"></script>
+</body>
+</html>
