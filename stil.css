@@ -506,7 +506,7 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 #mevsim[hidden] { display: none; }
 .mevsim-karti {
   margin: 16px 0 0;
-  padding: 12px 16px 10px;
+  padding: 12px 16px;
   border-radius: 16px;
   background: var(--yuzey);
   border: 1px solid var(--cizgi);
@@ -581,9 +581,19 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
   font-size: 14.5px;
 }
 .yagmur-elle { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 4px; font-size: 14.5px; color: var(--soluk); }
-.takip-karti { margin: 10px 0 0; padding: 12px 16px 6px; }
-.takip-baslik { margin-bottom: 8px; }
-.takip-etiket { display: block; font-size: 12.5px; font-weight: 700; color: var(--marka); text-transform: uppercase; letter-spacing: 0.06em; }
+/* Açılır kart (mevsim ve takip edilen yer): kapalıyken başlık + çubuk, açılınca ayrıntılar */
+.acilir > summary { list-style: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.acilir > summary::-webkit-details-marker { display: none; }
+.acilir-ust { display: flex; align-items: center; gap: 10px; font-size: 15.5px; }
+.acilir-baslik { flex: 1; min-width: 0; }
+.acilir-alt { display: block; font-size: 13.5px; font-weight: 600; color: var(--soluk); }
+.acilir-ok { font-size: 22px; line-height: 1; color: var(--soluk); transition: transform 0.2s ease; }
+.acilir[open] .acilir-ok { transform: rotate(90deg); }
+.acilir .mevsim-cubugu { margin-bottom: 0; }
+.acilir-govde { padding-top: 10px; }
+.takip-karti { margin: 10px 0 0; padding: 12px 16px; }
+.takip-yer { font-size: 14px; color: var(--soluk); margin: 0 0 6px; }
+.takip-ara-baslik { font-size: 15.5px; font-weight: 750; margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--cizgi); }
 .takip-dugmeleri { display: flex; justify-content: space-between; }
 .takip-dugmeleri .metin-dugme { margin: 0; padding: 10px 0; font-size: 14.5px; }
 .metin-dugme.soluk { color: var(--soluk); }

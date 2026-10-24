@@ -3,7 +3,7 @@
 //   Uygulama her açılışta (internet varsa) veriyi yeniler; internet yoksa son veriyi gösterir.
 // - Arama: başka bir yer seçmek veya tarihi elle girmek. Cihaz konumu kullanılmaz (kural 12).
 // Takip edilen yer ve kaydedilen yerler yalnızca bu cihazda tutulur.
-import { bildirim, cubukCiz, el } from './dom.js';
+import { acilirKart, bildirim, cubukCiz, el } from './dom.js';
 import { durumuOku, durumuYaz } from './durum.js';
 import {
   KAYNAK_NOTU,
@@ -53,7 +53,8 @@ const DURUM_ADLARI = {
   yok: 'Büyük yağmur yok',
 };
 
-function pencereCiz(p, { elle = false } = {}) {
+// Pencerenin başlığı, sağ üst yazısı, çubuk yüzdesi ve açıklama satırları.
+function pencereBilgisi(p, { elle = false } = {}) {
   const yuzde = Math.round((p.simdiki ? p.simdiki.kalanOran : 0) * 100);
   let sagUst = '';
   if (p.simdiki) sagUst = `${p.simdiki.kalanGun} gün kaldı`;
@@ -83,13 +84,21 @@ function pencereCiz(p, { elle = false } = {}) {
   }
   if (p.sicaklikNotu) satirlar.push(p.sicaklikNotu);
 
+  return { baslik: DURUM_ADLARI[p.durum], sagUst, yuzde, satirlar };
+}
+
+const satirlariCiz = (satirlar) => satirlar.map((s) => el('p', { className: 'pencere-satir', textContent: s }));
+
+// Elle tarih gibi tek seferlik bakışlar için açık (katlanmayan) pencere.
+function pencereCiz(p, secenekler) {
+  const b = pencereBilgisi(p, secenekler);
   return el('div', { className: `pencere pencere-${p.durum}` },
     el('div', { className: 'mevsim-ust' },
-      el('strong', { textContent: DURUM_ADLARI[p.durum] }),
-      el('span', { className: 'mevsim-gun', textContent: sagUst }),
+      el('strong', { textContent: b.baslik }),
+      el('span', { className: 'mevsim-gun', textContent: b.sagUst }),
     ),
-    cubukCiz(yuzde, 'Mantar döneminin kalan kısmı'),
-    ...satirlar.map((s) => el('p', { className: 'pencere-satir', textContent: s })),
+    cubukCiz(b.yuzde, 'Mantar döneminin kalan kısmı'),
+    ...satirlariCiz(b.satirlar),
   );
 }
 
@@ -113,15 +122,18 @@ export async function takibiYenile({ zorla = false } = {}) {
   ciz();
 }
 
+// Kapalıyken: yer adı, durum ve çubuk. Açılınca: ayrıntılar, düğmeler ve başka bir yere bakma.
+const takipKarti = { acik: false };
 function takipKartiCiz() {
   const { takipYeri, takipVerisi } = durumuOku();
-  const icerik = [
-    el('div', { className: 'takip-baslik' },
-      el('span', {}, el('span', { className: 'takip-etiket', textContent: 'Takip edilen yer' }), el('strong', { textContent: yerAdi(takipYeri) })),
-    ),
-  ];
+  const b = takipVerisi ? pencereBilgisi(mantarPenceresi(gunlukKayitlar(takipVerisi.daily))) : null;
+  let durumYazisi = 'Bilgi bekleniyor';
+  if (b) durumYazisi = b.baslik;
+  else if (yagmur.yukleniyor) durumYazisi = 'Güncelleniyor…';
+
+  const icerik = [el('p', { className: 'takip-yer', textContent: `Takip edilen yer: ${yerAdi(takipYeri)}` })];
   if (takipVerisi) {
-    icerik.push(pencereCiz(mantarPenceresi(gunlukKayitlar(takipVerisi.daily))));
+    icerik.push(...satirlariCiz(b.satirlar));
     const alindi = new Date(takipVerisi.alindi).toLocaleString('tr-TR', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
     icerik.push(el('p', { className: 'not', textContent: `Güncellendi: ${alindi}${navigator.onLine ? '' : ' (şu an internet yok, son bilgi gösteriliyor)'}` }));
   } else if (!yagmur.yukleniyor) {
@@ -141,13 +153,27 @@ function takipKartiCiz() {
       },
     }),
   ));
-  return el('div', { className: 'kart takip-karti' }, ...icerik);
+  icerik.push(el('h3', { className: 'takip-ara-baslik', textContent: 'Başka bir yere bak' }), ...aramaIcerigi());
+
+  return acilirKart(
+    {
+      sinif: 'takip-karti',
+      baslik: takipYeri.ad,
+      altBaslik: durumYazisi,
+      sag: b?.sagUst ?? '',
+      yuzde: b?.yuzde ?? 0,
+      cubukEtiketi: 'Mantar döneminin kalan kısmı',
+      durum: takipKarti,
+    },
+    ...icerik,
+  );
 }
 
 function takibeAl(yer) {
   const yerler = [yer, ...kayitliYerler().filter((y) => !(y.ad === yer.ad && y.bolge === yer.bolge))].slice(0, AZAMI_KAYITLI_YER);
   kalici({ yerler, takipYeri: yer, takipVerisi: null });
   Object.assign(yagmur, { aramaAcik: false, aramaSonuclari: null, tekSeferlik: null, aramaMetni: '' });
+  takipKarti.acik = false;
   takibiYenile({ zorla: true });
 }
 
@@ -176,7 +202,8 @@ function tekSeferlikCiz(t) {
   );
 }
 
-function aramaCiz(takipVar) {
+// Yer arama, kayıtlı yerler ve elle tarih: takip varsa takip kartının içinde, yoksa kendi kartında.
+function aramaIcerigi() {
   const icerik = [];
   if (yagmur.tekSeferlik) icerik.push(tekSeferlikCiz(yagmur.tekSeferlik));
 
@@ -196,7 +223,7 @@ function aramaCiz(takipVar) {
       el('button', { type: 'submit', className: 'birincil', textContent: 'Ara', disabled: yagmur.yukleniyor }),
     ),
   );
-  if (yagmur.yukleniyor && !takipVar) icerik.push(el('p', { className: 'not', textContent: 'Bakılıyor…' }));
+  if (yagmur.yukleniyor) icerik.push(el('p', { className: 'not', textContent: 'Bakılıyor…' }));
   if (yagmur.aramaSonuclari) {
     icerik.push(yagmur.aramaSonuclari.length
       ? el('div', { className: 'yer-listesi' },
@@ -230,15 +257,18 @@ function aramaCiz(takipVar) {
   tarihGirdisi.setAttribute('aria-label', 'Son büyük yağmurun tarihi');
   icerik.push(el('label', { className: 'yagmur-elle' }, el('span', { textContent: 'Ya da son büyük yağmurun tarihini seç (internetsiz):' }), tarihGirdisi));
   icerik.push(el('p', { className: 'not', textContent: `${YAGMUR_NOTU} ${KAYNAK_NOTU}` }));
+  return icerik;
+}
 
+function aramaKartiCiz() {
   const kart = el('details', { className: 'kart yagmur-karti' },
     el('summary', {},
       el('span', {},
-        el('strong', { textContent: takipVar ? 'Başka bir yere bak' : 'Yağmur ipucu' }),
-        el('span', { className: 'yagmur-ozet', textContent: takipVar ? 'Yer değiştir ya da bir tarihe göre bak' : 'Gideceğin yeri seç; yağmuru takip edelim' }),
+        el('strong', { textContent: 'Yağmur ipucu' }),
+        el('span', { className: 'yagmur-ozet', textContent: 'Gideceğin yeri seç; yağmuru takip edelim' }),
       ),
     ),
-    el('div', { className: 'yagmur-govde' }, ...icerik),
+    el('div', { className: 'yagmur-govde' }, ...aramaIcerigi()),
   );
   kart.open = yagmur.aramaAcik;
   kart.addEventListener('toggle', () => { yagmur.aramaAcik = kart.open; });
@@ -246,8 +276,7 @@ function aramaCiz(takipVar) {
 }
 
 function ciz() {
-  const takipVar = Boolean(durumuOku().takipYeri);
-  kap.replaceChildren(...(takipVar ? [takipKartiCiz()] : []), aramaCiz(takipVar));
+  kap.replaceChildren(durumuOku().takipYeri ? takipKartiCiz() : aramaKartiCiz());
 }
 
 export function yagmurKarti() {

@@ -1,7 +1,7 @@
 import { ETIKETLER, egitimTamamlanabilirMi, tanimlamaAcilabilirMi } from './kurallar.js';
 import { DERSLER, FERAGAT_MADDELERI, FERAGAT_TASLAK_NOTU, SORULAR } from './egitim.js';
 import { durumuOku, durumuYaz } from './durum.js';
-import { bildirim, cizim, cubukCiz, el, ilerlemeCiz } from './dom.js';
+import { acilirKart, bildirim, cizim, el, ilerlemeCiz } from './dom.js';
 import { tanimlamaCiz } from './tanimla.js';
 import { SOZLUK } from './sozluk.js';
 import { oku } from './depo.js';
@@ -172,18 +172,22 @@ function sozlukCiz() {
 }
 
 // Mantar mevsimi çubuğu: mevsim içinde dolu başlar; kalan süre sağda koyu renktedir ve soldan sağa çekilir.
+// Kapalıyken yalnızca başlık ve çubuk görünür; dokununca tarihler açılır.
+const mevsimKarti = { acik: false };
 function mevsimCiz() {
   const d = mevsimDurumu();
   const tarih = (t) => t.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' });
-  const cubuk = cubukCiz(Math.round((d.icinde ? d.kalanOran : 0) * 100), 'Mantar mevsiminin kalan kısmı');
 
   document.getElementById('mevsim').replaceChildren(
-    el('div', { className: `mevsim-karti${d.icinde ? '' : ' mevsim-disi'}` },
-      el('div', { className: 'mevsim-ust' },
-        el('strong', { textContent: d.icinde ? d.ad : 'Şu an mantar mevsimi değil' }),
-        el('span', { className: 'mevsim-gun', textContent: d.icinde ? `${d.kalanGun} gün kaldı` : `${d.kalanGun} gün sonra` }),
-      ),
-      cubuk,
+    acilirKart(
+      {
+        sinif: `mevsim-karti${d.icinde ? '' : ' mevsim-disi'}`,
+        baslik: d.icinde ? d.ad : 'Şu an mantar mevsimi değil',
+        sag: d.icinde ? `${d.kalanGun} gün kaldı` : `${d.kalanGun} gün sonra`,
+        yuzde: Math.round((d.icinde ? d.kalanOran : 0) * 100),
+        cubukEtiketi: 'Mantar mevsiminin kalan kısmı',
+        durum: mevsimKarti,
+      },
       el('p', {
         className: 'mevsim-alt',
         textContent: d.icinde

@@ -53,6 +53,28 @@ export function cubukCiz(yuzde, etiket) {
   return cubuk;
 }
 
+// Ana ekrandaki açılır kart: kapalıyken tek satır başlık ve çubuk görünür, dokununca ayrıntılar açılır.
+// durum: { acik } nesnesi; açık/kapalı bilgisi yeniden çizimlerde korunsun diye burada tutulur.
+export function acilirKart({ sinif = '', baslik, altBaslik = '', sag = '', yuzde, cubukEtiketi, durum }, ...govde) {
+  const kart = el('details', { className: `kart acilir ${sinif}` },
+    el('summary', {},
+      el('div', { className: 'acilir-ust' },
+        el('span', { className: 'acilir-baslik' },
+          el('strong', { textContent: baslik }),
+          altBaslik ? el('span', { className: 'acilir-alt', textContent: altBaslik }) : '',
+        ),
+        el('span', { className: 'mevsim-gun', textContent: sag }),
+        el('span', { className: 'acilir-ok', textContent: '›' }),
+      ),
+      cubukCiz(yuzde, cubukEtiketi),
+    ),
+    el('div', { className: 'acilir-govde' }, ...govde),
+  );
+  kart.open = Boolean(durum.acik);
+  kart.addEventListener('toggle', () => { durum.acik = kart.open; });
+  return kart;
+}
+
 export function ilerlemeCiz(etiket, sira, toplam) {
   return el('div', { className: 'ilerleme' },
     el('div', { className: 'ilerleme-ust' },
