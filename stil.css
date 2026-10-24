@@ -522,11 +522,13 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
   background: var(--cizgi);
   overflow: hidden;
 }
+/* Kalan süre sağda ve koyu: zaman soldan sağa aktıkça koyu kısım soldan sağa doğru çekilir. */
 .mevsim-cubugu span {
   display: block;
   height: 100%;
+  margin-left: auto;
   border-radius: 999px;
-  background: linear-gradient(90deg, #e8963f, #b85c38);
+  background: linear-gradient(90deg, #c4642f, #7f3418);
   transition: width 0.6s ease;
 }
 .mevsim-alt { font-size: 14px; color: var(--yazi); margin: 0; }

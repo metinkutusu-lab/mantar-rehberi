@@ -171,7 +171,7 @@ function sozlukCiz() {
   );
 }
 
-// Mantar mevsimi çubuğu: mevsim içinde dolu başlar, mevsim ilerledikçe soldan sağa boşalır.
+// Mantar mevsimi çubuğu: mevsim içinde dolu başlar; kalan süre sağda koyu renktedir ve soldan sağa çekilir.
 function mevsimCiz() {
   const d = mevsimDurumu();
   const tarih = (t) => t.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' });

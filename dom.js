@@ -42,7 +42,7 @@ export function bildirim(tur, ...icerik) {
   return el('div', { className: `bildirim bildirim-${tur}` }, ikon(BILDIRIM_IKONLARI[tur]), el('div', {}, ...icerik));
 }
 
-// Mevsim ve mantar dönemi çubuğu: yuzde kadar dolu (0–100).
+// Mevsim ve mantar dönemi çubuğu: kalan süre (yuzde, 0–100) sağa yaslı koyu renkle gösterilir.
 export function cubukCiz(yuzde, etiket) {
   const cubuk = el('div', { className: 'mevsim-cubugu' }, el('span', { style: `width: ${yuzde}%` }));
   cubuk.setAttribute('role', 'progressbar');
