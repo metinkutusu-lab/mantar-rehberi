@@ -5,6 +5,7 @@ import { bildirim, cizim, el, ilerlemeCiz } from './dom.js';
 import { tanimlamaCiz } from './tanimla.js';
 import { SOZLUK } from './sozluk.js';
 import { oku } from './depo.js';
+import { ZEHIRLILIK_ADLARI, ozellikSatirlari, tehlikeyeGoreSirala, turleriYukle } from './turler.js';
 
 const EKRANLAR = ['tanimla', 'ansiklopedi', 'tarifler', 'acil'];
 const EGITIM_ADIM_SAYISI = DERSLER.length + SORULAR.length + 1;
@@ -168,6 +169,62 @@ function sozlukCiz() {
   );
 }
 
+// Kural 8: yenen her türün sayfasında zehirli benzerleri ve ayırt edici farklar yan yana durur.
+function turKartiCiz(tur) {
+  const govde = el('div', { className: 'tur-govde' }, el('p', { textContent: tur.aciklama ?? '' }));
+  if (tur.zehirliBenzerler?.length) {
+    govde.append(
+      el('h4', { className: 'tur-alt-baslik', textContent: 'Karıştırılan zehirli türler' }),
+      ...tur.zehirliBenzerler.map((benzer) =>
+        el('div', { className: 'benzer-karti' },
+          el('strong', { textContent: benzer.ad }),
+          el('p', { textContent: benzer.fark }),
+        ),
+      ),
+    );
+  }
+  if (tur.karistirilanlar?.length) {
+    govde.append(el('p', {}, el('strong', { textContent: 'Şunlarla karıştırılır: ' }), tur.karistirilanlar.join(', ')));
+  }
+  const ozellikler = ozellikSatirlari(tur);
+  if (ozellikler.length) {
+    govde.append(el('details', { className: 'uzman-ayrinti' },
+      el('summary', { textContent: 'Uygulamanın kullandığı özellikler (uzman kontrolü için)' }),
+      el('ul', {}, ...ozellikler.map((o) => el('li', {}, el('span', { className: 'not', textContent: `${o.soru} ` }), o.cevaplar.join(', ')))),
+    ));
+  }
+  govde.append(el('p', { className: 'not', textContent: `Kaynak: ${tur.kaynak ?? 'belirtilmedi'}` }));
+
+  return el('details', { className: `kart tur-karti tur-${tur.zehirlilik}` },
+    el('summary', {},
+      el('span', { className: 'tur-baslik' },
+        el('strong', { textContent: tur.ad }),
+        el('em', { className: 'bilimsel-ad', textContent: tur.bilimselAd ?? '' }),
+      ),
+      el('span', { className: `rozet rozet-${tur.zehirlilik}`, textContent: ZEHIRLILIK_ADLARI[tur.zehirlilik] ?? 'Bilinmiyor' }),
+    ),
+    govde,
+  );
+}
+
+async function turleriCiz() {
+  const turler = tehlikeyeGoreSirala(await turleriYukle());
+  const tehlikeli = turler.filter((t) => t.zehirlilik !== 'yenen');
+  const yenen = turler.filter((t) => t.zehirlilik === 'yenen');
+  const kap = document.getElementById('turler-listesi');
+  kap.replaceChildren();
+  if (tehlikeli.length) {
+    kap.append(el('h2', { className: 'bolum-basligi', textContent: 'Ölümcül ve zehirli türler' }), ...tehlikeli.map(turKartiCiz));
+  }
+  if (yenen.length) {
+    kap.append(
+      el('h2', { className: 'bolum-basligi', textContent: 'Yenen türler' }),
+      el('p', { className: 'not', textContent: 'Her birinin ölümcül veya zehirli bir benzeri vardır. Uzman görmeden yeme.' }),
+      ...yenen.map(turKartiCiz),
+    );
+  }
+}
+
 // Acil ekranı: son tanımlamanın özeti doktora gösterilmek üzere cihazdan okunur.
 let sonOzetAdresi;
 async function sonOzetiGoster() {
@@ -201,6 +258,7 @@ function ekraniGoster() {
 window.addEventListener('hashchange', ekraniGoster);
 tanimlaCiz();
 sozlukCiz();
+turleriCiz();
 ekraniGoster();
 
 if ('serviceWorker' in navigator) {

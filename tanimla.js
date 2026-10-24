@@ -5,20 +5,15 @@ import { adimSecenekleri, aktifAdimlar, ozetSatirlari, sonCevaplar } from './sor
 import { adaylariBul } from './anahtar.js';
 import { ozetResmiOlustur, ozetiPaylas } from './ozet.js';
 import { kaydet } from './depo.js';
+import { ZEHIRLILIK_ADLARI, tehlikeyeGoreSirala, turleriYukle } from './turler.js';
 
 // Tür listesi cihazdaki önbellekten gelir. Yüklenemezse boş sayılır; sonuç en fazla turuncu olur.
 let turler = [];
-fetch('./turler.json')
-  .then((yanit) => yanit.json())
-  .then((veri) => {
-    turler = Array.isArray(veri.turler) ? veri.turler : [];
-  })
-  .catch(() => {
-    turler = [];
-  });
+turleriYukle().then((liste) => {
+  turler = liste;
+});
 
 const SONUC_IKONLARI = { kirmizi: 'uyari', turuncu: 'soru', sari: 'bilgi' };
-const ZEHIRLILIK_ADLARI = { olumcul: 'Ölümcül', zehirli: 'Zehirli', yenen: 'Yenen tür' };
 
 // Fotoğraflar yalnızca bellekte tutulur, hiçbir yere gönderilmez (kural 12).
 const durum = { asama: 'giris', adim: 0, cevaplar: {}, fotograflar: {} };
@@ -214,6 +209,25 @@ function paylasKartiCiz(sonuc, ozet) {
   );
 }
 
+// Kural 8: yenen bir aday her zaman zehirli benzerleri ve farklarıyla birlikte gösterilir.
+function adayCiz(tur) {
+  const satir = el('li', {},
+    el('div', { className: 'aday-ust' },
+      el('strong', { textContent: tur.ad ?? 'Adsız tür' }),
+      el('span', { className: `rozet rozet-${tur.zehirlilik}`, textContent: ZEHIRLILIK_ADLARI[tur.zehirlilik] ?? 'Bilinmiyor, zehirli sayılır' }),
+      tur.mikologOnayi === true ? '' : el('span', { className: 'rozet', textContent: 'Taslak bilgi' }),
+    ),
+    tur.bilimselAd ? el('em', { className: 'bilimsel-ad', textContent: tur.bilimselAd }) : '',
+  );
+  if (tur.zehirlilik === 'yenen' && tur.zehirliBenzerler?.length) {
+    satir.append(el('div', { className: 'benzerler' },
+      el('p', { className: 'benzer-baslik', textContent: 'Karıştırılan zehirli türler:' }),
+      ...tur.zehirliBenzerler.map((benzer) => el('p', {}, el('strong', { textContent: `${benzer.ad}: ` }), benzer.fark)),
+    ));
+  }
+  return satir;
+}
+
 function sonucCiz() {
   const cevaplar = sonCevaplar(durum.cevaplar);
   const adaylar = adaylariBul(turler, cevaplar);
@@ -247,19 +261,18 @@ function sonucCiz() {
 
   if (adaylar.length > 0) {
     kok.append(el('div', { className: 'kart' },
-      el('h3', { className: 'kart-baslik', textContent: 'Olası türler' }),
-      el('ul', { className: 'adaylar' },
-        ...adaylar.map((tur) => el('li', {},
-          el('strong', { textContent: tur.ad ?? 'Adsız tür' }),
-          el('span', { className: `rozet rozet-${tur.zehirlilik}`, textContent: ZEHIRLILIK_ADLARI[tur.zehirlilik] ?? 'Bilinmiyor, zehirli sayılır' }),
-          tur.mikologOnayi === true ? '' : el('span', { className: 'rozet', textContent: 'Uzman onayı yok' }),
-        )),
-      ),
+      el('h3', { className: 'kart-baslik', textContent: 'Muhtemelen şu türlerden biri olabilir' }),
+      el('p', { className: 'not', textContent: 'En tehlikeli olasılıklar önce. Cevaplarınla çelişmeyen bütün türler listelenir.' }),
+      el('ul', { className: 'adaylar' }, ...tehlikeyeGoreSirala(adaylar).map(adayCiz)),
     ));
-  }
-  if (turler.length === 0) {
+  } else if (turler.length > 0) {
     kok.append(bildirim('bilgi', el('p', {
-      textContent: 'Uygulamada henüz uzman onaylı tür bilgisi yok. Bu yüzden şimdilik sonuç en fazla turuncu olabilir.',
+      textContent: 'Cevapların uygulamadaki türlerin hiçbiriyle uyuşmadı. Bu, mantarın listede olmayan bir tür olduğu anlamına gelebilir.',
+    })));
+  }
+  if (!turler.some((tur) => tur.mikologOnayi === true)) {
+    kok.append(bildirim('bilgi', el('p', {
+      textContent: 'Tür bilgileri taslaktır ve henüz bir mantar uzmanı tarafından onaylanmadı. Bu yüzden sonuç en fazla turuncu olabilir.',
     })));
   }
 
