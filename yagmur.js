@@ -6,7 +6,7 @@
 
 export const HAVA_SERVISI = 'https://api.open-meteo.com/v1/forecast';
 export const YER_SERVISI = 'https://geocoding-api.open-meteo.com/v1/search';
-export const KAYNAK_NOTU = 'Hava verisi: Open-Meteo.com (CC BY 4.0)';
+export const KAYNAK_NOTU = 'Hava verisi: Open-Meteo.com, yer adları: GeoNames.org (CC BY 4.0).';
 export const GECMIS_GUN = 21;
 export const TAHMIN_GUN = 8;
 
