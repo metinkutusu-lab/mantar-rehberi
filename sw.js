@@ -47,6 +47,8 @@ const DOSYALAR = [
   './js/fotoTanima.js',
   './js/kamera.js',
   './js/sesliKomut.js',
+  './js/zehir.js',
+  './js/isaretliFoto.js',
   // Harita kütüphanesi MapLibre GL JS 4.7.1 (BSD-3, vendor/LICENSE.txt)
   './vendor/maplibre-gl.js',
   './vendor/maplibre-gl.css',

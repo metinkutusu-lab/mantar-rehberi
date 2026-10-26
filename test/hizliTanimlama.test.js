@@ -161,3 +161,26 @@ test('sesli komut: Türkçe komutlar ve seçenekler anlaşılır', () => {
   assert.equal(komutuAnla('merhaba', renkler), null);
   assert.equal(sadele('Çıkmıyor, ŞÜPHELİ'), 'cikmiyor suphel' + 'i');
 });
+
+test('zehir sembolleri: her zehirli türün zehir türü tanımlı ya da "bilinmiyor"; ölümcüller kurukafa', async () => {
+  const { ZEHIR_TIPLERI, ERKEN_BASLAMA_UYARISI, zehirTipi } = await import('../js/zehir.js');
+  for (const tur of turler) {
+    const tip = zehirTipi(tur);
+    if (tur.zehirlilik === 'yenen') {
+      assert.equal(tip, null, tur.id);
+      continue;
+    }
+    if (tur.zehirTipi) assert.ok(ZEHIR_TIPLERI[tur.zehirTipi], `${tur.id}: bilinmeyen zehirTipi`);
+    if (tur.zehirlilik === 'olumcul') assert.equal(tip.sembol, 'kurukafa', tur.id);
+  }
+  // Alanı olmayan veya boş zehirlilikli tür en kötüsü sayılır (kural 3).
+  assert.equal(zehirTipi({ zehirlilik: '' }).renk, 'kirmizi');
+  for (const tip of Object.values(ZEHIR_TIPLERI)) {
+    assert.ok(tip.baslama && tip.belirtiler.length && tip.uyari);
+    for (const metin of [tip.baslik, tip.uyari, ...tip.belirtiler]) assert.deepEqual(yasakIfadeler(metin), []);
+  }
+  assert.match(ZEHIR_TIPLERI.karaciger.uyari, /iyileşmiş gibi/);
+  assert.match(ERKEN_BASLAMA_UYARISI, /hafif olduğu anlamına gelmez/);
+  assert.match(oku('js/zehir.js'), /tel:114/);
+  assert.match(oku('js/zehir.js'), /tel:112/);
+});

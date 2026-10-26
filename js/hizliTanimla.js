@@ -5,12 +5,14 @@
 // - Her olası tür, karıştırıldığı zehirli/yenen türle yan yana ve ayıran kontrolle gösterilir (kural 8).
 // - Sesli yönlendirme telefonun kendi sesiyle (js/ses.js); sesli komut yalnızca telefon içi tanımayla (js/sesliKomut.js).
 // - Sonuç, eski akıştaki aynı değerlendirmeden geçer (kurallar.js); yeşil yoktur, her sonuçta "uzmana sor" yazar.
-import { bildirim, cizim, el, ikon, kucukFotograf } from './dom.js';
+import { bildirim, el, ikon, kucukFotograf } from './dom.js';
+import { adimFotografi, secenekFotografi } from './isaretliFoto.js';
 import { BILMIYORUM, GEREKLI_FOTOGRAFLAR } from './kurallar.js';
 import { ADIMLAR, adimSecenekleri, sonCevaplar } from './sorular.js';
 import { adaylariBul } from './anahtar.js';
 import { ayiranAdimlar, kisaAd, siradakiAdim } from './siradaki.js';
 import { ZEHIRLILIK_ADLARI, tehlikeyeGoreSirala, turleriYukle } from './turler.js';
+import { zehirRozeti } from './zehir.js';
 import { durumuOku, durumuYaz } from './durum.js';
 import { sesHazirMi, sesiKes, soyle } from './ses.js';
 import { kameraAc, kameraKapat, kameraVarMi, kareAl, resimAdresi } from './kamera.js';
@@ -27,7 +29,6 @@ const KIYAS_FOTOGRAFLARI = ['ust', 'yan'];
 const UST_ADIM = {
   soru: '__ust',
   fotograf: 'ust',
-  cizim: 'ust',
   baslik: 'Üstten fotoğraf',
   yonerge: ['Mantarı yerinden oynatmadan, tam üstünden çek. Bütün şapka görünsün.'],
 };
@@ -220,8 +221,12 @@ function karistirilanlar(tur) {
     .map((t) => ({ tur: t, ad: t.ad, fark: t.zehirliBenzerler.find((b) => b.ad === tur.ad).fark }));
 }
 
+// Zehirlilik rozeti; zehirli türde yanında zehir sembolü (dokununca belirtiler, js/zehir.js).
 function rozet(tur) {
-  return el('span', { className: `rozet rozet-${tur?.zehirlilik}`, textContent: ZEHIRLILIK_ADLARI[tur?.zehirlilik] ?? 'Bilinmiyor, zehirli sayılır' });
+  return el('span', { className: 'rozetler' },
+    el('span', { className: `rozet rozet-${tur?.zehirlilik}`, textContent: ZEHIRLILIK_ADLARI[tur?.zehirlilik] ?? 'Bilinmiyor, zehirli sayılır' }),
+    zehirRozeti(tur),
+  );
 }
 
 // Olası tür ve karıştırıldığı tür yan yana; fark dokununca açılır, ayıran kontrol her zaman görünür.
@@ -523,7 +528,10 @@ function adimCiz() {
     if (ciftler.length) govde.append(el('p', { className: 'neden', textContent: `Bu kontrol şunları ayırır: ${ciftler.map(([x, y]) => `${x} ↔ ${y}`).join('; ')}` }));
   }
   if (a.uyari) govde.append(bildirim('tehlike', el('p', {}, el('strong', { textContent: a.uyari }))));
-  if (a.cizim && !a.fotograf) govde.append(cizim(a.cizim, 'cizim cizim-kart'));
+  // Gerçek örnek fotoğraf (çizim yok). Kamera olan adımda yer kaplamasın diye dokununca açılır.
+  const ornek = adimFotografi(a);
+  if (ornek && a.fotograf) govde.append(el('details', { className: 'ornek-foto' }, el('summary', { textContent: 'Örnek fotoğrafa bak' }), ornek));
+  else if (ornek) govde.append(ornek);
   const ustCekildi = a.fotograf === 'ust' && a !== UST_ADIM && h.fotograflar.ust;
   if (!ustCekildi) for (const paragraf of a.yonerge ?? []) govde.append(el('p', { className: 'yonerge', textContent: paragraf }));
   // Üstten fotoğraf akışın başında çekildi; şapka rengi adımında küçük gösterilir.
@@ -540,10 +548,11 @@ function adimCiz() {
       const siniflar = ['secenek'];
       if (seciliMi) siniflar.push('secili');
       if (secenek.deger === BILMIYORUM) siniflar.push('bilmiyorum');
-      if (secenek.cizim) siniflar.push('resimli');
+      const foto = secenekFotografi(secenek.cizim);
+      if (foto) siniflar.push('resimli');
       const dugme = el('button',
         { type: 'button', className: siniflar.join(' '), onclick: () => (a.coklu ? cokluSec(a, secenek.deger) : cevapla(a, secenek.deger)) },
-        ...(secenek.cizim ? [cizim(secenek.cizim, 'cizim secenek-cizim')] : []),
+        foto,
         ...(a.coklu ? [el('span', { className: 'onay-kutusu', textContent: seciliMi ? '✓' : '' })] : []),
         el('span', { textContent: secenek.metin }),
       );

@@ -1,11 +1,13 @@
 // Tanımlama ekranı: adım adım sorular, fotoğraflar ve renkli sonuç.
-import { bildirim, cizim, el, ikon, ilerlemeCiz, kucukFotograf } from './dom.js';
+import { bildirim, el, ikon, ilerlemeCiz, kucukFotograf } from './dom.js';
+import { adimFotografi, secenekFotografi } from './isaretliFoto.js';
 import { BILMIYORUM, GEREKLI_FOTOGRAFLAR, degerlendir } from './kurallar.js';
 import { adimSecenekleri, aktifAdimlar, ozetSatirlari, sonCevaplar } from './sorular.js';
 import { adaylariBul } from './anahtar.js';
 import { ozetResmiOlustur, ozetiPaylas } from './ozet.js';
 import { kaydet } from './depo.js';
 import { FOTOGRAF_UYARISI, ZEHIRLILIK_ADLARI, tehlikeyeGoreSirala, turleriYukle } from './turler.js';
+import { zehirRozeti } from './zehir.js';
 import { hizliBaslat, hizliCiz, hizliKapat, hizliSifirla } from './hizliTanimla.js';
 import { BELIRGIN_BENZERLIK, benzerlikSozu } from './fotoTanima.js';
 
@@ -191,7 +193,8 @@ function adimCiz() {
     el('h2', { className: 'adim-baslik', textContent: adim.baslik }),
   );
   if (adim.uyari) govde.append(bildirim('tehlike', el('p', {}, el('strong', { textContent: adim.uyari }))));
-  if (adim.cizim) govde.append(cizim(adim.cizim, 'cizim cizim-kart'));
+  // Çizim yerine gerçek fotoğraf (Metin'in kuralı, 2026-10-26); fotoğrafı olmayan adımda görsel yok.
+  govde.append(adimFotografi(adim));
   for (const paragraf of adim.yonerge) govde.append(el('p', { className: 'yonerge', textContent: paragraf }));
   if (adim.fotograf) govde.append(fotografAlani(adim.fotograf));
 
@@ -201,10 +204,11 @@ function adimCiz() {
     const siniflar = ['secenek'];
     if (seciliMi(secenek.deger)) siniflar.push('secili');
     if (secenek.deger === BILMIYORUM) siniflar.push('bilmiyorum');
-    if (secenek.cizim) siniflar.push('resimli');
+    const foto = secenekFotografi(secenek.cizim);
+    if (foto) siniflar.push('resimli');
     const dugme = el('button',
       { type: 'button', className: siniflar.join(' '), onclick: () => (adim.coklu ? cokluSec(adim, secenek.deger) : cevapla(adim, secenek.deger)) },
-      ...(secenek.cizim ? [cizim(secenek.cizim, 'cizim secenek-cizim')] : []),
+      foto,
       ...(adim.coklu ? [el('span', { className: 'onay-kutusu', textContent: seciliMi(secenek.deger) ? '✓' : '' })] : []),
       el('span', { textContent: secenek.metin }),
     );
@@ -290,6 +294,7 @@ function adayCiz(tur) {
           el('strong', { textContent: tur.ad ?? 'Adsız tür' }),
           el('span', { className: `rozet rozet-${tur.zehirlilik}`, textContent: ZEHIRLILIK_ADLARI[tur.zehirlilik] ?? 'Bilinmiyor, zehirli sayılır' }),
           tur.mikologOnayi === true ? '' : el('span', { className: 'rozet', textContent: 'Taslak bilgi' }),
+          zehirRozeti(tur),
         ),
         tur.bilimselAd ? el('em', { className: 'bilimsel-ad', textContent: tur.bilimselAd }) : '',
         durum.benzerlikler[tur.id] !== undefined ? el('span', { className: 'not kiyas-benzerlik', textContent: benzerlikSozu(durum.benzerlikler[tur.id]) }) : '',

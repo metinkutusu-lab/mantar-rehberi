@@ -32,6 +32,7 @@ Uygulamada **Ansiklopedi** sekmesinde her türün altında "Uygulamanın kulland
 ```
 
 - **zehirlilik:** `olumcul`, `zehirli` veya `yenen`. Bunların dışındaki her değer (boş dahil) zehirli sayılır.
+- **zehirTipi** (zehirli türlerde): zehrin ne yaptığı, sembolü ve belirtileri `js/zehir.js`'te: `karaciger`, `bobrek`, `olumcul`, `sinir`, `ter`, `mide`. Türün açıklamasından alındı (TASLAK). Yoksa "etkisi bilinmiyor" gösterilir.
 - **mikologOnayi:** Yalnızca bir mikolog kaydı onayladıysa `true` yapılır. Onaysız `yenen` bir tür hiçbir zaman sarı sonuç vermez.
 - **ozellikler:** Her soru için bu türde görülebilecek **bütün** cevaplar. Bir soru yazılmazsa o soru bu türü elemez. Tür, kullanıcının kesin cevabı listede yoksa elenir. Bu yüzden listeler cömert tutulmalı: genç ve yaşlı örnekleri, renk değişkenliğini kapsamalı.
 - **zehirliBenzerler:** `yenen` türler için zorunlu. Her biri `{ "ad": "...", "fark": "ayırt edici fark" }`.

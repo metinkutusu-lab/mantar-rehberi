@@ -838,3 +838,26 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .kiyas-fark summary { cursor: pointer; font-weight: 700; color: var(--marka); font-size: 14px; }
 .kiyas-fark p { margin: 4px 0 0; }
 .ust-kucuk { width: 100%; max-height: 180px; object-fit: cover; border-radius: 14px; display: block; }
+
+/* Zehir türü sembolü: dokununca belirtiler (js/zehir.js) */
+.rozetler { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.zehir-rozet { display: inline-block; }
+.zehir-rozet summary { list-style: none; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; font-size: 12.5px; font-weight: 750; padding: 3px 10px 3px 6px; border-radius: 999px; border: 1px solid; }
+.zehir-rozet summary::-webkit-details-marker { display: none; }
+.zehir-rozet .zehir-sembol { width: 18px; height: 18px; }
+.zehir-kirmizi summary { color: #fff; background: var(--kirmizi); border-color: var(--kirmizi); }
+.zehir-turuncu summary { color: var(--turuncu); background: var(--turuncu-zemin); border-color: var(--turuncu-cizgi); }
+.zehir-rozet[open] { display: block; width: 100%; margin-top: 6px; }
+.zehir-panel { margin-top: 8px; padding: 12px; border-radius: 12px; background: var(--yuzey); border: 1px solid var(--kirmizi-cizgi); font-size: 14.5px; font-weight: 400; }
+.zehir-panel ul { margin: 6px 0; padding-left: 20px; }
+.zehir-panel p { margin: 6px 0 0; }
+.zehir-baslama strong { color: var(--kirmizi); }
+.zehir-ara { display: flex; gap: 8px; margin-top: 10px; }
+.zehir-ara a { flex: 1; text-align: center; padding: 10px 8px; border-radius: 12px; color: #fff; font-weight: 750; text-decoration: none; }
+.zehir-ara-114 { background: #d92d20; }
+.zehir-ara-112 { background: #912018; }
+.secenek-foto { width: 64px; height: 64px; flex-shrink: 0; object-fit: cover; border-radius: 10px; }
+.secenek.resimli { display: flex; align-items: center; gap: 12px; }
+.adim .sozluk-foto { margin: 12px 0; }
+.ornek-foto { margin: 10px 0; }
+.ornek-foto summary { cursor: pointer; font-weight: 700; color: var(--marka); }
