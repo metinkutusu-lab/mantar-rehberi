@@ -3,11 +3,18 @@
 
 // ay: 1–12, gün: ayın günü. Bitiş günü mevsime dahildir.
 export const MEVSIMLER = [
-  { ad: 'İlkbahar mantar mevsimi', baslangic: { ay: 3, gun: 1 }, bitis: { ay: 5, gun: 31 } },
-  { ad: 'Sonbahar mantar mevsimi', baslangic: { ay: 9, gun: 1 }, bitis: { ay: 11, gun: 30 } },
+  {
+    ad: 'İlkbahar mantar mevsimi', baslangic: { ay: 3, gun: 1 }, bitis: { ay: 5, gun: 31 },
+    ipucu: 'Nereye bakmalı: ilkbaharda toprak önce güneye ve doğuya bakan yamaçlarda ısınır; oralara bak.',
+  },
+  {
+    ad: 'Sonbahar mantar mevsimi', baslangic: { ay: 9, gun: 1 }, bitis: { ay: 11, gun: 30 },
+    ipucu: 'Nereye bakmalı: sonbaharda kuzeye ve batıya bakan, nemini koruyan yamaçlara bak.',
+  },
 ];
 
 export const MEVSIM_NOTU = 'Yaklaşık tarihler; bölgeye ve yağmura göre değişir. Zehirli mantarlar da aynı dönemde çıkar.';
+export const SICAKLIK_IPUCU = 'Mantarlar en çok yağmurdan sonra, gündüzleri 15–22°C civarı ılık havalarda çıkar.';
 
 const GUN = 24 * 60 * 60 * 1000;
 
@@ -33,6 +40,7 @@ export function mevsimDurumu(tarih = new Date()) {
     for (const m of MEVSIMLER) {
       adaylar.push({
         ad: m.ad,
+        ipucu: m.ipucu,
         baslangic: gunBasi(yil, m.baslangic.ay, m.baslangic.gun),
         bitis: gunBasi(yil, m.bitis.ay, m.bitis.gun),
       });

@@ -22,6 +22,7 @@ import {
   yasakIfadeler,
 } from '../js/kurallar.js';
 import { DERSLER, FERAGAT_MADDELERI, FERAGAT_TASLAK_NOTU, SORULAR } from '../js/egitim.js';
+import { cokluHavaAdresi } from '../js/yagmur.js';
 
 const KOK = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const oku = (dosya) => readFileSync(path.join(KOK, dosya), 'utf8');
@@ -284,8 +285,8 @@ test('Kural 11: feragat taslak olarak işaretli (avukat yazacak)', () => {
   assert.ok(FERAGAT_MADDELERI.some((m) => /uzman/.test(m)));
 });
 
-// Kural 12 (Metin'in kararı, 2026-10-24): yağmur ipucu için yalnızca js/yagmur.js, yalnızca
-// Open-Meteo'ya istek yapabilir (kullanıcının yazdığı yer adı). Cihaz konumu hiçbir yerde okunmaz.
+// Kural 12: yağmur ipucu için yalnızca js/yagmur.js, yalnızca Open-Meteo'ya istek yapabilir
+// (yazılan yer adı ve yuvarlanmış koordinat).
 const DIS_ISTEK_DOSYASI = 'js/yagmur.js';
 const IZINLI_ADRESLER = ['https://api.open-meteo.com/', 'https://geocoding-api.open-meteo.com/'];
 
@@ -313,10 +314,21 @@ test('kaynak gösterme ve telif notu her ekranda görünür', () => {
   assert.match(html, /© \d{4} .+ Tüm hakları saklıdır/);
 });
 
-test('Kural 12: uygulama cihaz konumunu hiçbir yerde okumaz', () => {
+// Kural 12 (Metin'in kararı, 2026-10-26): cihaz konumu yalnızca js/yagmur.js'teki cihazKonumu ile,
+// bir düğmeye dokununca okunur; sürekli izleme yoktur.
+test('Kural 12: cihaz konumu yalnızca js/yagmur.js içinde ve tek seferlik okunur', () => {
   for (const dosya of uygulamaDosyalari()) {
-    assert.doesNotMatch(oku(dosya), /geolocation|getCurrentPosition|watchPosition/, dosya);
+    const icerik = oku(dosya);
+    assert.doesNotMatch(icerik, /watchPosition/, dosya);
+    if (dosya !== DIS_ISTEK_DOSYASI) assert.doesNotMatch(icerik, /geolocation|getCurrentPosition/, dosya);
   }
+});
+
+test('Kural 12: radar hava servisine yalnızca yuvarlanmış koordinat gönderir', () => {
+  const adres = new URL(cokluHavaAdresi([{ enlem: 40.98765, boylam: 29.12345 }, { enlem: 41.0049, boylam: 39.7178 }]));
+  assert.equal(adres.searchParams.get('latitude'), '41,41');
+  assert.equal(adres.searchParams.get('longitude'), '29.1,39.7');
+  assert.ok(IZINLI_ADRESLER.some((izinli) => adres.href.startsWith(izinli)));
 });
 
 test('Kural 13: genç mantarın kesitinde taslak varsa ölümcül olabilir', () => {

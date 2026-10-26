@@ -597,6 +597,8 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .acilir[open] .acilir-ok { transform: rotate(90deg); }
 .acilir .mevsim-cubugu { margin-bottom: 0; }
 .acilir-govde { padding-top: 10px; }
+.yanina-al { padding: 14px 18px; }
+.yanina-al-ikonlar { display: flex; gap: 14px; color: var(--marka); }
 .takip-karti { margin: 10px 0 0; padding: 12px 16px; }
 .takip-yer { font-size: 14px; color: var(--soluk); margin: 0 0 6px; }
 .takip-ara-baslik { font-size: 15.5px; font-weight: 750; margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--cizgi); }
@@ -670,3 +672,42 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .alt-menu a.secili svg { background: var(--marka-acik); }
 .alt-menu a.alt-acil { color: var(--kirmizi); }
 .alt-menu a.alt-acil.secili svg { background: var(--kirmizi-zemin); }
+
+/* Konumumu kullan, mantar radarı ve gizli yerler */
+.konum-dugme {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 46px;
+  margin: 10px 0 0;
+  padding: 8px 14px;
+  border-radius: 12px;
+  border: 1.5px solid var(--marka);
+  background: var(--marka-acik);
+  color: var(--marka);
+  font-weight: 700;
+  font-size: 15.5px;
+}
+.konum-dugme .ikon { width: 20px; height: 20px; }
+.konum-not { margin: 6px 0 10px; font-size: 12.5px; }
+.tek-seferlik .metin-dugme { margin: 4px 0 0; padding: 8px 0; font-size: 14.5px; }
+.radar-baslik { font-size: 15.5px; font-weight: 750; margin: 4px 0 0; }
+.radar-aciklama { margin: 4px 0 10px; }
+.radar-dugme { width: 100%; min-height: 46px; padding: 8px 14px; font-size: 15.5px; }
+.radar-listesi { display: flex; flex-direction: column; gap: 8px; margin: 12px 0 4px; }
+.radar-satir { padding: 10px 12px 2px; border-radius: 12px; border: 1px solid var(--cizgi); background: var(--yuzey-2); font-size: 15px; }
+.radar-satir .mevsim-cubugu { margin-bottom: 0; }
+.radar-takip { margin: 0; padding: 8px 0; font-size: 14px; }
+.gizli-yer-formu { display: flex; flex-direction: column; gap: 8px; }
+.gizli-yer-listesi { display: flex; flex-direction: column; gap: 8px; margin: 12px 0 0; }
+.gizli-yer { padding: 10px 12px 4px; border-radius: 12px; border: 1px solid var(--cizgi); background: var(--yuzey-2); font-size: 15px; }
+.gizli-yer-ust { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.gizli-yer-ust .not { margin: 0; white-space: nowrap; }
+.gizli-yer-not { margin: 4px 0 0; }
+.gizli-yer-koordinat { margin: 2px 0 0; font-variant-numeric: tabular-nums; }
+.gizli-yer-dugmeleri { display: flex; flex-wrap: wrap; gap: 0 18px; }
+.gizli-yer-dugmeleri .metin-dugme { margin: 0; padding: 8px 0; font-size: 14px; text-decoration: none; }
+.mevsim-ipucu { font-size: 13.5px; color: var(--yazi); margin: 8px 0 0; padding-top: 8px; border-top: 1px solid var(--cizgi); }
+.tur-nerede { margin: 8px 0; }

@@ -6,8 +6,9 @@ import { tanimlamaCiz } from './tanimla.js';
 import { SOZLUK } from './sozluk.js';
 import { oku } from './depo.js';
 import { FOTOGRAF_UYARISI, ZEHIRLILIK_ADLARI, fotografAtfi, ozellikSatirlari, tehlikeyeGoreSirala, turleriYukle } from './turler.js';
-import { MEVSIM_NOTU, mevsimDurumu } from './mevsim.js';
+import { MEVSIM_NOTU, SICAKLIK_IPUCU, mevsimDurumu } from './mevsim.js';
 import { takibiYenile, yagmurKarti } from './yagmurKarti.js';
+import { radarKarti } from './radar.js';
 
 const EKRANLAR = ['tanimla', 'ansiklopedi', 'tarifler', 'acil'];
 const EGITIM_ADIM_SAYISI = DERSLER.length + SORULAR.length + 1;
@@ -146,6 +147,8 @@ function egitimAdimiCiz() {
 function tanimlaCiz() {
   const kap = document.getElementById('tanimla-icerik');
   if (egitim.tekrar || !tanimlamaAcilabilirMi(durumuOku())) {
+    // Mevsim kartları yalnızca ana ekranda görünür; eğitim sırasında yer kaplamasın.
+    document.getElementById('mevsim').hidden = true;
     kap.replaceChildren(egitimAdimiCiz());
     return;
   }
@@ -195,8 +198,10 @@ function mevsimCiz() {
           : `Sıradaki: ${d.ad}, başlangıç ${tarih(d.baslangic)}`,
       }),
       el('p', { className: 'mevsim-not', textContent: MEVSIM_NOTU }),
+      el('p', { className: 'mevsim-ipucu', textContent: `${d.ipucu} ${SICAKLIK_IPUCU}` }),
     ),
     yagmurKarti(),
+    radarKarti(),
   );
 }
 
@@ -212,6 +217,9 @@ function turKartiCiz(tur, adlaTur) {
     govde.append(bildirim('uyari', el('p', { textContent: FOTOGRAF_UYARISI })));
   }
   govde.append(el('p', { textContent: tur.aciklama ?? '' }));
+  if (tur.nerede) {
+    govde.append(el('p', { className: 'tur-nerede' }, el('strong', { textContent: 'Nerede çıkar: ' }), tur.nerede));
+  }
   if (tur.zehirliBenzerler?.length) {
     govde.append(
       el('h4', { className: 'tur-alt-baslik', textContent: 'Karıştırılan zehirli türler' }),

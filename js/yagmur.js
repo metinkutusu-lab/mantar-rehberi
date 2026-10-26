@@ -1,6 +1,7 @@
 // Yağmur ipucu: bir yerdeki yağmura göre mantarların ne zaman çıkabileceğine dair kaba bir tahmin.
-// Kural 12 (Metin'in kararı, 2026-10-24): cihaz konumu hiç okunmaz. Kullanıcı gideceği yerin adını yazar;
-// yalnızca yazdığı ad ve seçtiği yerin (yuvarlanmış) koordinatı gider.
+// Kural 12 (Metin'in kararı, 2026-10-26; 24 Ekim'de konum hiç okunmuyordu): kullanıcı gideceği yerin adını
+// yazar ya da isterse "Konumumu kullan"a dokunur. Cihaz konumu yalnızca bir düğmeye dokununca, tarayıcı izin
+// sorduktan sonra okunur. Hava servisine yalnızca yazılan ad ve yerin yuvarlanmış (~10 km) koordinatı gider.
 // Uygulamada dış adrese istek yapan tek dosya budur ve yalnızca Open-Meteo'ya gider; testler bunu denetler.
 // Open-Meteo ücretsizdir, ticari olmayan kullanım içindir ve kaynak gösterilmesini ister (CC BY 4.0).
 
@@ -155,6 +156,47 @@ export function mantarPenceresi(kayitlar, bugun = new Date()) {
       : null,
     sicaklikNotu: sicaklikNotu(son ? gecmis.filter((k) => k.tarih >= son.tarih) : []),
   };
+}
+
+// Birden çok yerin hava adresi (mantar radarı): her koordinat ayrı ayrı yuvarlanır.
+export function cokluHavaAdresi(yerler) {
+  const adres = new URL(havaAdresi(0, 0));
+  adres.searchParams.set('latitude', yerler.map((y) => konumuYuvarla(y.enlem)).join(','));
+  adres.searchParams.set('longitude', yerler.map((y) => konumuYuvarla(y.boylam)).join(','));
+  return adres.toString();
+}
+
+// Birden çok yerin hava verisini tek istekte getirir (mantar radarı).
+// Sonuç yerlerle aynı sırada { daily } listesidir. Hata durumunda { hata: 'baglanti' } döner.
+export async function havaVerileriAl(yerler) {
+  try {
+    const yanit = await fetch(cokluHavaAdresi(yerler));
+    if (!yanit.ok) throw new Error(String(yanit.status));
+    const veri = await yanit.json();
+    // Tek yer sorulunca Open-Meteo liste yerine tek nesne döner.
+    const liste = Array.isArray(veri) ? veri : [veri];
+    if (liste.length !== yerler.length || liste.some((v) => !v.daily?.time)) throw new Error('veri yok');
+    return liste.map((v) => ({ daily: v.daily }));
+  } catch {
+    return { hata: 'baglanti' };
+  }
+}
+
+// Cihazın konumunu bir kez sorar; tarayıcı izin ister. Yalnızca kullanıcı bir düğmeye dokununca çağrılır.
+// Konum burada ne kaydedilir ne gönderilir; çağıran yuvarlayarak kullanır (radar.js gizli yeri cihazda saklar).
+// Sonuç { enlem, boylam } ya da { hata: 'izin' | 'yok' }.
+export function cihazKonumu() {
+  return new Promise((coz) => {
+    if (!navigator.geolocation) {
+      coz({ hata: 'yok' });
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(
+      (k) => coz({ enlem: k.coords.latitude, boylam: k.coords.longitude }),
+      (h) => coz({ hata: h.code === 1 ? 'izin' : 'yok' }),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 60000 },
+    );
+  });
 }
 
 // Seçilen yerin hava verisini getirir. Hata durumunda { hata: 'baglanti' } döner.
