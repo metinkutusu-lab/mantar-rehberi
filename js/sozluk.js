@@ -1,4 +1,4 @@
-// Terimler sözlüğü (Ansiklopedi sekmesi). "cizim" cizimler.js'teki bir çizimin adıdır.
+// Terimler sözlüğü (Ansiklopedi sekmesi). "cizim" js/cizimler.js'teki bir çizimin adıdır.
 
 export const SOZLUK = [
   {

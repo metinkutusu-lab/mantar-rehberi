@@ -1,7 +1,7 @@
 // Tanımlama adımları: uzmanın denetleyebileceği şeffaf soru tablosu (CLAUDE.md, tanımlama mimarisi).
-// Her adım bir soru sorar; "soru" alanı cevabın adıdır ve turler.json'daki "ozellikler" ile eşleşir.
+// Her adım bir soru sorar; "soru" alanı cevabın adıdır ve veri/turler.json'daki "ozellikler" ile eşleşir.
 // "kosul" olan adımlar yalnızca koşul sağlanınca sorulur.
-// "cizim" ve seçeneklerin üçüncü öğesi cizimler.js'teki bir çizimin adıdır.
+// "cizim" ve seçeneklerin üçüncü öğesi js/cizimler.js'teki bir çizimin adıdır.
 // Kural 14: hiçbir adım mantarı ağza almayı önermez.
 import { BILMIYORUM } from './kurallar.js';
 

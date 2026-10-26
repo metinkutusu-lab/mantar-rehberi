@@ -1,0 +1,9 @@
+{
+  "name": "mantar-uygulamasi",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test \"test/*.test.js\"",
+    "yukle": "npm test && node scripts/github-yukle.js"
+  }
+}

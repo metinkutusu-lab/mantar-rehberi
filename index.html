@@ -7,9 +7,9 @@
   <meta name="theme-color" content="#14110f" media="(prefers-color-scheme: dark)">
   <title>MushKey – Mantar Rehberi</title>
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="ikon-192.png">
-  <link rel="apple-touch-icon" href="ikon-192.png">
-  <link rel="stylesheet" href="stil.css">
+  <link rel="icon" href="ikonlar/ikon-192.png">
+  <link rel="apple-touch-icon" href="ikonlar/ikon-192.png">
+  <link rel="stylesheet" href="css/stil.css">
 </head>
 <body>
   <!-- Kural 9: Acil butonu <main> dışında, her ekranda görünür. -->
@@ -27,10 +27,10 @@
 
   <main>
     <section id="tanimla" class="ekran">
-      <!-- Mantar mevsimi çubuğu (uygulama.js); tanımlama adımları sırasında gizlenir. -->
+      <!-- Mantar mevsimi çubuğu (js/uygulama.js); tanımlama adımları sırasında gizlenir. -->
       <div id="mevsim"></div>
       <h1>Tanımla</h1>
-      <!-- Kural 11: eğitim bitmeden burada eğitim gösterilir (uygulama.js). -->
+      <!-- Kural 11: eğitim bitmeden burada eğitim gösterilir (js/uygulama.js). -->
       <div id="tanimla-icerik">
         <div class="bildirim bildirim-uyari">
           <div>
@@ -82,7 +82,7 @@
         </div>
       </div>
 
-      <!-- Son tanımlamanın özeti varsa burada gösterilir (uygulama.js). -->
+      <!-- Son tanımlamanın özeti varsa burada gösterilir (js/uygulama.js). -->
       <div id="son-ozet"></div>
 
       <div class="kart">
@@ -143,6 +143,6 @@
     </a>
   </nav>
 
-  <script type="module" src="uygulama.js"></script>
+  <script type="module" src="js/uygulama.js"></script>
 </body>
 </html>

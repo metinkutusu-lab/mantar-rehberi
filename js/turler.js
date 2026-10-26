@@ -1,11 +1,11 @@
-// Tür listesini (turler.json) bir kez yükler. Yüklenemezse boş liste döner;
+// Tür listesini (veri/turler.json) bir kez yükler. Yüklenemezse boş liste döner;
 // o zaman tanımlama sonucu en fazla turuncu olur.
 import { ADIMLAR } from './sorular.js';
 
 let yukleniyor;
 
 export function turleriYukle() {
-  yukleniyor ??= fetch('./turler.json')
+  yukleniyor ??= fetch('./veri/turler.json')
     .then((yanit) => yanit.json())
     .then((veri) => (Array.isArray(veri.turler) ? veri.turler : []))
     .catch(() => []);

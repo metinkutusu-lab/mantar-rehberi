@@ -1,0 +1,7 @@
+# Geliştirme dosyaları: depoya ve yayına girmez
+node_modules/
+.claude/
+# Küçültülmemiş fotoğraflar (scripts/fotograflari-getir.js indirir)
+fotograflar/ham/
+# Eski düz yayın klasörü (artık kullanılmıyor)
+yayin/

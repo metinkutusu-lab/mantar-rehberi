@@ -20,7 +20,7 @@ const IKONLAR = {
   paylas: '<path d="M4 13v6a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-6"/><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/>',
 };
 
-// cizimler.js'teki şematik bir çizim.
+// js/cizimler.js'teki şematik bir çizim.
 export function cizim(ad, sinif = 'cizim') {
   const kap = document.createElement('span');
   kap.className = sinif;

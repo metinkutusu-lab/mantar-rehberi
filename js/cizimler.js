@@ -1,4 +1,4 @@
-// Basit, şematik çizimler (SVG). Renkler stil.css'teki --cz-* değişkenlerinden gelir.
+// Basit, şematik çizimler (SVG). Renkler css/stil.css'teki --cz-* değişkenlerinden gelir.
 // Gerçek bir türü değil, bakılacak yeri gösterirler.
 
 function svg(genislik, yukseklik, etiket, icerik) {

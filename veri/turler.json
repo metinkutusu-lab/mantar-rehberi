@@ -1,5 +1,5 @@
 {
-  "_aciklama": "TASLAK tür listesi. Bilgiler Claude tarafından genel alan rehberi bilgisinden derlendi ve kaynaklarla tek tek doğrulanmadı. Hiçbir kayıt mikolog onaylı değildir (mikologOnayi: false); bu yüzden uygulama bu türler için en fazla turuncu sonuç verir. Ölümcül ve zehirli türlerin özellik listeleri bilerek geniş tutuldu: kullanıcının yanlış bir cevabı bu türleri aday listesinden kolayca düşürmesin. Biçim için BENI-OKU.md dosyasına bak.",
+  "_aciklama": "TASLAK tür listesi. Bilgiler Claude tarafından genel alan rehberi bilgisinden derlendi ve kaynaklarla tek tek doğrulanmadı. Hiçbir kayıt mikolog onaylı değildir (mikologOnayi: false); bu yüzden uygulama bu türler için en fazla turuncu sonuç verir. Ölümcül ve zehirli türlerin özellik listeleri bilerek geniş tutuldu: kullanıcının yanlış bir cevabı bu türleri aday listesinden kolayca düşürmesin. Biçim için veri/BENI-OKU.md dosyasına bak.",
   "turler": [
     {
       "id": "koygocuren",
@@ -50,7 +50,7 @@
         ]
       },
       "fotograf": {
-        "dosya": "koygocuren.jpg",
+        "dosya": "fotograflar/koygocuren.jpg",
         "cekan": "Archenzo",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Amanita phalloides 1.JPG"
@@ -101,7 +101,7 @@
         ]
       },
       "fotograf": {
-        "dosya": "ak-koygocuren.jpg",
+        "dosya": "fotograflar/ak-koygocuren.jpg",
         "cekan": "Ben DeRoy",
         "lisans": "Public domain",
         "kaynak": "Wikimedia Commons, Destroying Angel 02.jpg"
@@ -153,7 +153,7 @@
         ]
       },
       "fotograf": {
-        "dosya": "panter.jpg",
+        "dosya": "fotograflar/panter.jpg",
         "cekan": "George Chernilevsky",
         "lisans": "Public domain",
         "kaynak": "Wikimedia Commons, Amanita pantherina 2013 G1.jpg"
@@ -203,7 +203,7 @@
         ]
       },
       "fotograf": {
-        "dosya": "sinek.jpg",
+        "dosya": "fotograflar/sinek.jpg",
         "cekan": "Kieran Roy Powell",
         "lisans": "CC BY 4.0",
         "kaynak": "Wikimedia Commons, Amanita muscaria Aberystwyth 2023.jpg"
@@ -264,7 +264,7 @@
         }
       ],
       "fotograf": {
-        "dosya": "yumurta.jpg",
+        "dosya": "fotograflar/yumurta.jpg",
         "cekan": "Yaqui",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Oronges.jpg"
@@ -311,7 +311,7 @@
         ]
       },
       "fotograf": {
-        "dosya": "kucuk-semsiye.jpg",
+        "dosya": "fotograflar/kucuk-semsiye.jpg",
         "cekan": "Strobilomyces",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Lepiota brunneoincarnata 060823w.jpg"
@@ -371,7 +371,7 @@
         }
       ],
       "fotograf": {
-        "dosya": "buyuk-semsiye.jpg",
+        "dosya": "fotograflar/buyuk-semsiye.jpg",
         "cekan": "Holger Krisp",
         "lisans": "CC BY 3.0",
         "kaynak": "Wikimedia Commons, Parasol-Macrolepiota-procera.jpg"
@@ -416,7 +416,7 @@
         ]
       },
       "fotograf": {
-        "dosya": "galerina.jpg",
+        "dosya": "fotograflar/galerina.jpg",
         "cekan": "Alan Rockefeller",
         "lisans": "CC BY-SA 4.0",
         "kaynak": "Wikimedia Commons, Galerina marginata Point Reyes.jpg"
@@ -460,7 +460,7 @@
         ]
       },
       "fotograf": {
-        "dosya": "cortinarius.jpg",
+        "dosya": "fotograflar/cortinarius.jpg",
         "cekan": "Michaelll (İngilizce Vikipedi)",
         "lisans": "CC BY-SA 2.5",
         "kaynak": "Wikimedia Commons, Corellanus.jpg"
@@ -506,7 +506,7 @@
         ]
       },
       "fotograf": {
-        "dosya": "inocybe.jpg",
+        "dosya": "fotograflar/inocybe.jpg",
         "cekan": "Andreas Kunze",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, 2010-04-27 Inocybe erubescens.jpg"
@@ -553,7 +553,7 @@
         }
       ],
       "fotograf": {
-        "dosya": "kuzugobegi.jpg",
+        "dosya": "fotograflar/kuzugobegi.jpg",
         "cekan": "TOMMES-WIKI",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Morchella esculenta - DE - TH - 2013-05-01 - 01.JPG"
@@ -590,7 +590,7 @@
         ]
       },
       "fotograf": {
-        "dosya": "sahte-kuzugobegi.jpg",
+        "dosya": "fotograflar/sahte-kuzugobegi.jpg",
         "cekan": "Wikimedia Commons katkıcıları",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Frühjahrslorchel.JPG"
@@ -647,7 +647,7 @@
         }
       ],
       "fotograf": {
-        "dosya": "horozmantari.jpg",
+        "dosya": "fotograflar/horozmantari.jpg",
         "cekan": "Wikimedia Commons katkıcıları",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Chanterelle Cantharellus cibarius.jpg"
@@ -693,7 +693,7 @@
         ]
       },
       "fotograf": {
-        "dosya": "zeytin.jpg",
+        "dosya": "fotograflar/zeytin.jpg",
         "cekan": "Antonio Abbatiello",
         "lisans": "Public domain",
         "kaynak": "Wikimedia Commons, Omphalotus olearius.JPG"
@@ -750,7 +750,7 @@
         }
       ],
       "fotograf": {
-        "dosya": "kanlica.jpg",
+        "dosya": "fotograflar/kanlica.jpg",
         "cekan": "Wikimedia Commons katkıcıları",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Lactarius deliciosus.jpg"
@@ -794,7 +794,7 @@
         ]
       },
       "fotograf": {
-        "dosya": "tuylu-sut.jpg",
+        "dosya": "fotograflar/tuylu-sut.jpg",
         "cekan": "Tocekas",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Lactarius torminosus (cropped).jpg"
@@ -845,7 +845,7 @@
         }
       ],
       "fotograf": {
-        "dosya": "ayi-mantari.jpg",
+        "dosya": "fotograflar/ayi-mantari.jpg",
         "cekan": "ReddishClover",
         "lisans": "CC BY-SA 4.0",
         "kaynak": "Wikimedia Commons, Boletus edulis IT.jpg"
@@ -893,7 +893,7 @@
         ]
       },
       "fotograf": {
-        "dosya": "seytan.jpg",
+        "dosya": "fotograflar/seytan.jpg",
         "cekan": "Archenzo",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Boletus satanas.JPG"
@@ -961,7 +961,7 @@
         }
       ],
       "fotograf": {
-        "dosya": "cayir.jpg",
+        "dosya": "fotograflar/cayir.jpg",
         "cekan": "Mushroom Observer (görsel 694)",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Agaricus campestris.jpg"
@@ -1017,7 +1017,7 @@
         ]
       },
       "fotograf": {
-        "dosya": "sariya-boyanan.jpg",
+        "dosya": "fotograflar/sariya-boyanan.jpg",
         "cekan": "Velella",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Agaricus xanthodermus section.jpg"
@@ -1062,7 +1062,7 @@
         ]
       },
       "fotograf": {
-        "dosya": "entoloma.jpg",
+        "dosya": "fotograflar/entoloma.jpg",
         "cekan": "Archenzo",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Entoloma sinuatum group.JPG"
@@ -1121,7 +1121,7 @@
         }
       ],
       "fotograf": {
-        "dosya": "istiridye.jpg",
+        "dosya": "fotograflar/istiridye.jpg",
         "cekan": "Jean-Pol Grandmont",
         "lisans": "CC BY 3.0",
         "kaynak": "Wikimedia Commons, Pleurotus ostreatus JPG7.jpg"
@@ -1165,7 +1165,7 @@
         ]
       },
       "fotograf": {
-        "dosya": "kukurt-basli.jpg",
+        "dosya": "fotograflar/kukurt-basli.jpg",
         "cekan": "Alan Rockefeller",
         "lisans": "CC BY-SA 4.0",
         "kaynak": "Wikimedia Commons, Hypholoma fasciculare Queteraro.jpg"
@@ -1210,7 +1210,7 @@
         }
       ],
       "fotograf": {
-        "dosya": "tavuk.jpg",
+        "dosya": "fotograflar/tavuk.jpg",
         "cekan": "Rror",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Laetiporus sulphureus big.jpg"
@@ -1265,7 +1265,7 @@
         }
       ],
       "fotograf": {
-        "dosya": "puf.jpg",
+        "dosya": "fotograflar/puf.jpg",
         "cekan": "Daniel Ullrich, Threedots",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Single lycoperdon perlatum.jpg"
@@ -1301,7 +1301,7 @@
         ]
       },
       "fotograf": {
-        "dosya": "sahte-puf.jpg",
+        "dosya": "fotograflar/sahte-puf.jpg",
         "cekan": "Eric Steinert",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Scleroderma citrinum.jpg"
