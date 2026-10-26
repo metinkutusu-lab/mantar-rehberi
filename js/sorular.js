@@ -181,16 +181,21 @@ export const ADIMLAR = [
     ],
   },
   {
+    // Çoklu seçim (Metin'in isteği, 2026-10-26): bir yerde hem tarla, hem çamlık, hem meşelik olabilir.
+    // Eleme temkinlidir: tür, seçilenlerden herhangi birine uyuyorsa aday kalır (kural 3).
     soru: 'agac',
-    baslik: 'Yakındaki ağaçlar',
-    yonerge: ['Mantarın birkaç metre çevresindeki ağaçlara bak.'],
-    soruMetni: 'Yakında hangi ağaçlar var?',
+    coklu: true,
+    baslik: 'Çevrede neler var?',
+    yonerge: ['Mantarın birkaç on metre çevresine bak. Birden fazla şey varsa hepsini işaretle.'],
+    soruMetni: 'Çevrede neler var? (birden fazla seçebilirsin)',
     secenekler: [
       ['yaprakli', 'Yapraklı ağaçlar (meşe, kayın, kestane vb.)'],
       ['igne', 'İğne yapraklı ağaçlar (çam, ladin, göknar vb.)'],
-      ['karisik', 'İkisi de var'],
-      ['yok', 'Yakında ağaç yok'],
+      ['meyve', 'Meyve ağaçları, bahçe'],
+      ['yok', 'Tarla, çayır veya açık arazi (ağaç yok)'],
     ],
+    // Meyve ağaçları yapraklı ağaç sayılır.
+    genislet: (secilenler) => (secilenler.includes('meyve') ? [...secilenler, 'yaprakli'] : secilenler),
   },
   {
     soru: 'sporIzi',
@@ -239,10 +244,18 @@ export function sonCevaplar(cevaplar) {
   return son;
 }
 
+// Çoklu cevabın anahtarda karşılaştırılacak değerleri (adımın "genislet" kuralıyla).
+export function cokluDegerler(soru, secilenler) {
+  const adim = ADIMLAR.find((a) => a.soru === soru);
+  return adim?.genislet ? adim.genislet(secilenler) : secilenler;
+}
+
 // Uzmana gönderilecek özet için soru ve cevapların okunur hali.
 export function ozetSatirlari(cevaplar) {
   return aktifAdimlar(cevaplar).map((adim) => {
-    const secenek = adimSecenekleri(adim).find((s) => s.deger === cevaplar[adim.soru]);
-    return { soru: adim.soruMetni, cevap: secenek?.metin ?? 'Cevaplanmadı' };
+    const cevap = cevaplar[adim.soru];
+    const secenekler = adimSecenekleri(adim);
+    const metinler = [].concat(cevap ?? []).map((d) => secenekler.find((s) => s.deger === d)?.metin).filter(Boolean);
+    return { soru: adim.soruMetni, cevap: metinler.length ? metinler.join(', ') : 'Cevaplanmadı' };
   });
 }

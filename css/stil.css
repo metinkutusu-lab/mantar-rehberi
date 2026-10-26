@@ -797,3 +797,9 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .ses-dugme .ikon { width: 20px; height: 20px; }
 .ses-dugme.acik { border-color: var(--marka); background: var(--marka-acik); color: var(--marka); }
 .ara-hedef { margin: 10px 0 0; }
+
+/* Çoklu seçimli soru: işaret kutusu */
+.secenekler.coklu .secenek { display: flex; align-items: center; gap: 12px; }
+.onay-kutusu { flex-shrink: 0; width: 26px; height: 26px; border-radius: 7px; border: 2px solid var(--cizgi); display: inline-flex; align-items: center; justify-content: center; font-weight: 800; color: var(--marka-yazi); background: var(--yuzey); }
+.secenek.secili .onay-kutusu { background: var(--marka); border-color: var(--marka); }
+.secenekler.coklu .secenek::before { display: none; }

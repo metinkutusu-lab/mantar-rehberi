@@ -118,6 +118,30 @@ test('Kural 3: anahtar "bilmiyorum", "diğer" ve eksik alanla tür elemez', () =
   assert.equal(adaylariBul([olumculTur], { koku: 'anason' }).length, 1);
 });
 
+// Test türleri uydurmadır.
+const camTuru = { ad: 'Test çam', zehirlilik: 'olumcul', ozellikler: { agac: ['igne'] } };
+const mesTuru = { ad: 'Test meşe', zehirlilik: 'yenen', ozellikler: { agac: ['yaprakli'] } };
+const cayirTuru = { ad: 'Test çayır', zehirlilik: 'yenen', ozellikler: { agac: ['yok'] } };
+
+test('Kural 3: çoklu seçimde tür, seçilenlerden herhangi birine uyuyorsa aday kalır', () => {
+  const adlar = (cevap) => adaylariBul([camTuru, mesTuru, cayirTuru], { agac: cevap }).map((t) => t.ad);
+  assert.deepEqual(adlar(['igne', 'yok']), ['Test çam', 'Test çayır']);
+  assert.deepEqual(adlar(['yaprakli']), ['Test meşe']);
+  // Meyve ağaçları yapraklı ağaç sayılır.
+  assert.deepEqual(adlar(['meyve']), ['Test meşe']);
+  // Boş seçim ve "bilmiyorum" hiçbir türü elemez.
+  assert.equal(adlar([]).length, 3);
+  assert.equal(adlar(BILMIYORUM).length, 3);
+});
+
+test('çoklu seçim: ölümcül tür seçilenlerden birine uyuyorsa sonuç kırmızı, özet hepsini yazar', () => {
+  const cevaplar = { agac: ['yaprakli', 'igne', 'yok'] };
+  const adaylar = adaylariBul([camTuru, mesTuru], cevaplar);
+  assert.equal(degerlendir({ fotograflar: [...GEREKLI_FOTOGRAFLAR], cevaplar, adaylar }).renk, 'kirmizi');
+  const satir = ozetSatirlari(cevaplar).find((s) => s.soru.startsWith('Çevrede'));
+  assert.match(satir.cevap, /Yapraklı.*İğne.*Tarla/);
+});
+
 test('Kural 3: ölümcül tür adaylarda kaldıkça sonuç kırmızı', () => {
   const cevaplar = { solungacRengi: BILMIYORUM, halka: 'evet' };
   const adaylar = adaylariBul([olumculTur, yenenTur], cevaplar);

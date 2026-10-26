@@ -133,10 +133,24 @@ function cevapla(adim, deger) {
   }, 250);
 }
 
+// Çoklu seçim: dokununca işaretlenir/kalkar, otomatik geçilmez. "Bilmiyorum" diğerleriyle birlikte seçilemez.
+function cokluSec(adim, deger) {
+  const once = durum.cevaplar[adim.soru];
+  if (deger === BILMIYORUM) {
+    durum.cevaplar[adim.soru] = once === BILMIYORUM ? undefined : BILMIYORUM;
+  } else {
+    const liste = Array.isArray(once) ? once : [];
+    const yeni = liste.includes(deger) ? liste.filter((d) => d !== deger) : [...liste, deger];
+    durum.cevaplar[adim.soru] = yeni.length ? yeni : undefined;
+  }
+  ciz();
+}
+
 function adimCiz() {
   const adimlar = aktifAdimlar(durum.cevaplar);
   const adim = adimlar[durum.adim];
   const secili = durum.cevaplar[adim.soru];
+  const seciliMi = (deger) => (Array.isArray(secili) ? secili.includes(deger) : secili === deger);
 
   const govde = el('div', { className: 'adim' },
     ilerlemeCiz('Tanımlama', durum.adim + 1, adimlar.length),
@@ -148,18 +162,19 @@ function adimCiz() {
   if (adim.fotograf) govde.append(fotografAlani(adim.fotograf));
 
   govde.append(el('h3', { className: 'soru-metni', textContent: adim.soruMetni }));
-  const liste = el('div', { className: 'secenekler' });
+  const liste = el('div', { className: `secenekler${adim.coklu ? ' coklu' : ''}` });
   for (const secenek of adimSecenekleri(adim)) {
     const siniflar = ['secenek'];
-    if (secili === secenek.deger) siniflar.push('secili');
+    if (seciliMi(secenek.deger)) siniflar.push('secili');
     if (secenek.deger === BILMIYORUM) siniflar.push('bilmiyorum');
     if (secenek.cizim) siniflar.push('resimli');
     const dugme = el('button',
-      { type: 'button', className: siniflar.join(' '), onclick: () => cevapla(adim, secenek.deger) },
+      { type: 'button', className: siniflar.join(' '), onclick: () => (adim.coklu ? cokluSec(adim, secenek.deger) : cevapla(adim, secenek.deger)) },
       ...(secenek.cizim ? [cizim(secenek.cizim, 'cizim secenek-cizim')] : []),
+      ...(adim.coklu ? [el('span', { className: 'onay-kutusu', textContent: seciliMi(secenek.deger) ? '✓' : '' })] : []),
       el('span', { textContent: secenek.metin }),
     );
-    dugme.setAttribute('aria-pressed', String(secili === secenek.deger));
+    dugme.setAttribute('aria-pressed', String(seciliMi(secenek.deger)));
     liste.append(dugme);
   }
   govde.append(liste);

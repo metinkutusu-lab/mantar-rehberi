@@ -87,7 +87,7 @@ Tanımlama akışının kullanıcıdan sırayla istediği kontroller (her soruda
 7. Sıvı (süt) akıyor mu, rengi, havada rengi değişiyor mu?
 8. Ezince renk değişimi.
 9. Koku (un, anason, turp, kötü koku, kokusuz).
-10. Yer: ağaç türü, toprak/odun/çayır, ay.
+10. Yer: ağaç türü, toprak/odun/çayır, ay. "Çevrede neler var?" sorusu çoklu seçimlidir (Metin'in isteği, 2026-10-26: yapraklı, iğne yapraklı, meyve ağaçları, tarla/açık arazi aynı anda olabilir); tür, seçilenlerden herhangi birine uyuyorsa elenmez (kural 3), "Bilmiyorum" tek başına seçilir.
 11. Spor izi (isteğe bağlı, birkaç saat).
 
 Listede olmayan bir mantarın sonucu her zaman turuncudur.
