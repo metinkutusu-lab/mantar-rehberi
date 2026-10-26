@@ -311,6 +311,11 @@ test('Kural 12: konum varsayılan olarak paylaşılmaz ve dışarı veri gönder
   }
 });
 
+test('Kural 12: sesli yönlendirme yalnızca telefondaki yerel sesi kullanır, pusula hiçbir yere bir şey göndermez', () => {
+  assert.match(oku('js/ses.js'), /localService/);
+  for (const dosya of ['js/ses.js', 'js/pusula.js']) assert.doesNotMatch(oku(dosya), /fetch\(|geolocation/, dosya);
+});
+
 test('Kural 12: harita dosyası konum okumaz ve yalnızca harita parçalarını ister', () => {
   const icerik = oku('js/harita.js');
   assert.doesNotMatch(icerik, /geolocation|getCurrentPosition|watchPosition|open-meteo/);

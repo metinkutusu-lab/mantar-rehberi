@@ -22,6 +22,7 @@ import {
   aranmaSirasinaGore,
   bolgedeAranabilecekler,
   egimVeBaki,
+  goreceYon,
   hucrePuani,
   mesafeVeYon,
   mesafeYaz,
@@ -34,6 +35,8 @@ import {
 } from './uygunluk.js';
 import { gunlukKayitlar, havaVerisiAl, konumuIzle, mantarPenceresi } from './yagmur.js';
 import { pencereBilgisi } from './yagmurKarti.js';
+import { HAREKET_ESIGI, pusulayiAc } from './pusula.js';
+import { sesHazirMi, sesiKes, sesliMesafe, soyle } from './ses.js';
 
 const YARICAP = 2500; // metre: çevrendeki bakılan alan
 const AZAMI_BOLGE = 10;
@@ -48,6 +51,10 @@ const ara = {
   turId: '',
   konum: null, // { enlem, boylam, dogruluk } | { hata }
   izlemeyiDurdur: null,
+  pusulayiDurdur: null,
+  bakis: null, // telefonun baktığı yön (0 = kuzey)
+  bakisKaynagi: null, // 'pusula' | 'hareket'
+  oncekiKonum: null,
   ilkKonum: true,
   hesaplaniyor: false,
   sonuc: null, // { merkez, tercih, pencere, sayilar, enYakin }
@@ -67,6 +74,7 @@ const hedefKap = el('div', { className: 'ara-hedef' });
 const isaretKap = el('div', { className: 'ara-isaret' });
 const indirKap = el('div', { className: 'ara-indir' });
 const konumDugmesi = el('button', { type: 'button', className: 'konum-dugme', onclick: konumuAc });
+const sesDugmesi = el('button', { type: 'button', className: 'ikincil ses-dugme', onclick: sesiDegistir });
 const bakDugmesi = el('button', { type: 'button', className: 'ikincil ara-bak', textContent: 'Haritanın ortasına bak', onclick: () => bolgeyeBak(haritaMerkezi()) });
 const isaretler = new Map(); // gizli yer id → harita işareti
 let konumIsareti = null;
@@ -104,10 +112,10 @@ kok.append(
   turKap,
   el('div', { className: 'ara-harita-kap' }, haritaKap, el('div', { className: 'ara-nisan' })),
   lejant,
-  ipucuKap,
-  el('div', { className: 'ara-dugmeler' }, konumDugmesi, bakDugmesi),
-  durumKap,
   hedefKap,
+  ipucuKap,
+  el('div', { className: 'ara-dugmeler' }, konumDugmesi, sesDugmesi, bakDugmesi),
+  durumKap,
   isaretKap,
   indirKap,
   bildirim('uyari', el('p', { textContent: 'Bulduğun her mantarı Tanımla ile incele. Zehirli mantarlar da aynı yerlerde çıkar. Dik yamaçlarda dikkatli ol; birine nereye gittiğini söyle.' })),
@@ -242,8 +250,127 @@ function konumuAc() {
     return;
   }
   ara.ilkKonum = true;
+  // Pusula aynı dokunuşla açılır (iPhone izni ancak bir dokunuşun içinde sorulabilir).
+  if (!ara.pusulayiDurdur) {
+    pusulayiAc(bakisGeldi).then((s) => { if (typeof s === 'function') ara.pusulayiDurdur = s; });
+  }
   ara.izlemeyiDurdur = konumuIzle(konumGeldi);
   konumDugmesiCiz('Konum alınıyor…');
+}
+
+// --- Yön: telefonun pusulası; yoksa yürüdüğün yön ---
+
+function bakisGeldi(derece) {
+  ara.bakis = derece;
+  ara.bakisKaynagi = 'pusula';
+  oklariGuncelle();
+}
+
+// Pusula yokken: GPS'in gidiş yönü ya da son iki konum arasındaki yön.
+function hareketYonu(k) {
+  if (ara.bakisKaynagi === 'pusula') return;
+  if (Number.isFinite(k.yon) && (k.hiz ?? 1) > 0.4) {
+    ara.bakis = k.yon;
+    ara.bakisKaynagi = 'hareket';
+  } else if (ara.oncekiKonum) {
+    const { mesafe, yon } = mesafeVeYon(ara.oncekiKonum, k);
+    if (mesafe < HAREKET_ESIGI) return;
+    ara.bakis = yon;
+    ara.bakisKaynagi = 'hareket';
+  }
+  ara.oncekiKonum = { enlem: k.enlem, boylam: k.boylam };
+}
+
+// Yön göstergesi: ok ve "sağ önünde" yazısı. aci: hedefin pusula açısı. Pusula döndükçe oklariGuncelle günceller.
+function yonGostergesi(aci, sinif = '') {
+  const g = el('span', { className: `yon-gosterge ${sinif}` },
+    el('span', { className: 'yon-ok', textContent: '↑' }),
+    el('span', { className: 'yon-yazi' }));
+  g.dataset.aci = String(aci);
+  yonuYaz(g);
+  return g;
+}
+
+function yonuYaz(g) {
+  const aci = Number(g.dataset.aci);
+  g.querySelector('.yon-ok').style.transform = `rotate(${aci - (ara.bakis ?? 0)}deg)`;
+  g.querySelector('.yon-yazi').textContent = ara.bakis != null ? goreceYon(aci, ara.bakis) : `${yonAdi(aci)} yönünde`;
+}
+
+// Pusula saniyede onlarca kez haber verir; oklar en çok saniyede ~8 kez güncellenir.
+let okIstegi = 0;
+function oklariGuncelle() {
+  if (okIstegi) return;
+  okIstegi = setTimeout(() => {
+    okIstegi = 0;
+    for (const g of kok.querySelectorAll('.yon-gosterge')) yonuYaz(g);
+    for (const n of kok.querySelectorAll('.yon-notu')) n.textContent = yonNotu();
+    const burun = konumIsareti?.getElement().querySelector('.yon-burnu');
+    if (burun) {
+      burun.hidden = ara.bakis == null;
+      burun.style.transform = `rotate(${(ara.bakis ?? 0) - ara.harita.getBearing()}deg)`;
+    }
+  }, 120);
+}
+
+// --- Sesli yönlendirme (açık/kapalı cihazda saklanır) ---
+
+const sesAcik = () => durumuOku().sesliYonlendirme === true;
+let sesUyarisi = '';
+
+function sesDugmesiCiz() {
+  sesDugmesi.replaceChildren(ikon('ses'), el('span', { textContent: `Sesli yönlendirme: ${sesAcik() ? 'Açık' : 'Kapalı'}` }));
+  sesDugmesi.setAttribute('aria-pressed', String(sesAcik()));
+  sesDugmesi.classList.toggle('acik', sesAcik());
+  sesDugmesi.title = sesUyarisi;
+}
+
+function sesiDegistir() {
+  if (sesAcik()) {
+    kalici({ sesliYonlendirme: false });
+    sesiKes();
+  } else if (!sesHazirMi()) {
+    sesUyarisi = 'Bu telefonda Türkçe ses bulunamadı.';
+    alert('Bu telefonda Türkçe konuşma sesi bulunamadı. Telefonun ayarlarında "Metin okuma" (yazıyı sese çevirme) dilini Türkçe yapıp tekrar dene.');
+  } else {
+    kalici({ sesliYonlendirme: true });
+    soyle('Sesli yönlendirme açık. Bulduğun her mantarı Tanımla ile incele.', { oncelikli: true });
+    ara.sesZemin = null; // bulunduğun yer bir sonraki konumda yeniden okunsun
+  }
+  sesDugmesiCiz();
+}
+
+// Hedefin yeri, konuşma için: "sağ önünde" (pusula ya da yürüme yönü varsa) ya da "kuzeydoğu yönünde".
+function yonYazisi(aci) {
+  return ara.bakis != null ? goreceYon(aci, ara.bakis) : `${yonAdi(aci)} yönünde`;
+}
+
+// Hedefe giderken: seçince, her 50 metrede (uzakta 100–200 m'de) ve varınca okunur.
+function hedefiSoyle(mesafe, yon) {
+  if (!sesAcik()) return;
+  const s = (ara.sesHedef ??= { adim: null, vardi: false });
+  if (mesafe < 15) {
+    if (!s.vardi) soyle('Vardın. Çevrene iyice bak.', { oncelikli: true });
+    s.vardi = true;
+    return;
+  }
+  const boy = mesafe > 1000 ? 200 : mesafe > 300 ? 100 : 50;
+  const adim = Math.ceil(mesafe / boy);
+  if (adim !== s.adim && soyle(`Hedefe ${sesliMesafe(mesafe)}, ${yonYazisi(yon)}.`)) s.adim = adim;
+}
+
+// Bulunduğun yerin zemini ve uygunluğu değişince okunur; seçilen türün ipucu (ilk cümlesi) ya da burada aranabilecekler.
+function yeriSoyle(h, metin) {
+  if (!sesAcik()) return;
+  const anahtar = `${h.zemin}|${h.sinif}|${ara.turId}`;
+  if (anahtar === ara.sesZemin) return;
+  if (soyle(metin)) ara.sesZemin = anahtar;
+}
+
+function yonNotu() {
+  if (ara.bakisKaynagi === 'pusula') return 'Ok, telefonun baktığı yöne göre döner. Telefonu yere paralel tut; ok şaşarsa telefonu havada 8 çizerek salla.';
+  if (ara.bakisKaynagi === 'hareket') return 'Telefonda pusula yok: ok, yürüdüğün yöne göre. Birkaç adım yürüyünce düzelir.';
+  return 'Telefonda pusula bulunamadı: ok haritadaki gibi kuzeyi gösterir. Yürümeye başlayınca yönün bulunur.';
 }
 
 function konumGeldi(k) {
@@ -255,9 +382,13 @@ function konumGeldi(k) {
     durumCiz();
     return;
   }
+  hareketYonu(k);
   const yer = [k.boylam, k.enlem];
-  if (!konumIsareti) konumIsareti = new window.maplibregl.Marker({ element: el('div', { className: 'konum-noktasi' }) }).setLngLat(yer).addTo(ara.harita);
-  else konumIsareti.setLngLat(yer);
+  if (!konumIsareti) {
+    const nokta = el('div', { className: 'konum-isareti' }, el('div', { className: 'yon-burnu', hidden: true }), el('div', { className: 'konum-noktasi' }));
+    konumIsareti = new window.maplibregl.Marker({ element: nokta }).setLngLat(yer).addTo(ara.harita);
+    ara.harita.on('rotate', oklariGuncelle);
+  } else konumIsareti.setLngLat(yer);
   if (ara.ilkKonum) {
     ara.ilkKonum = false;
     bolgeyeBak({ enlem: k.enlem, boylam: k.boylam }, { canli: true });
@@ -268,6 +399,7 @@ function konumGeldi(k) {
   konumDugmesiCiz();
   hedefCiz();
   canliIpucuCiz();
+  oklariGuncelle();
 }
 
 // --- Yürürken canlı ipucu: bulunduğun yerin zemini, uygunluğu ve orada ne aranır ---
@@ -296,30 +428,42 @@ function canliIpucuCiz() {
   const h = bulundugunHucre();
   if (!h) { ipucuKap.replaceChildren(); return; }
   const ay = new Date().getMonth() + 1;
-  const parcalar = [el('p', { className: 'canli-ipucu-baslik' },
-    el('strong', { textContent: 'Buradasın: ' }),
-    `${ZEMIN_ADLARI[h.zemin]}${h.sinif ? `, ${SINIF_ADLARI[h.sinif].toLocaleLowerCase('tr')}` : ''}.`)];
+  const kisaAd = (t) => t.ad.replace(/\s*\(.*\)$/, '');
+  const ilkCumle = (metin) => metin.split(/(?<=[.;])\s/)[0];
+  const yerYazisi = `${ZEMIN_ADLARI[h.zemin]}${h.sinif ? `, ${SINIF_ADLARI[h.sinif].toLocaleLowerCase('tr')}` : ''}`;
+  const konusma = [`Buradasın: ${yerYazisi}.`];
+  const parcalar = [el('p', { className: 'canli-ipucu-baslik' }, el('strong', { textContent: 'Buradasın: ' }), `${yerYazisi}.`)];
   if (h.sinif < 3 && h.enYakin) {
     const { mesafe, yon } = mesafeVeYon(ara.konum, h.enYakin);
-    if (mesafe > 25) parcalar.push(el('p', { textContent: `Çok uygun yere ${mesafeYaz(mesafe)} kaldı, ${yonAdi(yon)} yönünde.` }));
+    if (mesafe > 25) {
+      parcalar.push(el('p', { className: 'canli-ipucu-yon' }, `Çok uygun yere ${mesafeYaz(mesafe)} kaldı: `, yonGostergesi(yon)));
+      konusma.push(`Çok uygun yere ${sesliMesafe(mesafe)}, ${yonYazisi(yon)}.`);
+    }
   }
   const tur = seciliTur();
   if (tur) {
     const uyar = (zeminAgirliklari(tur)[h.zemin] ?? 0) >= 0.6;
-    if (!mevsimdeMi(tur, ay)) parcalar.push(el('p', { className: 'not', textContent: `${tur.ad} için mevsim değil (${ayAraligi(tur.aylar)}).` }));
-    else if (uyar && tur.aramaIpucu) parcalar.push(el('p', {}, el('strong', { textContent: `${tur.ad.replace(/\s*\(.*\)$/, '')}: ` }), tur.aramaIpucu));
-    else if (!uyar) parcalar.push(el('p', { className: 'not', textContent: `${tur.ad} bu zeminde pek çıkmaz; renkli alanlara doğru ilerle.` }));
+    if (!mevsimdeMi(tur, ay)) {
+      parcalar.push(el('p', { className: 'not', textContent: `${tur.ad} için mevsim değil (${ayAraligi(tur.aylar)}).` }));
+    } else if (uyar && tur.aramaIpucu) {
+      parcalar.push(el('p', {}, el('strong', { textContent: `${kisaAd(tur)}: ` }), tur.aramaIpucu));
+      konusma.push(`${kisaAd(tur)}: ${ilkCumle(tur.aramaIpucu)}`);
+    } else if (!uyar) {
+      parcalar.push(el('p', { className: 'not', textContent: `${tur.ad} bu zeminde pek çıkmaz; renkli alanlara doğru ilerle.` }));
+    }
   } else {
     const liste = zemindeAranabilecekler(ara.turler, h.zemin, ay).slice(0, 4);
     if (liste.length) {
       parcalar.push(el('p', { className: 'not', textContent: 'Burada bu mevsimde şunlara bakabilirsin (taslak):' }));
-      for (const t of liste) parcalar.push(el('p', { className: 'canli-ipucu-tur' }, el('strong', { textContent: `${t.ad.replace(/\s*\(.*\)$/, '')}: ` }), t.aramaIpucu ?? t.nerede ?? ''));
+      for (const t of liste) parcalar.push(el('p', { className: 'canli-ipucu-tur' }, el('strong', { textContent: `${kisaAd(t)}: ` }), t.aramaIpucu ?? t.nerede ?? ''));
+      konusma.push(`Burada ${liste.map(kisaAd).join(', ')} aranabilir. ${liste[0].aramaIpucu ? `${kisaAd(liste[0])}: ${ilkCumle(liste[0].aramaIpucu)}` : ''}`);
     } else {
       parcalar.push(el('p', { className: 'not', textContent: 'Burası bu mevsimde aranan türlere pek uygun değil; renkli alanlara doğru ilerle.' }));
     }
   }
   parcalar.push(el('p', { className: 'not', textContent: 'Bulduğun her mantarı Tanımla ile incele.' }));
   ipucuKap.replaceChildren(el('div', { className: 'canli-ipucu' }, ...parcalar));
+  yeriSoyle(h, konusma.join(' '));
 }
 
 function konumDugmesiCiz(yazi) {
@@ -330,6 +474,10 @@ function konumDugmesiCiz(yazi) {
 export function mantarAraKapat() {
   ara.izlemeyiDurdur?.();
   ara.izlemeyiDurdur = null;
+  ara.pusulayiDurdur?.();
+  ara.pusulayiDurdur = null;
+  Object.assign(ara, { bakis: null, bakisKaynagi: null, oncekiKonum: null });
+  sesiKes();
   ara.konum = null;
   ipucuKap.replaceChildren();
   konumIsareti?.remove();
@@ -549,7 +697,9 @@ function durumCiz() {
       const kaynak = ara.konum?.enlem != null ? ara.konum : s.merkez;
       const { mesafe, yon } = mesafeVeYon(kaynak, s.enYakin);
       parcalar.push(el('div', { className: 'ara-en-yakin' },
-        el('span', { textContent: `En yakın çok uygun yer: ${mesafeYaz(mesafe)}, ${yonAdi(yon)} yönünde${ara.konum?.enlem != null ? '' : ' (haritanın ortasına göre)'}.` }),
+        ara.konum?.enlem != null
+          ? el('span', {}, `En yakın çok uygun yer: ${mesafeYaz(mesafe)}, `, yonGostergesi(yon))
+          : el('span', { textContent: `En yakın çok uygun yer: ${mesafeYaz(mesafe)}, ${yonAdi(yon)} yönünde (haritanın ortasına göre).` }),
         el('button', { type: 'button', className: 'metin-dugme', textContent: 'Oraya git', onclick: () => hedefSec({ ad: 'Çok uygun yer', ...s.enYakin }) }),
       ));
     } else {
@@ -561,6 +711,11 @@ function durumCiz() {
 
 function hedefSec(hedef) {
   ara.hedef = hedef;
+  ara.sesHedef = null;
+  if (sesAcik() && ara.konum?.enlem != null) {
+    const { mesafe, yon } = mesafeVeYon(ara.konum, hedef);
+    if (soyle(`Hedef seçildi: ${hedef.ad}. ${sesliMesafe(mesafe)}, ${yonYazisi(yon)}.`, { oncelikli: true })) ara.sesHedef = { adim: Math.ceil(mesafe / (mesafe > 1000 ? 200 : mesafe > 300 ? 100 : 50)), vardi: false };
+  }
   hedefCiz();
   hedefKap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
@@ -571,11 +726,17 @@ function hedefCiz() {
   const parcalar = [el('strong', { textContent: `Hedef: ${h.ad}` })];
   if (ara.konum?.enlem != null) {
     const { mesafe, yon } = mesafeVeYon(ara.konum, h);
-    parcalar.push(
-      el('div', { className: 'hedef-ok', style: `transform: rotate(${yon}deg)`, textContent: '↑' }),
-      el('p', { className: 'hedef-mesafe', textContent: `${mesafeYaz(mesafe)} · ${yonAdi(yon)} yönünde` }),
-      el('p', { className: 'not', textContent: 'Ok, haritadaki gibi kuzeye göre yönü gösterir.' }),
-    );
+    hedefiSoyle(mesafe, yon);
+    if (mesafe < 15) {
+      parcalar.push(el('p', { className: 'hedef-mesafe', textContent: 'Vardın. Çevrene iyice bak.' }));
+    } else {
+      // Büyük ok: telefonun baktığı yöne göre döner ("sağ önünde", "arkanda").
+      parcalar.push(
+        yonGostergesi(yon, 'buyuk'),
+        el('p', { className: 'hedef-mesafe', textContent: mesafeYaz(mesafe) }),
+        el('p', { className: 'not yon-notu', textContent: yonNotu() }),
+      );
+    }
   } else {
     parcalar.push(el('p', { className: 'not', textContent: 'Mesafeyi görmek için "Konumumu göster"e dokun.' }));
   }
@@ -718,6 +879,7 @@ function indirCiz() {
 async function kur() {
   ara.kuruldu = true;
   konumDugmesiCiz();
+  sesDugmesiCiz();
   isaretCiz();
   indirCiz();
   turCiz();

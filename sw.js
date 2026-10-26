@@ -1,6 +1,6 @@
 // Çevrimdışı çalışma: uygulamanın bütün dosyaları ilk açılışta cihaza kaydedilir.
 // Yeni dosya eklenince DOSYALAR listesine ekle ve SURUM'u artır.
-const SURUM = 'v29';
+const SURUM = 'v30';
 // GitHub Pages'te aynı adreste başka uygulamalar da olabilir: önbellek adı bu uygulamaya ve adresine özeldir,
 // yalnızca kendi eski sürümlerini siler.
 const ONEK = `mantar-rehberi:${self.registration.scope}:`;
@@ -36,6 +36,8 @@ const DOSYALAR = [
   './js/harita.js',
   './js/mantarAra.js',
   './js/uygunluk.js',
+  './js/pusula.js',
+  './js/ses.js',
   // Harita kütüphanesi MapLibre GL JS 4.7.1 (BSD-3, vendor/LICENSE.txt)
   './vendor/maplibre-gl.js',
   './vendor/maplibre-gl.css',

@@ -8,6 +8,7 @@ import {
   mevsimdeMi,
   zemindeAranabilecekler,
   egimVeBaki,
+  goreceYon,
   hucrePuani,
   mesafeVeYon,
   mesafeYaz,
@@ -112,6 +113,17 @@ test('zeminde ve bölgede aranabilecekler: mevsimi ve zemini uyanlar', () => {
   assert.deepEqual(zemindeAranabilecekler(turler, 'cayir', 4).map((t) => t.id), ['kuzugobegi']);
   // Alanda çayır yoksa çayır mantarı listelenmez.
   assert.deepEqual(bolgedeAranabilecekler(turler, { orman: 0.6, cayir: 0.01, bahce: 0, calilik: 0 }, 10).map((t) => t.id), ['kanlica', 'istiridye']);
+});
+
+test('telefonun baktığı yöne göre sağ, sol, ön, arka', () => {
+  assert.equal(goreceYon(90, 90), 'tam önünde');
+  assert.equal(goreceYon(0, 90), 'solunda');
+  assert.equal(goreceYon(180, 90), 'sağında');
+  assert.equal(goreceYon(270, 90), 'arkanda');
+  assert.equal(goreceYon(45, 0), 'sağ önünde');
+  assert.equal(goreceYon(10, 350), 'tam önünde', '0 dereceyi geçerken');
+  assert.equal(goreceYon(200, 0), 'arkanda');
+  assert.equal(goreceYon(300, 0), 'sol önünde');
 });
 
 test('mesafe, yön ve yazılışları', () => {

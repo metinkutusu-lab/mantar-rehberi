@@ -783,3 +783,17 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .canli-ipucu p { margin: 0 0 6px; }
 .canli-ipucu .not { margin: 4px 0 0; font-size: 12.5px; }
 .canli-ipucu-baslik { font-size: 15.5px; }
+
+/* Pusulalı yön göstergesi ve sesli yönlendirme */
+.yon-gosterge { display: inline-flex; align-items: center; gap: 6px; font-weight: 750; color: var(--marka); vertical-align: middle; }
+.yon-ok { display: inline-block; font-size: 22px; line-height: 1; transition: transform 0.25s ease; }
+.yon-gosterge.buyuk { flex-direction: column; gap: 2px; margin: 4px auto 0; font-size: 18px; }
+.yon-gosterge.buyuk .yon-ok { font-size: 64px; font-weight: 800; }
+.ara-hedef-kutu .yon-gosterge.buyuk { display: flex; }
+.konum-isareti { position: relative; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+.yon-burnu { position: absolute; left: 50%; top: 50%; width: 0; height: 0; margin: -26px 0 0 -9px; border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 16px solid rgba(31, 111, 229, 0.85); transform-origin: 9px 26px; }
+.yon-burnu[hidden] { display: none; }
+.ses-dugme { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; font-size: 15.5px; }
+.ses-dugme .ikon { width: 20px; height: 20px; }
+.ses-dugme.acik { border-color: var(--marka); background: var(--marka-acik); color: var(--marka); }
+.ara-hedef { margin: 10px 0 0; }

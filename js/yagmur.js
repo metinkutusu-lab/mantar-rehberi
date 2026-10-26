@@ -201,14 +201,15 @@ export function cihazKonumu() {
 
 // Mantar ara haritasında canlı konum (Metin'in onayı, 2026-10-26). Yalnızca harita ekranı açıkken ve
 // kullanıcı "Konumumu göster"e dokununca başlar; konum yalnızca ekranda gösterilir, hiçbir yere gönderilmez.
-// geri({ enlem, boylam, dogruluk }) ya da geri({ hata: 'izin' | 'yok' }). Sonuç: izlemeyi durduran işlev.
+// geri({ enlem, boylam, dogruluk, yon, hiz }) ya da geri({ hata: 'izin' | 'yok' }). Sonuç: izlemeyi durduran işlev.
 export function konumuIzle(geri) {
   if (!navigator.geolocation) {
     geri({ hata: 'yok' });
     return () => {};
   }
   const kimlik = navigator.geolocation.watchPosition(
-    (k) => geri({ enlem: k.coords.latitude, boylam: k.coords.longitude, dogruluk: k.coords.accuracy }),
+    // yon: yürürken GPS'in bulduğu gidiş yönü (duruyorken yoktur).
+    (k) => geri({ enlem: k.coords.latitude, boylam: k.coords.longitude, dogruluk: k.coords.accuracy, yon: k.coords.heading, hiz: k.coords.speed }),
     (h) => geri({ hata: h.code === 1 ? 'izin' : 'yok' }),
     { enableHighAccuracy: true, timeout: 30000, maximumAge: 5000 },
   );

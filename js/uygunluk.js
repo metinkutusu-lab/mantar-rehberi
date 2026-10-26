@@ -132,6 +132,14 @@ export function yonAdi(aci) {
   return YONLER[Math.round((((aci % 360) + 360) % 360) / 45) % 8];
 }
 
+// Telefonun baktığı yöne göre hedefin yeri: "tam önünde", "sağ önünde", "sağında", "sağ arkanda",
+// "arkanda", "sol arkanda", "solunda", "sol önünde". aci: hedefin pusula açısı, bakis: telefonun baktığı yön.
+const GORECE_YONLER = ['tam önünde', 'sağ önünde', 'sağında', 'sağ arkanda', 'arkanda', 'sol arkanda', 'solunda', 'sol önünde'];
+export function goreceYon(aci, bakis) {
+  const fark = (((aci - bakis) % 360) + 360) % 360;
+  return GORECE_YONLER[Math.round(fark / 45) % 8];
+}
+
 // İki nokta arası mesafe (metre) ve yön (0 = kuzey, saat yönünde).
 export function mesafeVeYon(a, b) {
   const R = 6371000;
