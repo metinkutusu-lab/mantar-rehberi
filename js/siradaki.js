@@ -6,6 +6,7 @@
 // - Güvenlik soruları (ZORUNLU_SORULAR ve üç fotoğraf) her zaman sorulur (kural 4, 5, 6).
 // - Genç mantarın kesiti, genç denince hemen sorulur (kural 13).
 // - Zehirli veya ölümcül bir aday elenebilecekken soru sormayı bırakmayız (kural 3).
+// - "Zehirli mi" sonucu artık değişmeyecekse (yalnızca yenen türler ayrılabiliyorsa) durulur (Metin'in kararı).
 // - Fotoğraf benzerliği hiçbir türü elemez; yalnızca hangi sorunun önce sorulacağını etkiler.
 import { BILMIYORUM, ZORUNLU_SORULAR } from './kurallar.js';
 import { ADIMLAR, aktifAdimlar, sonCevaplar } from './sorular.js';
@@ -70,6 +71,23 @@ export function adimFaydasi(adim, adaylar, agirlik) {
   return beklenenElenen / toplam;
 }
 
+/**
+ * Bu soru sonucun rengini ("zehirli mi?") değiştirebilir mi? (Metin'in kararı, 2026-10-26: "zehirli mi"
+ * cevabı artık değişmeyecekse soru sorulmaz; yalnızca yenen türleri birbirinden ayıran sorular atlanır.)
+ * - Tehlikeli aday varken: en az bir tehlikeli adayı eleyebilen soru sorulur (hepsi elenirse kırmızıdan çıkılabilir).
+ * - Tehlikeli aday yokken: ancak uzman onaylı türler kalabilecekse (sarı olabilir) sorulur; taslak veride bu olmaz.
+ * Güvenlik soruları (zorunlu adımlar) bundan bağımsız olarak her zaman sorulur.
+ */
+export function renkDegistirebilirMi(adim, adaylar) {
+  const degerler = adim.secenekler.map(([d]) => d).filter((d) => d !== 'diger' && d !== 'yapilmadi');
+  const eleyebilir = (tur) => {
+    const izin = izinliler(tur, adim.soru);
+    return Boolean(izin) && degerler.some((d) => !izin.includes(d));
+  };
+  if (adaylar.some(tehlikeli)) return adaylar.some((tur) => tehlikeli(tur) && eleyebilir(tur));
+  return adaylar.some((tur) => tur.mikologOnayi === true) && adaylar.some((tur) => tur.mikologOnayi !== true && eleyebilir(tur));
+}
+
 // Kıyas kartlarında ayıran kontrolün kısa adı (adım başlıkları fotoğraf adı olabildiği için).
 const KISA_ADLAR = {
   sapkaRengi: 'şapka rengi',
@@ -117,8 +135,10 @@ export function siradakiAdim(turler, cevaplar, sorulanlar, benzerlikler = {}) {
   const solungac = bekleyenler.find((a) => a.soru === 'solungacRengi');
   if (solungac && sorulan.has('altYapi')) return { adim: solungac, neden: 'guvenlik' };
 
-  // Uzun beklemeli adımlar (ör. kesince 5 dakika) eşit faydada sona kalır.
-  const puanli = bekleyenler.map((adim) => ({ adim, fayda: adimFaydasi(adim, adaylar, agirlik) / (adim.sure >= 60 ? 1.5 : 1) }));
+  // Yalnızca "zehirli mi" sonucunu değiştirebilecek sorular. Uzun beklemeli adımlar (ör. kesince 5 dakika) eşit faydada sona kalır.
+  const puanli = bekleyenler
+    .filter((adim) => renkDegistirebilirMi(adim, adaylar))
+    .map((adim) => ({ adim, fayda: adimFaydasi(adim, adaylar, agirlik) / (adim.sure >= 60 ? 1.5 : 1) }));
   // En çok ayıran adım önce. Eşitlikte tablo sırası (doğal çalışma sırası) korunur.
   const ayiran = puanli.filter((p) => p.fayda > 0.001).sort((a, b) => b.fayda - a.fayda)[0];
   if (ayiran) return { adim: ayiran.adim, neden: 'ayirt', fayda: ayiran.fayda };

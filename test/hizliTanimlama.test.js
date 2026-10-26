@@ -7,7 +7,7 @@ import path from 'node:path';
 import { GEREKLI_FOTOGRAFLAR, ZORUNLU_SORULAR, degerlendir, yasakIfadeler } from '../js/kurallar.js';
 import { ADIMLAR, aktifAdimlar, sonCevaplar } from '../js/sorular.js';
 import { adaylariBul } from '../js/anahtar.js';
-import { HIZLI_AKISTA_YOK, adimFaydasi, agirliklar, ayiranAdimlar, siradakiAdim } from '../js/siradaki.js';
+import { HIZLI_AKISTA_YOK, adimFaydasi, agirliklar, ayiranAdimlar, renkDegistirebilirMi, siradakiAdim } from '../js/siradaki.js';
 import { benzerlikSozu, benzerlikleriHesapla, birimYap, izCoz, izKodla, kosinus, MODEL_DOSYALARI } from '../js/fotoTanima.js';
 import { komutuAnla, sadele } from '../js/sesliKomut.js';
 
@@ -83,16 +83,36 @@ test('Kural 13: hızlı akışta "genç" denince kesit hemen sorulur', () => {
   assert.equal(s.adim.soru, 'kesitteTaslak');
 });
 
-test('Kural 3: hızlı akış, elenebilecek bir aday kaldıkça soru sormayı bırakmaz', () => {
+// Metin'in kararı (2026-10-26): "zehirli mi" cevabı değişmeyecekse durulur. Bu test eskiden her adayı
+// (yenen dahil) eleyebilen soru kaldıkça devam edilmesini istiyordu; şimdi tehlikeli adayları eleyebilen
+// (sonucun rengini değiştirebilecek) soru kaldıkça devam edilmesini ister. Güvenlik açısından aynı korumadır.
+test('Kural 3: hızlı akış, tehlikeli bir aday elenebilecekken (sonuç değişebilecekken) soru sormayı bırakmaz', () => {
   for (const gercek of turler) {
     const { cevaplar, sorulanlar } = hizliAkis(gercek);
     const kalan = adaylariBul(turler, sonCevaplar(cevaplar));
     const agirlik = agirliklar(kalan);
     for (const adim of aktifAdimlar(cevaplar)) {
       if (sorulanlar.includes(adim.soru) || HIZLI_AKISTA_YOK.includes(adim.soru)) continue;
-      assert.ok(adimFaydasi(adim, kalan, agirlik) <= 0.001, `${gercek.id}: ${adim.soru} hâlâ ayırabilirdi`);
+      const hala = renkDegistirebilirMi(adim, kalan) && adimFaydasi(adim, kalan, agirlik) > 0.001;
+      assert.ok(!hala, `${gercek.id}: ${adim.soru} hâlâ tehlikeli bir adayı eleyebilirdi`);
     }
   }
+});
+
+test('"zehirli mi" cevabı değişmeyecekse durulur: yalnızca taslak yenen türler kaldıysa onları ayıran soru sorulmaz', () => {
+  // Test türleri uydurmadır.
+  const yenenler = [
+    { id: 'a', ad: 'A', zehirlilik: 'yenen', mikologOnayi: false, ozellikler: { sapkaRengi: ['beyaz'] } },
+    { id: 'b', ad: 'B', zehirlilik: 'yenen', mikologOnayi: false, ozellikler: { sapkaRengi: ['kahverengi'] } },
+  ];
+  const sapka = ADIMLAR.find((a) => a.soru === 'sapkaRengi');
+  assert.equal(renkDegistirebilirMi(sapka, yenenler), false);
+  // Biri zehirli olsaydı aynı soru sorulurdu.
+  const biriZehirli = [{ ...yenenler[0], zehirlilik: 'olumcul' }, yenenler[1]];
+  assert.equal(renkDegistirebilirMi(sapka, biriZehirli), true);
+  // Güvenlik soruları yine de sorulur: yenenler kaldı diye zorunlu adımlar atlanmaz.
+  const s = siradakiAdim(yenenler, {}, []);
+  assert.ok(s && s.neden === 'guvenlik', 'zorunlu adımlar sorulmalı');
 });
 
 test('Kural 2, 3 ve 4: hızlı akışın sonucu da aynı kurallardan geçer; ölümcül türler kırmızı, hiçbir sonuç yeşil değil', () => {
