@@ -194,6 +194,12 @@ export function tarifUyarilari(tarif) {
   return [tarif.pisirmeKurali, ILK_KEZ_UYARISI];
 }
 
+// Kural 3: sonuç kırmızıyken yenen bir tür "Muhtemelen X olabilir" diye öne çıkarılmaz
+// (kırmızı başlığın altında "yenen tür" yazan bir kart yanıltır). Aday listesinde yine görünür.
+export function muhtemelTurOneCikabilirMi(sonucRengi, tur) {
+  return !(sonucRengi === 'kirmizi' && tur?.zehirlilik === 'yenen');
+}
+
 // Kural 11: eğitim bitip feragat onaylanmadan tanımlama ekranı açılmaz.
 export function tanimlamaAcilabilirMi(durum) {
   return durum?.egitimTamam === true && durum?.feragatOnay === true;

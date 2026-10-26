@@ -1,7 +1,7 @@
 // Tanımlama ekranı: adım adım sorular, fotoğraflar ve renkli sonuç.
 import { bildirim, el, ikon, ilerlemeCiz, kucukFotograf } from './dom.js';
 import { adimFotografi, secenekFotografi } from './isaretliFoto.js';
-import { BILMIYORUM, GEREKLI_FOTOGRAFLAR, degerlendir } from './kurallar.js';
+import { BILMIYORUM, GEREKLI_FOTOGRAFLAR, degerlendir, muhtemelTurOneCikabilirMi } from './kurallar.js';
 import { adimSecenekleri, aktifAdimlar, ozetSatirlari, sonCevaplar } from './sorular.js';
 import { adaylariBul } from './anahtar.js';
 import { ozetResmiOlustur, ozetiPaylas } from './ozet.js';
@@ -343,7 +343,7 @@ function sonucCiz() {
   const benzerlik = (tur) => durum.benzerlikler[tur.id] ?? 0;
   const enBenzer = [...adaylar].sort((a, b) => benzerlik(b) - benzerlik(a))[0];
   const tekAday = adaylar.length === 1;
-  if (enBenzer && (tekAday || benzerlik(enBenzer) >= BELIRGIN_BENZERLIK)) {
+  if (enBenzer && (tekAday || benzerlik(enBenzer) >= BELIRGIN_BENZERLIK) && muhtemelTurOneCikabilirMi(sonuc.renk, enBenzer)) {
     kok.append(el('div', { className: 'kart' },
       el('h3', { className: 'kart-baslik', textContent: tekAday ? 'Cevaplarına uyan tek tür' : 'Fotoğrafına ve cevaplarına en çok uyan' }),
       el('div', { className: 'aday-satiri' },

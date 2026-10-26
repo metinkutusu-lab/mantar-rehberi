@@ -13,6 +13,7 @@ import {
   OLUMCUL_MESAJ,
   TOPLAMAYIN_MESAJ,
   degerlendir,
+  muhtemelTurOneCikabilirMi,
   egitimTamamlanabilirMi,
   tanimlamaAcilabilirMi,
   tarifAcikMi,
@@ -355,6 +356,13 @@ test('Kural 12: radar hava servisine yalnızca yuvarlanmış koordinat gönderir
   assert.equal(adres.searchParams.get('latitude'), '41,41');
   assert.equal(adres.searchParams.get('longitude'), '29.1,39.7');
   assert.ok(IZINLI_ADRESLER.some((izinli) => adres.href.startsWith(izinli)));
+});
+
+test('Kural 3: kırmızı sonuçta yenen tür "muhtemelen" diye öne çıkarılmaz', () => {
+  assert.equal(muhtemelTurOneCikabilirMi('kirmizi', { zehirlilik: 'yenen' }), false);
+  assert.equal(muhtemelTurOneCikabilirMi('kirmizi', { zehirlilik: 'olumcul' }), true);
+  assert.equal(muhtemelTurOneCikabilirMi('turuncu', { zehirlilik: 'yenen' }), true);
+  assert.match(oku('js/tanimla.js'), /muhtemelTurOneCikabilirMi\(sonuc\.renk, enBenzer\)/);
 });
 
 test('Kural 13: genç mantarın kesitinde taslak varsa ölümcül olabilir', () => {
