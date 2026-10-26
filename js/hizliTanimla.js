@@ -121,7 +121,11 @@ async function izleriHesapla() {
     await resim.decode();
     izler.push(await parmakIzi(resim));
   }
-  if (!izler.length) return;
+  if (!izler.length) {
+    // Fotoğraflar silindiyse eski benzerlik de silinir.
+    Object.assign(h, { izler: [], benzerlikler: {} });
+    return;
+  }
   h.izler = izler;
   h.benzerlikler = benzerlikleriHesapla(izler, referanslar);
   // Yalnızca kıyas kartı yenilenir; kamera ve sayaç olduğu gibi kalır.
@@ -288,11 +292,11 @@ function fotografCek(tur) {
     if (!url) return;
     if (h.fotograflar[tur]) URL.revokeObjectURL(h.fotograflar[tur]);
     h.fotograflar[tur] = url;
-    if (sesAcik()) soyle('Çekildi.', { oncelikli: true });
+    // Fotoğraf hemen gösterilir; beğenilmezse yeniden çekilir ya da silinir (Metin'in isteği, 2026-10-26).
+    // Üstten fotoğrafta "Devam" ile ilk soruya geçilir.
+    if (sesAcik()) soyle(h.adim === UST_ADIM ? 'Çekildi. Beğendiysen devam de.' : 'Çekildi.', { oncelikli: true });
     if (kiyasAcik() && KIYAS_FOTOGRAFLARI.includes(tur)) izleriHesapla();
-    // Üstten fotoğraf çekilince ilk soruya geçilir.
-    if (h.adim === UST_ADIM) ilerle();
-    else ciz();
+    ciz();
   });
 }
 
@@ -316,7 +320,9 @@ function geriSayimBaslat(tur, saniye = 5) {
   }, 1000);
 }
 
-function dosyaGirdisi(tur) {
+// galeri: true ise telefon kamerayı açmaz, daha önce çekilmiş fotoğraflardan seçtirir
+// (Metin'in isteği, 2026-10-26: evde eski fotoğraflarla aynı adımları deneyebilmek için).
+function dosyaGirdisi(tur, { galeri = false } = {}) {
   const girdi = el('input', {
     type: 'file',
     accept: 'image/*',
@@ -327,29 +333,50 @@ function dosyaGirdisi(tur) {
       if (h.fotograflar[tur]) URL.revokeObjectURL(h.fotograflar[tur]);
       h.fotograflar[tur] = URL.createObjectURL(dosya);
       if (kiyasAcik() && KIYAS_FOTOGRAFLARI.includes(tur)) izleriHesapla();
-      if (h.adim === UST_ADIM) ilerle();
-      else ciz();
+      ciz();
     },
   });
-  girdi.setAttribute('capture', 'environment');
+  if (!galeri) girdi.setAttribute('capture', 'environment');
   return girdi;
 }
 
+// Her fotoğraf adımında: telefondaki eski fotoğraflardan seçmek için düğme.
+function galeriDugmesi(tur) {
+  return el('label', { className: 'ikincil galeri-dugme' }, ikon('galeri'), el('span', { textContent: 'Galeriden seç' }), dosyaGirdisi(tur, { galeri: true }));
+}
+
+function fotografiSil(tur) {
+  if (h.fotograflar[tur]) URL.revokeObjectURL(h.fotograflar[tur]);
+  delete h.fotograflar[tur];
+  if (kiyasAcik() && KIYAS_FOTOGRAFLARI.includes(tur)) izleriHesapla();
+  ciz();
+}
+
+// Çekilen fotoğraf: üstüne dokununca yeniden çekilir; altında galeriden seç ve sil.
 function kameraCiz(tur) {
   const url = h.fotograflar[tur];
   if (url) {
-    return el('label', { className: 'foto-alan dolu' },
-      el('img', { src: url, alt: 'Çekilen fotoğraf' }),
-      el('span', { className: 'foto-yeniden' }, ikon('kamera'), el('span', { textContent: 'Yeniden çek' })),
-      dosyaGirdisi(tur),
+    return el('div', {},
+      el('label', { className: 'foto-alan dolu' },
+        el('img', { src: url, alt: 'Çekilen fotoğraf' }),
+        el('span', { className: 'foto-yeniden' }, ikon('kamera'), el('span', { textContent: 'Yeniden çek' })),
+        dosyaGirdisi(tur),
+      ),
+      el('div', { className: 'foto-secenekleri' },
+        galeriDugmesi(tur),
+        el('button', { type: 'button', className: 'ikincil foto-sil', onclick: () => fotografiSil(tur) }, el('span', { textContent: 'Sil' })),
+      ),
     );
   }
   const zorunlu = GEREKLI_FOTOGRAFLAR.includes(tur);
-  const yedek = el('label', { className: 'foto-alan' },
-    el('span', { className: 'foto-ikon' }, ikon('kamera')),
-    el('strong', { textContent: 'Fotoğraf çek' }),
-    el('span', { className: 'foto-not', textContent: zorunlu ? 'Bu fotoğraf olmadan sonuç verilemez.' : 'İsteğe bağlı; uzmana göstermek için faydalı.' }),
-    dosyaGirdisi(tur),
+  const yedek = el('div', {},
+    el('label', { className: 'foto-alan' },
+      el('span', { className: 'foto-ikon' }, ikon('kamera')),
+      el('strong', { textContent: 'Fotoğraf çek' }),
+      el('span', { className: 'foto-not', textContent: zorunlu ? 'Bu fotoğraf olmadan sonuç verilemez.' : 'İsteğe bağlı; uzmana göstermek için faydalı.' }),
+      dosyaGirdisi(tur),
+    ),
+    galeriDugmesi(tur),
   );
   if (!kameraVarMi()) return yedek;
 
@@ -362,7 +389,7 @@ function kameraCiz(tur) {
     el('button', { type: 'button', className: 'birincil', onclick: () => fotografCek(tur) }, ikon('kamera'), el('span', { textContent: 'Çek' })),
     el('button', { type: 'button', className: 'ikincil', textContent: '5 sn sonra çek', onclick: () => geriSayimBaslat(tur) }),
   );
-  const kutu = el('div', {}, alan, dugmeler);
+  const kutu = el('div', {}, alan, dugmeler, galeriDugmesi(tur));
   kameraAc(video).then((acildi) => {
     if (!acildi) kutu.replaceWith(yedek);
     else if (ellerSerbest()) setTimeout(() => video?.isConnected && !h.fotograflar[tur] && geriSayimBaslat(tur), sesAcik() ? 4000 : 800);
@@ -569,6 +596,10 @@ function adimCiz() {
   if (a.coklu) {
     dugmeler.append(el('button', { type: 'button', className: 'birincil', textContent: 'İleri', disabled: h.cevaplar[a.soru] === undefined, onclick: ilerle }));
   }
+  // Üstten fotoğraf: önce fotoğraf gösterilir, beğenilince "Devam" ile sorulara geçilir.
+  if (a === UST_ADIM && h.fotograflar.ust) {
+    dugmeler.append(el('button', { type: 'button', className: 'birincil', textContent: 'Devam', onclick: ilerle }));
+  }
   govde.append(dugmeler);
   // Olası türler ve zehirli benzerleri adımın altında: önce yapılacak iş, sonra kıyas.
   if (a !== UST_ADIM) govde.append(adaylarCiz());
@@ -611,5 +642,6 @@ function sesliKomut(metin) {
   else if (komut.komut === 'geri') geri();
   else if (komut.komut === 'cek' && a.fotograf) fotografCek(a.fotograf);
   else if (komut.komut === 'devam' && a.sure && h.sayacBitis) h.sayacBitis = Date.now();
+  else if (komut.komut === 'devam' && a === UST_ADIM && h.fotograflar.ust) ilerle();
   else if (komut.komut === 'secenek' && !a.coklu) cevapla(a, komut.deger);
 }

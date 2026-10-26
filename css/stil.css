@@ -870,3 +870,10 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .tanimla-ust .bilgi-dugme { width: 40px; height: 40px; font-size: 19px; }
 .tanimla-giris .bilgi-paneli { margin: 10px 0 0; }
 .tanimla-giris .yanina-al { margin-top: 12px; }
+
+/* Galeriden seç (evde eski fotoğraflarla deneme) */
+.galeri-dugme { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 48px; margin: 10px 0 0; cursor: pointer; font-size: 15.5px; }
+.galeri-dugme .ikon { width: 20px; height: 20px; }
+.foto-secenekleri { display: flex; gap: 8px; margin-top: 10px; }
+.foto-secenekleri .galeri-dugme { margin: 0; flex: 1; }
+.foto-sil { min-height: 48px; padding: 8px 18px; font-size: 15.5px; color: var(--kirmizi); }
