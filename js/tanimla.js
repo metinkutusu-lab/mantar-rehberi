@@ -6,6 +6,8 @@ import { adaylariBul } from './anahtar.js';
 import { ozetResmiOlustur, ozetiPaylas } from './ozet.js';
 import { kaydet } from './depo.js';
 import { FOTOGRAF_UYARISI, ZEHIRLILIK_ADLARI, tehlikeyeGoreSirala, turleriYukle } from './turler.js';
+import { hizliBaslat, hizliCiz, hizliKapat, hizliSifirla } from './hizliTanimla.js';
+import { BELIRGIN_BENZERLIK, benzerlikSozu } from './fotoTanima.js';
 
 // Tür listesi cihazdaki önbellekten gelir. Yüklenemezse boş sayılır; sonuç en fazla turuncu olur.
 let turler = [];
@@ -16,7 +18,8 @@ turleriYukle().then((liste) => {
 const SONUC_IKONLARI = { kirmizi: 'uyari', turuncu: 'soru', sari: 'bilgi' };
 
 // Fotoğraflar yalnızca bellekte tutulur, hiçbir yere gönderilmez (kural 12).
-const durum = { asama: 'giris', adim: 0, cevaplar: {}, fotograflar: {} };
+// benzerlikler: hızlı tanımlamada fotoğraf kıyası açıksa { türId: 0–1 } (yalnızca sıralama için).
+const durum = { asama: 'giris', adim: 0, cevaplar: {}, fotograflar: {}, benzerlikler: {} };
 let kap;
 let ayarlar;
 
@@ -29,6 +32,11 @@ export function tanimlamaCiz(hedef, secenekler) {
 function ciz() {
   // Mevsim çubuğu yalnızca giriş ekranında görünür; adımlar ve sonuç sırasında yer kaplamasın.
   document.getElementById('mevsim').hidden = durum.asama !== 'giris';
+  if (durum.asama === 'hizli') {
+    hizliCiz(kap, { bitir: hizliBitti, vazgec: () => git('giris') });
+    return;
+  }
+  hizliKapat();
   if (durum.asama === 'soru') kap.replaceChildren(adimCiz());
   else if (durum.asama === 'sonuc') kap.replaceChildren(sonucCiz());
   else kap.replaceChildren(girisCiz());
@@ -42,7 +50,19 @@ function git(asama, adim = 0) {
 
 function sifirla() {
   for (const url of Object.values(durum.fotograflar)) URL.revokeObjectURL(url);
-  Object.assign(durum, { cevaplar: {}, fotograflar: {} });
+  hizliSifirla();
+  Object.assign(durum, { cevaplar: {}, fotograflar: {}, benzerlikler: {} });
+}
+
+// Hızlı tanımlama bitince cevaplar ve fotoğraflar bu ekranın sonucuna aktarılır (aynı değerlendirme, kural 1–14).
+function hizliBitti({ cevaplar, fotograflar, benzerlikler }) {
+  Object.assign(durum, { cevaplar, fotograflar, benzerlikler });
+  git('sonuc');
+}
+
+// Ekrandan (sekmeden) çıkınca kamera, mikrofon ve ses kapanır.
+export function tanimlamaKapat() {
+  hizliKapat();
 }
 
 function girisCiz() {
@@ -67,10 +87,24 @@ function girisCiz() {
       ),
     ),
     bildirim('bilgi', el('p', { textContent: 'Emin olmadığın her soruda "Bilmiyorum" seç. Tahmin etme.' })),
-    el('div', { className: 'dugmeler' },
+    // Hızlı tanımlama (2026-10-26): fotoğrafla başlar, yalnızca ayıran soruları sorar, sesli yönlendirir.
+    el('div', { className: 'kart hizli-giris' },
+      el('h3', { className: 'kart-baslik', textContent: 'Hızlı tanımla' }),
+      el('p', { textContent: 'Üstten fotoğrafını çek; uygulama yalnızca olası türleri ayıran kontrolleri sorar. İstersen her adımı sesli okur, sen mantarla uğraşırken.' }),
       el('button', {
         type: 'button',
         className: 'birincil genis',
+        onclick: () => {
+          sifirla();
+          hizliBaslat();
+          git('hizli');
+        },
+      }, ikon('kamera'), el('span', { textContent: 'Fotoğrafla hızlı tanımla' })),
+    ),
+    el('div', { className: 'dugmeler' },
+      el('button', {
+        type: 'button',
+        className: 'ikincil genis',
         textContent: 'Tanımlamaya başla',
         onclick: () => {
           sifirla();
@@ -233,6 +267,19 @@ function paylasKartiCiz(sonuc, ozet) {
   );
 }
 
+// Sonuç bir tahmindir; kime sorulacağı her sonuçta yazar (Metin'in isteği, 2026-10-26).
+function kimeSorKartiCiz() {
+  return el('div', { className: 'kart' },
+    el('h3', { className: 'kart-baslik', textContent: 'Kime sorabilirsin?' }),
+    el('ul', { className: 'gerekceler' },
+      el('li', { textContent: 'Bir mantar uzmanı (mikolog) veya bölgendeki mantar derneği' }),
+      el('li', { textContent: 'İl veya ilçe tarım ve orman müdürlüğü' }),
+      el('li', { textContent: 'Zehirlenme şüphesinde hemen 114 (UZEM) veya 112' }),
+    ),
+    el('p', { className: 'not', textContent: 'Bu uygulama eğitim amaçlı bir rehberdir; mantarın yenip yenmeyeceğine karar vermez.' }),
+  );
+}
+
 // Kural 8: yenen bir aday her zaman zehirli benzerleri ve farklarıyla birlikte gösterilir.
 function adayCiz(tur) {
   const satir = el('li', {},
@@ -245,6 +292,7 @@ function adayCiz(tur) {
           tur.mikologOnayi === true ? '' : el('span', { className: 'rozet', textContent: 'Taslak bilgi' }),
         ),
         tur.bilimselAd ? el('em', { className: 'bilimsel-ad', textContent: tur.bilimselAd }) : '',
+        durum.benzerlikler[tur.id] !== undefined ? el('span', { className: 'not kiyas-benzerlik', textContent: benzerlikSozu(durum.benzerlikler[tur.id]) }) : '',
       ),
     ),
   );
@@ -285,7 +333,29 @@ function sonucCiz() {
       )),
   );
 
+  // "Muhtemelen" yalnızca cevaplara uyan tek tür kaldıysa ya da fotoğraf kıyası belirgin bir benzerlik bulduysa
+  // söylenir; yüzde verilmez (kural 1, 5). Sonucun rengi değişmez.
+  const benzerlik = (tur) => durum.benzerlikler[tur.id] ?? 0;
+  const enBenzer = [...adaylar].sort((a, b) => benzerlik(b) - benzerlik(a))[0];
+  const tekAday = adaylar.length === 1;
+  if (enBenzer && (tekAday || benzerlik(enBenzer) >= BELIRGIN_BENZERLIK)) {
+    kok.append(el('div', { className: 'kart' },
+      el('h3', { className: 'kart-baslik', textContent: tekAday ? 'Cevaplarına uyan tek tür' : 'Fotoğrafına ve cevaplarına en çok uyan' }),
+      el('div', { className: 'aday-satiri' },
+        kucukFotograf(enBenzer),
+        el('div', {},
+          el('strong', { textContent: `Muhtemelen ${enBenzer.ad} olabilir` }),
+          el('div', { className: 'aday-ust' }, el('span', { className: `rozet rozet-${enBenzer.zehirlilik}`, textContent: ZEHIRLILIK_ADLARI[enBenzer.zehirlilik] ?? 'Bilinmiyor, zehirli sayılır' })),
+        ),
+      ),
+      el('p', { className: 'not', textContent: tekAday
+        ? 'Bu kesin değildir: mantar uygulamadaki türlerin dışında da olabilir. Bir uzmana göstermeden yeme.'
+        : 'Bu kesin değildir. Sonucun rengi, kalan bütün olasılıkların en tehlikelisine göredir.' }),
+    ));
+  }
+
   kok.append(paylasKartiCiz(sonuc, ozet));
+  kok.append(kimeSorKartiCiz());
 
   kok.append(el('div', { className: 'kart' },
     el('h3', { className: 'kart-baslik', textContent: 'Neden bu sonuç?' }),

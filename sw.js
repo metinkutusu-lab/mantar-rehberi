@@ -1,6 +1,6 @@
 // Çevrimdışı çalışma: uygulamanın bütün dosyaları ilk açılışta cihaza kaydedilir.
 // Yeni dosya eklenince DOSYALAR listesine ekle ve SURUM'u artır.
-const SURUM = 'v34';
+const SURUM = 'v35';
 // GitHub Pages'te aynı adreste başka uygulamalar da olabilir: önbellek adı bu uygulamaya ve adresine özeldir,
 // yalnızca kendi eski sürümlerini siler.
 const ONEK = `mantar-rehberi:${self.registration.scope}:`;
@@ -10,6 +10,10 @@ const ONBELLEK = ONEK + SURUM;
 const HARITA_ONBELLEGI = ONEK + 'harita';
 const HARITA_ADRESLERI = ['https://tiles.openfreemap.org/', 'https://s3.amazonaws.com/elevation-tiles-prod/'];
 const AZAMI_HARITA_PARCASI = 6000;
+// Fotoğraf kıyası modeli (js/fotoTanima.js, yaklaşık 2 MB): uygulamayla indirilmez; kullanıcı açınca bir kez iner,
+// ayrı önbellekte kalır ve sürüm değişince silinmez (yeniden veri harcanmasın, internetsiz çalışsın).
+const MODEL_ONBELLEGI = ONEK + 'model';
+const MODEL_YOLLARI = ['vendor/tf.min.js', 'vendor/mobilenet/'];
 const DOSYALAR = [
   './',
   './index.html',
@@ -38,6 +42,11 @@ const DOSYALAR = [
   './js/uygunluk.js',
   './js/pusula.js',
   './js/ses.js',
+  './js/siradaki.js',
+  './js/hizliTanimla.js',
+  './js/fotoTanima.js',
+  './js/kamera.js',
+  './js/sesliKomut.js',
   // Harita kütüphanesi MapLibre GL JS 4.7.1 (BSD-3, vendor/LICENSE.txt)
   './vendor/maplibre-gl.js',
   './vendor/maplibre-gl.css',
@@ -104,7 +113,7 @@ self.addEventListener('activate', (olay) => {
     caches
       .keys()
       .then((adlar) =>
-        Promise.all(adlar.filter((ad) => ad.startsWith(ONEK) && ad !== ONBELLEK && ad !== HARITA_ONBELLEGI).map((ad) => caches.delete(ad))),
+        Promise.all(adlar.filter((ad) => ad.startsWith(ONEK) && ad !== ONBELLEK && ad !== HARITA_ONBELLEGI && ad !== MODEL_ONBELLEGI).map((ad) => caches.delete(ad))),
       )
       .then(haritaOnbelleginiSinirla)
       .then(() => self.clients.claim()),
@@ -138,11 +147,26 @@ async function haritaYaniti(istek) {
   }
 }
 
+// Model dosyaları: önce cihazdan; yoksa ağdan indirilip cihaza yazılır.
+async function modelYaniti(istek) {
+  const onbellek = await caches.open(MODEL_ONBELLEGI);
+  const kayitli = await onbellek.match(istek, { ignoreSearch: true });
+  if (kayitli) return kayitli;
+  const yanit = await fetch(istek);
+  if (yanit.ok) onbellek.put(istek, yanit.clone());
+  return yanit;
+}
+
 // Önce cihazdaki kopya; yoksa ağdan.
 self.addEventListener('fetch', (olay) => {
   if (olay.request.method !== 'GET') return;
   if (HARITA_ADRESLERI.some((a) => olay.request.url.startsWith(a))) {
     olay.respondWith(haritaYaniti(olay.request));
+    return;
+  }
+  const yol = new URL(olay.request.url).pathname;
+  if (new URL(olay.request.url).origin === self.location.origin && MODEL_YOLLARI.some((m) => yol.includes(`/${m}`))) {
+    olay.respondWith(modelYaniti(olay.request));
     return;
   }
   olay.respondWith(

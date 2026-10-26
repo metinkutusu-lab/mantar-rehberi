@@ -2,7 +2,7 @@ import { ETIKETLER, egitimTamamlanabilirMi, tanimlamaAcilabilirMi } from './kura
 import { DERSLER, FERAGAT_MADDELERI, FERAGAT_TASLAK_NOTU, SORULAR } from './egitim.js';
 import { durumuOku, durumuYaz } from './durum.js';
 import { bildirim, cizim, el, ilerlemeCiz, kucukFotograf } from './dom.js';
-import { tanimlamaCiz } from './tanimla.js';
+import { tanimlamaCiz, tanimlamaKapat } from './tanimla.js';
 import { SOZLUK, SOZLUK_FOTOGRAFLARI } from './sozluk.js';
 import { oku } from './depo.js';
 import { CIG_UYARISI, FOTOGRAF_UYARISI, ZEHIRLILIK_ADLARI, fotografAtfi, ozellikSatirlari, tehlikeyeGoreSirala, turleriYukle } from './turler.js';
@@ -346,6 +346,8 @@ function ekraniGoster() {
   // Canlı konum yalnızca Mantar ara ekranı açıkken çalışır.
   if (secili === 'mantar-ara') mantarAraAc();
   else mantarAraKapat();
+  // Kamera ve mikrofon yalnızca Tanımla ekranı açıkken çalışır.
+  if (secili !== 'tanimla') tanimlamaKapat();
   window.scrollTo(0, 0);
 }
 

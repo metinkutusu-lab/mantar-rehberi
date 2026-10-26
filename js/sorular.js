@@ -3,6 +3,8 @@
 // "kosul" olan adımlar yalnızca koşul sağlanınca sorulur.
 // "cizim" ve seçeneklerin üçüncü öğesi js/cizimler.js'teki bir çizimin adıdır.
 // Kural 14: hiçbir adım mantarı ağza almayı önermez.
+// "sure" (saniye) olan adımlarda hızlı tanımlama sayaç kurar ve süre dolunca sesli haber verir
+// (Metin'in isteği, 2026-10-26: "kes, şu kadar saniye bekle, ne renk?"). Eski akışta yalnızca yazı olarak durur.
 import { BILMIYORUM } from './kurallar.js';
 
 const EVET_HAYIR = [
@@ -114,6 +116,8 @@ export const ADIMLAR = [
   {
     soru: 'kesinceRenk',
     fotograf: 'kesit-sonra',
+    sure: 300,
+    sureMetni: 'Kestikten sonra 5 dakika bekle, sonra kesilen yüzeye bak.',
     cizim: 'kesinceRenk',
     baslik: 'Kesince renk değişimi',
     yonerge: [
@@ -132,6 +136,8 @@ export const ADIMLAR = [
   {
     soru: 'sut',
     cizim: 'sut',
+    sure: 10,
+    sureMetni: 'Çizdikten sonra 10 saniye bekle ve çizdiğin yere bak.',
     baslik: 'Sıvı (süt) akıyor mu?',
     yonerge: ['Kesilen yüzeyi ya da solungaçları bıçağın ucuyla hafifçe çiz.'],
     soruMetni: 'Süt gibi bir sıvı çıkıyor mu?',
@@ -144,6 +150,8 @@ export const ADIMLAR = [
   },
   {
     soru: 'ezince',
+    sure: 30,
+    sureMetni: 'Bastırdıktan sonra 30 saniye bekle, sonra bastırdığın yere bak.',
     baslik: 'Ezince renk değişimi',
     yonerge: ['Şapkayı veya ayağı parmağınla birkaç saniye bastır, sonra bak.'],
     soruMetni: 'Bastırdığın yerin rengi değişti mi?',
