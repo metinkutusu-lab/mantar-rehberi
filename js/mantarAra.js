@@ -3,7 +3,7 @@
 // - Canlı konum yalnızca bu ekranda ve "Konumumu göster"e dokununca açılır; ekrandan çıkınca kapanır.
 //   Konum hiçbir yere gönderilmez (kural 12); hava servisine yalnızca yuvarlanmış koordinat gider.
 // - Bu bir tahmindir: mantarın yerini göstermez. Bulunan her mantar Tanımla ile incelenmelidir.
-import { bildirim, el, ikon } from './dom.js';
+import { bildirim, cubukCiz, el, ikon } from './dom.js';
 import { durumuOku, durumuYaz } from './durum.js';
 import {
   HARITA_ATFI,
@@ -22,6 +22,7 @@ import { pencereBilgisi } from './yagmurKarti.js';
 
 const YARICAP = 2500; // metre: çevrendeki bakılan alan
 const AZAMI_BOLGE = 10;
+const YENIDEN_HESAP_MESAFESI = 1500; // metre
 // Sınıf renkleri (açık turuncudan koyu kahveye) ve saydamlık.
 const RENKLER = [null, [255, 196, 92, 120], [240, 128, 32, 165], [150, 52, 12, 200]];
 
@@ -39,6 +40,7 @@ const ara = {
   hedef: null, // { ad, enlem, boylam }
   indirme: null, // { tamam, toplam } | { bitti, toplam } | { hata }
   isaretAdi: '',
+  bolgeAdi: '',
 };
 
 const kok = el('div', { className: 'ara-ekrani' });
@@ -111,11 +113,25 @@ function seciliTur() {
   return ara.turler.find((t) => t.id === ara.turId) ?? null;
 }
 
-// İlk açılışta haritanın başlayacağı yer: takip edilen yer, son gizli yer ya da Türkiye.
+// İlk açılışta haritanın başlayacağı yer: internet yoksa son indirilen bölge (harita oradan gelir);
+// yoksa takip edilen yer, son gizli yer ya da Türkiye.
 function baslangicYeri() {
   const d = durumuOku();
+  const indirilen = d.haritaBolgeleri?.[0];
+  if (!navigator.onLine && indirilen) return { merkez: [indirilen.boylam, indirilen.enlem], zoom: 13 };
   const yer = d.takipYeri ?? gizliYerler()[0];
   return yer ? { merkez: [yer.boylam, yer.enlem], zoom: 12 } : { merkez: [32.8, 39.2], zoom: 5 };
+}
+
+// Hesap yapılan yere yakın (10 km) bilinen bir yerin adı: takip edilen yer, kayıtlı yerler, indirilen bölgeler.
+function yakinYerAdi(merkez) {
+  const d = durumuOku();
+  const adaylar = [d.takipYeri, ...(d.yerler ?? []), ...(d.haritaBolgeleri ?? [])].filter((y) => y?.ad && y.enlem != null);
+  const en = adaylar
+    .map((y) => ({ ad: y.ad, mesafe: mesafeVeYon(y, merkez).mesafe }))
+    .filter((y) => y.mesafe < 10000)
+    .sort((a, b) => a.mesafe - b.mesafe)[0];
+  return en?.ad ?? null;
 }
 
 // MapLibre yalnızca bu ekran açılınca yüklenir (uygulamanın açılışı yavaşlamasın).
@@ -152,7 +168,7 @@ function turCiz() {
     onchange: (o) => {
       ara.turId = o.target.value;
       turCiz();
-      if (ara.sonuc) bolgeyeBak(ara.sonuc.merkez);
+      if (ara.sonuc) bolgeyeBak(ara.sonuc.merkez, { canli: ara.sonuc.canli });
     },
   },
   el('option', { value: '', textContent: 'Hepsi', selected: !ara.turId }),
@@ -203,7 +219,10 @@ function konumGeldi(k) {
   else konumIsareti.setLngLat(yer);
   if (ara.ilkKonum) {
     ara.ilkKonum = false;
-    bolgeyeBak({ enlem: k.enlem, boylam: k.boylam });
+    bolgeyeBak({ enlem: k.enlem, boylam: k.boylam }, { canli: true });
+  } else if (ara.sonuc?.canli && !ara.hesaplaniyor && mesafeVeYon(ara.sonuc.merkez, k).mesafe > YENIDEN_HESAP_MESAFESI) {
+    // Yürüdükçe: bulunduğun yerden 1,5 km uzaklaşınca harita ve mantar zamanı yeniden hesaplanır.
+    bolgeyeBak({ enlem: k.enlem, boylam: k.boylam }, { canli: true });
   }
   konumDugmesiCiz();
   hedefCiz();
@@ -270,14 +289,15 @@ function zeminIzgarasi(izgara) {
   return sonuc;
 }
 
-// Bölgenin son yağmuru ve sıcaklığı: internet varsa Open-Meteo'dan, yoksa indirilmiş bölgeden.
+// Bölgenin son yağmuru ve sıcaklığı: internet varsa Open-Meteo'dan (canlı), yoksa indirilmiş bölgeden
+// (indirme günündeki bilgi; dönem günleri yine bugüne göre sayılır). Sonuç { daily, kayitliTarih } ya da null.
 async function bolgeHavasi(merkez) {
   if (navigator.onLine) {
     const sonuc = await havaVerisiAl(merkez.enlem, merkez.boylam);
-    if (!sonuc.hata) return sonuc.daily;
+    if (!sonuc.hata) return { daily: sonuc.daily, kayitliTarih: null };
   }
-  const yakin = (durumuOku().haritaBolgeleri ?? []).find((b) => mesafeVeYon(b, merkez).mesafe < 10000);
-  return yakin?.hava ?? null;
+  const yakin = (durumuOku().haritaBolgeleri ?? []).find((b) => b.hava && mesafeVeYon(b, merkez).mesafe < 10000);
+  return yakin ? { daily: yakin.hava, kayitliTarih: yakin.tarih } : null;
 }
 
 function sonGunlerSicakligi(kayitlar) {
@@ -303,7 +323,8 @@ function haritayaYerlestir(tuval, izgara) {
   });
 }
 
-async function bolgeyeBak(merkez) {
+// canli: merkez bulunduğun yer (yürüdükçe yeniden hesaplanır).
+async function bolgeyeBak(merkez, { canli = false } = {}) {
   if (!ara.harita || ara.hesaplaniyor) return;
   Object.assign(ara, { hesaplaniyor: true, hata: null });
   durumCiz();
@@ -316,13 +337,13 @@ async function bolgeyeBak(merkez) {
     ara.harita.fitBounds([[merkez.boylam - db, merkez.enlem - d], [merkez.boylam + db, merkez.enlem + d]], { padding: 10, animate: false });
     await durgun;
 
-    const [izgara, daily] = await Promise.all([yukseklikIzgarasi(merkez.enlem, merkez.boylam, YARICAP), bolgeHavasi(merkez)]);
+    const [izgara, hava] = await Promise.all([yukseklikIzgarasi(merkez.enlem, merkez.boylam, YARICAP), bolgeHavasi(merkez)]);
     if (izgara.hata) {
       Object.assign(ara, { hesaplaniyor: false, hata: 'yukseklik' });
       durumCiz();
       return;
     }
-    const kayitlar = daily ? gunlukKayitlar(daily) : [];
+    const kayitlar = hava ? gunlukKayitlar(hava.daily) : [];
     const pencere = kayitlar.length ? mantarPenceresi(kayitlar) : null;
     const tercih = yonTercihi({ ay: new Date().getMonth() + 1, sicaklik: sonGunlerSicakligi(kayitlar), kuru: pencere?.durum === 'yok' });
     const agirliklar = zeminAgirliklari(seciliTur());
@@ -358,7 +379,7 @@ async function bolgeyeBak(merkez) {
       const k = konumaCevir(enYakin.x, enYakin.y, YUKSEKLIK_YAKINLIGI);
       enYakin = { enlem: k.enlem, boylam: k.boylam };
     }
-    ara.sonuc = { merkez, tercih, pencere, sayilar, enYakin };
+    ara.sonuc = { merkez, canli, tercih, pencere, sayilar, enYakin, kayitliTarih: hava?.kayitliTarih ?? null, yerAdi: yakinYerAdi(merkez) };
   } catch {
     ara.hata = 'genel';
   }
@@ -382,8 +403,23 @@ function durumCiz() {
   const s = ara.sonuc;
   if (s && !ara.hesaplaniyor) {
     if (s.pencere) {
+      // Ana sayfadaki gibi çubuk: hesap yapılan yerin (bulunduğun yer ya da haritanın ortası) mantar zamanı.
       const b = pencereBilgisi(s.pencere);
-      parcalar.push(el('p', { className: 'ara-zaman' }, el('strong', { textContent: 'Bölgede mantar zamanı: ' }), `${b.baslik}${b.sagUst ? ` (${b.sagUst})` : ''}.`));
+      const yer = s.canli ? 'Bulunduğun yer' : 'Haritanın ortası';
+      const notlar = [];
+      if (s.canli) notlar.push('Yürüdükçe 1,5 km\'de bir yenilenir.');
+      if (s.kayitliTarih) notlar.push(`İnternet yok: indirdiğin günün (${new Date(s.kayitliTarih).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' })}) yağmur bilgisine göre.`);
+      parcalar.push(el('div', { className: `ara-zaman-kutu pencere-${s.pencere.durum}` },
+        el('div', { className: 'mevsim-ust' },
+          el('span', { className: 'acilir-baslik' },
+            el('strong', { textContent: s.yerAdi ? `${yer} (${s.yerAdi} civarı)` : yer }),
+            el('span', { className: 'acilir-alt', textContent: b.baslik }),
+          ),
+          el('span', { className: 'mevsim-gun', textContent: b.sagUst }),
+        ),
+        cubukCiz(b.yuzde, 'Bu bölgede mantar döneminin kalan kısmı'),
+        notlar.length ? el('p', { className: 'not', textContent: notlar.join(' ') }) : '',
+      ));
       if (s.pencere.durum === 'yok') parcalar.push(el('p', { className: 'not', textContent: 'Son 3 haftada büyük yağmur yok; uygun yerlerde bile mantar az olabilir.' }));
     } else {
       parcalar.push(el('p', { className: 'not', textContent: 'Bölgenin yağmur bilgisi alınamadı; harita yalnızca araziye ve mevsime göre çizildi.' }));
@@ -484,8 +520,10 @@ function isaretCiz(mesaj = '') {
   );
 }
 
-async function indir() {
+async function indir(olay) {
+  olay.preventDefault();
   const m = haritaMerkezi();
+  const ad = ara.bolgeAdi.trim() || yakinYerAdi(m) || `Bölge ${(durumuOku().haritaBolgeleri ?? []).length + 1}`;
   ara.indirme = { tamam: 0, toplam: 0 };
   indirCiz();
   const [sonuc, hava] = await Promise.all([
@@ -495,25 +533,66 @@ async function indir() {
   if (sonuc.hata) {
     ara.indirme = { hata: sonuc.hata };
   } else {
-    const bolge = { enlem: Math.round(m.enlem * 1e3) / 1e3, boylam: Math.round(m.boylam * 1e3) / 1e3, tarih: new Date().toISOString(), hava: hava.hata ? null : hava.daily };
+    const bolge = { id: `${Date.now()}`, ad, enlem: Math.round(m.enlem * 1e3) / 1e3, boylam: Math.round(m.boylam * 1e3) / 1e3, tarih: new Date().toISOString(), hava: hava.hata ? null : hava.daily };
     kalici({ haritaBolgeleri: [bolge, ...(durumuOku().haritaBolgeleri ?? []).filter((b) => mesafeVeYon(b, bolge).mesafe > 1000)].slice(0, AZAMI_BOLGE) });
     ara.indirme = { bitti: true, toplam: sonuc.toplam };
+    ara.bolgeAdi = '';
   }
+  indirCiz();
+}
+
+// İndirilmiş bölgeyi haritada açar ve oraya bakar (internet olmasa da: harita cihazdan gelir).
+function bolgeyiAc(b) {
+  ara.harita.jumpTo({ center: [b.boylam, b.enlem], zoom: 13 });
+  bolgeyeBak({ enlem: b.enlem, boylam: b.boylam });
+  haritaKap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function bolgeyiSil(b) {
+  if (!confirm(`"${b.ad ?? 'Bölge'}" listeden silinsin mi?`)) return;
+  kalici({ haritaBolgeleri: (durumuOku().haritaBolgeleri ?? []).filter((x) => x !== b && !(x.enlem === b.enlem && x.boylam === b.boylam)) });
   indirCiz();
 }
 
 function indirCiz() {
   const d = ara.indirme;
+  const adGirdisi = el('input', {
+    type: 'text',
+    className: 'yagmur-girdi',
+    placeholder: 'Bölgenin adı: ör. Keles Pınarcık',
+    value: ara.bolgeAdi,
+    maxLength: 60,
+    oninput: (o) => { ara.bolgeAdi = o.target.value; },
+  });
+  adGirdisi.setAttribute('aria-label', 'İndirilecek bölgenin adı');
   const parcalar = [
     el('h3', { className: 'yerlerim-baslik', textContent: 'İnternetsiz kullan' }),
-    el('p', { className: 'not', textContent: 'Gitmeden önce, internet varken haritayı gideceğin yere getir ve indir. Dağda internet olmasa da harita, arazi ve son yağmur bilgisi çalışır; konum (GPS) internetsiz de çalışır.' }),
-    el('button', { type: 'button', className: 'ikincil genis', textContent: 'Bu bölgeyi indir', disabled: Boolean(d && !d.bitti && !d.hata), onclick: indir }),
+    el('p', { className: 'not', textContent: 'Gitmeden önce, internet varken haritayı gideceğin yere getir, bir ad yaz ve indir. Dağda internet yokken aşağıdaki listeden "Haritada aç"a dokun; harita, arazi ve son yağmur bilgisi telefondan gelir. Konum (GPS) internetsiz de çalışır.' }),
+    el('form', { className: 'gizli-yer-formu', onsubmit: indir },
+      adGirdisi,
+      el('button', { type: 'submit', className: 'ikincil', textContent: 'Bu bölgeyi indir', disabled: Boolean(d && !d.bitti && !d.hata) }),
+    ),
   ];
   if (d?.hata) parcalar.push(bildirim('uyari', el('p', { textContent: d.hata === 'desteklenmiyor' ? 'Bu tarayıcı indirmeyi desteklemiyor. Uygulamayı ana ekrana ekleyip oradan aç.' : 'İndirilemedi. İnternet bağlantını kontrol et.' })));
   else if (d?.bitti) parcalar.push(el('p', { className: 'not', textContent: `İndirildi (${d.toplam} parça). Bu bölge artık internetsiz açılır.` }));
   else if (d) parcalar.push(el('p', { className: 'not', textContent: `İndiriliyor… ${d.tamam} / ${d.toplam || '?'}` }));
+
   const bolgeler = durumuOku().haritaBolgeleri ?? [];
-  if (bolgeler.length) parcalar.push(el('p', { className: 'not', textContent: `İndirilmiş bölge: ${bolgeler.length}. En son: ${new Date(bolgeler[0].tarih).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' })}.` }));
+  if (bolgeler.length) {
+    parcalar.push(
+      el('h3', { className: 'yerlerim-baslik', textContent: 'İndirdiğim bölgeler' }),
+      el('div', { className: 'yerlerim-listesi' }, ...bolgeler.map((b, i) => el('div', { className: 'yer-satiri' },
+        el('div', { className: 'mevsim-ust' },
+          el('strong', { textContent: b.ad ?? `Bölge ${bolgeler.length - i}` }),
+          el('span', { className: 'not', textContent: new Date(b.tarih).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' }) }),
+        ),
+        el('div', { className: 'yer-dugmeleri' },
+          el('button', { type: 'button', className: 'metin-dugme', textContent: 'Haritada aç', onclick: () => bolgeyiAc(b) }),
+          el('button', { type: 'button', className: 'metin-dugme soluk', textContent: 'Sil', onclick: () => bolgeyiSil(b) }),
+        ),
+      ))),
+    );
+  }
   indirKap.replaceChildren(...parcalar);
 }
 

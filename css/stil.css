@@ -759,3 +759,5 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .isaret-pin::before { content: ""; display: block; width: 22px; height: 22px; margin: 0 auto; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: #e8963f; border: 3px solid #6b3e26; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4); }
 .maplibregl-ctrl-attrib { font-size: 10.5px; }
 .ara-indir .ikincil, .ara-isaret .ikincil { width: 100%; }
+.ara-zaman-kutu { padding: 10px 12px 2px; margin: 0 0 10px; border-radius: 12px; border: 1px solid var(--cizgi); background: var(--yuzey); }
+.ara-zaman-kutu .not { margin: 4px 0 8px; font-size: 12.5px; }
