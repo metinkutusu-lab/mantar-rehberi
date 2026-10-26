@@ -1,7 +1,7 @@
 // Hızlı tanımlama (Metin'in isteği, 2026-10-26): önce üstten fotoğraf, sonra yalnızca kalan türleri ayıran
 // kontroller. Eski adım adım akış (js/tanimla.js) aynen durur; bu akış onun yanına eklendi.
 // - Yapay zeka gerekmez: sıradaki soru kural tablosundan seçilir (js/siradaki.js).
-// - Fotoğraf kıyası isteğe bağlıdır (js/fotoTanima.js); açılınca bir kez ~2 MB iner, sonra internetsiz çalışır.
+// - Fotoğraf kıyası isteğe bağlıdır (js/fotoTanima.js); açılınca bir kez ~5 MB iner, sonra internetsiz çalışır.
 // - Her olası tür, karıştırıldığı zehirli/yenen türle yan yana ve ayıran kontrolle gösterilir (kural 8).
 // - Sesli yönlendirme telefonun kendi sesiyle (js/ses.js); sesli komut yalnızca telefon içi tanımayla (js/sesliKomut.js).
 // - Sonuç, eski akıştaki aynı değerlendirmeden geçer (kurallar.js); yeşil yoktur, her sonuçta "uzmana sor" yazar.
@@ -56,7 +56,7 @@ function ayarYaz(degisiklik) {
 }
 const sesAcik = () => ayar().sesliTanimlama === true;
 // Fotoğraf kıyası kendiliğinden açıktır (Metin'in isteği, 2026-10-26: "fotoğrafı çekince kendisi kıyaslayıp tahmin etsin");
-// kullanıcı kapatabilir. İlk kullanımda bir kez ~2 MB iner. Kıyas hiçbir türü elemez, sonucun rengini değiştirmez.
+// kullanıcı kapatabilir. İlk kullanımda bir kez ~5 MB iner. Kıyas hiçbir türü elemez, sonucun rengini değiştirmez.
 const kiyasAcik = () => ayar().fotoKiyasi !== false;
 const ellerSerbest = () => ayar().ellerSerbest === true;
 
@@ -193,10 +193,10 @@ function ayarNotlari() {
     notlar.push('Bu telefonda Türkçe yerel ses bulunamadı. Telefonun ayarlarından "Metin okuma" (yazıdan konuşmaya) Türkçe sesi indirilebilir.');
   }
   if (kiyasAcik() && modelDurumu() === 'hata') {
-    notlar.push('Fotoğraf kıyası için bir kez internet gerekir (yaklaşık 2 MB). İnternet yokken tanımlama sorularla devam eder.');
+    notlar.push('Fotoğraf kıyası için bir kez internet gerekir (yaklaşık 5 MB). İnternet yokken tanımlama sorularla devam eder.');
   }
   if (!kiyasAcik()) {
-    notlar.push('Fotoğraf kıyası kapalıyken de tanımlama çalışır. Açarsan bir kez yaklaşık 2 MB iner; sonra internetsiz çalışır ve fotoğrafın hiçbir yere gitmez.');
+    notlar.push('Fotoğraf kıyası kapalıyken de tanımlama çalışır. Açarsan bir kez yaklaşık 5 MB iner; sonra internetsiz çalışır ve fotoğrafın hiçbir yere gitmez.');
   }
   return notlar.map((n) => el('p', { className: 'not', textContent: n }));
 }

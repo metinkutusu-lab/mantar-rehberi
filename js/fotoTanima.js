@@ -2,7 +2,7 @@
 // Küçük bir yapay zeka modeli (MobileNet V2, Apache 2.0) fotoğrafın "parmak izini" çıkarır (1280 sayı);
 // türlerin parmak izleri önceden hesaplanıp vendor/mobilenet/parmak-izleri.json'a yazılmıştır (scripts/parmak-izi-uret.js).
 // - Fotoğraf hiçbir yere gönderilmez; model ve parmak izleri uygulamanın kendi dosyalarıdır (kural 12).
-// - Model ilk kullanımda bir kez indirilir (~2 MB) ve cihazda kalır (sw.js, model önbelleği); sonra internetsiz çalışır.
+// - Model ilk kullanımda bir kez indirilir (~5 MB) ve cihazda kalır (sw.js, model önbelleği); sonra internetsiz çalışır.
 // - Kıyas yalnızca adayları sıralar ve hangi sorunun önce sorulacağına yardım eder. Hiçbir türü elemez,
 //   sonucun rengini değiştirmez (kural 3, 5). Model yüklenemezse tanımlama sorularla aynen çalışır.
 
@@ -90,8 +90,8 @@ export function kosinus(a, b) {
 /**
  * Kullanıcının fotoğraflarının izlerini tür izleriyle kıyaslar.
  * Dönüş: { türId: 0–1 } — her tür için en benzer referansla en benzer fotoğrafın benzerliği (kosinüs).
- * Değerler "olasılık" değildir; yalnızca sıralama içindir. Ölçüm (2026-10-26): aynı fotoğrafın kırpılmışı ~0,9;
- * farklı fotoğraflar çoğunlukla 0,5–0,65 arası. Her türün tek fotoğrafı olduğu için benzerlik çoğu zaman düşük çıkar.
+ * Değerler "olasılık" değildir; yalnızca sıralama içindir. Ölçüm (2026-10-26, tür başına 3–20 referans fotoğraf,
+ * uygulamanın görmediği 99 fotoğraf): doğru tür 1. sırada %43, ilk 3'te %73 (tek fotoğrafla %30 ve %46'ydı).
  */
 export function benzerlikleriHesapla(kullaniciIzleri, referanslar) {
   const sonuc = {};
@@ -103,13 +103,16 @@ export function benzerlikleriHesapla(kullaniciIzleri, referanslar) {
   return sonuc;
 }
 
-// Bu benzerliğin altında "muhtemelen" denmez.
-export const BELIRGIN_BENZERLIK = 0.68;
+// Eşikler ölçümle seçildi (2026-10-26; 34 tür, 520 referans, saklanan 99 deneme fotoğrafı): en üstteki tahmin
+// 0,68'i geçince yalnızca %43, 0,75'i geçince %64, 0,80'i geçince ölçülen hepsi doğruydu. Bu yüzden "muhtemelen"
+// yalnızca 0,80 ve üstünde denir; altında yalnızca sıralanır. (Eski eşik 0,68 tek fotoğraflı referanslara göreydi.)
+export const BELIRGIN_BENZERLIK = 0.8;
+const BENZER = 0.75;
 
 // Benzerliği okunur söze çevirir (yüzde gösterilmez: güven gibi okunmasın).
 export function benzerlikSozu(deger) {
-  if (deger >= 0.8) return 'Fotoğrafa çok benziyor';
-  if (deger >= BELIRGIN_BENZERLIK) return 'Fotoğrafa benziyor';
+  if (deger >= BELIRGIN_BENZERLIK) return 'Fotoğrafa çok benziyor';
+  if (deger >= BENZER) return 'Fotoğrafa benziyor';
   return 'Fotoğrafa az benziyor';
 }
 

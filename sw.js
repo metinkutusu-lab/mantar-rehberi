@@ -1,6 +1,6 @@
 // Çevrimdışı çalışma: uygulamanın bütün dosyaları ilk açılışta cihaza kaydedilir.
 // Yeni dosya eklenince DOSYALAR listesine ekle ve SURUM'u artır.
-const SURUM = 'v41';
+const SURUM = 'v42';
 // GitHub Pages'te aynı adreste başka uygulamalar da olabilir: önbellek adı bu uygulamaya ve adresine özeldir,
 // yalnızca kendi eski sürümlerini siler.
 const ONEK = `mantar-rehberi:${self.registration.scope}:`;
@@ -10,7 +10,7 @@ const ONBELLEK = ONEK + SURUM;
 const HARITA_ONBELLEGI = ONEK + 'harita';
 const HARITA_ADRESLERI = ['https://tiles.openfreemap.org/', 'https://s3.amazonaws.com/elevation-tiles-prod/'];
 const AZAMI_HARITA_PARCASI = 6000;
-// Fotoğraf kıyası modeli (js/fotoTanima.js, yaklaşık 2 MB): uygulamayla indirilmez; kullanıcı açınca bir kez iner,
+// Fotoğraf kıyası modeli (js/fotoTanima.js, yaklaşık 5 MB): uygulamayla indirilmez; ilk fotoğraflı tanımlamada bir kez iner,
 // ayrı önbellekte kalır ve sürüm değişince silinmez (yeniden veri harcanmasın, internetsiz çalışsın).
 const MODEL_ONBELLEGI = ONEK + 'model';
 const MODEL_YOLLARI = ['vendor/tf.min.js', 'vendor/mobilenet/'];
@@ -149,6 +149,22 @@ async function haritaYaniti(istek) {
   }
 }
 
+// Parmak izleri güncellenebilir (yeni referans fotoğrafları eklenince): cihazdaki kopya hemen kullanılır,
+// internet varsa arkada yenisi indirilip saklanır (bir sonraki tanımlamada kullanılır). Büyük model dosyaları yeniden inmez.
+async function izYaniti(olay) {
+  const onbellek = await caches.open(MODEL_ONBELLEGI);
+  const kayitli = await onbellek.match(olay.request, { ignoreSearch: true });
+  const tazele = fetch(olay.request, { cache: 'no-cache' }).then((yanit) => {
+    if (yanit.ok) onbellek.put(olay.request, yanit.clone());
+    return yanit;
+  });
+  if (kayitli) {
+    olay.waitUntil(tazele.catch(() => {}));
+    return kayitli;
+  }
+  return tazele;
+}
+
 // Model dosyaları: önce cihazdan; yoksa ağdan indirilip cihaza yazılır.
 async function modelYaniti(istek) {
   const onbellek = await caches.open(MODEL_ONBELLEGI);
@@ -167,6 +183,10 @@ self.addEventListener('fetch', (olay) => {
     return;
   }
   const yol = new URL(olay.request.url).pathname;
+  if (new URL(olay.request.url).origin === self.location.origin && yol.endsWith('/vendor/mobilenet/parmak-izleri.json')) {
+    olay.respondWith(izYaniti(olay));
+    return;
+  }
   if (new URL(olay.request.url).origin === self.location.origin && MODEL_YOLLARI.some((m) => yol.includes(`/${m}`))) {
     olay.respondWith(modelYaniti(olay.request));
     return;
