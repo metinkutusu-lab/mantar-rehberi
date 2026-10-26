@@ -73,6 +73,8 @@ function girisCiz() {
   const gerekenler = [
     ['kamera', 'Telefon, fotoğraf için'],
     ['bicak', 'Bıçak, kesmek ve toprağı açmak için'],
+    // Fırça (Metin'in isteği): şapkadaki benekler tanımada önemlidir (ör. panter, sinek mantarı); önce fotoğraf ve tanımlama.
+    ['firca', 'Fırça, mantarın üstündeki toprağı temizlemek için (şapkadaki benekleri silmemek için fotoğrafı çekip tanımladıktan sonra kullan)'],
     ['sepet', 'Sepet, mantarları toplamak için (naylon poşette mantar ezilip bozulur)'],
   ];
   const bilgi = el('div', { className: 'bilgi-paneli', hidden: true },
