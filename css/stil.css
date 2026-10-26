@@ -511,14 +511,6 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 
 /* Mantar mevsimi çubuğu */
 #mevsim[hidden] { display: none; }
-.mevsim-karti {
-  margin: 16px 0 0;
-  padding: 12px 16px;
-  border-radius: 16px;
-  background: var(--yuzey);
-  border: 1px solid var(--cizgi);
-  box-shadow: var(--golge);
-}
 .mevsim-ust { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: 15.5px; }
 .mevsim-gun { color: var(--marka); font-weight: 750; font-size: 14.5px; white-space: nowrap; }
 .mevsim-disi .mevsim-gun { color: var(--soluk); }
@@ -537,12 +529,36 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
   border-radius: 999px;
   background: linear-gradient(90deg, #c4642f, #7f3418);
   transition: width 0.6s ease;
-}.mevsim-alt { font-size: 14px; color: var(--yazi); margin: 0; }
-.mevsim-not { font-size: 12.5px; color: var(--soluk); margin: 2px 0 0; }
+}
 
-/* Yağmur ipucu */
-.yagmur-karti { padding: 0; margin: 10px 0 0; }
-.yagmur-karti > summary {
+/* Mantar zamanı kartı: mevsim ve takip edilen yer, (i) ile açıklamalar, Yerlerim */
+.ana-kart { margin: 16px 0 0; padding: 14px 16px 6px; }
+.ana-ust { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 0 10px; }
+.ana-baslik { font-size: 17px; font-weight: 750; margin: 0; }
+.bilgi-dugme {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1.5px solid var(--marka);
+  background: var(--yuzey);
+  color: var(--marka);
+  font: italic 700 17px Georgia, serif;
+}
+.bilgi-dugme[aria-expanded="true"] { background: var(--marka); color: var(--marka-yazi); }
+.ana-satir { font-size: 15.5px; }
+.takip-bolumu { padding-top: 10px; margin-top: 4px; border-top: 1px solid var(--cizgi); }
+.takip-bolumu .mevsim-cubugu { margin-bottom: 2px; }
+.takip-durum { margin: 4px 0 0; }
+.takip-yok { margin: 0; }
+.takip-sec { margin: 0; padding: 8px 0; text-align: left; }
+.bilgi-paneli { margin: 8px 0 4px; padding: 12px 14px; border-radius: 12px; background: var(--yuzey-2); font-size: 14.5px; }
+.bilgi-paneli[hidden] { display: none; }
+.bilgi-paneli p { margin: 0 0 8px; }
+.bilgi-paneli .not { margin: 0; font-size: 12.5px; }
+.bilgi-bolum:empty { display: none; }
+.yerlerim { margin: 6px -16px 0; border-top: 1px solid var(--cizgi); }
+.yerlerim > summary {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -552,11 +568,21 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
   list-style: none;
   font-size: 15.5px;
 }
-.yagmur-karti > summary::-webkit-details-marker { display: none; }
-.yagmur-karti > summary::after { content: "›"; font-size: 22px; color: var(--soluk); transition: transform 0.2s ease; }
-.yagmur-karti[open] > summary::after { transform: rotate(90deg); }
+.yerlerim > summary::-webkit-details-marker { display: none; }
+.yerlerim > summary::after { content: "›"; font-size: 22px; color: var(--soluk); transition: transform 0.2s ease; }
+.yerlerim[open] > summary::after { transform: rotate(90deg); }
+.yerlerim-govde { padding: 0 16px 10px; }
+.yerlerim-baslik { font-size: 15.5px; font-weight: 750; margin: 14px 0 6px; }
+.yerlerim-govde > :first-child .yerlerim-baslik:first-child { margin-top: 0; }
+.yerlerim-aciklama { margin: 0 0 8px; }
+.yerlerim-listesi { display: flex; flex-direction: column; gap: 8px; }
+.yer-satiri { padding: 10px 12px 0; border-radius: 12px; border: 1px solid var(--cizgi); background: var(--yuzey-2); font-size: 15px; }
+.yer-satiri .mevsim-cubugu { margin-bottom: 0; }
+.yer-dugmeleri { display: flex; flex-wrap: wrap; align-items: center; gap: 0 18px; }
+.yer-dugmeleri .metin-dugme { margin: 0; padding: 8px 0; font-size: 14px; text-decoration: none; }
+.yer-takipte { margin: 0; padding: 8px 0; font-weight: 650; }
+.yerlerim-yenile { margin: 4px 0 0; padding: 8px 0; font-size: 14px; }
 .yagmur-ozet { display: block; font-size: 13.5px; color: var(--soluk); font-weight: 500; }
-.yagmur-govde { padding: 0 16px 14px; }
 .yagmur-etiket { font-weight: 700; font-size: 14.5px; margin: 6px 0 6px; }
 .yagmur-arama { display: flex; gap: 8px; }
 .yagmur-arama .birincil { min-height: 46px; padding: 8px 18px; }
@@ -576,18 +602,8 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .yer-listesi { display: flex; flex-direction: column; gap: 8px; margin: 10px 0; }
 .yer-listesi .secenek { min-height: 48px; font-size: 15.5px; }
 .yer-listesi .secenek::before { display: none; }
-.yer-cipleri { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 2px; }
-.cip {
-  padding: 7px 14px;
-  border-radius: 999px;
-  border: 1px solid var(--cizgi);
-  background: var(--marka-acik);
-  color: var(--marka);
-  font-weight: 650;
-  font-size: 14.5px;
-}
-.yagmur-elle { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 4px; font-size: 14.5px; color: var(--soluk); }
-/* Açılır kart (mevsim ve takip edilen yer): kapalıyken başlık + çubuk, açılınca ayrıntılar */
+.yagmur-elle { display: flex; flex-direction: column; gap: 6px; margin: 0 0 10px; font-size: 14.5px; color: var(--soluk); }
+/* Açılır kart ("Yanına al"): kapalıyken başlık, açılınca ayrıntılar */
 .acilir > summary { list-style: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .acilir > summary::-webkit-details-marker { display: none; }
 .acilir-ust { display: flex; align-items: center; gap: 10px; font-size: 15.5px; }
@@ -599,9 +615,6 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .acilir-govde { padding-top: 10px; }
 .yanina-al { padding: 14px 18px; }
 .yanina-al-ikonlar { display: flex; gap: 14px; color: var(--marka); }
-.takip-karti { margin: 10px 0 0; padding: 12px 16px; }
-.takip-yer { font-size: 14px; color: var(--soluk); margin: 0 0 6px; }
-.takip-ara-baslik { font-size: 15.5px; font-weight: 750; margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--cizgi); }
 .takip-dugmeleri { display: flex; justify-content: space-between; }
 .takip-dugmeleri .metin-dugme { margin: 0; padding: 10px 0; font-size: 14.5px; }
 .metin-dugme.soluk { color: var(--soluk); }
@@ -673,7 +686,7 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .alt-menu a.alt-acil { color: var(--kirmizi); }
 .alt-menu a.alt-acil.secili svg { background: var(--kirmizi-zemin); }
 
-/* Konumumu kullan, mantar radarı ve gizli yerler */
+/* Konumumu kullan ve gizli yer kaydı */
 .konum-dugme {
   display: flex;
   align-items: center;
@@ -693,23 +706,10 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .konum-dugme .ikon { width: 20px; height: 20px; }
 .konum-not { margin: 6px 0 10px; font-size: 12.5px; }
 .tek-seferlik .metin-dugme { margin: 4px 0 0; padding: 8px 0; font-size: 14.5px; }
-.radar-baslik { font-size: 15.5px; font-weight: 750; margin: 4px 0 0; }
-.radar-aciklama { margin: 4px 0 10px; }
-.radar-dugme { width: 100%; min-height: 46px; padding: 8px 14px; font-size: 15.5px; }
-.radar-listesi { display: flex; flex-direction: column; gap: 8px; margin: 12px 0 4px; }
-.radar-satir { padding: 10px 12px 2px; border-radius: 12px; border: 1px solid var(--cizgi); background: var(--yuzey-2); font-size: 15px; }
-.radar-satir .mevsim-cubugu { margin-bottom: 0; }
-.radar-takip { margin: 0; padding: 8px 0; font-size: 14px; }
-.gizli-yer-formu { display: flex; flex-direction: column; gap: 8px; }
-.gizli-yer-listesi { display: flex; flex-direction: column; gap: 8px; margin: 12px 0 0; }
-.gizli-yer { padding: 10px 12px 4px; border-radius: 12px; border: 1px solid var(--cizgi); background: var(--yuzey-2); font-size: 15px; }
-.gizli-yer-ust { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
-.gizli-yer-ust .not { margin: 0; white-space: nowrap; }
+.gizli-yer-formu { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--cizgi); }
+.gizli-yer-formu .yagmur-etiket { margin: 0; }
 .gizli-yer-not { margin: 4px 0 0; }
 .gizli-yer-koordinat { margin: 2px 0 0; font-variant-numeric: tabular-nums; }
-.gizli-yer-dugmeleri { display: flex; flex-wrap: wrap; gap: 0 18px; }
-.gizli-yer-dugmeleri .metin-dugme { margin: 0; padding: 8px 0; font-size: 14px; text-decoration: none; }
-.mevsim-ipucu { font-size: 13.5px; color: var(--yazi); margin: 8px 0 0; padding-top: 8px; border-top: 1px solid var(--cizgi); }
 .tur-nerede { margin: 8px 0; }
 
 /* Eğitimi tekrar izlerken kapatma */

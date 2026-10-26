@@ -1,14 +1,13 @@
 import { ETIKETLER, egitimTamamlanabilirMi, tanimlamaAcilabilirMi } from './kurallar.js';
 import { DERSLER, FERAGAT_MADDELERI, FERAGAT_TASLAK_NOTU, SORULAR } from './egitim.js';
 import { durumuOku, durumuYaz } from './durum.js';
-import { acilirKart, bildirim, cizim, el, ilerlemeCiz, kucukFotograf } from './dom.js';
+import { bildirim, cizim, el, ilerlemeCiz, kucukFotograf } from './dom.js';
 import { tanimlamaCiz } from './tanimla.js';
 import { SOZLUK, SOZLUK_FOTOGRAFLARI } from './sozluk.js';
 import { oku } from './depo.js';
 import { FOTOGRAF_UYARISI, ZEHIRLILIK_ADLARI, fotografAtfi, ozellikSatirlari, tehlikeyeGoreSirala, turleriYukle } from './turler.js';
-import { MEVSIM_NOTU, SICAKLIK_IPUCU, mevsimDurumu } from './mevsim.js';
-import { takibiYenile, yagmurKarti } from './yagmurKarti.js';
-import { radarKarti } from './radar.js';
+import { takibiYenile } from './yagmurKarti.js';
+import { anaKart, mevsimiYenile } from './anaKart.js';
 
 const EKRANLAR = ['tanimla', 'ansiklopedi', 'tarifler', 'acil'];
 const EGITIM_ADIM_SAYISI = DERSLER.length + SORULAR.length + 1;
@@ -241,37 +240,6 @@ function sozlukCiz() {
   );
 }
 
-// Mantar mevsimi çubuğu: mevsim içinde dolu başlar; kalan süre sağda koyu renktedir ve soldan sağa çekilir.
-// Kapalıyken yalnızca başlık ve çubuk görünür; dokununca tarihler açılır.
-const mevsimKarti = { acik: false };
-function mevsimCiz() {
-  const d = mevsimDurumu();
-  const tarih = (t) => t.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' });
-
-  document.getElementById('mevsim').replaceChildren(
-    acilirKart(
-      {
-        sinif: `mevsim-karti${d.icinde ? '' : ' mevsim-disi'}`,
-        baslik: d.icinde ? d.ad : 'Şu an mantar mevsimi değil',
-        sag: d.icinde ? `${d.kalanGun} gün kaldı` : `${d.kalanGun} gün sonra`,
-        yuzde: Math.round((d.icinde ? d.kalanOran : 0) * 100),
-        cubukEtiketi: 'Mantar mevsiminin kalan kısmı',
-        durum: mevsimKarti,
-      },
-      el('p', {
-        className: 'mevsim-alt',
-        textContent: d.icinde
-          ? `${tarih(d.baslangic)} – ${tarih(d.bitis)}`
-          : `Sıradaki: ${d.ad}, başlangıç ${tarih(d.baslangic)}`,
-      }),
-      el('p', { className: 'mevsim-not', textContent: MEVSIM_NOTU }),
-      el('p', { className: 'mevsim-ipucu', textContent: `${d.ipucu} ${SICAKLIK_IPUCU}` }),
-    ),
-    yagmurKarti(),
-    radarKarti(),
-  );
-}
-
 // Kural 8: yenen her türün sayfasında zehirli benzerleri ve ayırt edici farklar yan yana durur.
 // adlaTur: tür adından tür kaydına (benzerin fotoğrafını göstermek için).
 function turKartiCiz(tur, adlaTur) {
@@ -380,11 +348,11 @@ window.addEventListener('hashchange', ekraniGoster);
 // Uygulama günlerce açık kalabilir; öne gelince mevsim çubuğu ve takip edilen yerin yağmuru güncellenir.
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') {
-    mevsimCiz();
+    mevsimiYenile();
     takibiYenile();
   }
 });
-mevsimCiz();
+document.getElementById('mevsim').replaceChildren(anaKart());
 tanimlaCiz();
 sozlukCiz();
 turleriCiz();
