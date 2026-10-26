@@ -218,7 +218,7 @@ function turCiz() {
       secenek('', 'Hepsi', hepsiResmi),
       ...ara.turler.map((t) => secenek(t.id, t.ad.replace(/\s*\(.*\)$/, ''), kucukFotograf(t, 'tur-secenek-resim'), mevsimdeMi(t, ay))),
     ),
-    el('p', { className: 'not tur-secici-not', textContent: 'Sıra: toplayıcıların en çok aradığı türler önce (taslak).' }),
+    el('p', { className: 'not tur-secici-not', textContent: 'Sıra: dünya mutfağında en gözde olanlar önce (taslak). Sağa kaydır.' }),
   ];
   if (tur) {
     const ayYazisi = ayAraligi(tur.aylar);

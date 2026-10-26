@@ -38,6 +38,15 @@ const MADDELER = {
   tavuk: 'Laetiporus sulphureus',
   puf: 'Lycoperdon perlatum',
   'sahte-puf': 'Scleroderma citrinum',
+  // 2026-10-26: Mantar ara için eklenen gözde türler (TASLAK)
+  'kara-truf': 'Tuber aestivum',
+  'beyaz-truf': 'Tuber magnatum',
+  keme: 'Desert truffle',
+  casir: 'Pleurotus eryngii',
+  mayis: 'Calocybe gambosa',
+  'mor-kadife': 'Clitocybe nuda',
+  ballica: 'Armillaria mellea',
+  'sahte-truf': 'Choiromyces meandriformis',
 };
 
 // Commons'ta makine tarafından okunamayan çeken adları, dosya sayfalarından elle okundu (26 Ekim 2026).
@@ -53,6 +62,8 @@ const CEKAN_DUZELTMELERI = {
   kanlica: 'Wikimedia Commons katkıcıları',
   'ak-koygocuren': 'Ben DeRoy',
   'kucuk-semsiye': 'Strobilomyces',
+  mayis: 'Strobilomyces',
+  'mor-kadife': 'Jimmie Veitch (Mushroom Observer)',
 };
 
 // Ticari kullanıma izin veren lisanslar (NC ve ND içerenler reddedilir).

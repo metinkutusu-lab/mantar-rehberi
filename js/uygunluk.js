@@ -65,9 +65,13 @@ export function zeminAgirliklari(tur) {
   };
 }
 
-// Tür seçicideki sıra: toplayıcıların en çok aradığı türler önce (Metin'in isteği, 2026-10-26; TASLAK sıra).
-// Uygulama "lezzetli" demez (kural 1'in ruhu: yemeye özendirme yok); listede olmayan türler sona, ada göre.
-export const ARANMA_SIRASI = ['ayi-mantari', 'kuzugobegi', 'horozmantari', 'yumurta', 'kanlica', 'buyuk-semsiye', 'cayir', 'istiridye', 'tavuk', 'puf'];
+// Tür seçicideki sıra: dünya mutfağında en gözde olanlar önce, geriye doğru azalarak
+// (Metin'in isteği, 2026-10-26: "dünya gastronomisinde en lezzetliden geriye"; TASLAK sıra, genel bilgiye göre).
+// Ekranda "lezzetli" yazılmaz (kural 1'in ruhu: yemeye özendirme yok); listede olmayan türler sona, ada göre.
+export const ARANMA_SIRASI = [
+  'beyaz-truf', 'kara-truf', 'ayi-mantari', 'kuzugobegi', 'yumurta', 'horozmantari', 'mayis', 'kanlica',
+  'keme', 'casir', 'mor-kadife', 'buyuk-semsiye', 'istiridye', 'tavuk', 'ballica', 'cayir', 'puf',
+];
 
 export function aranmaSirasinaGore(turler) {
   const sira = (t) => { const i = ARANMA_SIRASI.indexOf(t.id); return i < 0 ? ARANMA_SIRASI.length : i; };

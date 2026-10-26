@@ -154,5 +154,53 @@
     "dosya": "Scleroderma_citrinum.jpg",
     "lisans": "CC BY-SA 3.0",
     "cekan": "Eric Steinert"
+  },
+  "kara-truf": {
+    "madde": "Tuber aestivum",
+    "dosya": "Tuber_aestivum_Valnerina_018.jpg",
+    "lisans": "Public domain",
+    "cekan": "Rippitippi"
+  },
+  "beyaz-truf": {
+    "madde": "Tuber magnatum",
+    "dosya": "Truffle_washed_and_cut.jpg",
+    "lisans": "CC BY-SA 3.0",
+    "cekan": "MatthiasKabel"
+  },
+  "casir": {
+    "madde": "Pleurotus eryngii",
+    "dosya": "Seta_de_cardo_(Pleurotus_eryngii),_2012-10-03,_DD_01.JPG",
+    "lisans": "CC BY-SA 3.0",
+    "cekan": "Diego Delso"
+  },
+  "mayis": {
+    "madde": "Calocybe gambosa",
+    "dosya": "Calocybe_gambosa_080420wa.jpg",
+    "lisans": "CC BY-SA 4.0",
+    "cekan": "Strobilomyces"
+  },
+  "mor-kadife": {
+    "madde": "Clitocybe nuda",
+    "dosya": "Clitocybe_nuda_(Fr.)_H.E._Bigelow_&_A.H._Sm_267650.jpg",
+    "lisans": "CC BY-SA 3.0",
+    "cekan": "Jimmie Veitch (Mushroom Observer)"
+  },
+  "ballica": {
+    "madde": "Armillaria mellea",
+    "dosya": "Armillaria_mellea,_Honey_Fungus,_UK_1.jpg",
+    "lisans": "CC BY-SA 3.0",
+    "cekan": "Stu's Images"
+  },
+  "keme": {
+    "madde": "Desert truffle (elle seçildi)",
+    "dosya": "Truffle_in_Saudi_Arabia_(2024).jpg",
+    "lisans": "CC BY-SA 4.0",
+    "cekan": "Saudi Press Agency (SPA)"
+  },
+  "sahte-truf": {
+    "madde": "Choiromyces meandriformis",
+    "dosya": "Maeandertrueffel.jpg",
+    "lisans": "CC BY 3.0",
+    "cekan": "Deutsche Gesellschaft für Mykologie"
   }
 }

@@ -1388,6 +1388,496 @@
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Scleroderma citrinum.jpg"
       }
+    },
+    {
+      "id": "beyaz-truf",
+      "ad": "Beyaz trüf",
+      "bilimselAd": "Tuber magnatum",
+      "zehirlilik": "yenen",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Türkiye kaydı: \"Tuber magnatum Picco: a new record for the Turkish mycobiota\" (Trakya University Journal of Natural Sciences, 2024; Sakarya). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "aciklama": "Toprağın altında büyüyen, düzensiz yumru şeklinde, dışı düz ve açık sarı-krem ya da açık kahve trüf. İçi krem-pembemsi, ince beyaz damarlıdır; çok güçlü kokar. Türkiye'de ilk kez 2024'te Sakarya'da kaydedildi; çok nadirdir.",
+      "ozellikler": {
+        "sapkaRengi": [
+          "krem-sari",
+          "kahverengi"
+        ],
+        "altYapi": [
+          "duz"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "kesinceRenk": [
+          "degismedi"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "agac": [
+          "yaprakli"
+        ]
+      },
+      "zehirliBenzerler": [
+        {
+          "ad": "Damarlı sahte trüf",
+          "fark": "Beyaz trüfe çok benzer ve beyaz trüf diye satıldığı bilinir; bazı ülkelerde mide-bağırsak zehirlenmesi yaptığı bildirilir. Kesin ayrım için mikroskop gerekir; kendi başına karar verme."
+        },
+        {
+          "ad": "Sahte puf mantarı",
+          "fark": "Sahte pufun içi tek düze olur, kısa sürede mor-siyaha döner ve serttir; trüfün içi açık ve koyu damarlarla mermer gibidir. Sahte puf çoğu zaman toprağın üstünde ya da yarı gömülü, sarımsı pullu kabukla çıkar. Sahte trüf diye satıldığı bilinir."
+        }
+      ],
+      "fotograf": {
+        "dosya": "fotograflar/beyaz-truf.jpg",
+        "cekan": "MatthiasKabel",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Truffle washed and cut.jpg"
+      },
+      "nerede": "Nemli vadilerde ve dere kenarlarında kavak, söğüt, meşe ve ıhlamur köklerinin yanında, toprağın altında.",
+      "aylar": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "aramaIpucu": "Yerin altında ara: nemli vadilerde ve dere kenarlarında kavak, söğüt, meşe ve ıhlamur köklerinin çevresinde. Üstten görünmez; neredeyse her zaman eğitimli köpekle bulunur. Türkiye'de çok nadirdir."
+    },
+    {
+      "id": "kara-truf",
+      "ad": "Kara trüf (yaz trüfü)",
+      "bilimselAd": "Tuber aestivum ve benzer kara trüfler",
+      "zehirlilik": "yenen",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Türkiye'deki trüf türleri: \"Truffle Checklist of Turkey\" yayınları. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "aciklama": "Toprağın altında, ağaç köklerinin yanında büyüyen, ceviz ile yumruk arası büyüklükte, dışı siyah ve sivri siğilli yumru mantar. Kesince içi kahverengi, beyaz damarlarla mermer gibidir; güçlü kokar.",
+      "ozellikler": {
+        "sapkaRengi": [
+          "gri-siyah"
+        ],
+        "altYapi": [
+          "duz"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "kesinceRenk": [
+          "degismedi"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "agac": [
+          "yaprakli"
+        ]
+      },
+      "zehirliBenzerler": [
+        {
+          "ad": "Sahte puf mantarı",
+          "fark": "Sahte pufun içi tek düze olur, kısa sürede mor-siyaha döner ve serttir; trüfün içi açık ve koyu damarlarla mermer gibidir. Sahte puf çoğu zaman toprağın üstünde ya da yarı gömülü, sarımsı pullu kabukla çıkar. Sahte trüf diye satıldığı bilinir."
+        }
+      ],
+      "fotograf": {
+        "dosya": "fotograflar/kara-truf.jpg",
+        "cekan": "Rippitippi",
+        "lisans": "Public domain",
+        "kaynak": "Wikimedia Commons, Tuber aestivum Valnerina 018.jpg"
+      },
+      "nerede": "Kireçli topraklarda meşe, fındık, kayın ve ıhlamur köklerinin yanında, toprağın birkaç santim altında.",
+      "aylar": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "aramaIpucu": "Yerin altında, 5–20 cm derinde ara: kireçli toprakta meşe, fındık, kayın ve ıhlamur köklerinin çevresinde. Ağacın çevresinde otun seyrek, yanmış gibi göründüğü halkaya dikkat et. Üstten görünmez; çoğu zaman eğitimli köpekle aranır. Toprağı dikkatle açıp sonra geri kapat."
+    },
+    {
+      "id": "keme",
+      "ad": "Keme (domalan, çöl trüfü)",
+      "bilimselAd": "Terfezia türleri (T. boudieri, T. claveryi)",
+      "zehirlilik": "yenen",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Türkiye'deki yayılış (İç, Güneydoğu, Doğu Anadolu) ve konukçu bitki güneşçik (Helianthemum): \"Türkiye'de Doğal Yayılış Gösteren Terfezia Türleri ve Ekolojileri\" (TR Dizin). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "aciklama": "İlkbaharda kurak bölgelerde toprağın altında büyüyen, patates gibi yuvarlak, dışı açık kahve-krem trüf. İçi açık renkli, yumuşak ve damarlıdır.",
+      "ozellikler": {
+        "sapkaRengi": [
+          "kahverengi",
+          "krem-sari",
+          "beyaz"
+        ],
+        "altYapi": [
+          "duz"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "kesinceRenk": [
+          "degismedi"
+        ],
+        "zemin": [
+          "toprak",
+          "cayir"
+        ],
+        "agac": [
+          "yok"
+        ]
+      },
+      "zehirliBenzerler": [
+        {
+          "ad": "Sahte puf mantarı",
+          "fark": "Sahte pufun içi kısa sürede mor-siyaha döner ve serttir; kemenin içi açık renkli, yumuşak ve damarlıdır. Sahte puf çoğunlukla ormanda, ağaç altında çıkar."
+        }
+      ],
+      "fotograf": {
+        "dosya": "fotograflar/keme.jpg",
+        "cekan": "Saudi Press Agency (SPA)",
+        "lisans": "CC BY-SA 4.0",
+        "kaynak": "Wikimedia Commons, Truffle in Saudi Arabia (2024).jpg"
+      },
+      "nerede": "İç, Güneydoğu ve Doğu Anadolu'nun kurak bozkırlarında; güneşçik (Helianthemum) bitkisinin köklerinde, toprağın altında.",
+      "aylar": [
+        3,
+        4,
+        5
+      ],
+      "aramaIpucu": "İlkbaharda, kışı yağmurlu geçen yıllarda bozkırda ara: güneşçik denen küçük sarı çiçekli bitkinin yakınında, toprağın hafifçe kabarıp çatladığı yerlerin altında olur. Çatlağı dikkatle açıp bak, sonra toprağı geri kapat."
+    },
+    {
+      "id": "casir",
+      "ad": "Çaşır mantarı",
+      "bilimselAd": "Pleurotus eryngii var. ferulae",
+      "zehirlilik": "yenen",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Yetişme yeri (çaşır bitkisinin kök kalıntıları), iller ve aylar: OGM Doğu Akdeniz, \"Çakşır mantarının yetişme ortamı isteklerinin araştırılması\" (2018). Zehirli benzerler genel bilgiye göre yazıldı, uzman doğrulamalı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "aciklama": "Bozkırda çaşır (çakşır, Ferula) bitkisinin ölü kökleri üzerinde büyüyen, kahverengi-gri şapkalı, beyaz solungaçlı, etli mantar. Solungaçları ayağa doğru iner, halkası yoktur. Doğu Anadolu'da çok aranır.",
+      "ozellikler": {
+        "sapkaRengi": [
+          "kahverengi",
+          "gri-siyah",
+          "krem-sari"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "kesinceRenk": [
+          "degismedi"
+        ],
+        "zemin": [
+          "toprak",
+          "cayir"
+        ],
+        "agac": [
+          "yok"
+        ],
+        "sporIzi": [
+          "beyaz"
+        ]
+      },
+      "zehirliBenzerler": [
+        {
+          "ad": "Zeytin mantarı",
+          "fark": "Zeytin mantarı parlak turuncudur ve zeytin, meşe gibi ağaçların dibinde ya da kütüklerde kümeler halinde çıkar. Çaşır mantarı ağaçsız bozkırda, çaşır bitkisinin kökünde, kahverengi-gri şapkayla çıkar."
+        },
+        {
+          "ad": "Lifli başlı mantarlar",
+          "fark": "Lifli başlı mantarların şapkası çoğunlukla küçük, ince lifli ve sivri tepelidir, solungaçları ayağa inmez ve spor izi kahverengidir. Çaşır mantarının spor izi beyazdır."
+        }
+      ],
+      "fotograf": {
+        "dosya": "fotograflar/casir.jpg",
+        "cekan": "Diego Delso",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Seta de cardo (Pleurotus eryngii), 2012-10-03, DD 01.JPG"
+      },
+      "nerede": "Doğu Anadolu'nun dağlık bozkırlarında (Malatya, Tunceli, Erzincan, Adıyaman çevresi), çaşır bitkisinin kök kalıntıları üzerinde.",
+      "aylar": [
+        4,
+        5,
+        6
+      ],
+      "aramaIpucu": "Ağaçsız bozkır ve yaylalarda ara: geçen yıldan kalmış kuru, iri çaşır (çakşır) bitkilerinin dibine bak; mantar bitkinin kökünden, topraktan çıkar. İlkbaharda yağmurdan sonra, özellikle mayıs ve haziranda çıkar."
+    },
+    {
+      "id": "mayis",
+      "ad": "Mayıs mantarı",
+      "bilimselAd": "Calocybe gambosa",
+      "zehirlilik": "yenen",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "aciklama": "İlkbaharda çıkan, beyaz-krem renkli, etli şapkalı mantar. Solungaçları beyaz ve sıktır; halkası ve torbası yoktur. Belirgin taze un kokusu vardır.",
+      "ozellikler": {
+        "sapkaRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "koku": [
+          "un"
+        ],
+        "kesinceRenk": [
+          "degismedi"
+        ],
+        "zemin": [
+          "cayir",
+          "toprak"
+        ],
+        "agac": [
+          "yok",
+          "yaprakli"
+        ],
+        "sporIzi": [
+          "beyaz"
+        ]
+      },
+      "zehirliBenzerler": [
+        {
+          "ad": "Lifli başlı mantarlar",
+          "fark": "Aynı mevsimde, aynı yerlerde çıkarlar. Lifli başlı mantarların (ör. kızaran lifli başlı) şapkası lifli ve sivri tepelidir, ezilen yerleri kızarır ve spor izi kahverengidir. Mayıs mantarının spor izi beyazdır ve un gibi kokar."
+        },
+        {
+          "ad": "Kurşuni entoloma",
+          "fark": "Kurşuni entolomanın solungaçları yaşlandıkça pembeleşir ve spor izi pembedir; mayıs mantarının solungaçları ve spor izi beyazdır."
+        }
+      ],
+      "fotograf": {
+        "dosya": "fotograflar/mayis.jpg",
+        "cekan": "Strobilomyces",
+        "lisans": "CC BY-SA 4.0",
+        "kaynak": "Wikimedia Commons, Calocybe gambosa 080420wa.jpg"
+      },
+      "nerede": "İlkbaharda çayırlarda, orman kenarlarında, alıç ve yaban eriği gibi çalıların yanında.",
+      "aylar": [
+        4,
+        5,
+        6
+      ],
+      "aramaIpucu": "İlkbaharda çayırda, orman kenarında, alıç ve yaban eriği çalılarının dibinde ara; çoğu zaman halka ya da yay şeklinde dizilir. Taze un gibi kokar."
+    },
+    {
+      "id": "mor-kadife",
+      "ad": "Mor kadife mantarı",
+      "bilimselAd": "Lepista nuda (Clitocybe nuda)",
+      "zehirlilik": "yenen",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "aciklama": "Sonbaharın sonunda çıkan, şapkası ve solungaçları leylak-mor renkli, etli mantar. Zamanla şapkası kahverengimsi solar. Halkası ve torbası yoktur; meyvemsi bir kokusu vardır.",
+      "ozellikler": {
+        "sapkaRengi": [
+          "kahverengi",
+          "gri-siyah"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "diger",
+          "krem-sari"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "kesinceRenk": [
+          "degismedi"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "agac": [
+          "yaprakli",
+          "igne",
+          "yok"
+        ],
+        "sporIzi": [
+          "pembe"
+        ]
+      },
+      "zehirliBenzerler": [
+        {
+          "ad": "Ağ perdeli mantarlar",
+          "fark": "Ağ perdeli mantarların genç solungaçlarını örümcek ağı gibi ince bir zar örter; ayağında bu zarın pas renkli izi kalır ve spor izi pas-kahverengidir. Mor kadifenin perdesi yoktur, spor izi soluk pembedir."
+        }
+      ],
+      "fotograf": {
+        "dosya": "fotograflar/mor-kadife.jpg",
+        "cekan": "Jimmie Veitch (Mushroom Observer)",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Clitocybe nuda (Fr.) H.E. Bigelow & A.H. Sm 267650.jpg"
+      },
+      "nerede": "Sonbaharın sonunda, ilk soğuklarla; yaprak ve iğne yığınlarında, orman kenarlarında, bazen bahçelerde.",
+      "aylar": [
+        10,
+        11,
+        12
+      ],
+      "aramaIpucu": "Sonbaharın sonunda, ilk soğuklardan sonra çürümüş yaprak ve iğne yığınlarında, orman kenarında ve çürük bitki yığınlarında ara; çoğu zaman halka şeklinde dizilir."
+    },
+    {
+      "id": "ballica",
+      "ad": "Ballıca mantarı",
+      "bilimselAd": "Armillaria mellea ve benzer Armillaria türleri",
+      "zehirlilik": "yenen",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "aciklama": "Sonbaharda kütüklerde ve ağaç köklerinde büyük kümeler halinde çıkan, bal renkli şapkalı mantar. Ayağında bir halka vardır. Çiğken zehirlidir; iyi pişse bile bazı kişilerde mide rahatsızlığı yapar.",
+      "ozellikler": {
+        "sapkaRengi": [
+          "krem-sari",
+          "kahverengi"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "halka": [
+          "evet"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "kesinceRenk": [
+          "degismedi"
+        ],
+        "zemin": [
+          "odun"
+        ],
+        "agac": [
+          "yaprakli",
+          "igne"
+        ],
+        "sporIzi": [
+          "beyaz"
+        ]
+      },
+      "zehirliBenzerler": [
+        {
+          "ad": "Ölümcül galerina",
+          "fark": "İkisi de kütükte çıkar ve karışır; bu çok tehlikelidir. Ölümcül galerina daha küçük ve kahverengidir, spor izi pas-kahverengidir; ballıcanın spor izi beyazdır."
+        },
+        {
+          "ad": "Kükürt başlı mantar",
+          "fark": "Kükürt başlı mantarın solungaçları kükürt sarısından yeşilimsiye, sonra mor-kahveye döner ve ayağında belirgin halka yoktur; ballıcanın solungaçları beyaz-krem kalır."
+        }
+      ],
+      "fotograf": {
+        "dosya": "fotograflar/ballica.jpg",
+        "cekan": "Stu's Images",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Armillaria mellea, Honey Fungus, UK 1.jpg"
+      },
+      "nerede": "Sonbaharda kütüklerde, ölü ya da hasta ağaçların köklerinde ve gövde dibinde, büyük kümeler halinde.",
+      "aylar": [
+        9,
+        10,
+        11
+      ],
+      "aramaIpucu": "Yerde değil, ağaçta ara: kütüklerin, ölü ya da hastalıklı ağaçların gövde diplerinde ve köklerinde büyük kümeler halinde çıkar. Ölümcül galerina da kütüklerde çıkar; bu ikisi karışır."
+    },
+    {
+      "id": "sahte-truf",
+      "ad": "Damarlı sahte trüf",
+      "bilimselAd": "Choiromyces meandriformis (Choiromyces venosus)",
+      "zehirlilik": "zehirli",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Beyaz trüf diye satıldığı ve Güney Avrupa'da mide-bağırsak zehirlenmesi yaptığı bildirilir (IUCN Kırmızı Liste kaydı; trufamania.com). Zararlı olup olmadığı tartışmalı olduğu için uygulamada zehirli sayılır (kural 3).",
+      "aciklama": "Toprağın içinde ya da yarı gömülü büyüyen, açık sarı-kahve, düzensiz yumru şeklinde sahte trüf. İçi krem renkli, ince damarlıdır; yaşlanınca kötü kokar. Beyaz trüfe çok benzer.",
+      "ozellikler": {
+        "sapkaRengi": [
+          "krem-sari",
+          "kahverengi",
+          "beyaz"
+        ],
+        "altYapi": [
+          "duz"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "kesinceRenk": [
+          "degismedi"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "agac": [
+          "yaprakli",
+          "igne"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/sahte-truf.jpg",
+        "cekan": "Deutsche Gesellschaft für Mykologie",
+        "lisans": "CC BY 3.0",
+        "kaynak": "Wikimedia Commons, Maeandertrueffel.jpg"
+      }
     }
   ]
 }
