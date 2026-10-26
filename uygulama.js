@@ -146,6 +146,8 @@ function egitimAdimiCiz() {
 function tanimlaCiz() {
   const kap = document.getElementById('tanimla-icerik');
   if (egitim.tekrar || !tanimlamaAcilabilirMi(durumuOku())) {
+    // Mevsim kartları yalnızca ana ekranda görünür; eğitim sırasında yer kaplamasın.
+    document.getElementById('mevsim').hidden = true;
     kap.replaceChildren(egitimAdimiCiz());
     return;
   }
