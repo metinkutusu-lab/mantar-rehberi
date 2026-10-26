@@ -5,7 +5,7 @@ import { bildirim, cizim, el, ilerlemeCiz, kucukFotograf } from './dom.js';
 import { tanimlamaCiz } from './tanimla.js';
 import { SOZLUK, SOZLUK_FOTOGRAFLARI } from './sozluk.js';
 import { oku } from './depo.js';
-import { FOTOGRAF_UYARISI, ZEHIRLILIK_ADLARI, fotografAtfi, ozellikSatirlari, tehlikeyeGoreSirala, turleriYukle } from './turler.js';
+import { CIG_UYARISI, FOTOGRAF_UYARISI, ZEHIRLILIK_ADLARI, fotografAtfi, ozellikSatirlari, tehlikeyeGoreSirala, turleriYukle } from './turler.js';
 import { takibiYenile } from './yagmurKarti.js';
 import { anaKart, mevsimiYenile } from './anaKart.js';
 import { mantarAraAc, mantarAraKapat } from './mantarAra.js';
@@ -252,6 +252,7 @@ function turKartiCiz(tur, adlaTur) {
     ));
     govde.append(bildirim('uyari', el('p', { textContent: FOTOGRAF_UYARISI })));
   }
+  if (tur.cigkenZehirli) govde.append(bildirim('tehlike', el('p', {}, el('strong', { textContent: CIG_UYARISI }))));
   govde.append(el('p', { textContent: tur.aciklama ?? '' }));
   if (tur.nerede) {
     govde.append(el('p', { className: 'tur-nerede' }, el('strong', { textContent: 'Nerede çıkar: ' }), tur.nerede));

@@ -45,6 +45,7 @@ const MADDELER = {
   casir: 'Pleurotus eryngii',
   mayis: 'Calocybe gambosa',
   'mor-kadife': 'Clitocybe nuda',
+  ballica: 'Armillaria mellea',
   'sahte-truf': 'Choiromyces meandriformis',
 };
 

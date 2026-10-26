@@ -16,7 +16,8 @@ import { ADIMLAR, adimSecenekleri, aktifAdimlar, ozetSatirlari, sonCevaplar } fr
 import { adaylariBul } from '../js/anahtar.js';
 import { CIZIMLER } from '../js/cizimler.js';
 import { SOZLUK, SOZLUK_FOTOGRAFLARI } from '../js/sozluk.js';
-import { OZET_UYARISI } from '../js/kurallar.js';
+import { OZET_UYARISI, yasakIfadeler } from '../js/kurallar.js';
+import { CIG_UYARISI } from '../js/turler.js';
 
 const KOK = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const turVerisi = JSON.parse(readFileSync(path.join(KOK, 'veri/turler.json'), 'utf8'));
@@ -274,6 +275,17 @@ test('sözlük fotoğrafları: dosya var, çevrimdışı listede, lisans ve atı
       for (const d of [i.x, i.y, i.yx, i.yy]) assert.ok(d >= 0 && d <= 100, `${madde.terim}/${i.metin}: ${d} fotoğrafın dışında`);
     }
   }
+});
+
+test('çiğken zehirli türler işaretli ve uyarı metni kurallara uygun', () => {
+  for (const id of ['kuzugobegi', 'tavuk', 'mor-kadife', 'ballica']) {
+    assert.equal(turVerisi.turler.find((t) => t.id === id)?.cigkenZehirli, true, id);
+  }
+  for (const tur of turVerisi.turler) {
+    if ('cigkenZehirli' in tur) assert.equal(typeof tur.cigkenZehirli, 'boolean', tur.ad);
+  }
+  assert.match(CIG_UYARISI, /Çiğken zehirlidir/);
+  assert.deepEqual(yasakIfadeler(CIG_UYARISI), []);
 });
 
 test('Mantar ara: toplanan türlerin ayları ve arama ipucu var, taslak olarak işaretli', () => {

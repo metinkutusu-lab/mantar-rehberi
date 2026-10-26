@@ -15,7 +15,7 @@ import {
   pikseleCevir,
   yukseklikIzgarasi,
 } from './harita.js';
-import { turleriYukle } from './turler.js';
+import { CIG_UYARISI, turleriYukle } from './turler.js';
 import {
   SINIF_ADLARI,
   ayAraligi,
@@ -228,6 +228,7 @@ function turCiz() {
     }
     if (tur.aramaIpucu) parcalar.push(el('p', { className: 'tur-ipucu' }, el('strong', { textContent: 'Nereye bakmalı (taslak): ' }), tur.aramaIpucu));
     else if (tur.nerede) parcalar.push(el('p', { className: 'not', textContent: `Nerede çıkar (taslak): ${tur.nerede}` }));
+    if (tur.cigkenZehirli) parcalar.push(bildirim('tehlike', el('p', {}, el('strong', { textContent: CIG_UYARISI }))));
     if (tur.zehirliBenzerler?.length) {
       parcalar.push(bildirim('tehlike', el('p', {},
         el('strong', { textContent: 'Karıştırılan zehirli türler: ' }),

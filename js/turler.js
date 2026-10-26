@@ -26,7 +26,10 @@ export function fotografAtfi(tur) {
   return f ? `Fotoğraf: ${f.cekan} · ${f.lisans} · ${f.kaynak}` : '';
 }
 
-export const FOTOGRAF_UYARISI = 'Fotoğrafa benzetip karar verme: aynı tür yaşına, ışığa ve yere göre çok farklı görünebilir.';
+// Çiğken zehirli türler (veride cigkenZehirli: true): pişince bozulan zararlı maddeler içerir (Metin'in isteği, 2026-10-26).
+export const CIG_UYARISI = 'Çiğken zehirlidir: iyice pişmeden yenmez. Az pişmişi de zehirlenme yapabilir.';
+
+export const FOTOGRAF_UYARISI ='Fotoğrafa benzetip karar verme: aynı tür yaşına, ışığa ve yere göre çok farklı görünebilir.';
 
 // En tehlikeli türler önce; zehirliliği bilinmeyen tür en tehlikeli sayılır (kural 3).
 export function tehlikeyeGoreSirala(turler) {

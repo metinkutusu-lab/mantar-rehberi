@@ -70,7 +70,7 @@ export function zeminAgirliklari(tur) {
 // Ekranda "lezzetli" yazılmaz (kural 1'in ruhu: yemeye özendirme yok); listede olmayan türler sona, ada göre.
 export const ARANMA_SIRASI = [
   'beyaz-truf', 'kara-truf', 'ayi-mantari', 'kuzugobegi', 'yumurta', 'horozmantari', 'mayis', 'kanlica',
-  'keme', 'casir', 'mor-kadife', 'buyuk-semsiye', 'istiridye', 'tavuk', 'cayir', 'puf',
+  'keme', 'casir', 'mor-kadife', 'buyuk-semsiye', 'istiridye', 'tavuk', 'ballica', 'cayir', 'puf',
 ];
 
 export function aranmaSirasinaGore(turler) {
