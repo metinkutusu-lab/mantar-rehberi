@@ -252,6 +252,15 @@ test('sözlük fotoğrafları: dosya var, çevrimdışı listede, lisans ve atı
   }
 });
 
+test('Mantar ara: toplanan türlerin ayları ve arama ipucu var, taslak olarak işaretli', () => {
+  for (const tur of turVerisi.turler.filter((t) => t.zehirlilik === 'yenen')) {
+    assert.ok(Array.isArray(tur.aylar) && tur.aylar.length, `${tur.ad}: aylar`);
+    for (const ay of tur.aylar) assert.ok(Number.isInteger(ay) && ay >= 1 && ay <= 12, `${tur.ad}: ay ${ay}`);
+    assert.ok(tur.aramaIpucu?.length > 20, `${tur.ad}: arama ipucu`);
+    assert.match(tur.kaynak, /Aylar ve arama ipucu: .*TASLAK/, `${tur.ad}: kaynak notu`);
+  }
+});
+
 test('tür verisi: her kayıt geçerli ve kural 8\'e uygun', () => {
   assert.ok(Array.isArray(turVerisi.turler));
   const gecerliDegerler = Object.fromEntries(ADIMLAR.map((a) => [a.soru, new Set(a.secenekler.map(([d]) => d))]));

@@ -215,7 +215,7 @@
       "bilimselAd": "Amanita caesarea",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
       "aciklama": "Turuncu-kırmızı şapkalı, sarı solungaçlı ve sarı ayaklı bir Amanita türü. Topraktan beyaz, kalın bir yumurtanın içinden çıkar. Yumurta evresinde ölümcül köygöçürenle karıştırılır.",
       "ozellikler": {
         "sapkaRengi": [
@@ -268,7 +268,14 @@
         "cekan": "Yaqui",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Oronges.jpg"
-      }
+      },
+      "aylar": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "aramaIpucu": "Sıcak meşe ve kestane ormanlarında, güneş alan açıklıklarda yerde ara. Genç hali beyaz bir yumurta gibidir; bu evrede ölümcül köygöçürenle karışır."
     },
     {
       "id": "kucuk-semsiye",
@@ -323,7 +330,7 @@
       "bilimselAd": "Macrolepiota procera",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
       "aciklama": "Çok iri (şapkası 10–30 cm), kahverengi pullu şapkalı, uzun ve yılan derisi desenli ayaklı mantar. Ayaktaki halka kalındır ve aşağı yukarı oynar. Beyaz solungaç ve halka taşıdığı için uygulama bu türde her zaman kırmızı sonuç verir.",
       "ozellikler": {
         "sapkaRengi": [
@@ -375,7 +382,15 @@
         "cekan": "Holger Krisp",
         "lisans": "CC BY 3.0",
         "kaynak": "Wikimedia Commons, Parasol-Macrolepiota-procera.jpg"
-      }
+      },
+      "aylar": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "aramaIpucu": "Orman kenarlarında, açıklıklarda, çayırda ve yol kenarlarında ara; boyu uzun olduğu için uzaktan görünür."
     },
     {
       "id": "galerina",
@@ -518,7 +533,7 @@
       "bilimselAd": "Morchella türleri",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
       "aciklama": "İlkbaharda çıkar. Şapkası bal peteği gibi çukurlu ve süngerimsidir. Boyuna kesildiğinde şapka ile ayak tek parçadır ve baştan sona içi boştur. Çiğken zehirlidir; iyice pişirilmeden yenmez.",
       "ozellikler": {
         "sapkaRengi": [
@@ -558,7 +573,13 @@
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Morchella esculenta - DE - TH - 2013-05-01 - 01.JPG"
       },
-      "nerede": "İlkbaharda meyve bahçelerinde, devrilmiş ağaç diplerinde; dişbudak, çam ve meşe ormanlarında. Yangın görmüş toprakları sever."
+      "nerede": "İlkbaharda meyve bahçelerinde, devrilmiş ağaç diplerinde; dişbudak, çam ve meşe ormanlarında. Yangın görmüş toprakları sever.",
+      "aylar": [
+        3,
+        4,
+        5
+      ],
+      "aramaIpucu": "İlkbaharda yerde ara: meyve bahçelerinde, dişbudak ve karaağaç diplerinde, devrilmiş ağaçların çevresinde, geçen yıl yanmış alanlarda. Rengi kuru yapraklarla karışır; yavaş yürü ve yere yakın bak."
     },
     {
       "id": "sahte-kuzugobegi",
@@ -603,7 +624,7 @@
       "bilimselAd": "Cantharellus cibarius",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
       "aciklama": "Sarı-turuncu, huni biçimli bir mantar. Şapkanın altında ince solungaçlar yerine kalın, kenarı küt, çatallanan ve ayağa doğru inen kırışıklar vardır. Topraktan tek tek çıkar.",
       "ozellikler": {
         "sapkaRengi": [
@@ -652,7 +673,16 @@
         "cekan": "Wikimedia Commons katkıcıları",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Chanterelle Cantharellus cibarius.jpg"
-      }
+      },
+      "aylar": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "aramaIpucu": "Meşe, kayın ve çam altında, yosunlu ve nemli toprakta ara. Çoğu zaman gruplar halinde çıkar; birini görünce çevresine iyice bak."
     },
     {
       "id": "zeytin",
@@ -706,7 +736,7 @@
       "bilimselAd": "Lactarius deliciosus ve benzer Lactarius türleri",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Çam ağaçları altında yaşayan Lactarius türleri olduğu ve Türkiye'de 4-5 türe bu adın verildiği: uzman açıklaması (NTV haberi). Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Çam ağaçları altında yaşayan Lactarius türleri olduğu ve Türkiye'de 4-5 türe bu adın verildiği: uzman açıklaması (NTV haberi). Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
       "aciklama": "Çam ağaçlarının altında çıkan, turuncu şapkalı mantar. Kesilince turuncu-kırmızı bir süt akar. Yaralanan veya bekleyen yerleri zamanla yeşile döner.",
       "ozellikler": {
         "sapkaRengi": [
@@ -756,7 +786,13 @@
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Lactarius deliciosus.jpg"
       },
-      "nerede": "Sonbaharda yağmurlardan sonra; çam ve diğer iğne yapraklı ormanların yosunlu yerlerinde."
+      "nerede": "Sonbaharda yağmurlardan sonra; çam ve diğer iğne yapraklı ormanların yosunlu yerlerinde.",
+      "aylar": [
+        9,
+        10,
+        11
+      ],
+      "aramaIpucu": "Çam ağaçlarının altında, iğne yaprak ve yosun arasında ara; genç çamlıklarda ve orman kenarında sık çıkar. Çoğu zaman yarısı iğne yaprakların altında kalır."
     },
     {
       "id": "tuylu-sut",
@@ -808,7 +844,7 @@
       "bilimselAd": "Boletus edulis",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
       "aciklama": "Kahverengi şapkalı, kalın ve şişkin ayaklı mantar. Şapkanın altında solungaç yerine sünger gibi gözenekler vardır; gözenekler beyazdan sarı-yeşile döner. Ayakta açık renkli ağ deseni olur. Kesince ve ezince rengi değişmez.",
       "ozellikler": {
         "sapkaRengi": [
@@ -852,7 +888,16 @@
         "lisans": "CC BY-SA 4.0",
         "kaynak": "Wikimedia Commons, Boletus edulis IT.jpg"
       },
-      "nerede": "Yaz başı ve sonbaharda meşe, kayın, göknar ve çam ormanlarında."
+      "nerede": "Yaz başı ve sonbaharda meşe, kayın, göknar ve çam ormanlarında.",
+      "aylar": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "aramaIpucu": "Çam, ladin, kayın ve meşe ağaçlarının birkaç metre çevresinde yerde ara; yosun ve iğne yaprak arasından, orman kenarlarında ve açıklıklarda çıkar. Ağacın kökleriyle ortak yaşar, kütük üzerinde çıkmaz."
     },
     {
       "id": "seytan",
@@ -908,7 +953,7 @@
       "bilimselAd": "Agaricus campestris",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
       "aciklama": "Çayır ve meralarda çıkan beyaz şapkalı mantar. Solungaçları hiçbir zaman beyaz değildir: gençken pembe, sonra çikolata kahvesi olur. Ayakta ince bir halka bulunur, ayak dibinde torba yoktur.",
       "ozellikler": {
         "sapkaRengi": [
@@ -968,7 +1013,16 @@
         "cekan": "Mushroom Observer (görsel 694)",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Agaricus campestris.jpg"
-      }
+      },
+      "aylar": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "aramaIpucu": "Ağaçsız çayırlarda ve otlaklarda, özellikle hayvan otlatılan yerlerde ara; yağmurdan sonra çimenin arasında beyaz başlar görünür. Ağaç altında aranmaz."
     },
     {
       "id": "sariya-boyanan",
@@ -1077,7 +1131,7 @@
       "bilimselAd": "Pleurotus ostreatus",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
       "aciklama": "Ağaç gövdesi ve kütükler üzerinde yandan, raf gibi kat kat çıkan gri-kahve veya krem renkli mantar. Ayağı çok kısadır veya yoktur; solungaçları beyaz-krem renklidir.",
       "ozellikler": {
         "sapkaRengi": [
@@ -1128,7 +1182,17 @@
         "cekan": "Jean-Pol Grandmont",
         "lisans": "CC BY 3.0",
         "kaynak": "Wikimedia Commons, Pleurotus ostreatus JPG7.jpg"
-      }
+      },
+      "aylar": [
+        10,
+        11,
+        12,
+        1,
+        2,
+        3,
+        4
+      ],
+      "aramaIpucu": "Yerde değil, ağacın üstünde ara: ölü ya da zayıf düşmüş kayın, kavak ve söğüt gövdelerinde ve kütüklerde raf gibi üst üste çıkar. Serin aylarda çıkar."
     },
     {
       "id": "kukurt-basli",
@@ -1180,7 +1244,7 @@
       "bilimselAd": "Laetiporus sulphureus",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
       "aciklama": "Ağaç gövdelerinde kat kat raf gibi çıkan, üstü turuncu, altı kükürt sarısı mantar. Altında solungaç yerine küçük gözenekler vardır. Porsuk ve iğne yapraklı ağaçlarda çıkanlar bazı kişilerde rahatsızlık yapmıştır.",
       "ozellikler": {
         "sapkaRengi": [
@@ -1217,7 +1281,16 @@
         "cekan": "Rror",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Laetiporus sulphureus big.jpg"
-      }
+      },
+      "aylar": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "aramaIpucu": "Yerde değil, ağacın gövdesinde ara: meşe, kestane, söğüt ve kiraz gövdelerinde sarı-turuncu raflar halinde çıkar, uzaktan dikkat çeker."
     },
     {
       "id": "puf",
@@ -1225,7 +1298,7 @@
       "bilimselAd": "Lycoperdon ve Calvatia türleri",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
       "aciklama": "Yuvarlak, şapkasız, beyaz mantar. Gençken ikiye kesildiğinde içi baştan sona beyaz ve düzdür; yaşlandıkça içi sararır ve toza dönüşür.",
       "ozellikler": {
         "sapkaRengi": [
@@ -1272,7 +1345,15 @@
         "cekan": "Daniel Ullrich, Threedots",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Single lycoperdon perlatum.jpg"
-      }
+      },
+      "aylar": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "aramaIpucu": "Orman tabanında yaprak ve iğne arasında, çayırda ve yol kenarlarında ara; yuvarlak, beyaz bir top gibidir."
     },
     {
       "id": "sahte-puf",

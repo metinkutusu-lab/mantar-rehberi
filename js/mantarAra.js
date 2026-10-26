@@ -3,7 +3,7 @@
 // - Canlı konum yalnızca bu ekranda ve "Konumumu göster"e dokununca açılır; ekrandan çıkınca kapanır.
 //   Konum hiçbir yere gönderilmez (kural 12); hava servisine yalnızca yuvarlanmış koordinat gider.
 // - Bu bir tahmindir: mantarın yerini göstermez. Bulunan her mantar Tanımla ile incelenmelidir.
-import { bildirim, cubukCiz, el, ikon } from './dom.js';
+import { bildirim, cubukCiz, el, ikon, kucukFotograf } from './dom.js';
 import { durumuOku, durumuYaz } from './durum.js';
 import {
   HARITA_ATFI,
@@ -16,7 +16,22 @@ import {
   yukseklikIzgarasi,
 } from './harita.js';
 import { turleriYukle } from './turler.js';
-import { SINIF_ADLARI, egimVeBaki, hucrePuani, mesafeVeYon, mesafeYaz, puanSinifi, yonAdi, yonTercihi, zeminAgirliklari } from './uygunluk.js';
+import {
+  SINIF_ADLARI,
+  ayAraligi,
+  aranmaSirasinaGore,
+  bolgedeAranabilecekler,
+  egimVeBaki,
+  hucrePuani,
+  mesafeVeYon,
+  mesafeYaz,
+  mevsimdeMi,
+  puanSinifi,
+  yonAdi,
+  yonTercihi,
+  zeminAgirliklari,
+  zemindeAranabilecekler,
+} from './uygunluk.js';
 import { gunlukKayitlar, havaVerisiAl, konumuIzle, mantarPenceresi } from './yagmur.js';
 import { pencereBilgisi } from './yagmurKarti.js';
 
@@ -47,6 +62,7 @@ const kok = el('div', { className: 'ara-ekrani' });
 const haritaKap = el('div', { className: 'ara-harita' });
 const turKap = el('div', { className: 'ara-tur' });
 const durumKap = el('div', { className: 'ara-durum' });
+const ipucuKap = el('div', { className: 'ara-canli-ipucu' });
 const hedefKap = el('div', { className: 'ara-hedef' });
 const isaretKap = el('div', { className: 'ara-isaret' });
 const indirKap = el('div', { className: 'ara-indir' });
@@ -88,6 +104,7 @@ kok.append(
   turKap,
   el('div', { className: 'ara-harita-kap' }, haritaKap, el('div', { className: 'ara-nisan' })),
   lejant,
+  ipucuKap,
   el('div', { className: 'ara-dugmeler' }, konumDugmesi, bakDugmesi),
   durumKap,
   hedefKap,
@@ -162,23 +179,47 @@ function ilkSembolKatmani() {
 
 // --- Tür seçimi ---
 
+function turSec(id) {
+  ara.turId = id;
+  turCiz();
+  canliIpucuCiz();
+  if (ara.sonuc) bolgeyeBak(ara.sonuc.merkez, { canli: ara.sonuc.canli });
+}
+
+// Fotoğraflı tür seçici: toplayıcıların en çok aradığı türler önce; mevsimi olmayanlar soluk.
 function turCiz() {
-  const secim = el('select', {
-    className: 'yagmur-girdi',
-    onchange: (o) => {
-      ara.turId = o.target.value;
-      turCiz();
-      if (ara.sonuc) bolgeyeBak(ara.sonuc.merkez, { canli: ara.sonuc.canli });
+  const ay = new Date().getMonth() + 1;
+  const secenek = (id, ad, resim, mevsimde = true) => {
+    const d = el('button', {
+      type: 'button',
+      className: `tur-secenek${ara.turId === id ? ' secili' : ''}${mevsimde ? '' : ' mevsim-disi'}`,
+      onclick: () => turSec(id),
     },
-  },
-  el('option', { value: '', textContent: 'Hepsi', selected: !ara.turId }),
-  ...ara.turler.map((t) => el('option', { value: t.id, textContent: t.ad, selected: t.id === ara.turId })),
-  );
-  secim.setAttribute('aria-label', 'Aradığın mantar');
+    resim,
+    el('span', { className: 'tur-secenek-ad', textContent: ad }),
+    mevsimde ? '' : el('span', { className: 'tur-secenek-not', textContent: 'mevsimi değil' }),
+    );
+    d.setAttribute('aria-pressed', String(ara.turId === id));
+    return d;
+  };
+  const hepsiResmi = el('span', { className: 'tur-secenek-hepsi' }, ikon('konum'));
   const tur = seciliTur();
-  const parcalar = [el('label', { className: 'ara-tur-etiket' }, el('span', { textContent: 'Ne arıyorsun?' }), secim)];
+  const parcalar = [
+    el('p', { className: 'ara-tur-etiket', textContent: 'Ne arıyorsun?' }),
+    el('div', { className: 'tur-secici' },
+      secenek('', 'Hepsi', hepsiResmi),
+      ...ara.turler.map((t) => secenek(t.id, t.ad.replace(/\s*\(.*\)$/, ''), kucukFotograf(t, 'tur-secenek-resim'), mevsimdeMi(t, ay))),
+    ),
+    el('p', { className: 'not tur-secici-not', textContent: 'Sıra: toplayıcıların en çok aradığı türler önce (taslak).' }),
+  ];
   if (tur) {
-    if (tur.nerede) parcalar.push(el('p', { className: 'not', textContent: `Nerede çıkar (taslak): ${tur.nerede}` }));
+    const ayYazisi = ayAraligi(tur.aylar);
+    if (ayYazisi) {
+      parcalar.push(el('p', { className: mevsimdeMi(tur, ay) ? 'not' : 'not tur-mevsim-uyari' },
+        el('strong', { textContent: 'Mevsimi (taslak): ' }), ayYazisi, mevsimdeMi(tur, ay) ? '.' : '. Şu an mevsimi değil; bulma ihtimali düşük.'));
+    }
+    if (tur.aramaIpucu) parcalar.push(el('p', { className: 'tur-ipucu' }, el('strong', { textContent: 'Nereye bakmalı (taslak): ' }), tur.aramaIpucu));
+    else if (tur.nerede) parcalar.push(el('p', { className: 'not', textContent: `Nerede çıkar (taslak): ${tur.nerede}` }));
     if (tur.zehirliBenzerler?.length) {
       parcalar.push(bildirim('tehlike', el('p', {},
         el('strong', { textContent: 'Karıştırılan zehirli türler: ' }),
@@ -226,6 +267,59 @@ function konumGeldi(k) {
   }
   konumDugmesiCiz();
   hedefCiz();
+  canliIpucuCiz();
+}
+
+// --- Yürürken canlı ipucu: bulunduğun yerin zemini, uygunluğu ve orada ne aranır ---
+
+const ZEMIN_ADLARI = { orman: 'ormanlık', cayir: 'çayır', bahce: 'meyve bahçesi', calilik: 'çalılık', diger: 'açık alan, tarla ya da yerleşim' };
+
+// Bulunduğun hücre ve en yakın çok uygun hücre (son hesaplanan ızgaradan; ağ isteği yok).
+function bulundugunHucre() {
+  const iz = ara.izgara;
+  if (!iz || ara.konum?.enlem == null) return null;
+  const p = pikseleCevir(ara.konum.enlem, ara.konum.boylam, YUKSEKLIK_YAKINLIGI);
+  const x = Math.floor(p.x - iz.sol);
+  const y = Math.floor(p.y - iz.ust);
+  if (x < 0 || y < 0 || x >= iz.genislik || y >= iz.yukseklik) return null;
+  let enYakin = null;
+  for (let i = 0; i < iz.siniflar.length; i++) {
+    if (iz.siniflar[i] !== 3) continue;
+    const d = Math.hypot((i % iz.genislik) - x, Math.floor(i / iz.genislik) - y);
+    if (!enYakin || d < enYakin.d) enYakin = { d, i };
+  }
+  const yakin = enYakin && konumaCevir(iz.sol + (enYakin.i % iz.genislik) + 0.5, iz.ust + Math.floor(enYakin.i / iz.genislik) + 0.5, YUKSEKLIK_YAKINLIGI);
+  return { zemin: iz.zemin[y * iz.genislik + x], sinif: iz.siniflar[y * iz.genislik + x], enYakin: yakin };
+}
+
+function canliIpucuCiz() {
+  const h = bulundugunHucre();
+  if (!h) { ipucuKap.replaceChildren(); return; }
+  const ay = new Date().getMonth() + 1;
+  const parcalar = [el('p', { className: 'canli-ipucu-baslik' },
+    el('strong', { textContent: 'Buradasın: ' }),
+    `${ZEMIN_ADLARI[h.zemin]}${h.sinif ? `, ${SINIF_ADLARI[h.sinif].toLocaleLowerCase('tr')}` : ''}.`)];
+  if (h.sinif < 3 && h.enYakin) {
+    const { mesafe, yon } = mesafeVeYon(ara.konum, h.enYakin);
+    if (mesafe > 25) parcalar.push(el('p', { textContent: `Çok uygun yere ${mesafeYaz(mesafe)} kaldı, ${yonAdi(yon)} yönünde.` }));
+  }
+  const tur = seciliTur();
+  if (tur) {
+    const uyar = (zeminAgirliklari(tur)[h.zemin] ?? 0) >= 0.6;
+    if (!mevsimdeMi(tur, ay)) parcalar.push(el('p', { className: 'not', textContent: `${tur.ad} için mevsim değil (${ayAraligi(tur.aylar)}).` }));
+    else if (uyar && tur.aramaIpucu) parcalar.push(el('p', {}, el('strong', { textContent: `${tur.ad.replace(/\s*\(.*\)$/, '')}: ` }), tur.aramaIpucu));
+    else if (!uyar) parcalar.push(el('p', { className: 'not', textContent: `${tur.ad} bu zeminde pek çıkmaz; renkli alanlara doğru ilerle.` }));
+  } else {
+    const liste = zemindeAranabilecekler(ara.turler, h.zemin, ay).slice(0, 4);
+    if (liste.length) {
+      parcalar.push(el('p', { className: 'not', textContent: 'Burada bu mevsimde şunlara bakabilirsin (taslak):' }));
+      for (const t of liste) parcalar.push(el('p', { className: 'canli-ipucu-tur' }, el('strong', { textContent: `${t.ad.replace(/\s*\(.*\)$/, '')}: ` }), t.aramaIpucu ?? t.nerede ?? ''));
+    } else {
+      parcalar.push(el('p', { className: 'not', textContent: 'Burası bu mevsimde aranan türlere pek uygun değil; renkli alanlara doğru ilerle.' }));
+    }
+  }
+  parcalar.push(el('p', { className: 'not', textContent: 'Bulduğun her mantarı Tanımla ile incele.' }));
+  ipucuKap.replaceChildren(el('div', { className: 'canli-ipucu' }, ...parcalar));
 }
 
 function konumDugmesiCiz(yazi) {
@@ -237,6 +331,7 @@ export function mantarAraKapat() {
   ara.izlemeyiDurdur?.();
   ara.izlemeyiDurdur = null;
   ara.konum = null;
+  ipucuKap.replaceChildren();
   konumIsareti?.remove();
   konumIsareti = null;
   if (ara.kuruldu) konumDugmesiCiz();
@@ -357,6 +452,8 @@ async function bolgeyeBak(merkez, { canli = false } = {}) {
     const m = pikseleCevir(merkez.enlem, merkez.boylam, YUKSEKLIK_YAKINLIGI);
     const r = YARICAP / hucre;
     const sayilar = [0, 0, 0, 0];
+    const zeminSayilari = { orman: 0, cayir: 0, bahce: 0, calilik: 0, diger: 0 };
+    const siniflar = new Uint8Array(genislik * yukseklik);
     let enYakin = null;
     const referans = ara.konum?.enlem != null ? pikseleCevir(ara.konum.enlem, ara.konum.boylam, YUKSEKLIK_YAKINLIGI) : m;
     for (let y = 1; y < yukseklik - 1; y++) {
@@ -365,6 +462,8 @@ async function bolgeyeBak(merkez, { canli = false } = {}) {
         const i = y * genislik + x;
         const sinif = puanSinifi(hucrePuani({ egim: egim[i], baki: baki[i], zemin: zemin[i], tercih, agirliklar }));
         sayilar[sinif]++;
+        zeminSayilari[zemin[i]]++;
+        siniflar[i] = sinif;
         if (!sinif) continue;
         resim.data.set(RENKLER[sinif], i * 4);
         if (sinif === 3) {
@@ -379,12 +478,16 @@ async function bolgeyeBak(merkez, { canli = false } = {}) {
       const k = konumaCevir(enYakin.x, enYakin.y, YUKSEKLIK_YAKINLIGI);
       enYakin = { enlem: k.enlem, boylam: k.boylam };
     }
-    ara.sonuc = { merkez, canli, tercih, pencere, sayilar, enYakin, kayitliTarih: hava?.kayitliTarih ?? null, yerAdi: yakinYerAdi(merkez) };
+    const toplamHucre = Object.values(zeminSayilari).reduce((a, b) => a + b, 0) || 1;
+    const zeminPayi = Object.fromEntries(Object.entries(zeminSayilari).map(([z, n]) => [z, n / toplamHucre]));
+    ara.izgara = { zemin, siniflar, sol, ust, genislik, yukseklik };
+    ara.sonuc = { merkez, canli, tercih, pencere, sayilar, enYakin, zeminPayi, kayitliTarih: hava?.kayitliTarih ?? null, yerAdi: yakinYerAdi(merkez) };
   } catch {
     ara.hata = 'genel';
   }
   ara.hesaplaniyor = false;
   durumCiz();
+  canliIpucuCiz();
 }
 
 // --- Durum, hedef, işaretler, indirme ---
@@ -425,6 +528,20 @@ function durumCiz() {
       parcalar.push(el('p', { className: 'not', textContent: 'Bölgenin yağmur bilgisi alınamadı; harita yalnızca araziye ve mevsime göre çizildi.' }));
     }
     parcalar.push(el('p', { textContent: s.tercih.aciklama }));
+    // Bu alanda bu mevsimde aranabilecekler (alandaki zemine ve aya göre; gözlem kaydı değildir).
+    const aranabilir = bolgedeAranabilecekler(ara.turler, s.zeminPayi, new Date().getMonth() + 1);
+    if (aranabilir.length) {
+      parcalar.push(
+        el('p', { className: 'ara-bolge-baslik' }, el('strong', { textContent: 'Bu alanda bu mevsimde aranabilecekler' }), ' (taslak; dokununca seçilir):'),
+        el('div', { className: 'tur-secici kucuk' }, ...aranabilir.map((t) => {
+          const d = el('button', { type: 'button', className: `tur-secenek${ara.turId === t.id ? ' secili' : ''}`, onclick: () => turSec(t.id) },
+            kucukFotograf(t, 'tur-secenek-resim'),
+            el('span', { className: 'tur-secenek-ad', textContent: t.ad.replace(/\s*\(.*\)$/, '') }));
+          d.setAttribute('aria-pressed', String(ara.turId === t.id));
+          return d;
+        })),
+      );
+    }
     const toplam = s.sayilar.reduce((a, b) => a + b, 0) || 1;
     const uygun = Math.round(((s.sayilar[2] + s.sayilar[3]) / toplam) * 100);
     parcalar.push(el('p', { className: 'not', textContent: `Bakılan alanın yaklaşık %${uygun}'i uygun ya da çok uygun görünüyor.` }));
@@ -606,7 +723,7 @@ async function kur() {
   turCiz();
   turleriYukle().then((turler) => {
     // Aranacak türler: toplanan (yenen) türler. Zehirli benzerleri her seçimde gösterilir (kural 8).
-    ara.turler = turler.filter((t) => t.zehirlilik === 'yenen').sort((a, b) => a.ad.localeCompare(b.ad, 'tr'));
+    ara.turler = aranmaSirasinaGore(turler.filter((t) => t.zehirlilik === 'yenen'));
     turCiz();
   });
   try {

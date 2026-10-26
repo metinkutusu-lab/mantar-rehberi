@@ -761,3 +761,25 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .ara-indir .ikincil, .ara-isaret .ikincil { width: 100%; }
 .ara-zaman-kutu { padding: 10px 12px 2px; margin: 0 0 10px; border-radius: 12px; border: 1px solid var(--cizgi); background: var(--yuzey); }
 .ara-zaman-kutu .not { margin: 4px 0 8px; font-size: 12.5px; }
+
+/* Mantar ara: fotoğraflı tür seçici ve canlı ipucu */
+.ara-tur-etiket { font-weight: 700; font-size: 15px; margin: 6px 0 8px; }
+.tur-secici { display: flex; gap: 8px; overflow-x: auto; padding: 2px 2px 8px; margin: 0 -2px; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; }
+.tur-secenek { flex: 0 0 auto; width: 84px; display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 8px 4px 8px; border-radius: 14px; border: 1.5px solid var(--cizgi); background: var(--yuzey); color: var(--yazi); scroll-snap-align: start; }
+.tur-secenek.secili { border-color: var(--marka); background: var(--marka-acik); box-shadow: 0 0 0 2px var(--marka) inset; }
+.tur-secenek.mevsim-disi .tur-secenek-resim { opacity: 0.45; filter: grayscale(0.6); }
+.tur-secenek-resim, .tur-secenek-hepsi { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; display: block; }
+.tur-secenek-hepsi { display: flex; align-items: center; justify-content: center; background: var(--marka-acik); color: var(--marka); }
+.tur-secenek-hepsi .ikon { width: 26px; height: 26px; }
+.tur-secenek-ad { font-size: 12.5px; font-weight: 650; line-height: 1.2; text-align: center; }
+.tur-secenek-not { font-size: 10.5px; color: var(--soluk); line-height: 1.1; }
+.tur-secici.kucuk .tur-secenek { width: 74px; padding: 6px 4px; }
+.tur-secici.kucuk .tur-secenek-resim { width: 46px; height: 46px; }
+.tur-secici-not { margin: 0 0 8px; font-size: 12px; }
+.tur-ipucu { font-size: 14.5px; margin: 4px 0 8px; }
+.tur-mevsim-uyari { color: var(--turuncu); }
+.ara-bolge-baslik { margin: 6px 0 6px !important; font-size: 14.5px; }
+.canli-ipucu { margin: 10px 0 0; padding: 12px 14px; border-radius: 12px; border: 1.5px solid var(--marka); background: var(--marka-acik); font-size: 14.5px; }
+.canli-ipucu p { margin: 0 0 6px; }
+.canli-ipucu .not { margin: 4px 0 0; font-size: 12.5px; }
+.canli-ipucu-baslik { font-size: 15.5px; }

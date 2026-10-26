@@ -2,6 +2,11 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  aranmaSirasinaGore,
+  ayAraligi,
+  bolgedeAranabilecekler,
+  mevsimdeMi,
+  zemindeAranabilecekler,
   egimVeBaki,
   hucrePuani,
   mesafeVeYon,
@@ -80,6 +85,33 @@ test('tür seçilince türün zemini öne çıkar: çayır türü ormanda, orman
   assert.ok(zeminAgirliklari(ormanTuru).cayir < 0.5);
   // Zemini bilinmeyen tür: hepsi gibi davranır (en geniş arama).
   assert.deepEqual(zeminAgirliklari({ ozellikler: {} }), zeminAgirliklari(null));
+});
+
+const kanlica = { id: 'kanlica', ad: 'Kanlıca', aylar: [9, 10, 11], ozellikler: { zemin: ['toprak'] } };
+const cayir = { id: 'cayir', ad: 'Çayır mantarı', aylar: [6, 7, 8, 9, 10, 11], ozellikler: { zemin: ['cayir'] } };
+const kuzu = { id: 'kuzugobegi', ad: 'Kuzugöbeği', aylar: [3, 4, 5], ozellikler: { zemin: ['toprak', 'cayir'] } };
+const istiridye = { id: 'istiridye', ad: 'İstiridye', aylar: [10, 11, 12, 1, 2, 3, 4], ozellikler: { zemin: ['odun'] } };
+
+test('tür seçici en çok aranan türleri öne alır, listede olmayanlar sona', () => {
+  const sirali = aranmaSirasinaGore([istiridye, { id: 'yeni', ad: 'Ahududu', ozellikler: {} }, kanlica, kuzu]);
+  assert.deepEqual(sirali.map((t) => t.id), ['kuzugobegi', 'kanlica', 'istiridye', 'yeni']);
+});
+
+test('mevsim ve ay aralığı', () => {
+  assert.equal(mevsimdeMi(kanlica, 10), true);
+  assert.equal(mevsimdeMi(kanlica, 4), false);
+  assert.equal(mevsimdeMi({ ozellikler: {} }, 4), true, 'ay bilgisi yoksa dışarıda bırakılmaz');
+  assert.equal(ayAraligi(kanlica.aylar), 'Eylül–Kasım');
+  assert.equal(ayAraligi(istiridye.aylar), 'Ekim–Nisan');
+});
+
+test('zeminde ve bölgede aranabilecekler: mevsimi ve zemini uyanlar', () => {
+  const turler = [kanlica, cayir, kuzu, istiridye];
+  assert.deepEqual(zemindeAranabilecekler(turler, 'orman', 10).map((t) => t.id), ['kanlica', 'istiridye']);
+  assert.deepEqual(zemindeAranabilecekler(turler, 'cayir', 10).map((t) => t.id), ['cayir']);
+  assert.deepEqual(zemindeAranabilecekler(turler, 'cayir', 4).map((t) => t.id), ['kuzugobegi']);
+  // Alanda çayır yoksa çayır mantarı listelenmez.
+  assert.deepEqual(bolgedeAranabilecekler(turler, { orman: 0.6, cayir: 0.01, bahce: 0, calilik: 0 }, 10).map((t) => t.id), ['kanlica', 'istiridye']);
 });
 
 test('mesafe, yön ve yazılışları', () => {

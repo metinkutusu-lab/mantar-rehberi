@@ -65,6 +65,43 @@ export function zeminAgirliklari(tur) {
   };
 }
 
+// Tür seçicideki sıra: toplayıcıların en çok aradığı türler önce (Metin'in isteği, 2026-10-26; TASLAK sıra).
+// Uygulama "lezzetli" demez (kural 1'in ruhu: yemeye özendirme yok); listede olmayan türler sona, ada göre.
+export const ARANMA_SIRASI = ['ayi-mantari', 'kuzugobegi', 'horozmantari', 'yumurta', 'kanlica', 'buyuk-semsiye', 'cayir', 'istiridye', 'tavuk', 'puf'];
+
+export function aranmaSirasinaGore(turler) {
+  const sira = (t) => { const i = ARANMA_SIRASI.indexOf(t.id); return i < 0 ? ARANMA_SIRASI.length : i; };
+  return [...turler].sort((a, b) => sira(a) - sira(b) || a.ad.localeCompare(b.ad, 'tr'));
+}
+
+const AY_ADLARI = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+
+// Türün mevsimi mi? Ay bilgisi olmayan türde bilinmiyor sayılır ve dışarıda bırakılmaz.
+export function mevsimdeMi(tur, ay) {
+  return !tur.aylar?.length || tur.aylar.includes(ay);
+}
+
+// "Eylül–Kasım" (aylar sırayla yazılır; yıl dönümünü geçebilir: Ekim–Nisan).
+export function ayAraligi(aylar) {
+  if (!aylar?.length) return '';
+  return aylar.length === 1 ? AY_ADLARI[aylar[0] - 1] : `${AY_ADLARI[aylar[0] - 1]}–${AY_ADLARI[aylar.at(-1) - 1]}`;
+}
+
+// Bu zeminde (orman, çayır, bahçe, çalılık) bu ay aranabilecek türler, aranma sırasıyla.
+export function zemindeAranabilecekler(turler, zemin, ay) {
+  return aranmaSirasinaGore(turler.filter((t) => mevsimdeMi(t, ay) && (zeminAgirliklari(t)[zemin] ?? 0) >= 0.6));
+}
+
+// Bakılan alanda bu ay aranabilecek türler: türün zemini alanın en az %2'sini kaplıyorsa.
+// zeminPayi: { orman: 0–1, cayir, bahce, calilik }
+export function bolgedeAranabilecekler(turler, zeminPayi, ay) {
+  return aranmaSirasinaGore(turler.filter((t) => {
+    if (!mevsimdeMi(t, ay)) return false;
+    const a = zeminAgirliklari(t);
+    return Object.entries(zeminPayi).some(([zemin, pay]) => pay >= 0.02 && (a[zemin] ?? 0) >= 0.6);
+  }));
+}
+
 // Bir hücrenin puanı (0–1).
 export function hucrePuani({ egim, baki, zemin, tercih, agirliklar }) {
   const z = agirliklar[zemin] ?? agirliklar.diger;
