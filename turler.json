@@ -224,8 +224,9 @@
       "bilimselAd": "Morchella türleri",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı.",
       "aciklama": "İlkbaharda çıkar. Şapkası bal peteği gibi çukurlu ve süngerimsidir. Boyuna kesildiğinde şapka ile ayak tek parçadır ve baştan sona içi boştur. Çiğken zehirlidir; iyice pişirilmeden yenmez.",
+      "nerede": "İlkbaharda meyve bahçelerinde, devrilmiş ağaç diplerinde; dişbudak, çam ve meşe ormanlarında. Yangın görmüş toprakları sever.",
       "ozellikler": {
         "sapkaRengi": ["kahverengi", "krem-sari", "gri-siyah"],
         "altYapi": ["duz"],
@@ -314,8 +315,9 @@
       "bilimselAd": "Lactarius deliciosus ve benzer Lactarius türleri",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Çam ağaçları altında yaşayan Lactarius türleri olduğu ve Türkiye'de 4-5 türe bu adın verildiği: uzman açıklaması (NTV haberi).",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Çam ağaçları altında yaşayan Lactarius türleri olduğu ve Türkiye'de 4-5 türe bu adın verildiği: uzman açıklaması (NTV haberi). Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı.",
       "aciklama": "Çam ağaçlarının altında çıkan, turuncu şapkalı mantar. Kesilince turuncu-kırmızı bir süt akar. Yaralanan veya bekleyen yerleri zamanla yeşile döner.",
+      "nerede": "Sonbaharda yağmurlardan sonra; çam ve diğer iğne yapraklı ormanların yosunlu yerlerinde.",
       "ozellikler": {
         "sapkaRengi": ["kirmizi-turuncu", "krem-sari"],
         "altYapi": ["solungac"],
@@ -360,8 +362,9 @@
       "bilimselAd": "Boletus edulis",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı.",
       "aciklama": "Kahverengi şapkalı, kalın ve şişkin ayaklı mantar. Şapkanın altında solungaç yerine sünger gibi gözenekler vardır; gözenekler beyazdan sarı-yeşile döner. Ayakta açık renkli ağ deseni olur. Kesince ve ezince rengi değişmez.",
+      "nerede": "Yaz başı ve sonbaharda meşe, kayın, göknar ve çam ormanlarında.",
       "ozellikler": {
         "sapkaRengi": ["kahverengi", "krem-sari"],
         "altYapi": ["gozenek"],

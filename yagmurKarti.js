@@ -1,16 +1,19 @@
 // Ana ekrandaki yağmur bölümü:
 // - Takip edilen yer: seçilen yerin yağmuru izlenir, mantar penceresi bir çubukla gösterilir.
 //   Uygulama her açılışta (internet varsa) veriyi yeniler; internet yoksa son veriyi gösterir.
-// - Arama: başka bir yer seçmek veya tarihi elle girmek. Cihaz konumu kullanılmaz (kural 12).
+// - Arama: başka bir yer seçmek, isteğe bağlı olarak bulunduğun yere bakmak veya tarihi elle girmek.
+//   Konum yalnızca "Konumumu kullan"a dokununca sorulur; izin verilmese de geri kalan her şey çalışır (kural 12).
 // Takip edilen yer ve kaydedilen yerler yalnızca bu cihazda tutulur.
-import { acilirKart, bildirim, cubukCiz, el } from './dom.js';
+import { acilirKart, bildirim, cubukCiz, el, ikon } from './dom.js';
 import { durumuOku, durumuYaz } from './durum.js';
 import {
   KAYNAK_NOTU,
   YAGMUR_NOTU,
   elleKayit,
   gunlukKayitlar,
+  cihazKonumu,
   havaVerisiAl,
+  konumuYuvarla,
   mantarPenceresi,
   yerAra,
 } from './yagmur.js';
@@ -24,7 +27,7 @@ const yagmur = {
   yukleniyor: false,
   aramaMetni: '',
   aramaSonuclari: null,
-  tekSeferlik: null, // { baslik, kayitlar, elle } veya { hata }
+  tekSeferlik: null, // { baslik, kayitlar, elle, yer } veya { hata }
   takipHatasi: false,
 };
 
@@ -56,7 +59,7 @@ const DURUM_ADLARI = {
 // Pencerenin başlığı, sağ üst yazısı, çubuk yüzdesi ve açıklama satırları.
 // Çubuk, mevsim çubuğu gibi tek renktir ve yalnızca başlıktaki dönemi gösterir:
 // tamamı o dönemin toplam günü, koyu kısım sağ üstte yazan kalan gün kadardır.
-function pencereBilgisi(p, { elle = false } = {}) {
+export function pencereBilgisi(p, { elle = false } = {}) {
   const s = p.simdiki;
   let yuzde = 0;
   let sagUst = '';
@@ -180,7 +183,7 @@ function takipKartiCiz() {
   );
 }
 
-function takibeAl(yer) {
+export function takibeAl(yer) {
   const yerler = [yer, ...kayitliYerler().filter((y) => !(y.ad === yer.ad && y.bolge === yer.bolge))].slice(0, AZAMI_KAYITLI_YER);
   kalici({ yerler, takipYeri: yer, takipVerisi: null });
   Object.assign(yagmur, { aramaAcik: false, aramaSonuclari: null, tekSeferlik: null, aramaMetni: '' });
@@ -203,14 +206,43 @@ async function ara(olay) {
   ciz();
 }
 
+const KONUM_HATALARI = {
+  baglanti: 'Bilgi alınamadı. İnternet bağlantını kontrol et ya da yağmur tarihini elle seç.',
+  izin: 'Konum izni verilmedi. İstersen yer adını yazarak arayabilirsin; izni sonra tarayıcı ayarlarından açabilirsin.',
+  yok: 'Konum bulunamadı. Açık bir alanda tekrar dene ya da yer adını yazarak ara.',
+};
+
 function tekSeferlikCiz(t) {
-  if (t.hata) {
-    return bildirim('uyari', el('p', { textContent: 'Bilgi alınamadı. İnternet bağlantını kontrol et ya da yağmur tarihini elle seç.' }));
-  }
+  if (t.hata) return bildirim('uyari', el('p', { textContent: KONUM_HATALARI[t.hata] }));
   return el('div', { className: 'tek-seferlik' },
     el('p', { className: 'yagmur-etiket', textContent: t.baslik }),
     pencereCiz(mantarPenceresi(t.kayitlar), { elle: t.elle }),
+    t.yer ? el('button', { type: 'button', className: 'metin-dugme', textContent: 'Bu yeri takip et', onclick: () => takibeAl(t.yer) }) : '',
   );
+}
+
+// Bulunduğun yere bak: konum yalnızca bu düğmeye dokununca sorulur ve yuvarlanarak (~10 km) kullanılır.
+async function konumumaBak() {
+  Object.assign(yagmur, { yukleniyor: true, tekSeferlik: null, aramaSonuclari: null });
+  ciz();
+  const konum = await cihazKonumu();
+  if (konum.hata) {
+    Object.assign(yagmur, { yukleniyor: false, tekSeferlik: { hata: konum.hata } });
+    ciz();
+    return;
+  }
+  const yer = {
+    ad: 'Konumum',
+    bolge: new Date().toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' }),
+    enlem: konumuYuvarla(konum.enlem),
+    boylam: konumuYuvarla(konum.boylam),
+  };
+  const sonuc = await havaVerisiAl(yer.enlem, yer.boylam);
+  yagmur.yukleniyor = false;
+  yagmur.tekSeferlik = sonuc.hata
+    ? { hata: 'baglanti' }
+    : { baslik: 'Bulunduğun yer (yaklaşık 10 km çevresi)', kayitlar: gunlukKayitlar(sonuc.daily), yer };
+  ciz();
 }
 
 // Yer arama, kayıtlı yerler ve elle tarih: takip varsa takip kartının içinde, yoksa kendi kartında.
@@ -233,6 +265,12 @@ function aramaIcerigi() {
       girdi,
       el('button', { type: 'submit', className: 'birincil', textContent: 'Ara', disabled: yagmur.yukleniyor }),
     ),
+  );
+  icerik.push(
+    el('button', { type: 'button', className: 'konum-dugme', disabled: yagmur.yukleniyor, onclick: konumumaBak },
+      ikon('konum'), el('span', { textContent: 'Konumumu kullan' }),
+    ),
+    el('p', { className: 'not konum-not', textContent: 'İsteğe bağlı. Telefon izin sorar; yalnızca yaklaşık konum (10 km) hava servisine gider, kaydedilmez.' }),
   );
   if (yagmur.yukleniyor) icerik.push(el('p', { className: 'not', textContent: 'Bakılıyor…' }));
   if (yagmur.aramaSonuclari) {
@@ -276,7 +314,7 @@ function aramaKartiCiz() {
     el('summary', {},
       el('span', {},
         el('strong', { textContent: 'Yağmur ipucu' }),
-        el('span', { className: 'yagmur-ozet', textContent: 'Gideceğin yeri seç; yağmuru takip edelim' }),
+        el('span', { className: 'yagmur-ozet', textContent: 'Gideceğin yeri seç ya da konumunu kullan' }),
       ),
     ),
     el('div', { className: 'yagmur-govde' }, ...aramaIcerigi()),

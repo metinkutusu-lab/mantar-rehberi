@@ -6,8 +6,9 @@ import { tanimlamaCiz } from './tanimla.js';
 import { SOZLUK } from './sozluk.js';
 import { oku } from './depo.js';
 import { ZEHIRLILIK_ADLARI, ozellikSatirlari, tehlikeyeGoreSirala, turleriYukle } from './turler.js';
-import { MEVSIM_NOTU, mevsimDurumu } from './mevsim.js';
+import { MEVSIM_NOTU, SICAKLIK_IPUCU, mevsimDurumu } from './mevsim.js';
 import { takibiYenile, yagmurKarti } from './yagmurKarti.js';
+import { radarKarti } from './radar.js';
 
 const EKRANLAR = ['tanimla', 'ansiklopedi', 'tarifler', 'acil'];
 const EGITIM_ADIM_SAYISI = DERSLER.length + SORULAR.length + 1;
@@ -195,14 +196,19 @@ function mevsimCiz() {
           : `Sıradaki: ${d.ad}, başlangıç ${tarih(d.baslangic)}`,
       }),
       el('p', { className: 'mevsim-not', textContent: MEVSIM_NOTU }),
+      el('p', { className: 'mevsim-ipucu', textContent: `${d.ipucu} ${SICAKLIK_IPUCU}` }),
     ),
     yagmurKarti(),
+    radarKarti(),
   );
 }
 
 // Kural 8: yenen her türün sayfasında zehirli benzerleri ve ayırt edici farklar yan yana durur.
 function turKartiCiz(tur) {
   const govde = el('div', { className: 'tur-govde' }, el('p', { textContent: tur.aciklama ?? '' }));
+  if (tur.nerede) {
+    govde.append(el('p', { className: 'tur-nerede' }, el('strong', { textContent: 'Nerede çıkar: ' }), tur.nerede));
+  }
   if (tur.zehirliBenzerler?.length) {
     govde.append(
       el('h4', { className: 'tur-alt-baslik', textContent: 'Karıştırılan zehirli türler' }),
