@@ -1,11 +1,11 @@
 import { ETIKETLER, egitimTamamlanabilirMi, tanimlamaAcilabilirMi } from './kurallar.js';
 import { DERSLER, FERAGAT_MADDELERI, FERAGAT_TASLAK_NOTU, SORULAR } from './egitim.js';
 import { durumuOku, durumuYaz } from './durum.js';
-import { acilirKart, bildirim, cizim, el, ilerlemeCiz } from './dom.js';
+import { acilirKart, bildirim, cizim, el, ilerlemeCiz, kucukFotograf } from './dom.js';
 import { tanimlamaCiz } from './tanimla.js';
 import { SOZLUK } from './sozluk.js';
 import { oku } from './depo.js';
-import { ZEHIRLILIK_ADLARI, ozellikSatirlari, tehlikeyeGoreSirala, turleriYukle } from './turler.js';
+import { FOTOGRAF_UYARISI, ZEHIRLILIK_ADLARI, fotografAtfi, ozellikSatirlari, tehlikeyeGoreSirala, turleriYukle } from './turler.js';
 import { MEVSIM_NOTU, mevsimDurumu } from './mevsim.js';
 import { takibiYenile, yagmurKarti } from './yagmurKarti.js';
 
@@ -201,15 +201,27 @@ function mevsimCiz() {
 }
 
 // Kural 8: yenen her türün sayfasında zehirli benzerleri ve ayırt edici farklar yan yana durur.
-function turKartiCiz(tur) {
-  const govde = el('div', { className: 'tur-govde' }, el('p', { textContent: tur.aciklama ?? '' }));
+// adlaTur: tür adından tür kaydına (benzerin fotoğrafını göstermek için).
+function turKartiCiz(tur, adlaTur) {
+  const govde = el('div', { className: 'tur-govde' });
+  if (tur.fotograf) {
+    govde.append(el('figure', { className: 'tur-fotograf' },
+      el('img', { src: tur.fotograf.dosya, alt: `${tur.ad} (${tur.bilimselAd ?? ''})`, loading: 'lazy', decoding: 'async' }),
+      el('figcaption', { textContent: fotografAtfi(tur) }),
+    ));
+    govde.append(bildirim('uyari', el('p', { textContent: FOTOGRAF_UYARISI })));
+  }
+  govde.append(el('p', { textContent: tur.aciklama ?? '' }));
   if (tur.zehirliBenzerler?.length) {
     govde.append(
       el('h4', { className: 'tur-alt-baslik', textContent: 'Karıştırılan zehirli türler' }),
       ...tur.zehirliBenzerler.map((benzer) =>
         el('div', { className: 'benzer-karti' },
-          el('strong', { textContent: benzer.ad }),
-          el('p', { textContent: benzer.fark }),
+          kucukFotograf(adlaTur.get(benzer.ad), 'benzer-kucuk'),
+          el('div', {},
+            el('strong', { textContent: benzer.ad }),
+            el('p', { textContent: benzer.fark }),
+          ),
         ),
       ),
     );
@@ -228,6 +240,7 @@ function turKartiCiz(tur) {
 
   return el('details', { className: `kart tur-karti tur-${tur.zehirlilik}` },
     el('summary', {},
+      kucukFotograf(tur),
       el('span', { className: 'tur-baslik' },
         el('strong', { textContent: tur.ad }),
         el('em', { className: 'bilimsel-ad', textContent: tur.bilimselAd ?? '' }),
@@ -240,18 +253,20 @@ function turKartiCiz(tur) {
 
 async function turleriCiz() {
   const turler = tehlikeyeGoreSirala(await turleriYukle());
+  const adlaTur = new Map(turler.map((t) => [t.ad, t]));
+  const kartCiz = (tur) => turKartiCiz(tur, adlaTur);
   const tehlikeli = turler.filter((t) => t.zehirlilik !== 'yenen');
   const yenen = turler.filter((t) => t.zehirlilik === 'yenen');
   const kap = document.getElementById('turler-listesi');
   kap.replaceChildren();
   if (tehlikeli.length) {
-    kap.append(el('h2', { className: 'bolum-basligi', textContent: 'Ölümcül ve zehirli türler' }), ...tehlikeli.map(turKartiCiz));
+    kap.append(el('h2', { className: 'bolum-basligi', textContent: 'Ölümcül ve zehirli türler' }), ...tehlikeli.map(kartCiz));
   }
   if (yenen.length) {
     kap.append(
       el('h2', { className: 'bolum-basligi', textContent: 'Yenen türler' }),
       el('p', { className: 'not', textContent: 'Her birinin ölümcül veya zehirli bir benzeri vardır. Uzman görmeden yeme.' }),
-      ...yenen.map(turKartiCiz),
+      ...yenen.map(kartCiz),
     );
   }
 }

@@ -9,16 +9,51 @@
       "mikologOnayi": false,
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Türkiye'de en çok ölüme yol açan tür olduğu: mikolog Jilber Barutçiyan (basın açıklamaları).",
       "aciklama": "Türkiye'de en çok ölüme yol açan mantar. Şapka yeşilimsi-zeytin renginden beyazımsıya kadar değişir. Solungaçlar beyazdır, ayakta etek gibi bir halka, ayak dibinde toprağın içinde kalabilen bir torba (volva) vardır. Belirtiler yemekten saatler sonra başlar ve karaciğere zarar verir.",
-      "karistirilanlar": ["Çayır mantarı", "Yumurta mantarı", "Puf mantarı"],
+      "karistirilanlar": [
+        "Çayır mantarı",
+        "Yumurta mantarı",
+        "Puf mantarı"
+      ],
       "ozellikler": {
-        "sapkaRengi": ["yesil-zeytin", "krem-sari", "beyaz", "kahverengi", "gri-siyah"],
-        "altYapi": ["solungac"],
-        "solungacRengi": ["beyaz", "krem-sari"],
-        "halka": ["evet", "hayir"],
-        "volva": ["evet", "hayir"],
-        "sut": ["yok"],
-        "zemin": ["toprak", "cayir"],
-        "sporIzi": ["beyaz", "krem"]
+        "sapkaRengi": [
+          "yesil-zeytin",
+          "krem-sari",
+          "beyaz",
+          "kahverengi",
+          "gri-siyah"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "halka": [
+          "evet",
+          "hayir"
+        ],
+        "volva": [
+          "evet",
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "toprak",
+          "cayir"
+        ],
+        "sporIzi": [
+          "beyaz",
+          "krem"
+        ]
+      },
+      "fotograf": {
+        "dosya": "koygocuren.jpg",
+        "cekan": "Archenzo",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Amanita phalloides 1.JPG"
       }
     },
     {
@@ -29,16 +64,47 @@
       "mikologOnayi": false,
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
       "aciklama": "Baştan sona beyaz, köygöçürenle aynı zehri taşıyan ölümcül türler. Beyaz solungaç, ayakta halka ve dipte torba (volva) vardır. Beyaz çayır mantarları ve puf mantarlarıyla karıştırılır.",
-      "karistirilanlar": ["Çayır mantarı", "Puf mantarı"],
+      "karistirilanlar": [
+        "Çayır mantarı",
+        "Puf mantarı"
+      ],
       "ozellikler": {
-        "sapkaRengi": ["beyaz", "krem-sari"],
-        "altYapi": ["solungac"],
-        "solungacRengi": ["beyaz", "krem-sari"],
-        "halka": ["evet", "hayir"],
-        "volva": ["evet", "hayir"],
-        "sut": ["yok"],
-        "zemin": ["toprak", "cayir"],
-        "sporIzi": ["beyaz", "krem"]
+        "sapkaRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "halka": [
+          "evet",
+          "hayir"
+        ],
+        "volva": [
+          "evet",
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "toprak",
+          "cayir"
+        ],
+        "sporIzi": [
+          "beyaz",
+          "krem"
+        ]
+      },
+      "fotograf": {
+        "dosya": "ak-koygocuren.jpg",
+        "cekan": "Ben DeRoy",
+        "lisans": "Public domain",
+        "kaynak": "Wikimedia Commons, Destroying Angel 02.jpg"
       }
     },
     {
@@ -49,16 +115,48 @@
       "mikologOnayi": false,
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Şapkasının sarımsı kahveden koyu kahveye değiştiği ve beyaz benekli olduğu: Ankara Üniversitesi açık ders notu.",
       "aciklama": "Kahverengi şapkası üzerinde beyaz benekler olur; benekler yağmurla silinebilir. Solungaçlar beyaz, ayakta halka ve dipte torba vardır. Sinir sistemini etkileyen ağır zehirlenmelere yol açar.",
-      "karistirilanlar": ["Büyük şemsiye mantarı", "Çayır mantarı"],
+      "karistirilanlar": [
+        "Büyük şemsiye mantarı",
+        "Çayır mantarı"
+      ],
       "ozellikler": {
-        "sapkaRengi": ["kahverengi", "krem-sari", "gri-siyah"],
-        "altYapi": ["solungac"],
-        "solungacRengi": ["beyaz", "krem-sari"],
-        "halka": ["evet", "hayir"],
-        "volva": ["evet", "hayir"],
-        "sut": ["yok"],
-        "zemin": ["toprak", "cayir"],
-        "sporIzi": ["beyaz", "krem"]
+        "sapkaRengi": [
+          "kahverengi",
+          "krem-sari",
+          "gri-siyah"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "halka": [
+          "evet",
+          "hayir"
+        ],
+        "volva": [
+          "evet",
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "toprak",
+          "cayir"
+        ],
+        "sporIzi": [
+          "beyaz",
+          "krem"
+        ]
+      },
+      "fotograf": {
+        "dosya": "panter.jpg",
+        "cekan": "George Chernilevsky",
+        "lisans": "Public domain",
+        "kaynak": "Wikimedia Commons, Amanita pantherina 2013 G1.jpg"
       }
     },
     {
@@ -69,16 +167,46 @@
       "mikologOnayi": false,
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. İçerdiği maddeler (muskarin vb.): Ankara Üniversitesi açık ders notu.",
       "aciklama": "Kırmızı veya turuncu şapka üzerinde beyaz benekler olur; benekler yağmurla silinebilir. Solungaçlar ve ayak beyazdır, ayakta halka ve dipte pullu bir yumru vardır. Sinir sistemini etkiler.",
-      "karistirilanlar": ["Yumurta mantarı"],
+      "karistirilanlar": [
+        "Yumurta mantarı"
+      ],
       "ozellikler": {
-        "sapkaRengi": ["kirmizi-turuncu", "krem-sari"],
-        "altYapi": ["solungac"],
-        "solungacRengi": ["beyaz", "krem-sari"],
-        "halka": ["evet", "hayir"],
-        "volva": ["evet", "hayir"],
-        "sut": ["yok"],
-        "zemin": ["toprak", "cayir"],
-        "sporIzi": ["beyaz", "krem"]
+        "sapkaRengi": [
+          "kirmizi-turuncu",
+          "krem-sari"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "halka": [
+          "evet",
+          "hayir"
+        ],
+        "volva": [
+          "evet",
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "toprak",
+          "cayir"
+        ],
+        "sporIzi": [
+          "beyaz",
+          "krem"
+        ]
+      },
+      "fotograf": {
+        "dosya": "sinek.jpg",
+        "cekan": "Kieran Roy Powell",
+        "lisans": "CC BY 4.0",
+        "kaynak": "Wikimedia Commons, Amanita muscaria Aberystwyth 2023.jpg"
       }
     },
     {
@@ -90,16 +218,40 @@
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
       "aciklama": "Turuncu-kırmızı şapkalı, sarı solungaçlı ve sarı ayaklı bir Amanita türü. Topraktan beyaz, kalın bir yumurtanın içinden çıkar. Yumurta evresinde ölümcül köygöçürenle karıştırılır.",
       "ozellikler": {
-        "sapkaRengi": ["kirmizi-turuncu", "krem-sari"],
-        "altYapi": ["solungac"],
-        "solungacRengi": ["krem-sari"],
-        "halka": ["evet", "hayir"],
-        "volva": ["evet"],
-        "sut": ["yok"],
-        "kesinceRenk": ["degismedi"],
-        "zemin": ["toprak"],
-        "agac": ["yaprakli", "karisik"],
-        "sporIzi": ["beyaz", "krem"]
+        "sapkaRengi": [
+          "kirmizi-turuncu",
+          "krem-sari"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "krem-sari"
+        ],
+        "halka": [
+          "evet",
+          "hayir"
+        ],
+        "volva": [
+          "evet"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "kesinceRenk": [
+          "degismedi"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "agac": [
+          "yaprakli",
+          "karisik"
+        ],
+        "sporIzi": [
+          "beyaz",
+          "krem"
+        ]
       },
       "zehirliBenzerler": [
         {
@@ -110,7 +262,13 @@
           "ad": "Köygöçüren",
           "fark": "Yumurta evresinde dışarıdan ayırt edilemez. Bu evrede uygulama her zaman kırmızı sonuç verir; uzman görmeden yeme."
         }
-      ]
+      ],
+      "fotograf": {
+        "dosya": "yumurta.jpg",
+        "cekan": "Yaqui",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Oronges.jpg"
+      }
     },
     {
       "id": "kucuk-semsiye",
@@ -120,15 +278,43 @@
       "mikologOnayi": false,
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
       "aciklama": "Küçük (şapkası çoğunlukla 5 cm'den dar), pullu şapkalı, beyaz solungaçlı mantarlar. Bazı türleri köygöçürenle aynı zehri taşır. Büyük şemsiye mantarının küçükleriyle karıştırılır.",
-      "karistirilanlar": ["Büyük şemsiye mantarı"],
+      "karistirilanlar": [
+        "Büyük şemsiye mantarı"
+      ],
       "ozellikler": {
-        "sapkaRengi": ["kahverengi", "kirmizi-turuncu", "krem-sari", "beyaz"],
-        "altYapi": ["solungac"],
-        "solungacRengi": ["beyaz", "krem-sari"],
-        "volva": ["hayir"],
-        "sut": ["yok"],
-        "zemin": ["toprak", "cayir"],
-        "sporIzi": ["beyaz", "krem"]
+        "sapkaRengi": [
+          "kahverengi",
+          "kirmizi-turuncu",
+          "krem-sari",
+          "beyaz"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "toprak",
+          "cayir"
+        ],
+        "sporIzi": [
+          "beyaz",
+          "krem"
+        ]
+      },
+      "fotograf": {
+        "dosya": "kucuk-semsiye.jpg",
+        "cekan": "Strobilomyces",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Lepiota brunneoincarnata 060823w.jpg"
       }
     },
     {
@@ -140,15 +326,39 @@
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
       "aciklama": "Çok iri (şapkası 10–30 cm), kahverengi pullu şapkalı, uzun ve yılan derisi desenli ayaklı mantar. Ayaktaki halka kalındır ve aşağı yukarı oynar. Beyaz solungaç ve halka taşıdığı için uygulama bu türde her zaman kırmızı sonuç verir.",
       "ozellikler": {
-        "sapkaRengi": ["kahverengi", "krem-sari", "beyaz"],
-        "altYapi": ["solungac"],
-        "solungacRengi": ["beyaz", "krem-sari"],
-        "halka": ["evet"],
-        "volva": ["hayir"],
-        "sut": ["yok"],
-        "kesinceRenk": ["degismedi", "kirmizi-pembe"],
-        "zemin": ["toprak", "cayir"],
-        "sporIzi": ["beyaz", "krem"]
+        "sapkaRengi": [
+          "kahverengi",
+          "krem-sari",
+          "beyaz"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "halka": [
+          "evet"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "kesinceRenk": [
+          "degismedi",
+          "kirmizi-pembe"
+        ],
+        "zemin": [
+          "toprak",
+          "cayir"
+        ],
+        "sporIzi": [
+          "beyaz",
+          "krem"
+        ]
       },
       "zehirliBenzerler": [
         {
@@ -159,7 +369,13 @@
           "ad": "Panter mantarı",
           "fark": "Panter mantarının ayak dibinde torba veya yumru vardır ve şapkasındaki benekler beyazdır. Büyük şemsiye mantarının ayak dibi şişkindir ama torbası yoktur."
         }
-      ]
+      ],
+      "fotograf": {
+        "dosya": "buyuk-semsiye.jpg",
+        "cekan": "Holger Krisp",
+        "lisans": "CC BY 3.0",
+        "kaynak": "Wikimedia Commons, Parasol-Macrolepiota-procera.jpg"
+      }
     },
     {
       "id": "galerina",
@@ -169,15 +385,41 @@
       "mikologOnayi": false,
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
       "aciklama": "Odun ve kütük üzerinde kümeler halinde çıkan küçük, kahverengi bir mantar. Köygöçürenle aynı zehri taşır. Kütük mantarları ve bal mantarlarıyla karıştırılır.",
-      "karistirilanlar": ["İstiridye mantarı"],
+      "karistirilanlar": [
+        "İstiridye mantarı"
+      ],
       "ozellikler": {
-        "sapkaRengi": ["kahverengi", "krem-sari", "kirmizi-turuncu"],
-        "altYapi": ["solungac"],
-        "solungacRengi": ["kahverengi", "krem-sari"],
-        "volva": ["hayir"],
-        "sut": ["yok"],
-        "zemin": ["odun", "toprak"],
-        "sporIzi": ["kahverengi"]
+        "sapkaRengi": [
+          "kahverengi",
+          "krem-sari",
+          "kirmizi-turuncu"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "kahverengi",
+          "krem-sari"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "odun",
+          "toprak"
+        ],
+        "sporIzi": [
+          "kahverengi"
+        ]
+      },
+      "fotograf": {
+        "dosya": "galerina.jpg",
+        "cekan": "Alan Rockefeller",
+        "lisans": "CC BY-SA 4.0",
+        "kaynak": "Wikimedia Commons, Galerina marginata Point Reyes.jpg"
       }
     },
     {
@@ -188,15 +430,40 @@
       "mikologOnayi": false,
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
       "aciklama": "Turuncu-kahverengi, orta boy mantarlar. Gençken solungaçların önünde örümcek ağı gibi bir perde olur. Belirtiler günler, hatta haftalar sonra başlar ve böbreklere zarar verir.",
-      "karistirilanlar": ["Horozmantarı"],
+      "karistirilanlar": [
+        "Horozmantarı"
+      ],
       "ozellikler": {
-        "sapkaRengi": ["kahverengi", "kirmizi-turuncu", "krem-sari"],
-        "altYapi": ["solungac"],
-        "solungacRengi": ["kahverengi", "krem-sari"],
-        "volva": ["hayir"],
-        "sut": ["yok"],
-        "zemin": ["toprak"],
-        "sporIzi": ["kahverengi"]
+        "sapkaRengi": [
+          "kahverengi",
+          "kirmizi-turuncu",
+          "krem-sari"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "kahverengi",
+          "krem-sari"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "sporIzi": [
+          "kahverengi"
+        ]
+      },
+      "fotograf": {
+        "dosya": "cortinarius.jpg",
+        "cekan": "Michaelll (İngilizce Vikipedi)",
+        "lisans": "CC BY-SA 2.5",
+        "kaynak": "Wikimedia Commons, Corellanus.jpg"
       }
     },
     {
@@ -207,15 +474,42 @@
       "mikologOnayi": false,
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
       "aciklama": "Küçük, şapkası lifli ve ortası sivri mantarlar. Birçok türü muskarin içerir: terleme, ağızda sulanma, göz bebeklerinde küçülme yapar.",
-      "karistirilanlar": ["Çayır mantarı"],
+      "karistirilanlar": [
+        "Çayır mantarı"
+      ],
       "ozellikler": {
-        "sapkaRengi": ["kahverengi", "krem-sari", "beyaz"],
-        "altYapi": ["solungac"],
-        "solungacRengi": ["kahverengi", "krem-sari", "beyaz"],
-        "volva": ["hayir"],
-        "sut": ["yok"],
-        "zemin": ["toprak", "cayir"],
-        "sporIzi": ["kahverengi"]
+        "sapkaRengi": [
+          "kahverengi",
+          "krem-sari",
+          "beyaz"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "kahverengi",
+          "krem-sari",
+          "beyaz"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "toprak",
+          "cayir"
+        ],
+        "sporIzi": [
+          "kahverengi"
+        ]
+      },
+      "fotograf": {
+        "dosya": "inocybe.jpg",
+        "cekan": "Andreas Kunze",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, 2010-04-27 Inocybe erubescens.jpg"
       }
     },
     {
@@ -227,20 +521,43 @@
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
       "aciklama": "İlkbaharda çıkar. Şapkası bal peteği gibi çukurlu ve süngerimsidir. Boyuna kesildiğinde şapka ile ayak tek parçadır ve baştan sona içi boştur. Çiğken zehirlidir; iyice pişirilmeden yenmez.",
       "ozellikler": {
-        "sapkaRengi": ["kahverengi", "krem-sari", "gri-siyah"],
-        "altYapi": ["duz"],
-        "halka": ["hayir"],
-        "volva": ["hayir"],
-        "sut": ["yok"],
-        "kesinceRenk": ["degismedi"],
-        "zemin": ["toprak", "cayir"]
+        "sapkaRengi": [
+          "kahverengi",
+          "krem-sari",
+          "gri-siyah"
+        ],
+        "altYapi": [
+          "duz"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "kesinceRenk": [
+          "degismedi"
+        ],
+        "zemin": [
+          "toprak",
+          "cayir"
+        ]
       },
       "zehirliBenzerler": [
         {
           "ad": "Sahte kuzugöbeği",
           "fark": "Kuzugöbeğinin şapkası bal peteği gibi çukurludur ve boyuna kesince içi baştan sona boştur. Sahte kuzugöbeğinin şapkası beyin gibi kıvrımlıdır ve içi pamuksu bölmelerle doludur."
         }
-      ]
+      ],
+      "fotograf": {
+        "dosya": "kuzugobegi.jpg",
+        "cekan": "TOMMES-WIKI",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Morchella esculenta - DE - TH - 2013-05-01 - 01.JPG"
+      }
     },
     {
       "id": "sahte-kuzugobegi",
@@ -250,13 +567,33 @@
       "mikologOnayi": false,
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
       "aciklama": "Şapkası beyin gibi kıvrımlı, kırmızımsı kahverengi bir ilkbahar mantarı. Pişirilse bile zehirlidir; pişerken çıkan buhar da tehlikelidir.",
-      "karistirilanlar": ["Kuzugöbeği"],
+      "karistirilanlar": [
+        "Kuzugöbeği"
+      ],
       "ozellikler": {
-        "sapkaRengi": ["kahverengi", "kirmizi-turuncu"],
-        "altYapi": ["duz"],
-        "volva": ["hayir"],
-        "sut": ["yok"],
-        "zemin": ["toprak", "odun"]
+        "sapkaRengi": [
+          "kahverengi",
+          "kirmizi-turuncu"
+        ],
+        "altYapi": [
+          "duz"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "toprak",
+          "odun"
+        ]
+      },
+      "fotograf": {
+        "dosya": "sahte-kuzugobegi.jpg",
+        "cekan": "Wikimedia Commons katkıcıları",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Frühjahrslorchel.JPG"
       }
     },
     {
@@ -268,15 +605,36 @@
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
       "aciklama": "Sarı-turuncu, huni biçimli bir mantar. Şapkanın altında ince solungaçlar yerine kalın, kenarı küt, çatallanan ve ayağa doğru inen kırışıklar vardır. Topraktan tek tek çıkar.",
       "ozellikler": {
-        "sapkaRengi": ["krem-sari", "kirmizi-turuncu"],
-        "altYapi": ["solungac", "duz"],
-        "solungacRengi": ["krem-sari"],
-        "halka": ["hayir"],
-        "volva": ["hayir"],
-        "sut": ["yok"],
-        "kesinceRenk": ["degismedi"],
-        "zemin": ["toprak"],
-        "sporIzi": ["krem", "beyaz"]
+        "sapkaRengi": [
+          "krem-sari",
+          "kirmizi-turuncu"
+        ],
+        "altYapi": [
+          "solungac",
+          "duz"
+        ],
+        "solungacRengi": [
+          "krem-sari"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "kesinceRenk": [
+          "degismedi"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "sporIzi": [
+          "krem",
+          "beyaz"
+        ]
       },
       "zehirliBenzerler": [
         {
@@ -287,7 +645,13 @@
           "ad": "Ağ perdeli mantarlar",
           "fark": "Ağ perdeli mantarların gerçek solungaçları vardır, gençken solungaçların önünde örümcek ağı gibi perde olur ve spor izi pas kahverengisidir."
         }
-      ]
+      ],
+      "fotograf": {
+        "dosya": "horozmantari.jpg",
+        "cekan": "Wikimedia Commons katkıcıları",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Chanterelle Cantharellus cibarius.jpg"
+      }
     },
     {
       "id": "zeytin",
@@ -297,15 +661,42 @@
       "mikologOnayi": false,
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
       "aciklama": "Parlak turuncu, zeytin, meşe ve kestane gibi ağaçların dibinde veya kütüğünde büyük kümeler yapan mantar. Ağır kusma ve ishale yol açar.",
-      "karistirilanlar": ["Horozmantarı (sarıkız)", "İstiridye mantarı", "Tavuk mantarı"],
+      "karistirilanlar": [
+        "Horozmantarı (sarıkız)",
+        "İstiridye mantarı",
+        "Tavuk mantarı"
+      ],
       "ozellikler": {
-        "sapkaRengi": ["kirmizi-turuncu", "krem-sari"],
-        "altYapi": ["solungac"],
-        "solungacRengi": ["krem-sari"],
-        "volva": ["hayir"],
-        "sut": ["yok"],
-        "zemin": ["odun", "toprak"],
-        "sporIzi": ["krem", "beyaz"]
+        "sapkaRengi": [
+          "kirmizi-turuncu",
+          "krem-sari"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "krem-sari"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "odun",
+          "toprak"
+        ],
+        "sporIzi": [
+          "krem",
+          "beyaz"
+        ]
+      },
+      "fotograf": {
+        "dosya": "zeytin.jpg",
+        "cekan": "Antonio Abbatiello",
+        "lisans": "Public domain",
+        "kaynak": "Wikimedia Commons, Omphalotus olearius.JPG"
       }
     },
     {
@@ -317,23 +708,53 @@
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Çam ağaçları altında yaşayan Lactarius türleri olduğu ve Türkiye'de 4-5 türe bu adın verildiği: uzman açıklaması (NTV haberi).",
       "aciklama": "Çam ağaçlarının altında çıkan, turuncu şapkalı mantar. Kesilince turuncu-kırmızı bir süt akar. Yaralanan veya bekleyen yerleri zamanla yeşile döner.",
       "ozellikler": {
-        "sapkaRengi": ["kirmizi-turuncu", "krem-sari"],
-        "altYapi": ["solungac"],
-        "solungacRengi": ["krem-sari"],
-        "halka": ["hayir"],
-        "volva": ["hayir"],
-        "sut": ["turuncu-kirmizi"],
-        "kesinceRenk": ["degismedi", "kirmizi-pembe"],
-        "zemin": ["toprak"],
-        "agac": ["igne", "karisik"],
-        "sporIzi": ["krem", "beyaz"]
+        "sapkaRengi": [
+          "kirmizi-turuncu",
+          "krem-sari"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "krem-sari"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "turuncu-kirmizi"
+        ],
+        "kesinceRenk": [
+          "degismedi",
+          "kirmizi-pembe"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "agac": [
+          "igne",
+          "karisik"
+        ],
+        "sporIzi": [
+          "krem",
+          "beyaz"
+        ]
       },
       "zehirliBenzerler": [
         {
           "ad": "Tüylü süt mantarı",
           "fark": "Kanlıcanın sütü turuncu-kırmızıdır. Tüylü süt mantarının sütü beyazdır, şapka kenarı uzun tüylüdür ve çoğunlukla huş ağaçları altında çıkar."
         }
-      ]
+      ],
+      "fotograf": {
+        "dosya": "kanlica.jpg",
+        "cekan": "Wikimedia Commons katkıcıları",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Lactarius deliciosus.jpg"
+      }
     },
     {
       "id": "tuylu-sut",
@@ -343,15 +764,40 @@
       "mikologOnayi": false,
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
       "aciklama": "Pembe-turuncu, halkalı desenli şapkası ve uzun tüylü kenarı olan mantar. Kesilince beyaz süt akar. Ağır mide-bağırsak zehirlenmesi yapar.",
-      "karistirilanlar": ["Kanlıca (çıntar)"],
+      "karistirilanlar": [
+        "Kanlıca (çıntar)"
+      ],
       "ozellikler": {
-        "sapkaRengi": ["kirmizi-turuncu", "krem-sari"],
-        "altYapi": ["solungac"],
-        "solungacRengi": ["krem-sari", "beyaz"],
-        "volva": ["hayir"],
-        "sut": ["beyaz"],
-        "zemin": ["toprak"],
-        "sporIzi": ["krem", "beyaz"]
+        "sapkaRengi": [
+          "kirmizi-turuncu",
+          "krem-sari"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "krem-sari",
+          "beyaz"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "beyaz"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "sporIzi": [
+          "krem",
+          "beyaz"
+        ]
+      },
+      "fotograf": {
+        "dosya": "tuylu-sut.jpg",
+        "cekan": "Tocekas",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Lactarius torminosus (cropped).jpg"
       }
     },
     {
@@ -363,22 +809,47 @@
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
       "aciklama": "Kahverengi şapkalı, kalın ve şişkin ayaklı mantar. Şapkanın altında solungaç yerine sünger gibi gözenekler vardır; gözenekler beyazdan sarı-yeşile döner. Ayakta açık renkli ağ deseni olur. Kesince ve ezince rengi değişmez.",
       "ozellikler": {
-        "sapkaRengi": ["kahverengi", "krem-sari"],
-        "altYapi": ["gozenek"],
-        "halka": ["hayir"],
-        "volva": ["hayir"],
-        "sut": ["yok"],
-        "kesinceRenk": ["degismedi"],
-        "ezince": ["degismedi"],
-        "zemin": ["toprak"],
-        "sporIzi": ["kahverengi"]
+        "sapkaRengi": [
+          "kahverengi",
+          "krem-sari"
+        ],
+        "altYapi": [
+          "gozenek"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "kesinceRenk": [
+          "degismedi"
+        ],
+        "ezince": [
+          "degismedi"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "sporIzi": [
+          "kahverengi"
+        ]
       },
       "zehirliBenzerler": [
         {
           "ad": "Şeytan mantarı",
           "fark": "Şeytan mantarının gözenekleri kırmızıdır, ayağında kırmızı ağ deseni olur ve kesince maviye döner. Ayı mantarının gözenekleri beyaz-sarıdır ve kesince rengi değişmez."
         }
-      ]
+      ],
+      "fotograf": {
+        "dosya": "ayi-mantari.jpg",
+        "cekan": "ReddishClover",
+        "lisans": "CC BY-SA 4.0",
+        "kaynak": "Wikimedia Commons, Boletus edulis IT.jpg"
+      }
     },
     {
       "id": "seytan",
@@ -388,16 +859,44 @@
       "mikologOnayi": false,
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
       "aciklama": "Beyazımsı-gri şapkalı, kırmızı gözenekli ve kırmızı ağ desenli şişkin ayaklı mantar. Kesince maviye döner. Ağır kusma ve ishale yol açar.",
-      "karistirilanlar": ["Ayı mantarı (çörek mantarı)"],
+      "karistirilanlar": [
+        "Ayı mantarı (çörek mantarı)"
+      ],
       "ozellikler": {
-        "sapkaRengi": ["beyaz", "gri-siyah", "krem-sari"],
-        "altYapi": ["gozenek"],
-        "volva": ["hayir"],
-        "sut": ["yok"],
-        "kesinceRenk": ["mavi", "degismedi"],
-        "ezince": ["mavi", "degismedi"],
-        "zemin": ["toprak"],
-        "sporIzi": ["kahverengi"]
+        "sapkaRengi": [
+          "beyaz",
+          "gri-siyah",
+          "krem-sari"
+        ],
+        "altYapi": [
+          "gozenek"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "kesinceRenk": [
+          "mavi",
+          "degismedi"
+        ],
+        "ezince": [
+          "mavi",
+          "degismedi"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "sporIzi": [
+          "kahverengi"
+        ]
+      },
+      "fotograf": {
+        "dosya": "seytan.jpg",
+        "cekan": "Archenzo",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Boletus satanas.JPG"
       }
     },
     {
@@ -409,16 +908,43 @@
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
       "aciklama": "Çayır ve meralarda çıkan beyaz şapkalı mantar. Solungaçları hiçbir zaman beyaz değildir: gençken pembe, sonra çikolata kahvesi olur. Ayakta ince bir halka bulunur, ayak dibinde torba yoktur.",
       "ozellikler": {
-        "sapkaRengi": ["beyaz", "krem-sari"],
-        "altYapi": ["solungac"],
-        "solungacRengi": ["pembe", "kahverengi", "koyu"],
-        "halka": ["evet", "hayir"],
-        "volva": ["hayir"],
-        "sut": ["yok"],
-        "kesinceRenk": ["degismedi", "kirmizi-pembe"],
-        "ezince": ["degismedi", "kirmizi-kahve"],
-        "zemin": ["cayir"],
-        "sporIzi": ["kahverengi", "koyu"]
+        "sapkaRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "pembe",
+          "kahverengi",
+          "koyu"
+        ],
+        "halka": [
+          "evet",
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "kesinceRenk": [
+          "degismedi",
+          "kirmizi-pembe"
+        ],
+        "ezince": [
+          "degismedi",
+          "kirmizi-kahve"
+        ],
+        "zemin": [
+          "cayir"
+        ],
+        "sporIzi": [
+          "kahverengi",
+          "koyu"
+        ]
       },
       "zehirliBenzerler": [
         {
@@ -433,7 +959,13 @@
           "ad": "Sarıya boyanan mantar",
           "fark": "Sarıya boyanan mantarın şapkası ve ayak dibi çizilince hemen parlak sarıya döner ve mürekkep gibi kötü kokar."
         }
-      ]
+      ],
+      "fotograf": {
+        "dosya": "cayir.jpg",
+        "cekan": "Mushroom Observer (görsel 694)",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Agaricus campestris.jpg"
+      }
     },
     {
       "id": "sariya-boyanan",
@@ -443,17 +975,52 @@
       "mikologOnayi": false,
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
       "aciklama": "Çayır mantarına çok benzer. Şapkası ve özellikle ayak dibi çizilince hemen parlak sarıya döner, mürekkep veya ilaç gibi kötü kokar. Mide-bağırsak zehirlenmesi yapar.",
-      "karistirilanlar": ["Çayır mantarı"],
+      "karistirilanlar": [
+        "Çayır mantarı"
+      ],
       "ozellikler": {
-        "sapkaRengi": ["beyaz", "krem-sari", "gri-siyah"],
-        "altYapi": ["solungac"],
-        "solungacRengi": ["pembe", "kahverengi", "koyu", "beyaz"],
-        "volva": ["hayir"],
-        "sut": ["yok"],
-        "kesinceRenk": ["sari", "degismedi"],
-        "ezince": ["sari", "degismedi"],
-        "zemin": ["cayir", "toprak"],
-        "sporIzi": ["kahverengi", "koyu"]
+        "sapkaRengi": [
+          "beyaz",
+          "krem-sari",
+          "gri-siyah"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "pembe",
+          "kahverengi",
+          "koyu",
+          "beyaz"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "kesinceRenk": [
+          "sari",
+          "degismedi"
+        ],
+        "ezince": [
+          "sari",
+          "degismedi"
+        ],
+        "zemin": [
+          "cayir",
+          "toprak"
+        ],
+        "sporIzi": [
+          "kahverengi",
+          "koyu"
+        ]
+      },
+      "fotograf": {
+        "dosya": "sariya-boyanan.jpg",
+        "cekan": "Velella",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Agaricus xanthodermus section.jpg"
       }
     },
     {
@@ -464,15 +1031,41 @@
       "mikologOnayi": false,
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
       "aciklama": "Gri-krem şapkalı, iri bir mantar. Solungaçları önce sarımsı, sonra pembe olur; un gibi kokar. Halkası ve torbası yoktur. Ağır mide-bağırsak zehirlenmesi yapar.",
-      "karistirilanlar": ["Çayır mantarı"],
+      "karistirilanlar": [
+        "Çayır mantarı"
+      ],
       "ozellikler": {
-        "sapkaRengi": ["gri-siyah", "beyaz", "krem-sari"],
-        "altYapi": ["solungac"],
-        "solungacRengi": ["krem-sari", "pembe"],
-        "volva": ["hayir"],
-        "sut": ["yok"],
-        "zemin": ["toprak", "cayir"],
-        "sporIzi": ["pembe"]
+        "sapkaRengi": [
+          "gri-siyah",
+          "beyaz",
+          "krem-sari"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "krem-sari",
+          "pembe"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "toprak",
+          "cayir"
+        ],
+        "sporIzi": [
+          "pembe"
+        ]
+      },
+      "fotograf": {
+        "dosya": "entoloma.jpg",
+        "cekan": "Archenzo",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Entoloma sinuatum group.JPG"
       }
     },
     {
@@ -484,15 +1077,38 @@
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
       "aciklama": "Ağaç gövdesi ve kütükler üzerinde yandan, raf gibi kat kat çıkan gri-kahve veya krem renkli mantar. Ayağı çok kısadır veya yoktur; solungaçları beyaz-krem renklidir.",
       "ozellikler": {
-        "sapkaRengi": ["gri-siyah", "kahverengi", "krem-sari", "beyaz"],
-        "altYapi": ["solungac"],
-        "solungacRengi": ["beyaz", "krem-sari"],
-        "halka": ["hayir"],
-        "volva": ["hayir"],
-        "sut": ["yok"],
-        "kesinceRenk": ["degismedi"],
-        "zemin": ["odun"],
-        "sporIzi": ["beyaz", "krem"]
+        "sapkaRengi": [
+          "gri-siyah",
+          "kahverengi",
+          "krem-sari",
+          "beyaz"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "kesinceRenk": [
+          "degismedi"
+        ],
+        "zemin": [
+          "odun"
+        ],
+        "sporIzi": [
+          "beyaz",
+          "krem"
+        ]
       },
       "zehirliBenzerler": [
         {
@@ -503,7 +1119,13 @@
           "ad": "Ölümcül galerina",
           "fark": "Ölümcül galerina da odun üzerinde çıkar ama küçüktür, ayağı ve halkası vardır ve solungaçları kahverengidir."
         }
-      ]
+      ],
+      "fotograf": {
+        "dosya": "istiridye.jpg",
+        "cekan": "Jean-Pol Grandmont",
+        "lisans": "CC BY 3.0",
+        "kaynak": "Wikimedia Commons, Pleurotus ostreatus JPG7.jpg"
+      }
     },
     {
       "id": "kukurt-basli",
@@ -513,15 +1135,40 @@
       "mikologOnayi": false,
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
       "aciklama": "Kütükler üzerinde büyük kümeler yapan kükürt sarısı mantar. Solungaçları önce yeşilimsi sarı, sonra mor-siyah olur. Mide-bağırsak zehirlenmesi yapar.",
-      "karistirilanlar": ["İstiridye mantarı"],
+      "karistirilanlar": [
+        "İstiridye mantarı"
+      ],
       "ozellikler": {
-        "sapkaRengi": ["krem-sari", "kirmizi-turuncu"],
-        "altYapi": ["solungac"],
-        "solungacRengi": ["krem-sari", "koyu"],
-        "volva": ["hayir"],
-        "sut": ["yok"],
-        "zemin": ["odun", "toprak"],
-        "sporIzi": ["koyu"]
+        "sapkaRengi": [
+          "krem-sari",
+          "kirmizi-turuncu"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "krem-sari",
+          "koyu"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "odun",
+          "toprak"
+        ],
+        "sporIzi": [
+          "koyu"
+        ]
+      },
+      "fotograf": {
+        "dosya": "kukurt-basli.jpg",
+        "cekan": "Alan Rockefeller",
+        "lisans": "CC BY-SA 4.0",
+        "kaynak": "Wikimedia Commons, Hypholoma fasciculare Queteraro.jpg"
       }
     },
     {
@@ -533,20 +1180,41 @@
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
       "aciklama": "Ağaç gövdelerinde kat kat raf gibi çıkan, üstü turuncu, altı kükürt sarısı mantar. Altında solungaç yerine küçük gözenekler vardır. Porsuk ve iğne yapraklı ağaçlarda çıkanlar bazı kişilerde rahatsızlık yapmıştır.",
       "ozellikler": {
-        "sapkaRengi": ["krem-sari", "kirmizi-turuncu"],
-        "altYapi": ["gozenek"],
-        "halka": ["hayir"],
-        "volva": ["hayir"],
-        "sut": ["yok"],
-        "zemin": ["odun"],
-        "sporIzi": ["beyaz"]
+        "sapkaRengi": [
+          "krem-sari",
+          "kirmizi-turuncu"
+        ],
+        "altYapi": [
+          "gozenek"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "odun"
+        ],
+        "sporIzi": [
+          "beyaz"
+        ]
       },
       "zehirliBenzerler": [
         {
           "ad": "Zeytin mantarı",
           "fark": "Zeytin mantarının altında gözenek değil ince solungaçlar vardır ve belirgin bir ayağı olur."
         }
-      ]
+      ],
+      "fotograf": {
+        "dosya": "tavuk.jpg",
+        "cekan": "Rror",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Laetiporus sulphureus big.jpg"
+      }
     },
     {
       "id": "puf",
@@ -557,14 +1225,34 @@
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
       "aciklama": "Yuvarlak, şapkasız, beyaz mantar. Gençken ikiye kesildiğinde içi baştan sona beyaz ve düzdür; yaşlandıkça içi sararır ve toza dönüşür.",
       "ozellikler": {
-        "sapkaRengi": ["beyaz", "krem-sari", "kahverengi"],
-        "altYapi": ["duz"],
-        "kesitteTaslak": ["hayir"],
-        "halka": ["hayir"],
-        "volva": ["hayir"],
-        "sut": ["yok"],
-        "kesinceRenk": ["degismedi"],
-        "zemin": ["cayir", "toprak", "odun"]
+        "sapkaRengi": [
+          "beyaz",
+          "krem-sari",
+          "kahverengi"
+        ],
+        "altYapi": [
+          "duz"
+        ],
+        "kesitteTaslak": [
+          "hayir"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "kesinceRenk": [
+          "degismedi"
+        ],
+        "zemin": [
+          "cayir",
+          "toprak",
+          "odun"
+        ]
       },
       "zehirliBenzerler": [
         {
@@ -575,7 +1263,13 @@
           "ad": "Sahte puf mantarı",
           "fark": "Sahte puf mantarının içi gençken bile mor-siyahtır ve kabuğu kalın, pulludur."
         }
-      ]
+      ],
+      "fotograf": {
+        "dosya": "puf.jpg",
+        "cekan": "Daniel Ullrich, Threedots",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Single lycoperdon perlatum.jpg"
+      }
     },
     {
       "id": "sahte-puf",
@@ -585,13 +1279,32 @@
       "mikologOnayi": false,
       "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
       "aciklama": "Kalın, pullu, sarımsı-kahve kabuklu yuvarlak mantar. Kesince içi gençken bile mor-siyahtır. Mide-bağırsak zehirlenmesi yapar.",
-      "karistirilanlar": ["Puf mantarı"],
+      "karistirilanlar": [
+        "Puf mantarı"
+      ],
       "ozellikler": {
-        "sapkaRengi": ["krem-sari", "kahverengi"],
-        "altYapi": ["duz"],
-        "volva": ["hayir"],
-        "sut": ["yok"],
-        "zemin": ["toprak"]
+        "sapkaRengi": [
+          "krem-sari",
+          "kahverengi"
+        ],
+        "altYapi": [
+          "duz"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "toprak"
+        ]
+      },
+      "fotograf": {
+        "dosya": "sahte-puf.jpg",
+        "cekan": "Eric Steinert",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Scleroderma citrinum.jpg"
       }
     }
   ]

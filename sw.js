@@ -1,6 +1,6 @@
 // Çevrimdışı çalışma: uygulamanın bütün dosyaları ilk açılışta cihaza kaydedilir.
 // Yeni dosya eklenince DOSYALAR listesine ekle ve SURUM'u artır.
-const SURUM = 'v20';
+const SURUM = 'v21';
 // GitHub Pages'te aynı adreste başka uygulamalar da olabilir: önbellek adı bu uygulamaya ve adresine özeldir,
 // yalnızca kendi eski sürümlerini siler.
 const ONEK = `mantar-rehberi:${self.registration.scope}:`;
@@ -29,6 +29,33 @@ const DOSYALAR = [
   './turler.json',
   './ikon-192.png',
   './ikon-512.png',
+  // Ansiklopedi fotoğrafları (Wikimedia Commons; lisans ve çeken turler.json'da)
+  './ak-koygocuren.jpg',
+  './ayi-mantari.jpg',
+  './buyuk-semsiye.jpg',
+  './cayir.jpg',
+  './cortinarius.jpg',
+  './entoloma.jpg',
+  './galerina.jpg',
+  './horozmantari.jpg',
+  './inocybe.jpg',
+  './istiridye.jpg',
+  './kanlica.jpg',
+  './koygocuren.jpg',
+  './kucuk-semsiye.jpg',
+  './kukurt-basli.jpg',
+  './kuzugobegi.jpg',
+  './panter.jpg',
+  './puf.jpg',
+  './sahte-kuzugobegi.jpg',
+  './sahte-puf.jpg',
+  './sariya-boyanan.jpg',
+  './seytan.jpg',
+  './sinek.jpg',
+  './tavuk.jpg',
+  './tuylu-sut.jpg',
+  './yumurta.jpg',
+  './zeytin.jpg',
 ];
 
 self.addEventListener('install', (olay) => {

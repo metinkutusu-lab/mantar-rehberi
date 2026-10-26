@@ -20,6 +20,14 @@ export const ZEHIRLILIK_ADLARI = {
 
 const ONCELIK = { olumcul: 0, zehirli: 1, yenen: 2 };
 
+// Fotoğrafın lisansının istediği atıf: çeken, lisans ve kaynak.
+export function fotografAtfi(tur) {
+  const f = tur.fotograf;
+  return f ? `Fotoğraf: ${f.cekan} · ${f.lisans} · ${f.kaynak}` : '';
+}
+
+export const FOTOGRAF_UYARISI = 'Fotoğrafa benzetip karar verme: aynı tür yaşına, ışığa ve yere göre çok farklı görünebilir.';
+
 // En tehlikeli türler önce; zehirliliği bilinmeyen tür en tehlikeli sayılır (kural 3).
 export function tehlikeyeGoreSirala(turler) {
   return [...turler].sort((a, b) => (ONCELIK[a.zehirlilik] ?? -1) - (ONCELIK[b.zehirlilik] ?? -1));

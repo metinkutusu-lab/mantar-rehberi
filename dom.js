@@ -42,6 +42,12 @@ export function bildirim(tur, ...icerik) {
   return el('div', { className: `bildirim bildirim-${tur}` }, ikon(BILDIRIM_IKONLARI[tur]), el('div', {}, ...icerik));
 }
 
+// Türün küçük fotoğrafı (liste ve benzerler için). Fotoğrafı yoksa boş döner.
+export function kucukFotograf(tur, sinif = 'tur-kucuk') {
+  if (!tur?.fotograf) return '';
+  return el('img', { className: sinif, src: tur.fotograf.dosya, alt: tur.ad, loading: 'lazy', decoding: 'async' });
+}
+
 // Mevsim ve mantar dönemi çubuğu: kalan süre (yuzde, 0–100) sağa yaslı koyu renkle gösterilir.
 export function cubukCiz(yuzde, etiket) {
   const cubuk = el('div', { className: 'mevsim-cubugu' }, el('span', { style: `width: ${yuzde}%` }));

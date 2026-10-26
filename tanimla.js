@@ -1,11 +1,11 @@
 // Tanımlama ekranı: adım adım sorular, fotoğraflar ve renkli sonuç.
-import { bildirim, cizim, el, ikon, ilerlemeCiz } from './dom.js';
+import { bildirim, cizim, el, ikon, ilerlemeCiz, kucukFotograf } from './dom.js';
 import { BILMIYORUM, GEREKLI_FOTOGRAFLAR, degerlendir } from './kurallar.js';
 import { adimSecenekleri, aktifAdimlar, ozetSatirlari, sonCevaplar } from './sorular.js';
 import { adaylariBul } from './anahtar.js';
 import { ozetResmiOlustur, ozetiPaylas } from './ozet.js';
 import { kaydet } from './depo.js';
-import { ZEHIRLILIK_ADLARI, tehlikeyeGoreSirala, turleriYukle } from './turler.js';
+import { FOTOGRAF_UYARISI, ZEHIRLILIK_ADLARI, tehlikeyeGoreSirala, turleriYukle } from './turler.js';
 
 // Tür listesi cihazdaki önbellekten gelir. Yüklenemezse boş sayılır; sonuç en fazla turuncu olur.
 let turler = [];
@@ -214,17 +214,26 @@ function paylasKartiCiz(sonuc, ozet) {
 // Kural 8: yenen bir aday her zaman zehirli benzerleri ve farklarıyla birlikte gösterilir.
 function adayCiz(tur) {
   const satir = el('li', {},
-    el('div', { className: 'aday-ust' },
-      el('strong', { textContent: tur.ad ?? 'Adsız tür' }),
-      el('span', { className: `rozet rozet-${tur.zehirlilik}`, textContent: ZEHIRLILIK_ADLARI[tur.zehirlilik] ?? 'Bilinmiyor, zehirli sayılır' }),
-      tur.mikologOnayi === true ? '' : el('span', { className: 'rozet', textContent: 'Taslak bilgi' }),
+    el('div', { className: 'aday-satiri' },
+      kucukFotograf(tur),
+      el('div', {},
+        el('div', { className: 'aday-ust' },
+          el('strong', { textContent: tur.ad ?? 'Adsız tür' }),
+          el('span', { className: `rozet rozet-${tur.zehirlilik}`, textContent: ZEHIRLILIK_ADLARI[tur.zehirlilik] ?? 'Bilinmiyor, zehirli sayılır' }),
+          tur.mikologOnayi === true ? '' : el('span', { className: 'rozet', textContent: 'Taslak bilgi' }),
+        ),
+        tur.bilimselAd ? el('em', { className: 'bilimsel-ad', textContent: tur.bilimselAd }) : '',
+      ),
     ),
-    tur.bilimselAd ? el('em', { className: 'bilimsel-ad', textContent: tur.bilimselAd }) : '',
   );
   if (tur.zehirlilik === 'yenen' && tur.zehirliBenzerler?.length) {
+    const adlaTur = new Map(turler.map((t) => [t.ad, t]));
     satir.append(el('div', { className: 'benzerler' },
       el('p', { className: 'benzer-baslik', textContent: 'Karıştırılan zehirli türler:' }),
-      ...tur.zehirliBenzerler.map((benzer) => el('p', {}, el('strong', { textContent: `${benzer.ad}: ` }), benzer.fark)),
+      ...tur.zehirliBenzerler.map((benzer) => el('div', { className: 'benzer-satiri' },
+        kucukFotograf(adlaTur.get(benzer.ad), 'benzer-kucuk'),
+        el('p', {}, el('strong', { textContent: `${benzer.ad}: ` }), benzer.fark),
+      )),
     ));
   }
   return satir;
@@ -266,6 +275,7 @@ function sonucCiz() {
       el('h3', { className: 'kart-baslik', textContent: 'Muhtemelen şu türlerden biri olabilir' }),
       el('p', { className: 'not', textContent: 'En tehlikeli olasılıklar önce. Cevaplarınla çelişmeyen bütün türler listelenir.' }),
       el('ul', { className: 'adaylar' }, ...tehlikeyeGoreSirala(adaylar).map(adayCiz)),
+      el('p', { className: 'not', textContent: FOTOGRAF_UYARISI }),
     ));
   } else if (turler.length > 0) {
     kok.append(bildirim('bilgi', el('p', {
