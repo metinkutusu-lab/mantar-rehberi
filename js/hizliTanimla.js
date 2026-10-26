@@ -55,7 +55,9 @@ function ayarYaz(degisiklik) {
   durumuYaz({ ...durumuOku(), ...degisiklik });
 }
 const sesAcik = () => ayar().sesliTanimlama === true;
-const kiyasAcik = () => ayar().fotoKiyasi === true;
+// Fotoğraf kıyası kendiliğinden açıktır (Metin'in isteği, 2026-10-26: "fotoğrafı çekince kendisi kıyaslayıp tahmin etsin");
+// kullanıcı kapatabilir. İlk kullanımda bir kez ~2 MB iner. Kıyas hiçbir türü elemez, sonucun rengini değiştirmez.
+const kiyasAcik = () => ayar().fotoKiyasi !== false;
 const ellerSerbest = () => ayar().ellerSerbest === true;
 
 export function hizliBaslat() {
@@ -269,7 +271,14 @@ function adaylarCiz() {
   const benzerlikVar = Object.keys(h.benzerlikler).length > 0;
   const sayi = el('p', { className: 'not', textContent: liste.length ? `Cevaplarınla çelişmeyen ${liste.length} tür var.` : 'Cevapların uygulamadaki türlerin hiçbiriyle uyuşmadı.' });
   // Benzerlik yokken uzun liste gösterilmez; 5 ve altına inince gösterilir.
-  if (!benzerlikVar && liste.length > 5) return el('div', { className: 'kart kiyas' }, el('h3', { className: 'kart-baslik', textContent: 'Olası türler' }), sayi);
+  if (!benzerlikVar && liste.length > 5) {
+    const bekliyor = kiyasAcik() && h.fotograflar.ust && ['yok', 'yukleniyor'].includes(modelDurumu());
+    return el('div', { className: 'kart kiyas' },
+      el('h3', { className: 'kart-baslik', textContent: 'Olası türler' }),
+      sayi,
+      bekliyor ? el('p', { className: 'not', textContent: 'Fotoğraf kıyaslanıyor…' }) : '',
+    );
+  }
   return el('div', { className: 'kart kiyas' },
     el('h3', { className: 'kart-baslik', textContent: benzerlikVar ? 'Fotoğrafa en çok benzeyenler' : 'Olası türler' }),
     sayi,
@@ -602,7 +611,8 @@ function adimCiz() {
   }
   govde.append(dugmeler);
   // Olası türler ve zehirli benzerleri adımın altında: önce yapılacak iş, sonra kıyas.
-  if (a !== UST_ADIM) govde.append(adaylarCiz());
+  // Üstten fotoğraf çekilince tahmin hemen, fotoğrafın altında görünür.
+  if (a !== UST_ADIM || h.fotograflar.ust) govde.append(adaylarCiz());
   return govde;
 }
 
