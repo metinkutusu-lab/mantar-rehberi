@@ -8,8 +8,9 @@ import { oku } from './depo.js';
 import { FOTOGRAF_UYARISI, ZEHIRLILIK_ADLARI, fotografAtfi, ozellikSatirlari, tehlikeyeGoreSirala, turleriYukle } from './turler.js';
 import { takibiYenile } from './yagmurKarti.js';
 import { anaKart, mevsimiYenile } from './anaKart.js';
+import { mantarAraAc, mantarAraKapat } from './mantarAra.js';
 
-const EKRANLAR = ['tanimla', 'ansiklopedi', 'tarifler', 'acil'];
+const EKRANLAR = ['tanimla', 'mantar-ara', 'ansiklopedi', 'tarifler', 'acil'];
 const EGITIM_ADIM_SAYISI = DERSLER.length + SORULAR.length + 1;
 
 // Eğitimin o anki durumu; yalnızca eğitim bitince cihaza kaydedilir.
@@ -341,6 +342,9 @@ function ekraniGoster() {
     link.classList.toggle('secili', link.getAttribute('href') === `#${secili}`);
   }
   if (secili === 'acil') sonOzetiGoster();
+  // Canlı konum yalnızca Mantar ara ekranı açıkken çalışır.
+  if (secili === 'mantar-ara') mantarAraAc();
+  else mantarAraKapat();
   window.scrollTo(0, 0);
 }
 

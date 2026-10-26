@@ -725,3 +725,37 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .isaret-nokta { fill: #e8963f; stroke: #fff; stroke-width: 3; filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.9)); }
 .isaret-yazi { fill: #fff; font-weight: 750; paint-order: stroke; stroke: rgba(0, 0, 0, 0.85); stroke-width: 0.26em; stroke-linejoin: round; }
 .sozluk-foto figcaption { margin-top: 6px; font-size: 12px; color: var(--soluk); line-height: 1.4; }
+
+/* Mantar ara */
+.ara-baglanti { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 48px; margin: 12px 0 2px; padding: 10px 14px; text-decoration: none; font-size: 15.5px; }
+.ara-baglanti .ikon { width: 20px; height: 20px; }
+.geri-baglanti { color: var(--marka); font-weight: 650; text-decoration: none; padding: 8px 0; }
+.ara-ekrani h1 { margin-top: 4px; }
+.ara-tur-etiket { display: flex; flex-direction: column; gap: 6px; font-weight: 700; font-size: 15px; margin: 6px 0 8px; }
+.ara-tur .bildirim { margin: 8px 0; font-size: 14.5px; }
+.ara-harita-kap { position: relative; margin: 10px -16px 0; }
+.ara-harita { height: min(62vh, 520px); min-height: 320px; background: var(--yuzey-2); }
+.ara-nisan { position: absolute; left: 50%; top: 50%; width: 26px; height: 26px; margin: -13px 0 0 -13px; pointer-events: none; }
+.ara-nisan::before, .ara-nisan::after { content: ""; position: absolute; background: #1d1a17; box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.9); }
+.ara-nisan::before { left: 12px; top: 0; width: 2px; height: 26px; }
+.ara-nisan::after { top: 12px; left: 0; width: 26px; height: 2px; }
+.ara-lejant { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 10px 0 0; font-size: 13.5px; color: var(--soluk); }
+.ara-lejant span { display: inline-flex; align-items: center; gap: 6px; }
+.ara-lejant i { width: 16px; height: 16px; border-radius: 4px; border: 1px solid var(--cizgi); }
+.ara-dugmeler { display: flex; flex-direction: column; gap: 8px; margin: 12px 0 0; }
+.ara-dugmeler .konum-dugme { margin: 0; }
+.ara-bak { min-height: 46px; font-size: 15.5px; }
+.ara-durum { margin: 12px 0 0; font-size: 15px; }
+.ara-durum p { margin: 0 0 8px; }
+.ara-en-yakin { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; padding: 10px 12px; border-radius: 12px; background: var(--marka-acik); }
+.ara-en-yakin .metin-dugme { margin: 0; padding: 6px 0; }
+.ara-hedef-kutu { text-align: center; }
+.hedef-ok { font-size: 48px; line-height: 1; color: var(--marka); font-weight: 800; margin: 6px auto 0; width: 56px; transition: transform 0.4s ease; }
+.hedef-mesafe { font-size: 20px; font-weight: 750; margin: 4px 0; }
+.ara-hedef-kutu .metin-dugme { margin: 4px auto 0; }
+.ara-isaret, .ara-indir { margin: 6px 0 0; }
+.konum-noktasi { width: 18px; height: 18px; border-radius: 50%; background: #1f6fe5; border: 3px solid #fff; box-shadow: 0 0 0 6px rgba(31, 111, 229, 0.25), 0 1px 4px rgba(0, 0, 0, 0.4); }
+.isaret-pin { width: 26px; height: 34px; padding: 0; border: none; background: none; cursor: pointer; }
+.isaret-pin::before { content: ""; display: block; width: 22px; height: 22px; margin: 0 auto; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: #e8963f; border: 3px solid #6b3e26; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4); }
+.maplibregl-ctrl-attrib { font-size: 10.5px; }
+.ara-indir .ikincil, .ara-isaret .ikincil { width: 100%; }

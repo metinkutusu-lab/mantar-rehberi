@@ -199,6 +199,22 @@ export function cihazKonumu() {
   });
 }
 
+// Mantar ara haritasında canlı konum (Metin'in onayı, 2026-10-26). Yalnızca harita ekranı açıkken ve
+// kullanıcı "Konumumu göster"e dokununca başlar; konum yalnızca ekranda gösterilir, hiçbir yere gönderilmez.
+// geri({ enlem, boylam, dogruluk }) ya da geri({ hata: 'izin' | 'yok' }). Sonuç: izlemeyi durduran işlev.
+export function konumuIzle(geri) {
+  if (!navigator.geolocation) {
+    geri({ hata: 'yok' });
+    return () => {};
+  }
+  const kimlik = navigator.geolocation.watchPosition(
+    (k) => geri({ enlem: k.coords.latitude, boylam: k.coords.longitude, dogruluk: k.coords.accuracy }),
+    (h) => geri({ hata: h.code === 1 ? 'izin' : 'yok' }),
+    { enableHighAccuracy: true, timeout: 30000, maximumAge: 5000 },
+  );
+  return () => navigator.geolocation.clearWatch(kimlik);
+}
+
 // Seçilen yerin hava verisini getirir. Hata durumunda { hata: 'baglanti' } döner.
 export async function havaVerisiAl(enlem, boylam) {
   try {

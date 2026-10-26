@@ -2,7 +2,7 @@
 // - Üstte mantar mevsimi ve takip edilen yerin çubukları; altında Şimdi güncelle / Takibi bırak.
 // - (i) düğmesi bütün açıklamaları tek yerde açar: mevsim tarihleri, nereye bakmalı, yerin yağmur ayrıntıları.
 // - "Yerlerim": kayıtlı ve gizli yerlerin tek listesi, yer arama, konum ve elle yağmur tarihi.
-import { cubukCiz, el } from './dom.js';
+import { cubukCiz, el, ikon } from './dom.js';
 import { MEVSIM_NOTU, SICAKLIK_IPUCU, mevsimDurumu } from './mevsim.js';
 import { KAYNAK_NOTU, YAGMUR_NOTU } from './yagmur.js';
 import { aramaBolumu, takipBilgisi, takipSatiri } from './yagmurKarti.js';
@@ -54,6 +54,7 @@ const kart = el('section', { className: 'kart ana-kart' },
   ),
   mevsimSatiri,
   takipSatiri(),
+  el('a', { className: 'birincil ara-baglanti', href: '#mantar-ara' }, ikon('konum'), el('span', { textContent: 'Mantar ara: haritada uygun yerler' })),
   bilgiPaneli,
   yerlerim,
 );

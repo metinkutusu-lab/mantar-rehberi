@@ -285,10 +285,18 @@ test('Kural 11: feragat taslak olarak işaretli (avukat yazacak)', () => {
   assert.ok(FERAGAT_MADDELERI.some((m) => /uzman/.test(m)));
 });
 
-// Kural 12: yağmur ipucu için yalnızca js/yagmur.js, yalnızca Open-Meteo'ya istek yapabilir
-// (yazılan yer adı ve yuvarlanmış koordinat).
+// Kural 12: dış adrese yalnızca şu dosyalar ve yalnızca şu adresler (Metin'in kararları, 2026-10-24 ve 2026-10-26):
+// - js/yagmur.js: Open-Meteo (yazılan yer adı ve yuvarlanmış koordinat).
+// - js/harita.js: Mantar ara haritası (OpenFreeMap) ve yükseklik parçaları; konum gönderilmez.
+// - sw.js: yalnızca bu harita adreslerini cihazdaki önbelleğe yönlendirir, kendisi istek başlatmaz.
 const DIS_ISTEK_DOSYASI = 'js/yagmur.js';
 const IZINLI_ADRESLER = ['https://api.open-meteo.com/', 'https://geocoding-api.open-meteo.com/'];
+const HARITA_ADRESLERI = ['https://tiles.openfreemap.org/', 'https://s3.amazonaws.com/elevation-tiles-prod/'];
+const DIS_ADRES_IZINLERI = {
+  [DIS_ISTEK_DOSYASI]: IZINLI_ADRESLER,
+  'js/harita.js': HARITA_ADRESLERI,
+  'sw.js': HARITA_ADRESLERI,
+};
 
 test('Kural 12: konum varsayılan olarak paylaşılmaz ve dışarı veri gönderilmez', () => {
   assert.equal(KONUM_VARSAYILAN.paylas, false);
@@ -296,14 +304,16 @@ test('Kural 12: konum varsayılan olarak paylaşılmaz ve dışarı veri gönder
     const icerik = oku(dosya);
     assert.doesNotMatch(icerik, /sendBeacon|XMLHttpRequest|WebSocket/, dosya);
     const adresler = icerik.match(/https?:\/\/[^\s'"`]+/g) ?? [];
-    if (dosya === DIS_ISTEK_DOSYASI) {
-      for (const adres of adresler) {
-        assert.ok(IZINLI_ADRESLER.some((izinli) => adres.startsWith(izinli)), `${dosya}: izinsiz adres ${adres}`);
-      }
-    } else {
-      assert.deepEqual(adresler, [], `${dosya} dış adres içermemeli`);
+    const izinli = DIS_ADRES_IZINLERI[dosya] ?? [];
+    for (const adres of adresler) {
+      assert.ok(izinli.some((i) => adres.startsWith(i)), `${dosya}: izinsiz dış adres ${adres}`);
     }
   }
+});
+
+test('Kural 12: harita dosyası konum okumaz ve yalnızca harita parçalarını ister', () => {
+  const icerik = oku('js/harita.js');
+  assert.doesNotMatch(icerik, /geolocation|getCurrentPosition|watchPosition|open-meteo/);
 });
 
 test('kaynak gösterme ve telif notu her ekranda görünür', () => {
@@ -314,14 +324,25 @@ test('kaynak gösterme ve telif notu her ekranda görünür', () => {
   assert.match(html, /© \d{4} .+ Tüm hakları saklıdır/);
 });
 
-// Kural 12 (Metin'in kararı, 2026-10-26): cihaz konumu yalnızca js/yagmur.js'teki cihazKonumu ile,
-// bir düğmeye dokununca okunur; sürekli izleme yoktur.
-test('Kural 12: cihaz konumu yalnızca js/yagmur.js içinde ve tek seferlik okunur', () => {
+// Kural 12 (Metin'in kararları, 2026-10-26): cihaz konumu yalnızca js/yagmur.js'te okunur.
+// Tek seferlik okuma (cihazKonumu) bir düğmeyle; canlı izleme (konumuIzle) yalnızca Mantar ara ekranında,
+// "Konumumu göster"e dokununca başlar ve ekrandan çıkınca durur.
+test('Kural 12: cihaz konumu yalnızca js/yagmur.js içinde okunur', () => {
   for (const dosya of uygulamaDosyalari()) {
-    const icerik = oku(dosya);
-    assert.doesNotMatch(icerik, /watchPosition/, dosya);
-    if (dosya !== DIS_ISTEK_DOSYASI) assert.doesNotMatch(icerik, /geolocation|getCurrentPosition/, dosya);
+    if (dosya === DIS_ISTEK_DOSYASI) continue;
+    assert.doesNotMatch(oku(dosya), /geolocation|getCurrentPosition|watchPosition/, dosya);
   }
+  const yagmur = oku(DIS_ISTEK_DOSYASI);
+  assert.equal(yagmur.match(/watchPosition/g)?.length, 1, 'canlı izleme tek yerde');
+  assert.match(yagmur, /clearWatch/, 'canlı izleme durdurulabilmeli');
+});
+
+test('Kural 12: canlı konum yalnızca Mantar ara ekranında açılır ve ekrandan çıkınca kapanır', () => {
+  const uygulama = oku('js/uygulama.js');
+  assert.match(uygulama, /if \(secili === 'mantar-ara'\) mantarAraAc\(\);\s*else mantarAraKapat\(\);/);
+  const ara = oku('js/mantarAra.js');
+  assert.equal(ara.match(/konumuIzle\(/g)?.length, 1, 'izleme tek bir düğmeden başlar');
+  assert.match(ara, /export function mantarAraKapat\(\) \{\s*ara\.izlemeyiDurdur\?\.\(\);/);
 });
 
 test('Kural 12: radar hava servisine yalnızca yuvarlanmış koordinat gönderir', () => {

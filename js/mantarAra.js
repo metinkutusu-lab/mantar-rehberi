@@ -1,0 +1,566 @@
+// Mantar ara ekranı (Metin'in isteği, 2026-10-26): haritada, çevrendeki mantar çıkmaya uygun yerler.
+// - Harita, yükseklik ve orman bilgisi js/harita.js'ten; hesap js/uygunluk.js'te; hava js/yagmur.js'ten.
+// - Canlı konum yalnızca bu ekranda ve "Konumumu göster"e dokununca açılır; ekrandan çıkınca kapanır.
+//   Konum hiçbir yere gönderilmez (kural 12); hava servisine yalnızca yuvarlanmış koordinat gider.
+// - Bu bir tahmindir: mantarın yerini göstermez. Bulunan her mantar Tanımla ile incelenmelidir.
+import { bildirim, el, ikon } from './dom.js';
+import { durumuOku, durumuYaz } from './durum.js';
+import {
+  HARITA_ATFI,
+  HARITA_STILI,
+  YUKSEKLIK_PARCALARI,
+  YUKSEKLIK_YAKINLIGI,
+  bolgeyiIndir,
+  konumaCevir,
+  pikseleCevir,
+  yukseklikIzgarasi,
+} from './harita.js';
+import { turleriYukle } from './turler.js';
+import { SINIF_ADLARI, egimVeBaki, hucrePuani, mesafeVeYon, mesafeYaz, puanSinifi, yonAdi, yonTercihi, zeminAgirliklari } from './uygunluk.js';
+import { gunlukKayitlar, havaVerisiAl, konumuIzle, mantarPenceresi } from './yagmur.js';
+import { pencereBilgisi } from './yagmurKarti.js';
+
+const YARICAP = 2500; // metre: çevrendeki bakılan alan
+const AZAMI_BOLGE = 10;
+// Sınıf renkleri (açık turuncudan koyu kahveye) ve saydamlık.
+const RENKLER = [null, [255, 196, 92, 120], [240, 128, 32, 165], [150, 52, 12, 200]];
+
+const ara = {
+  kuruldu: false,
+  harita: null,
+  turler: [],
+  turId: '',
+  konum: null, // { enlem, boylam, dogruluk } | { hata }
+  izlemeyiDurdur: null,
+  ilkKonum: true,
+  hesaplaniyor: false,
+  sonuc: null, // { merkez, tercih, pencere, sayilar, enYakin }
+  hata: null,
+  hedef: null, // { ad, enlem, boylam }
+  indirme: null, // { tamam, toplam } | { bitti, toplam } | { hata }
+  isaretAdi: '',
+};
+
+const kok = el('div', { className: 'ara-ekrani' });
+const haritaKap = el('div', { className: 'ara-harita' });
+const turKap = el('div', { className: 'ara-tur' });
+const durumKap = el('div', { className: 'ara-durum' });
+const hedefKap = el('div', { className: 'ara-hedef' });
+const isaretKap = el('div', { className: 'ara-isaret' });
+const indirKap = el('div', { className: 'ara-indir' });
+const konumDugmesi = el('button', { type: 'button', className: 'konum-dugme', onclick: konumuAc });
+const bakDugmesi = el('button', { type: 'button', className: 'ikincil ara-bak', textContent: 'Haritanın ortasına bak', onclick: () => bolgeyeBak(haritaMerkezi()) });
+const isaretler = new Map(); // gizli yer id → harita işareti
+let konumIsareti = null;
+
+const bilgiPaneli = el('div', { className: 'bilgi-paneli', hidden: true },
+  el('p', { textContent: 'Harita, çevrendeki yaklaşık 2,5 km içinde mantar çıkmaya uygun olabilecek yerleri koyu turuncudan açığa boyar. Bu bir tahmindir; mantarın yerini göstermez.' }),
+  el('p', { textContent: 'Hesaba girenler: ormanlık, çayır, meyve bahçesi ya da çalılık olması; yamacın baktığı yön (serin havada ve ilkbaharda güneye bakan yamaçlar önce ısınır, sıcak ve kuru havada kuzeye bakanlar nemini korur); yamacın dikliği; aradığın mantarın sevdiği zemin; bölgenin son yağmuru ve sıcaklığı.' }),
+  el('p', { textContent: 'Haritada ağaç cinsi (çam, meşe) yazmaz; bu yüzden ağacı yerinde kendin kontrol et. Tür bilgileri taslaktır, uzman onayı bekliyor.' }),
+  el('p', { className: 'not', textContent: `Harita: OpenFreeMap, OpenMapTiles, © OpenStreetMap katkıcıları. ${HARITA_ATFI}. Hava: Open-Meteo.com. Konumun hiçbir yere gönderilmez; harita sunucusu yalnızca bakılan bölgenin harita parçalarını görür.` }),
+);
+const bilgiDugmesi = el('button', {
+  type: 'button',
+  className: 'bilgi-dugme',
+  textContent: 'i',
+  onclick: () => {
+    bilgiPaneli.hidden = !bilgiPaneli.hidden;
+    bilgiDugmesi.setAttribute('aria-expanded', String(!bilgiPaneli.hidden));
+  },
+});
+bilgiDugmesi.setAttribute('aria-label', 'Nasıl hesaplanıyor?');
+bilgiDugmesi.setAttribute('aria-expanded', 'false');
+
+const lejant = el('div', { className: 'ara-lejant' },
+  ...[3, 2, 1].map((s) => el('span', {}, el('i', { style: `background: rgba(${RENKLER[s].slice(0, 3).join(',')}, ${RENKLER[s][3] / 255})` }), SINIF_ADLARI[s])),
+);
+
+kok.append(
+  el('div', { className: 'ana-ust' },
+    el('a', { className: 'geri-baglanti', href: '#tanimla', textContent: '‹ Ana sayfa' }),
+    bilgiDugmesi,
+  ),
+  el('h1', { textContent: 'Mantar ara' }),
+  el('p', { className: 'alt-baslik', textContent: 'Haritada çevrendeki mantar çıkmaya uygun yerler. Bu bir tahmindir; mantarın yerini göstermez.' }),
+  bilgiPaneli,
+  turKap,
+  el('div', { className: 'ara-harita-kap' }, haritaKap, el('div', { className: 'ara-nisan' })),
+  lejant,
+  el('div', { className: 'ara-dugmeler' }, konumDugmesi, bakDugmesi),
+  durumKap,
+  hedefKap,
+  isaretKap,
+  indirKap,
+  bildirim('uyari', el('p', { textContent: 'Bulduğun her mantarı Tanımla ile incele. Zehirli mantarlar da aynı yerlerde çıkar. Dik yamaçlarda dikkatli ol; birine nereye gittiğini söyle.' })),
+);
+
+// --- Yardımcılar ---
+
+function kalici(degisiklik) {
+  durumuYaz({ ...durumuOku(), ...degisiklik });
+}
+
+const gizliYerler = () => durumuOku().gizliYerler ?? [];
+
+function haritaMerkezi() {
+  const m = ara.harita.getCenter();
+  return { enlem: m.lat, boylam: m.lng };
+}
+
+function seciliTur() {
+  return ara.turler.find((t) => t.id === ara.turId) ?? null;
+}
+
+// İlk açılışta haritanın başlayacağı yer: takip edilen yer, son gizli yer ya da Türkiye.
+function baslangicYeri() {
+  const d = durumuOku();
+  const yer = d.takipYeri ?? gizliYerler()[0];
+  return yer ? { merkez: [yer.boylam, yer.enlem], zoom: 12 } : { merkez: [32.8, 39.2], zoom: 5 };
+}
+
+// MapLibre yalnızca bu ekran açılınca yüklenir (uygulamanın açılışı yavaşlamasın).
+function kutuphaneyiYukle() {
+  if (window.maplibregl) return Promise.resolve();
+  return new Promise((coz, reddet) => {
+    document.head.append(el('link', { rel: 'stylesheet', href: 'vendor/maplibre-gl.css' }));
+    document.head.append(el('script', { src: 'vendor/maplibre-gl.js', onload: coz, onerror: reddet }));
+  });
+}
+
+// Harita stili yüklenince çözülür.
+function haritaHazir() {
+  return ara.harita.isStyleLoaded() ? Promise.resolve() : new Promise((coz) => ara.harita.once('load', coz));
+}
+
+// Harita parçaları yüklenip çizim bitince (en fazla 10 saniye beklenir).
+function haritaDurgun() {
+  return new Promise((coz) => {
+    const sure = setTimeout(coz, 10000);
+    ara.harita.once('idle', () => { clearTimeout(sure); coz(); });
+  });
+}
+
+function ilkSembolKatmani() {
+  return ara.harita.getStyle().layers.find((k) => k.type === 'symbol')?.id;
+}
+
+// --- Tür seçimi ---
+
+function turCiz() {
+  const secim = el('select', {
+    className: 'yagmur-girdi',
+    onchange: (o) => {
+      ara.turId = o.target.value;
+      turCiz();
+      if (ara.sonuc) bolgeyeBak(ara.sonuc.merkez);
+    },
+  },
+  el('option', { value: '', textContent: 'Hepsi', selected: !ara.turId }),
+  ...ara.turler.map((t) => el('option', { value: t.id, textContent: t.ad, selected: t.id === ara.turId })),
+  );
+  secim.setAttribute('aria-label', 'Aradığın mantar');
+  const tur = seciliTur();
+  const parcalar = [el('label', { className: 'ara-tur-etiket' }, el('span', { textContent: 'Ne arıyorsun?' }), secim)];
+  if (tur) {
+    if (tur.nerede) parcalar.push(el('p', { className: 'not', textContent: `Nerede çıkar (taslak): ${tur.nerede}` }));
+    if (tur.zehirliBenzerler?.length) {
+      parcalar.push(bildirim('tehlike', el('p', {},
+        el('strong', { textContent: 'Karıştırılan zehirli türler: ' }),
+        `${tur.zehirliBenzerler.map((b) => b.ad).join(', ')}. Aynı yerlerde çıkabilirler.`)));
+    }
+  }
+  turKap.replaceChildren(...parcalar);
+}
+
+// --- Canlı konum ---
+
+const KONUM_HATALARI = {
+  izin: 'Konum izni verilmedi. Haritayı parmağınla gideceğin yere kaydırıp "Haritanın ortasına bak" diyebilirsin.',
+  yok: 'Konum bulunamadı. Açık bir alanda bekle; telefonun konum (GPS) ayarı açık olmalı.',
+};
+
+function konumuAc() {
+  if (ara.izlemeyiDurdur && ara.konum?.enlem != null) {
+    ara.harita.easeTo({ center: [ara.konum.boylam, ara.konum.enlem], zoom: Math.max(ara.harita.getZoom(), 13) });
+    return;
+  }
+  ara.ilkKonum = true;
+  ara.izlemeyiDurdur = konumuIzle(konumGeldi);
+  konumDugmesiCiz('Konum alınıyor…');
+}
+
+function konumGeldi(k) {
+  ara.konum = k;
+  if (k.hata) {
+    ara.izlemeyiDurdur?.();
+    ara.izlemeyiDurdur = null;
+    konumDugmesiCiz();
+    durumCiz();
+    return;
+  }
+  const yer = [k.boylam, k.enlem];
+  if (!konumIsareti) konumIsareti = new window.maplibregl.Marker({ element: el('div', { className: 'konum-noktasi' }) }).setLngLat(yer).addTo(ara.harita);
+  else konumIsareti.setLngLat(yer);
+  if (ara.ilkKonum) {
+    ara.ilkKonum = false;
+    bolgeyeBak({ enlem: k.enlem, boylam: k.boylam });
+  }
+  konumDugmesiCiz();
+  hedefCiz();
+}
+
+function konumDugmesiCiz(yazi) {
+  const acik = ara.izlemeyiDurdur && ara.konum?.enlem != null;
+  konumDugmesi.replaceChildren(ikon('konum'), el('span', { textContent: yazi ?? (acik ? 'Konumuma dön' : 'Konumumu göster') }));
+}
+
+export function mantarAraKapat() {
+  ara.izlemeyiDurdur?.();
+  ara.izlemeyiDurdur = null;
+  ara.konum = null;
+  konumIsareti?.remove();
+  konumIsareti = null;
+  if (ara.kuruldu) konumDugmesiCiz();
+}
+
+// --- Uygunluk hesabı ---
+
+// Haritadaki zemin (orman, çayır, bahçe, çalılık) poligonlarını hesap ızgarasına boyar.
+const ZEMIN_KODLARI = { orman: 40, cayir: 80, bahce: 120, calilik: 160 };
+function zeminSinifi(o) {
+  if (o.class === 'wood') return 'orman';
+  if (o.class === 'grass') return o.subclass === 'scrub' ? 'calilik' : 'cayir';
+  if (o.class === 'farmland' && o.subclass === 'orchard') return 'bahce';
+  return null;
+}
+
+function zeminIzgarasi(izgara) {
+  const { genislik, yukseklik, sol, ust } = izgara;
+  const tuval = new OffscreenCanvas(genislik, yukseklik);
+  const c = tuval.getContext('2d', { willReadFrequently: true });
+  const ozellikler = ara.harita.querySourceFeatures('openmaptiles', { sourceLayer: 'landcover' });
+  const sira = ['calilik', 'cayir', 'bahce', 'orman']; // orman en son: çakışmada orman kazanır
+  for (const zemin of sira) {
+    c.fillStyle = `rgb(${ZEMIN_KODLARI[zemin]}, 0, 0)`;
+    for (const o of ozellikler) {
+      if (zeminSinifi(o.properties) !== zemin) continue;
+      const poligonlar = o.geometry.type === 'Polygon' ? [o.geometry.coordinates] : o.geometry.type === 'MultiPolygon' ? o.geometry.coordinates : [];
+      for (const halkalar of poligonlar) {
+        c.beginPath();
+        for (const halka of halkalar) {
+          halka.forEach(([boylam, enlem], i) => {
+            const p = pikseleCevir(enlem, boylam, YUKSEKLIK_YAKINLIGI);
+            if (i === 0) c.moveTo(p.x - sol, p.y - ust);
+            else c.lineTo(p.x - sol, p.y - ust);
+          });
+          c.closePath();
+        }
+        c.fill('evenodd');
+      }
+    }
+  }
+  const d = c.getImageData(0, 0, genislik, yukseklik).data;
+  const kodlar = Object.entries(ZEMIN_KODLARI);
+  const sonuc = new Array(genislik * yukseklik);
+  for (let i = 0; i < sonuc.length; i++) {
+    if (d[i * 4 + 3] < 128) { sonuc[i] = 'diger'; continue; }
+    const r = d[i * 4];
+    sonuc[i] = kodlar.reduce((en, [ad, kod]) => (Math.abs(kod - r) < Math.abs(ZEMIN_KODLARI[en] - r) ? ad : en), 'orman');
+  }
+  return sonuc;
+}
+
+// Bölgenin son yağmuru ve sıcaklığı: internet varsa Open-Meteo'dan, yoksa indirilmiş bölgeden.
+async function bolgeHavasi(merkez) {
+  if (navigator.onLine) {
+    const sonuc = await havaVerisiAl(merkez.enlem, merkez.boylam);
+    if (!sonuc.hata) return sonuc.daily;
+  }
+  const yakin = (durumuOku().haritaBolgeleri ?? []).find((b) => mesafeVeYon(b, merkez).mesafe < 10000);
+  return yakin?.hava ?? null;
+}
+
+function sonGunlerSicakligi(kayitlar) {
+  const bugun = new Date();
+  const son = kayitlar.filter((k) => k.tarih <= bugun && k.enYuksek != null).slice(-7);
+  if (!son.length) return null;
+  return son.reduce((t, k) => t + (k.enYuksek + k.enDusuk) / 2, 0) / son.length;
+}
+
+function haritayaYerlestir(tuval, izgara) {
+  const { genislik, yukseklik, sol, ust } = izgara;
+  const z = YUKSEKLIK_YAKINLIGI;
+  const kose = (x, y) => { const k = konumaCevir(x, y, z); return [k.boylam, k.enlem]; };
+  const koordinatlar = [kose(sol, ust), kose(sol + genislik, ust), kose(sol + genislik, ust + yukseklik), kose(sol, ust + yukseklik)];
+  return tuval.convertToBlob({ type: 'image/png' }).then((blob) => {
+    const adres = URL.createObjectURL(blob);
+    const kaynak = ara.harita.getSource('uygunluk');
+    if (kaynak) kaynak.updateImage({ url: adres, coordinates: koordinatlar });
+    else {
+      ara.harita.addSource('uygunluk', { type: 'image', url: adres, coordinates: koordinatlar });
+      ara.harita.addLayer({ id: 'uygunluk', type: 'raster', source: 'uygunluk', paint: { 'raster-opacity': 0.85, 'raster-resampling': 'linear' } }, ilkSembolKatmani());
+    }
+  });
+}
+
+async function bolgeyeBak(merkez) {
+  if (!ara.harita || ara.hesaplaniyor) return;
+  Object.assign(ara, { hesaplaniyor: true, hata: null });
+  durumCiz();
+  try {
+    // Bölgeyi ekrana sığdır ve harita parçalarının (orman bilgisi) yüklenmesini bekle.
+    await haritaHazir();
+    const d = YARICAP / 111320;
+    const db = d / Math.cos((merkez.enlem * Math.PI) / 180);
+    const durgun = haritaDurgun();
+    ara.harita.fitBounds([[merkez.boylam - db, merkez.enlem - d], [merkez.boylam + db, merkez.enlem + d]], { padding: 10, animate: false });
+    await durgun;
+
+    const [izgara, daily] = await Promise.all([yukseklikIzgarasi(merkez.enlem, merkez.boylam, YARICAP), bolgeHavasi(merkez)]);
+    if (izgara.hata) {
+      Object.assign(ara, { hesaplaniyor: false, hata: 'yukseklik' });
+      durumCiz();
+      return;
+    }
+    const kayitlar = daily ? gunlukKayitlar(daily) : [];
+    const pencere = kayitlar.length ? mantarPenceresi(kayitlar) : null;
+    const tercih = yonTercihi({ ay: new Date().getMonth() + 1, sicaklik: sonGunlerSicakligi(kayitlar), kuru: pencere?.durum === 'yok' });
+    const agirliklar = zeminAgirliklari(seciliTur());
+
+    const { genislik, yukseklik, sol, ust, hucre } = izgara;
+    const { egim, baki } = egimVeBaki(izgara.yukseklikler, genislik, yukseklik, hucre);
+    const zemin = zeminIzgarasi(izgara);
+    const tuval = new OffscreenCanvas(genislik, yukseklik);
+    const c = tuval.getContext('2d');
+    const resim = c.createImageData(genislik, yukseklik);
+    const m = pikseleCevir(merkez.enlem, merkez.boylam, YUKSEKLIK_YAKINLIGI);
+    const r = YARICAP / hucre;
+    const sayilar = [0, 0, 0, 0];
+    let enYakin = null;
+    const referans = ara.konum?.enlem != null ? pikseleCevir(ara.konum.enlem, ara.konum.boylam, YUKSEKLIK_YAKINLIGI) : m;
+    for (let y = 1; y < yukseklik - 1; y++) {
+      for (let x = 1; x < genislik - 1; x++) {
+        if (Math.hypot(sol + x - m.x, ust + y - m.y) > r) continue;
+        const i = y * genislik + x;
+        const sinif = puanSinifi(hucrePuani({ egim: egim[i], baki: baki[i], zemin: zemin[i], tercih, agirliklar }));
+        sayilar[sinif]++;
+        if (!sinif) continue;
+        resim.data.set(RENKLER[sinif], i * 4);
+        if (sinif === 3) {
+          const uzaklik = Math.hypot(sol + x - referans.x, ust + y - referans.y);
+          if (!enYakin || uzaklik < enYakin.uzaklik) enYakin = { uzaklik, x: sol + x + 0.5, y: ust + y + 0.5 };
+        }
+      }
+    }
+    c.putImageData(resim, 0, 0);
+    await haritayaYerlestir(tuval, izgara);
+    if (enYakin) {
+      const k = konumaCevir(enYakin.x, enYakin.y, YUKSEKLIK_YAKINLIGI);
+      enYakin = { enlem: k.enlem, boylam: k.boylam };
+    }
+    ara.sonuc = { merkez, tercih, pencere, sayilar, enYakin };
+  } catch {
+    ara.hata = 'genel';
+  }
+  ara.hesaplaniyor = false;
+  durumCiz();
+}
+
+// --- Durum, hedef, işaretler, indirme ---
+
+function durumCiz() {
+  const parcalar = [];
+  if (ara.hesaplaniyor) parcalar.push(el('p', { className: 'not', textContent: 'Yamaçlar ve ormanlar hesaplanıyor…' }));
+  if (ara.konum?.hata) parcalar.push(bildirim('uyari', el('p', { textContent: KONUM_HATALARI[ara.konum.hata] })));
+  if (ara.hata) {
+    parcalar.push(bildirim('uyari', el('p', {
+      textContent: ara.hata === 'yukseklik'
+        ? 'Arazi bilgisi alınamadı. İnternet yoksa bu bölgeyi önceden indirmiş olman gerekir.'
+        : 'Hesap yapılamadı. Haritayı biraz kaydırıp tekrar dene.',
+    })));
+  }
+  const s = ara.sonuc;
+  if (s && !ara.hesaplaniyor) {
+    if (s.pencere) {
+      const b = pencereBilgisi(s.pencere);
+      parcalar.push(el('p', { className: 'ara-zaman' }, el('strong', { textContent: 'Bölgede mantar zamanı: ' }), `${b.baslik}${b.sagUst ? ` (${b.sagUst})` : ''}.`));
+      if (s.pencere.durum === 'yok') parcalar.push(el('p', { className: 'not', textContent: 'Son 3 haftada büyük yağmur yok; uygun yerlerde bile mantar az olabilir.' }));
+    } else {
+      parcalar.push(el('p', { className: 'not', textContent: 'Bölgenin yağmur bilgisi alınamadı; harita yalnızca araziye ve mevsime göre çizildi.' }));
+    }
+    parcalar.push(el('p', { textContent: s.tercih.aciklama }));
+    const toplam = s.sayilar.reduce((a, b) => a + b, 0) || 1;
+    const uygun = Math.round(((s.sayilar[2] + s.sayilar[3]) / toplam) * 100);
+    parcalar.push(el('p', { className: 'not', textContent: `Bakılan alanın yaklaşık %${uygun}'i uygun ya da çok uygun görünüyor.` }));
+    if (s.enYakin) {
+      const kaynak = ara.konum?.enlem != null ? ara.konum : s.merkez;
+      const { mesafe, yon } = mesafeVeYon(kaynak, s.enYakin);
+      parcalar.push(el('div', { className: 'ara-en-yakin' },
+        el('span', { textContent: `En yakın çok uygun yer: ${mesafeYaz(mesafe)}, ${yonAdi(yon)} yönünde${ara.konum?.enlem != null ? '' : ' (haritanın ortasına göre)'}.` }),
+        el('button', { type: 'button', className: 'metin-dugme', textContent: 'Oraya git', onclick: () => hedefSec({ ad: 'Çok uygun yer', ...s.enYakin }) }),
+      ));
+    } else {
+      parcalar.push(el('p', { className: 'not', textContent: 'Bu alanda çok uygun yer görünmüyor. Haritayı kaydırıp başka bir yere bak.' }));
+    }
+  }
+  durumKap.replaceChildren(...parcalar);
+}
+
+function hedefSec(hedef) {
+  ara.hedef = hedef;
+  hedefCiz();
+  hedefKap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function hedefCiz() {
+  const h = ara.hedef;
+  if (!h) { hedefKap.replaceChildren(); return; }
+  const parcalar = [el('strong', { textContent: `Hedef: ${h.ad}` })];
+  if (ara.konum?.enlem != null) {
+    const { mesafe, yon } = mesafeVeYon(ara.konum, h);
+    parcalar.push(
+      el('div', { className: 'hedef-ok', style: `transform: rotate(${yon}deg)`, textContent: '↑' }),
+      el('p', { className: 'hedef-mesafe', textContent: `${mesafeYaz(mesafe)} · ${yonAdi(yon)} yönünde` }),
+      el('p', { className: 'not', textContent: 'Ok, haritadaki gibi kuzeye göre yönü gösterir.' }),
+    );
+  } else {
+    parcalar.push(el('p', { className: 'not', textContent: 'Mesafeyi görmek için "Konumumu göster"e dokun.' }));
+  }
+  parcalar.push(el('button', { type: 'button', className: 'metin-dugme soluk', textContent: 'Hedefi bırak', onclick: () => { ara.hedef = null; hedefCiz(); } }));
+  hedefKap.replaceChildren(el('div', { className: 'tek-seferlik ara-hedef-kutu' }, ...parcalar));
+}
+
+function isaretleriCiz() {
+  const liste = gizliYerler();
+  for (const [id, isaret] of isaretler) {
+    if (!liste.some((y) => y.id === id)) { isaret.remove(); isaretler.delete(id); }
+  }
+  for (const yer of liste) {
+    if (isaretler.has(yer.id)) continue;
+    const ogesi = el('button', { type: 'button', className: 'isaret-pin', title: yer.ad, onclick: () => hedefSec({ ad: yer.ad, enlem: yer.enlem, boylam: yer.boylam }) });
+    ogesi.setAttribute('aria-label', `${yer.ad}: hedef olarak seç`);
+    isaretler.set(yer.id, new window.maplibregl.Marker({ element: ogesi, anchor: 'bottom' }).setLngLat([yer.boylam, yer.enlem]).addTo(ara.harita));
+  }
+}
+
+function isaretKaydet(olay) {
+  olay.preventDefault();
+  const m = haritaMerkezi();
+  const liste = gizliYerler();
+  const yer = {
+    id: `${Date.now()}`,
+    ad: ara.isaretAdi.trim() || `Gizli yer ${liste.length + 1}`,
+    not: '',
+    // Yeri tekrar bulabilmek için tam konum saklanır; yalnızca bu cihazda kalır.
+    enlem: Math.round(m.enlem * 1e5) / 1e5,
+    boylam: Math.round(m.boylam * 1e5) / 1e5,
+    tarih: new Date().toISOString(),
+  };
+  kalici({ gizliYerler: [yer, ...liste].slice(0, 50) });
+  ara.isaretAdi = '';
+  isaretleriCiz();
+  isaretCiz('Kaydedildi. Yerlerim listesinde ve haritada görünür.');
+  document.dispatchEvent(new Event('yerler-degisti'));
+}
+
+function isaretCiz(mesaj = '') {
+  const girdi = el('input', {
+    type: 'text',
+    className: 'yagmur-girdi',
+    placeholder: 'Yerin adı: ör. dere kenarı çamlık',
+    value: ara.isaretAdi,
+    maxLength: 60,
+    oninput: (o) => { ara.isaretAdi = o.target.value; },
+  });
+  girdi.setAttribute('aria-label', 'İşaretlenecek yerin adı');
+  isaretKap.replaceChildren(
+    el('h3', { className: 'yerlerim-baslik', textContent: 'Yer işaretle' }),
+    el('p', { className: 'not', textContent: 'Haritayı kaydırıp artı işaretini gideceğin yere getir. İşaret yalnızca bu cihazda kalır. Haritadaki bir işarete dokununca oraya yön gösterilir.' }),
+    el('form', { className: 'gizli-yer-formu', onsubmit: isaretKaydet },
+      girdi,
+      el('button', { type: 'submit', className: 'ikincil', textContent: 'Ortadaki noktayı kaydet' }),
+    ),
+    mesaj ? el('p', { className: 'not', textContent: mesaj }) : '',
+  );
+}
+
+async function indir() {
+  const m = haritaMerkezi();
+  ara.indirme = { tamam: 0, toplam: 0 };
+  indirCiz();
+  const [sonuc, hava] = await Promise.all([
+    bolgeyiIndir(m.enlem, m.boylam, YARICAP, (tamam, toplam) => { ara.indirme = { tamam, toplam }; indirCiz(); }),
+    havaVerisiAl(m.enlem, m.boylam),
+  ]);
+  if (sonuc.hata) {
+    ara.indirme = { hata: sonuc.hata };
+  } else {
+    const bolge = { enlem: Math.round(m.enlem * 1e3) / 1e3, boylam: Math.round(m.boylam * 1e3) / 1e3, tarih: new Date().toISOString(), hava: hava.hata ? null : hava.daily };
+    kalici({ haritaBolgeleri: [bolge, ...(durumuOku().haritaBolgeleri ?? []).filter((b) => mesafeVeYon(b, bolge).mesafe > 1000)].slice(0, AZAMI_BOLGE) });
+    ara.indirme = { bitti: true, toplam: sonuc.toplam };
+  }
+  indirCiz();
+}
+
+function indirCiz() {
+  const d = ara.indirme;
+  const parcalar = [
+    el('h3', { className: 'yerlerim-baslik', textContent: 'İnternetsiz kullan' }),
+    el('p', { className: 'not', textContent: 'Gitmeden önce, internet varken haritayı gideceğin yere getir ve indir. Dağda internet olmasa da harita, arazi ve son yağmur bilgisi çalışır; konum (GPS) internetsiz de çalışır.' }),
+    el('button', { type: 'button', className: 'ikincil genis', textContent: 'Bu bölgeyi indir', disabled: Boolean(d && !d.bitti && !d.hata), onclick: indir }),
+  ];
+  if (d?.hata) parcalar.push(bildirim('uyari', el('p', { textContent: d.hata === 'desteklenmiyor' ? 'Bu tarayıcı indirmeyi desteklemiyor. Uygulamayı ana ekrana ekleyip oradan aç.' : 'İndirilemedi. İnternet bağlantını kontrol et.' })));
+  else if (d?.bitti) parcalar.push(el('p', { className: 'not', textContent: `İndirildi (${d.toplam} parça). Bu bölge artık internetsiz açılır.` }));
+  else if (d) parcalar.push(el('p', { className: 'not', textContent: `İndiriliyor… ${d.tamam} / ${d.toplam || '?'}` }));
+  const bolgeler = durumuOku().haritaBolgeleri ?? [];
+  if (bolgeler.length) parcalar.push(el('p', { className: 'not', textContent: `İndirilmiş bölge: ${bolgeler.length}. En son: ${new Date(bolgeler[0].tarih).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' })}.` }));
+  indirKap.replaceChildren(...parcalar);
+}
+
+// --- Kurulum ---
+
+async function kur() {
+  ara.kuruldu = true;
+  konumDugmesiCiz();
+  isaretCiz();
+  indirCiz();
+  turCiz();
+  turleriYukle().then((turler) => {
+    // Aranacak türler: toplanan (yenen) türler. Zehirli benzerleri her seçimde gösterilir (kural 8).
+    ara.turler = turler.filter((t) => t.zehirlilik === 'yenen').sort((a, b) => a.ad.localeCompare(b.ad, 'tr'));
+    turCiz();
+  });
+  try {
+    await kutuphaneyiYukle();
+  } catch {
+    haritaKap.replaceChildren(bildirim('uyari', el('p', { textContent: 'Harita yüklenemedi. İnternet bağlantını kontrol et.' })));
+    return;
+  }
+  const { merkez, zoom } = baslangicYeri();
+  ara.harita = new window.maplibregl.Map({
+    container: haritaKap,
+    style: HARITA_STILI,
+    center: merkez,
+    zoom,
+    attributionControl: { compact: true, customAttribution: HARITA_ATFI },
+  });
+  ara.harita.addControl(new window.maplibregl.NavigationControl({ visualizePitch: false }), 'top-right');
+  ara.harita.on('load', () => {
+    // Atıf kutusu küçük başlasın (i'ye dokununca açılır); telefonda haritayı kapatmasın.
+    haritaKap.querySelector('.maplibregl-ctrl-attrib')?.classList.remove('maplibregl-compact-show');
+    // Dağları gölgeyle göster: yamaçlar ve vadiler görünsün.
+    ara.harita.addSource('yukseklik', { type: 'raster-dem', tiles: [YUKSEKLIK_PARCALARI], tileSize: 256, encoding: 'terrarium', maxzoom: YUKSEKLIK_YAKINLIGI });
+    ara.harita.addLayer({ id: 'golge', type: 'hillshade', source: 'yukseklik', paint: { 'hillshade-exaggeration': 0.45 } }, ilkSembolKatmani());
+    isaretleriCiz();
+  });
+}
+
+document.addEventListener('yerler-degisti', () => { if (ara.harita?.loaded()) isaretleriCiz(); });
+
+// Ekran her açıldığında çağrılır.
+export function mantarAraAc() {
+  const kap = document.getElementById('mantar-ara-icerik');
+  if (!kap.contains(kok)) kap.replaceChildren(kok);
+  if (!ara.kuruldu) kur();
+  else ara.harita?.resize();
+}
