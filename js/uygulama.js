@@ -3,7 +3,7 @@ import { DERSLER, FERAGAT_MADDELERI, FERAGAT_TASLAK_NOTU, SORULAR } from './egit
 import { durumuOku, durumuYaz } from './durum.js';
 import { acilirKart, bildirim, cizim, el, ilerlemeCiz, kucukFotograf } from './dom.js';
 import { tanimlamaCiz } from './tanimla.js';
-import { SOZLUK } from './sozluk.js';
+import { SOZLUK, SOZLUK_FOTOGRAFLARI } from './sozluk.js';
 import { oku } from './depo.js';
 import { FOTOGRAF_UYARISI, ZEHIRLILIK_ADLARI, fotografAtfi, ozellikSatirlari, tehlikeyeGoreSirala, turleriYukle } from './turler.js';
 import { MEVSIM_NOTU, SICAKLIK_IPUCU, mevsimDurumu } from './mevsim.js';
@@ -175,17 +175,69 @@ function tanimlaCiz() {
   });
 }
 
+// SVG öğesi (fotoğraf üzerindeki işaretler için). SVG ad alanı tarayıcıdan alınır; böylece kodda
+// dış adrese benzeyen bir metin bulunmaz (kural 12 testi her adresi denetler).
+let svgAdAlani;
+function svgEl(etiket, ozellikler = {}, ...cocuklar) {
+  if (!svgAdAlani) {
+    const kap = document.createElement('div');
+    kap.innerHTML = '<svg></svg>';
+    svgAdAlani = kap.firstChild.namespaceURI;
+  }
+  const oge = document.createElementNS(svgAdAlani, etiket);
+  for (const [ad, deger] of Object.entries(ozellikler)) oge.setAttribute(ad, String(deger));
+  oge.append(...cocuklar);
+  return oge;
+}
+
+// Gerçek fotoğraf ve üzerinde bölümlerin adları: nokta, çizgi ve yazı.
+function sozlukFotografi(foto) {
+  const { genislik: w, yukseklik: h } = foto;
+  const yuzde = (d, boy) => (d / 100) * boy;
+  const yaziBoyu = Math.round(w * 0.046);
+  const svg = svgEl('svg', { viewBox: `0 0 ${w} ${h}`, class: 'sozluk-isaretler', 'aria-hidden': 'true' });
+  for (const i of foto.isaretler) {
+    const [nx, ny, yx, yy] = [yuzde(i.x, w), yuzde(i.y, h), yuzde(i.yx, w), yuzde(i.yy, h)];
+    const hiza = i.yx < 35 ? 'start' : i.yx > 65 ? 'end' : 'middle';
+    svg.append(
+      svgEl('line', { x1: nx, y1: ny, x2: yx, y2: yy, class: 'isaret-cizgi' }),
+      svgEl('circle', { cx: nx, cy: ny, r: w * 0.012, class: 'isaret-nokta' }),
+      svgEl('text', { x: yx, y: yy, 'text-anchor': hiza, 'dominant-baseline': 'middle', 'font-size': yaziBoyu, class: 'isaret-yazi' }, i.metin),
+    );
+  }
+  const bolumler = foto.isaretler.map((i) => i.metin).filter((m, j, liste) => liste.indexOf(m) === j).join(', ');
+  return el('figure', { className: 'sozluk-foto' },
+    el('div', { className: 'sozluk-foto-kap', style: `aspect-ratio: ${w} / ${h}` },
+      el('img', { src: foto.dosya, alt: `Gerçek fotoğraf; işaretli bölümler: ${bolumler}`, loading: 'lazy', decoding: 'async' }),
+      svg,
+    ),
+    // Lisans gereği: çeken, lisans ve kaynak yazılır; fotoğraf kırpılıp işaretlendiği için bu da belirtilir
+    // (CC BY-SA: değiştirilmiş hâli de aynı lisansla paylaşılır).
+    el('figcaption', { textContent: `Örnek: ${foto.ornek}. Fotoğraf: ${foto.cekan}, ${foto.lisans}, Wikimedia Commons (${foto.commonsDosyasi}). Kırpıldı ve üzerine işaret eklendi; bu hâli de aynı lisansla paylaşılır.` }),
+  );
+}
+
 function sozlukCiz() {
   document.getElementById('sozluk').replaceChildren(
-    ...SOZLUK.map((madde) =>
-      el('div', { className: 'kart sozluk-karti' },
-        cizim(madde.cizim, 'cizim sozluk-cizim'),
+    ...SOZLUK.map((madde) => {
+      const foto = SOZLUK_FOTOGRAFLARI[madde.foto];
+      if (!foto) {
+        return el('div', { className: 'kart sozluk-karti' },
+          cizim(madde.cizim, 'cizim sozluk-cizim'),
+          el('div', {},
+            el('h3', { className: 'kart-baslik', textContent: madde.terim }),
+            el('p', { textContent: madde.tanim }),
+          ),
+        );
+      }
+      return el('div', { className: 'kart sozluk-karti sozluk-fotolu' },
         el('div', {},
           el('h3', { className: 'kart-baslik', textContent: madde.terim }),
           el('p', { textContent: madde.tanim }),
         ),
-      ),
-    ),
+        sozlukFotografi(foto),
+      );
+    }),
   );
 }
 

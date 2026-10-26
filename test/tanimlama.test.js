@@ -15,7 +15,7 @@ import {
 import { ADIMLAR, adimSecenekleri, aktifAdimlar, ozetSatirlari, sonCevaplar } from '../js/sorular.js';
 import { adaylariBul } from '../js/anahtar.js';
 import { CIZIMLER } from '../js/cizimler.js';
-import { SOZLUK } from '../js/sozluk.js';
+import { SOZLUK, SOZLUK_FOTOGRAFLARI } from '../js/sozluk.js';
 import { OZET_UYARISI } from '../js/kurallar.js';
 
 const KOK = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -230,6 +230,25 @@ test('fotoğraflar: her türün fotoğrafı var, lisansı ticari kullanıma uygu
     assert.match(f.kaynak, /Wikimedia Commons/, tur.ad);
     assert.match(f.lisans, /^(CC0|Public domain|CC BY(-SA)? \d)/i, `${tur.ad}: lisans ${f.lisans}`);
     assert.doesNotMatch(f.lisans, /NC|ND/, `${tur.ad}: ticari olmayan veya türetilemez lisans kullanılamaz`);
+  }
+});
+
+test('sözlük fotoğrafları: dosya var, çevrimdışı listede, lisans ve atıf yazılı, işaretler fotoğrafın içinde', () => {
+  const sw = readFileSync(path.join(KOK, 'sw.js'), 'utf8');
+  for (const madde of SOZLUK) {
+    const f = SOZLUK_FOTOGRAFLARI[madde.foto];
+    assert.ok(f, `${madde.terim}: fotoğraf yok`);
+    assert.ok(existsSync(path.join(KOK, f.dosya)), `${f.dosya} bulunamadı`);
+    assert.ok(sw.includes(`'./${f.dosya}'`), `${f.dosya} sw.js'de çevrimdışı listede olmalı`);
+    assert.ok(f.cekan?.trim(), `${madde.terim}: çeken adı zorunlu (lisans gereği)`);
+    assert.match(f.commonsDosyasi, /\.(jpe?g|png)$/i, `${madde.terim}: Commons dosya adı`);
+    assert.match(f.lisans, /^(CC0|Public domain|Kamu malı|CC BY(-SA)? \d)/i, `${madde.terim}: lisans ${f.lisans}`);
+    assert.doesNotMatch(f.lisans, /NC|ND/, `${madde.terim}: ticari olmayan veya türetilemez lisans kullanılamaz`);
+    assert.ok(f.ornek?.trim(), `${madde.terim}: örnek tür yazılmalı`);
+    assert.ok(f.isaretler.length > 0, `${madde.terim}: en az bir işaret`);
+    for (const i of f.isaretler) {
+      for (const d of [i.x, i.y, i.yx, i.yy]) assert.ok(d >= 0 && d <= 100, `${madde.terim}/${i.metin}: ${d} fotoğrafın dışında`);
+    }
   }
 });
 

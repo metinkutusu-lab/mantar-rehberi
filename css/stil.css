@@ -715,3 +715,13 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 /* Eğitimi tekrar izlerken kapatma */
 .tekrar-ust { display: flex; justify-content: flex-end; margin: -4px 0 4px; }
 .tekrar-kapat { margin: 0; padding: 8px 4px; font-size: 15px; font-weight: 650; text-decoration: none; }
+
+/* Sözlük: gerçek fotoğraf üzerinde işaretli bölümler */
+.sozluk-karti.sozluk-fotolu { flex-direction: column; align-items: stretch; gap: 12px; }
+.sozluk-foto { margin: 0; }
+.sozluk-foto-kap { position: relative; width: 100%; border-radius: 12px; overflow: hidden; background: var(--yuzey-2); }
+.sozluk-foto-kap img, .sozluk-isaretler { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.isaret-cizgi { stroke: #fff; stroke-width: 3; filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.9)); }
+.isaret-nokta { fill: #e8963f; stroke: #fff; stroke-width: 3; filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.9)); }
+.isaret-yazi { fill: #fff; font-weight: 750; paint-order: stroke; stroke: rgba(0, 0, 0, 0.85); stroke-width: 0.26em; stroke-linejoin: round; }
+.sozluk-foto figcaption { margin-top: 6px; font-size: 12px; color: var(--soluk); line-height: 1.4; }
