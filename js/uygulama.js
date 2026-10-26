@@ -107,6 +107,11 @@ function egitimiBitir() {
   adimaGit(0);
 }
 
+function tekrarIzlemeyiKapat() {
+  egitimiSifirla(false);
+  adimaGit(0);
+}
+
 function egitimAdimiCiz() {
   const { adim } = egitim;
   const soruBaslangici = DERSLER.length;
@@ -129,6 +134,8 @@ function egitimAdimiCiz() {
   const dugmeler = el('div', { className: 'dugmeler' });
   if (adim > 0) {
     dugmeler.append(el('button', { type: 'button', className: 'ikincil', textContent: 'Geri', onclick: () => adimaGit(adim - 1) }));
+  } else if (egitim.tekrar) {
+    dugmeler.append(el('button', { type: 'button', className: 'ikincil', textContent: 'Geri', onclick: tekrarIzlemeyiKapat }));
   }
   dugmeler.append(
     el('button', {
@@ -140,6 +147,14 @@ function egitimAdimiCiz() {
     }),
   );
 
+  // Eğitimi daha önce bitiren biri tekrar izlerken istediği an çıkabilir (ilk eğitim yine zorunludur, kural 11).
+  if (egitim.tekrar) {
+    return el('div', { className: 'adim' },
+      el('div', { className: 'tekrar-ust' },
+        el('button', { type: 'button', className: 'metin-dugme tekrar-kapat', textContent: '✕ Kapat', onclick: tekrarIzlemeyiKapat }),
+      ),
+      ilerlemeCiz('Güvenlik eğitimi (tekrar)', adim + 1, EGITIM_ADIM_SAYISI), govde, dugmeler);
+  }
   return el('div', { className: 'adim' }, ilerlemeCiz('Güvenlik eğitimi', adim + 1, EGITIM_ADIM_SAYISI), govde, dugmeler);
 }
 

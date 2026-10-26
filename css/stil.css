@@ -711,3 +711,7 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .gizli-yer-dugmeleri .metin-dugme { margin: 0; padding: 8px 0; font-size: 14px; text-decoration: none; }
 .mevsim-ipucu { font-size: 13.5px; color: var(--yazi); margin: 8px 0 0; padding-top: 8px; border-top: 1px solid var(--cizgi); }
 .tur-nerede { margin: 8px 0; }
+
+/* Eğitimi tekrar izlerken kapatma */
+.tekrar-ust { display: flex; justify-content: flex-end; margin: -4px 0 4px; }
+.tekrar-kapat { margin: 0; padding: 8px 4px; font-size: 15px; font-weight: 650; text-decoration: none; }
