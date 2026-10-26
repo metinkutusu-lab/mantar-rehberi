@@ -9,7 +9,8 @@ import path from 'node:path';
 
 const KOK = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const GIT = existsSync('C:\\Program Files\\Git\\cmd\\git.exe') ? 'C:\\Program Files\\Git\\cmd\\git.exe' : 'git';
-const aciklama = process.argv.slice(2).join(' ').trim() || 'Uygulama güncellemesi';
+// Windows'ta npm, boşluklu açıklamadaki karakterlerin önüne ^ koyabiliyor; onları temizle.
+const aciklama = process.argv.slice(2).join(' ').replace(/\^(.)/g, '$1').replace(/\^$/, '').trim() || 'Uygulama güncellemesi';
 
 function git(...argumanlar) {
   return execFileSync(GIT, ['-C', KOK, ...argumanlar], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'] }).trim();
