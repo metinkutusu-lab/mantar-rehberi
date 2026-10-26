@@ -51,6 +51,7 @@ export function sozlukFotografi(foto) {
 const ADIM_FOTOGRAFLARI = {
   __ust: 'sapka',
   sapkaRengi: 'sapka',
+  sapkaYuzeyi: 'sapka',
   genc: 'genc',
   altYapi: 'solungac',
   solungacRengi: 'solungac',

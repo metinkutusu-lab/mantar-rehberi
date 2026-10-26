@@ -46,7 +46,8 @@ export function agirliklar(adaylar, benzerlikler = {}) {
  */
 export function adimFaydasi(adim, adaylar, agirlik) {
   const degerler = adim.secenekler.map(([d]) => d).filter((d) => d !== 'diger' && d !== 'yapilmadi');
-  if (adim.coklu) return 0; // Çoklu seçimli sorular eleyici değil, sona bırakılır.
+  // Çoklu seçimli sorular da hesaplanır (tek seçim gibi; çoğu kişi bir şey seçer). Eskiden 0 sayılıyordu ve
+  // hiç sorulmuyordu (ör. şapka rengi, çevredeki ağaçlar). Çoklu cevap eleme gücünü yalnızca azaltır (kural 3).
   let toplam = 0;
   const olasilik = new Map(degerler.map((d) => [d, 0]));
   for (const tur of adaylar) {

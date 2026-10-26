@@ -8,7 +8,7 @@
       "zehirlilik": "olumcul",
       "zehirTipi": "karaciger",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Türkiye'de en çok ölüme yol açan tür olduğu: mikolog Jilber Barutçiyan (basın açıklamaları).",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Türkiye'de en çok ölüme yol açan tür olduğu: mikolog Jilber Barutçiyan (basın açıklamaları). Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Türkiye'de en çok ölüme yol açan mantar. Şapka yeşilimsi-zeytin renginden beyazımsıya kadar değişir. Solungaçlar beyazdır, ayakta etek gibi bir halka, ayak dibinde toprağın içinde kalabilen bir torba (volva) vardır. Belirtiler yemekten saatler sonra başlar ve karaciğere zarar verir.",
       "karistirilanlar": [
         "Çayır mantarı",
@@ -22,6 +22,11 @@
           "beyaz",
           "kahverengi",
           "gri-siyah"
+        ],
+        "sapkaYuzeyi": [
+          "duz",
+          "lifli",
+          "benek"
         ],
         "altYapi": [
           "solungac"
@@ -64,7 +69,7 @@
       "zehirlilik": "olumcul",
       "zehirTipi": "karaciger",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Baştan sona beyaz, köygöçürenle aynı zehri taşıyan ölümcül türler. Beyaz solungaç, ayakta halka ve dipte torba (volva) vardır. Beyaz çayır mantarları ve puf mantarlarıyla karıştırılır.",
       "karistirilanlar": [
         "Çayır mantarı",
@@ -74,6 +79,11 @@
         "sapkaRengi": [
           "beyaz",
           "krem-sari"
+        ],
+        "sapkaYuzeyi": [
+          "duz",
+          "benek",
+          "lifli"
         ],
         "altYapi": [
           "solungac"
@@ -116,7 +126,7 @@
       "zehirlilik": "zehirli",
       "zehirTipi": "sinir",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Şapkasının sarımsı kahveden koyu kahveye değiştiği ve beyaz benekli olduğu: Ankara Üniversitesi açık ders notu.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Şapkasının sarımsı kahveden koyu kahveye değiştiği ve beyaz benekli olduğu: Ankara Üniversitesi açık ders notu. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Kahverengi şapkası üzerinde beyaz benekler olur; benekler yağmurla silinebilir. Solungaçlar beyaz, ayakta halka ve dipte torba vardır. Sinir sistemini etkileyen ağır zehirlenmelere yol açar.",
       "karistirilanlar": [
         "Büyük şemsiye mantarı",
@@ -127,6 +137,10 @@
           "kahverengi",
           "krem-sari",
           "gri-siyah"
+        ],
+        "sapkaYuzeyi": [
+          "benek",
+          "duz"
         ],
         "altYapi": [
           "solungac"
@@ -169,7 +183,7 @@
       "zehirlilik": "zehirli",
       "zehirTipi": "sinir",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. İçerdiği maddeler (muskarin vb.): Ankara Üniversitesi açık ders notu.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. İçerdiği maddeler (muskarin vb.): Ankara Üniversitesi açık ders notu. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Kırmızı veya turuncu şapka üzerinde beyaz benekler olur; benekler yağmurla silinebilir. Solungaçlar ve ayak beyazdır, ayakta halka ve dipte pullu bir yumru vardır. Sinir sistemini etkiler.",
       "karistirilanlar": [
         "Yumurta mantarı"
@@ -178,6 +192,10 @@
         "sapkaRengi": [
           "kirmizi-turuncu",
           "krem-sari"
+        ],
+        "sapkaYuzeyi": [
+          "benek",
+          "duz"
         ],
         "altYapi": [
           "solungac"
@@ -219,12 +237,16 @@
       "bilimselAd": "Amanita caesarea",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Turuncu-kırmızı şapkalı, sarı solungaçlı ve sarı ayaklı bir Amanita türü. Topraktan beyaz, kalın bir yumurtanın içinden çıkar. Yumurta evresinde ölümcül köygöçürenle karıştırılır.",
       "ozellikler": {
         "sapkaRengi": [
           "kirmizi-turuncu",
           "krem-sari"
+        ],
+        "sapkaYuzeyi": [
+          "duz",
+          "benek"
         ],
         "altYapi": [
           "solungac"
@@ -287,7 +309,7 @@
       "zehirlilik": "olumcul",
       "zehirTipi": "karaciger",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Küçük (şapkası çoğunlukla 5 cm'den dar), pullu şapkalı, beyaz solungaçlı mantarlar. Bazı türleri köygöçürenle aynı zehri taşır. Büyük şemsiye mantarının küçükleriyle karıştırılır.",
       "karistirilanlar": [
         "Büyük şemsiye mantarı"
@@ -298,6 +320,11 @@
           "kirmizi-turuncu",
           "krem-sari",
           "beyaz"
+        ],
+        "sapkaYuzeyi": [
+          "pul",
+          "lifli",
+          "duz"
         ],
         "altYapi": [
           "solungac"
@@ -334,13 +361,16 @@
       "bilimselAd": "Macrolepiota procera",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Çok iri (şapkası 10–30 cm), kahverengi pullu şapkalı, uzun ve yılan derisi desenli ayaklı mantar. Ayaktaki halka kalındır ve aşağı yukarı oynar. Beyaz solungaç ve halka taşıdığı için uygulama bu türde her zaman kırmızı sonuç verir.",
       "ozellikler": {
         "sapkaRengi": [
           "kahverengi",
           "krem-sari",
           "beyaz"
+        ],
+        "sapkaYuzeyi": [
+          "pul"
         ],
         "altYapi": [
           "solungac"
@@ -403,7 +433,7 @@
       "zehirlilik": "olumcul",
       "zehirTipi": "karaciger",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Odun ve kütük üzerinde kümeler halinde çıkan küçük, kahverengi bir mantar. Köygöçürenle aynı zehri taşır. Kütük mantarları ve bal mantarlarıyla karıştırılır.",
       "karistirilanlar": [
         "İstiridye mantarı"
@@ -413,6 +443,10 @@
           "kahverengi",
           "krem-sari",
           "kirmizi-turuncu"
+        ],
+        "sapkaYuzeyi": [
+          "duz",
+          "lifli"
         ],
         "altYapi": [
           "solungac"
@@ -449,7 +483,7 @@
       "zehirlilik": "olumcul",
       "zehirTipi": "bobrek",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Turuncu-kahverengi, orta boy mantarlar. Gençken solungaçların önünde örümcek ağı gibi bir perde olur. Belirtiler günler, hatta haftalar sonra başlar ve böbreklere zarar verir.",
       "karistirilanlar": [
         "Horozmantarı"
@@ -459,6 +493,11 @@
           "kahverengi",
           "kirmizi-turuncu",
           "krem-sari"
+        ],
+        "sapkaYuzeyi": [
+          "lifli",
+          "pul",
+          "duz"
         ],
         "altYapi": [
           "solungac"
@@ -494,7 +533,7 @@
       "zehirlilik": "zehirli",
       "zehirTipi": "ter",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Küçük, şapkası lifli ve ortası sivri mantarlar. Birçok türü muskarin içerir: terleme, ağızda sulanma, göz bebeklerinde küçülme yapar.",
       "karistirilanlar": [
         "Çayır mantarı"
@@ -504,6 +543,11 @@
           "kahverengi",
           "krem-sari",
           "beyaz"
+        ],
+        "sapkaYuzeyi": [
+          "lifli",
+          "pul",
+          "duz"
         ],
         "altYapi": [
           "solungac"
@@ -540,13 +584,16 @@
       "bilimselAd": "Morchella türleri",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "İlkbaharda çıkar. Şapkası bal peteği gibi çukurlu ve süngerimsidir. Boyuna kesildiğinde şapka ile ayak tek parçadır ve baştan sona içi boştur. Çiğken zehirlidir; iyice pişirilmeden yenmez.",
       "ozellikler": {
         "sapkaRengi": [
           "kahverengi",
           "krem-sari",
           "gri-siyah"
+        ],
+        "sapkaYuzeyi": [
+          "kirisik"
         ],
         "altYapi": [
           "duz"
@@ -596,7 +643,7 @@
       "zehirlilik": "olumcul",
       "zehirTipi": "olumcul",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Şapkası beyin gibi kıvrımlı, kırmızımsı kahverengi bir ilkbahar mantarı. Pişirilse bile zehirlidir; pişerken çıkan buhar da tehlikelidir.",
       "karistirilanlar": [
         "Kuzugöbeği"
@@ -605,6 +652,10 @@
         "sapkaRengi": [
           "kahverengi",
           "kirmizi-turuncu"
+        ],
+        "sapkaYuzeyi": [
+          "kirisik",
+          "duz"
         ],
         "altYapi": [
           "duz"
@@ -633,12 +684,15 @@
       "bilimselAd": "Cantharellus cibarius",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Sarı-turuncu, huni biçimli bir mantar. Şapkanın altında ince solungaçlar yerine kalın, kenarı küt, çatallanan ve ayağa doğru inen kırışıklar vardır. Topraktan tek tek çıkar.",
       "ozellikler": {
         "sapkaRengi": [
           "krem-sari",
           "kirmizi-turuncu"
+        ],
+        "sapkaYuzeyi": [
+          "duz"
         ],
         "altYapi": [
           "solungac",
@@ -700,7 +754,7 @@
       "zehirlilik": "zehirli",
       "zehirTipi": "mide",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Parlak turuncu, zeytin, meşe ve kestane gibi ağaçların dibinde veya kütüğünde büyük kümeler yapan mantar. Ağır kusma ve ishale yol açar.",
       "karistirilanlar": [
         "Horozmantarı (sarıkız)",
@@ -711,6 +765,10 @@
         "sapkaRengi": [
           "kirmizi-turuncu",
           "krem-sari"
+        ],
+        "sapkaYuzeyi": [
+          "duz",
+          "lifli"
         ],
         "altYapi": [
           "solungac"
@@ -746,12 +804,15 @@
       "bilimselAd": "Lactarius deliciosus ve benzer Lactarius türleri",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Çam ağaçları altında yaşayan Lactarius türleri olduğu ve Türkiye'de 4-5 türe bu adın verildiği: uzman açıklaması (NTV haberi). Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Çam ağaçları altında yaşayan Lactarius türleri olduğu ve Türkiye'de 4-5 türe bu adın verildiği: uzman açıklaması (NTV haberi). Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Çam ağaçlarının altında çıkan, turuncu şapkalı mantar. Kesilince turuncu-kırmızı bir süt akar. Yaralanan veya bekleyen yerleri zamanla yeşile döner.",
       "ozellikler": {
         "sapkaRengi": [
           "kirmizi-turuncu",
           "krem-sari"
+        ],
+        "sapkaYuzeyi": [
+          "duz"
         ],
         "altYapi": [
           "solungac"
@@ -810,7 +871,7 @@
       "zehirlilik": "zehirli",
       "zehirTipi": "mide",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Pembe-turuncu, halkalı desenli şapkası ve uzun tüylü kenarı olan mantar. Kesilince beyaz süt akar. Ağır mide-bağırsak zehirlenmesi yapar.",
       "karistirilanlar": [
         "Kanlıca (çıntar)"
@@ -819,6 +880,11 @@
         "sapkaRengi": [
           "kirmizi-turuncu",
           "krem-sari"
+        ],
+        "sapkaYuzeyi": [
+          "duz",
+          "lifli",
+          "pul"
         ],
         "altYapi": [
           "solungac"
@@ -854,12 +920,15 @@
       "bilimselAd": "Boletus edulis",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Kahverengi şapkalı, kalın ve şişkin ayaklı mantar. Şapkanın altında solungaç yerine sünger gibi gözenekler vardır; gözenekler beyazdan sarı-yeşile döner. Ayakta açık renkli ağ deseni olur. Kesince ve ezince rengi değişmez.",
       "ozellikler": {
         "sapkaRengi": [
           "kahverengi",
           "krem-sari"
+        ],
+        "sapkaYuzeyi": [
+          "duz"
         ],
         "altYapi": [
           "gozenek"
@@ -916,7 +985,7 @@
       "zehirlilik": "zehirli",
       "zehirTipi": "mide",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Beyazımsı-gri şapkalı, kırmızı gözenekli ve kırmızı ağ desenli şişkin ayaklı mantar. Kesince maviye döner. Ağır kusma ve ishale yol açar.",
       "karistirilanlar": [
         "Ayı mantarı (çörek mantarı)"
@@ -926,6 +995,10 @@
           "beyaz",
           "gri-siyah",
           "krem-sari"
+        ],
+        "sapkaYuzeyi": [
+          "duz",
+          "lifli"
         ],
         "altYapi": [
           "gozenek"
@@ -964,12 +1037,17 @@
       "bilimselAd": "Agaricus campestris",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Çayır ve meralarda çıkan beyaz şapkalı mantar. Solungaçları hiçbir zaman beyaz değildir: gençken pembe, sonra çikolata kahvesi olur. Ayakta ince bir halka bulunur, ayak dibinde torba yoktur.",
       "ozellikler": {
         "sapkaRengi": [
           "beyaz",
           "krem-sari"
+        ],
+        "sapkaYuzeyi": [
+          "duz",
+          "lifli",
+          "pul"
         ],
         "altYapi": [
           "solungac"
@@ -1042,7 +1120,7 @@
       "zehirlilik": "zehirli",
       "zehirTipi": "mide",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Çayır mantarına çok benzer. Şapkası ve özellikle ayak dibi çizilince hemen parlak sarıya döner, mürekkep veya ilaç gibi kötü kokar. Mide-bağırsak zehirlenmesi yapar.",
       "karistirilanlar": [
         "Çayır mantarı"
@@ -1052,6 +1130,11 @@
           "beyaz",
           "krem-sari",
           "gri-siyah"
+        ],
+        "sapkaYuzeyi": [
+          "duz",
+          "lifli",
+          "pul"
         ],
         "altYapi": [
           "solungac"
@@ -1099,7 +1182,7 @@
       "zehirlilik": "zehirli",
       "zehirTipi": "mide",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Gri-krem şapkalı, iri bir mantar. Solungaçları önce sarımsı, sonra pembe olur; un gibi kokar. Halkası ve torbası yoktur. Ağır mide-bağırsak zehirlenmesi yapar.",
       "karistirilanlar": [
         "Çayır mantarı"
@@ -1109,6 +1192,10 @@
           "gri-siyah",
           "beyaz",
           "krem-sari"
+        ],
+        "sapkaYuzeyi": [
+          "duz",
+          "lifli"
         ],
         "altYapi": [
           "solungac"
@@ -1144,7 +1231,7 @@
       "bilimselAd": "Pleurotus ostreatus",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Ağaç gövdesi ve kütükler üzerinde yandan, raf gibi kat kat çıkan gri-kahve veya krem renkli mantar. Ayağı çok kısadır veya yoktur; solungaçları beyaz-krem renklidir.",
       "ozellikler": {
         "sapkaRengi": [
@@ -1152,6 +1239,9 @@
           "kahverengi",
           "krem-sari",
           "beyaz"
+        ],
+        "sapkaYuzeyi": [
+          "duz"
         ],
         "altYapi": [
           "solungac"
@@ -1214,7 +1304,7 @@
       "zehirlilik": "zehirli",
       "zehirTipi": "mide",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Kütükler üzerinde büyük kümeler yapan kükürt sarısı mantar. Solungaçları önce yeşilimsi sarı, sonra mor-siyah olur. Mide-bağırsak zehirlenmesi yapar.",
       "karistirilanlar": [
         "İstiridye mantarı"
@@ -1223,6 +1313,10 @@
         "sapkaRengi": [
           "krem-sari",
           "kirmizi-turuncu"
+        ],
+        "sapkaYuzeyi": [
+          "duz",
+          "lifli"
         ],
         "altYapi": [
           "solungac"
@@ -1258,12 +1352,15 @@
       "bilimselAd": "Laetiporus sulphureus",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Ağaç gövdelerinde kat kat raf gibi çıkan, üstü turuncu, altı kükürt sarısı mantar. Altında solungaç yerine küçük gözenekler vardır. Porsuk ve iğne yapraklı ağaçlarda çıkanlar bazı kişilerde rahatsızlık yapmıştır.",
       "ozellikler": {
         "sapkaRengi": [
           "krem-sari",
           "kirmizi-turuncu"
+        ],
+        "sapkaYuzeyi": [
+          "duz"
         ],
         "altYapi": [
           "gozenek"
@@ -1313,13 +1410,18 @@
       "bilimselAd": "Lycoperdon ve Calvatia türleri",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Yuvarlak, şapkasız, beyaz mantar. Gençken ikiye kesildiğinde içi baştan sona beyaz ve düzdür; yaşlandıkça içi sararır ve toza dönüşür.",
       "ozellikler": {
         "sapkaRengi": [
           "beyaz",
           "krem-sari",
           "kahverengi"
+        ],
+        "sapkaYuzeyi": [
+          "benek",
+          "pul",
+          "duz"
         ],
         "altYapi": [
           "duz"
@@ -1377,7 +1479,7 @@
       "zehirlilik": "zehirli",
       "zehirTipi": "mide",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Kalın, pullu, sarımsı-kahve kabuklu yuvarlak mantar. Kesince içi gençken bile mor-siyahtır. Mide-bağırsak zehirlenmesi yapar.",
       "karistirilanlar": [
         "Puf mantarı"
@@ -1386,6 +1488,11 @@
         "sapkaRengi": [
           "krem-sari",
           "kahverengi"
+        ],
+        "sapkaYuzeyi": [
+          "pul",
+          "duz",
+          "benek"
         ],
         "altYapi": [
           "duz"
@@ -1589,13 +1696,17 @@
       "bilimselAd": "Pleurotus eryngii var. ferulae",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Yetişme yeri (çaşır bitkisinin kök kalıntıları), iller ve aylar: OGM Doğu Akdeniz, \"Çakşır mantarının yetişme ortamı isteklerinin araştırılması\" (2018). Zehirli benzerler genel bilgiye göre yazıldı, uzman doğrulamalı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Yetişme yeri (çaşır bitkisinin kök kalıntıları), iller ve aylar: OGM Doğu Akdeniz, \"Çakşır mantarının yetişme ortamı isteklerinin araştırılması\" (2018). Zehirli benzerler genel bilgiye göre yazıldı, uzman doğrulamalı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Bozkırda çaşır (çakşır, Ferula) bitkisinin ölü kökleri üzerinde büyüyen, kahverengi-gri şapkalı, beyaz solungaçlı, etli mantar. Solungaçları ayağa doğru iner, halkası yoktur. Doğu Anadolu'da çok aranır.",
       "ozellikler": {
         "sapkaRengi": [
           "kahverengi",
           "gri-siyah",
           "krem-sari"
+        ],
+        "sapkaYuzeyi": [
+          "duz",
+          "lifli"
         ],
         "altYapi": [
           "solungac"
@@ -1657,12 +1768,15 @@
       "bilimselAd": "Calocybe gambosa",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "İlkbaharda çıkan, beyaz-krem renkli, etli şapkalı mantar. Solungaçları beyaz ve sıktır; halkası ve torbası yoktur. Belirgin taze un kokusu vardır.",
       "ozellikler": {
         "sapkaRengi": [
           "beyaz",
           "krem-sari"
+        ],
+        "sapkaYuzeyi": [
+          "duz"
         ],
         "altYapi": [
           "solungac"
@@ -1728,12 +1842,15 @@
       "bilimselAd": "Lepista nuda (Clitocybe nuda)",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Sonbaharın sonunda çıkan, şapkası ve solungaçları leylak-mor renkli, etli mantar. Zamanla şapkası kahverengimsi solar. Halkası ve torbası yoktur; meyvemsi bir kokusu vardır.",
       "ozellikler": {
         "sapkaRengi": [
           "kahverengi",
           "gri-siyah"
+        ],
+        "sapkaYuzeyi": [
+          "duz"
         ],
         "altYapi": [
           "solungac"
@@ -1837,12 +1954,17 @@
       "bilimselAd": "Armillaria mellea ve benzer Armillaria türleri",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
       "aciklama": "Sonbaharda kütüklerde ve ağaç köklerinde büyük kümeler halinde çıkan, bal renkli şapkalı mantar. Ayağında bir halka vardır. Çiğken zehirlidir; iyi pişse bile bazı kişilerde mide rahatsızlığı yapar.",
       "ozellikler": {
         "sapkaRengi": [
           "krem-sari",
           "kahverengi"
+        ],
+        "sapkaYuzeyi": [
+          "pul",
+          "lifli",
+          "duz"
         ],
         "altYapi": [
           "solungac"

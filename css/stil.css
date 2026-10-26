@@ -861,3 +861,12 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .adim .sozluk-foto { margin: 12px 0; }
 .ornek-foto { margin: 10px 0; }
 .ornek-foto summary { cursor: pointer; font-weight: 700; color: var(--marka); }
+
+/* Tanımla girişi: büyük düğme ve (i) yan yana */
+.tanimla-giris { margin-top: 14px; }
+.tanimla-ust { display: flex; align-items: center; gap: 10px; }
+.tanimla-dugme { flex: 1; display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 58px; font-size: 17.5px; }
+.tanimla-dugme .ikon { width: 24px; height: 24px; }
+.tanimla-ust .bilgi-dugme { width: 40px; height: 40px; font-size: 19px; }
+.tanimla-giris .bilgi-paneli { margin: 10px 0 0; }
+.tanimla-giris .yanina-al { margin-top: 12px; }

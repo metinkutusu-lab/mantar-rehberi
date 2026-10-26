@@ -4,7 +4,7 @@
 // "cizim" ve seçeneklerin üçüncü öğesi js/cizimler.js'teki bir çizimin adıdır.
 // Kural 14: hiçbir adım mantarı ağza almayı önermez.
 // "sure" (saniye) olan adımlarda hızlı tanımlama sayaç kurar ve süre dolunca sesli haber verir
-// (Metin'in isteği, 2026-10-26: "kes, şu kadar saniye bekle, ne renk?"). Eski akışta yalnızca yazı olarak durur.
+// (Metin'in isteği, 2026-10-26: "kes, şu kadar saniye bekle, ne renk?").
 import { BILMIYORUM } from './kurallar.js';
 
 const EVET_HAYIR = [
@@ -14,12 +14,15 @@ const EVET_HAYIR = [
 
 export const ADIMLAR = [
   {
+    // Çoklu seçim (Metin'in isteği, 2026-10-26): şapka çoğu zaman tek renk değildir (ör. beyaz üstünde kahverengi lekeler).
+    // Tür, seçilen renklerden herhangi birine uyuyorsa elenmez (kural 3).
     soru: 'sapkaRengi',
+    coklu: true,
     fotograf: 'ust',
     cizim: 'ust',
     baslik: 'Üstten fotoğraf',
     yonerge: ['Mantarı yerinden oynatmadan, tam üstünden çek.'],
-    soruMetni: 'Şapkanın rengi ne?',
+    soruMetni: 'Şapkada hangi renkler var? (birden fazla seçebilirsin; ör. beyaz ve kahverengi)',
     secenekler: [
       ['beyaz', 'Beyaz'],
       ['krem-sari', 'Krem veya sarı'],
@@ -27,7 +30,22 @@ export const ADIMLAR = [
       ['kirmizi-turuncu', 'Kırmızı veya turuncu'],
       ['yesil-zeytin', 'Yeşilimsi veya zeytin'],
       ['gri-siyah', 'Gri veya siyah'],
-      ['diger', 'Başka bir renk'],
+      ['diger', 'Başka bir renk (ör. mor)'],
+    ],
+  },
+  {
+    // Şapkanın yüzeyi (Metin'in isteği, 2026-10-26: "üstünde kahverengi lekeler var, öyle seçenek yok").
+    // Tür verisindeki değerler TASLAK; tehlikeli türlerde bilerek geniş tutuldu (yağmur benekleri silebilir).
+    soru: 'sapkaYuzeyi',
+    baslik: 'Şapkanın üstü',
+    yonerge: ['Şapkanın üstüne yakından bak. Beneklere parmağınla hafifçe dokun: kolayca kalkıyor mu?'],
+    soruMetni: 'Şapkanın üstü nasıl?',
+    secenekler: [
+      ['duz', 'Düz, pürüzsüz'],
+      ['benek', 'Kolayca kalkan benekler veya yumrucuklar'],
+      ['pul', 'Pullar veya lekeler (kabuk gibi, kalkmıyor)'],
+      ['lifli', 'İnce lifli veya çizgili'],
+      ['kirisik', 'Kıvrımlı, buruşuk veya petek gibi'],
     ],
   },
   {

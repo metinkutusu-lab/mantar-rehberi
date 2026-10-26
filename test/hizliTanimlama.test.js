@@ -50,6 +50,34 @@ test('hızlı akış: eski akıştan daha az soru sorar', () => {
   assert.ok(toplam / turler.length < ADIMLAR.length - 2, `ortalama ${toplam / turler.length}`);
 });
 
+test('çoklu seçimli sorular (şapka rengi, çevre) da ayırabiliyorsa sorulur', () => {
+  // Test türleri uydurmadır: yalnızca çevredeki ağaçlarla ayrılırlar.
+  const ikiTur = [
+    { id: 'a', ad: 'A', zehirlilik: 'olumcul', ozellikler: { agac: ['igne'] } },
+    { id: 'b', ad: 'B', zehirlilik: 'yenen', ozellikler: { agac: ['yaprakli'] } },
+  ];
+  const sorulan = ADIMLAR.map((a) => a.soru).filter((s) => s !== 'agac');
+  assert.equal(siradakiAdim(ikiTur, {}, sorulan)?.adim.soru, 'agac');
+});
+
+test('Kural 3: şapkada iki renk seçilince türlerden birine uyan aday kalır (ör. beyaz üstünde kahverengi)', () => {
+  const ikiTur = [
+    { id: 'a', ad: 'Ölümcül test', zehirlilik: 'olumcul', ozellikler: { sapkaRengi: ['beyaz'] } },
+    { id: 'b', ad: 'Yenen test', zehirlilik: 'yenen', ozellikler: { sapkaRengi: ['kahverengi'] } },
+  ];
+  assert.equal(adaylariBul(ikiTur, { sapkaRengi: ['beyaz', 'kahverengi'] }).length, 2);
+  assert.equal(adaylariBul(ikiTur, { sapkaRengi: ['kahverengi'] }).length, 1);
+});
+
+test('şapka yüzeyi: tür verisi geçerli, benekli Amanitalar "düz" cevapta da elenmez (yağmur silebilir)', () => {
+  const izinli = new Set(ADIMLAR.find((a) => a.soru === 'sapkaYuzeyi').secenekler.map(([d]) => d));
+  for (const tur of turler) for (const d of tur.ozellikler?.sapkaYuzeyi ?? []) assert.ok(izinli.has(d), `${tur.id}: ${d}`);
+  for (const id of ['panter', 'sinek', 'koygocuren', 'ak-koygocuren']) {
+    const tur = turler.find((t) => t.id === id);
+    assert.equal(adaylariBul([tur], { sapkaYuzeyi: 'duz' }).length, 1, id);
+  }
+});
+
 test('Kural 13: hızlı akışta "genç" denince kesit hemen sorulur', () => {
   const s = siradakiAdim(turler, { genc: 'evet' }, ['genc']);
   assert.equal(s.adim.soru, 'kesitteTaslak');
