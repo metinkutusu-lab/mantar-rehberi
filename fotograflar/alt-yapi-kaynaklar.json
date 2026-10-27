@@ -1,0 +1,549 @@
+{
+ "solungac": [
+  {
+   "dosya": "01.jpg",
+   "tur": "Lactarius deliciosus",
+   "gozlem": "https://www.inaturalist.org/observations/397521127",
+   "cekan": "(c) zj_adram",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "02.jpg",
+   "tur": "Agaricus campestris",
+   "gozlem": "https://www.inaturalist.org/observations/397850720",
+   "cekan": "(c) fernium",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "03.jpg",
+   "tur": "Agaricus campestris",
+   "gozlem": "https://www.inaturalist.org/observations/398264526",
+   "cekan": "(c) Skgunt",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "04.jpg",
+   "tur": "Agaricus campestris",
+   "gozlem": "https://www.inaturalist.org/observations/403007528",
+   "cekan": "(c) Niklas Wahlberg",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "05.jpg",
+   "tur": "Agaricus campestris",
+   "gozlem": "https://www.inaturalist.org/observations/403433796",
+   "cekan": "(c) Owen McElroy",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "06.jpg",
+   "tur": "Agaricus campestris",
+   "gozlem": "https://www.inaturalist.org/observations/403833825",
+   "cekan": "(c) Cara Ennis",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "tur": "Agaricus campestris",
+   "gozlem": "https://www.inaturalist.org/observations/405781891",
+   "cekan": "(c) Stephen James McWilliam",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "08.jpg",
+   "tur": "Agaricus campestris",
+   "gozlem": "https://www.inaturalist.org/observations/405781891",
+   "cekan": "(c) Stephen James McWilliam",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "09.jpg",
+   "tur": "Agaricus campestris",
+   "gozlem": "https://www.inaturalist.org/observations/268013215",
+   "cekan": "(c) Liliana Ramírez-Freire",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "tur": "Agaricus campestris",
+   "gozlem": "https://www.inaturalist.org/observations/268013215",
+   "cekan": "(c) Liliana Ramírez-Freire",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "11.jpg",
+   "tur": "Calocybe gambosa",
+   "gozlem": "https://www.inaturalist.org/observations/344921496",
+   "cekan": "(c) Cara Ennis",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "tur": "Calocybe gambosa",
+   "gozlem": "https://www.inaturalist.org/observations/347488593",
+   "cekan": "(c) Dylan Findlay",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "tur": "Calocybe gambosa",
+   "gozlem": "https://www.inaturalist.org/observations/348980390",
+   "cekan": "(c) Cara Ennis",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "14.jpg",
+   "tur": "Amanita phalloides",
+   "gozlem": "https://www.inaturalist.org/observations/333066987",
+   "cekan": "(c) Adam J. Searcy",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "15.jpg",
+   "tur": "Amanita phalloides",
+   "gozlem": "https://www.inaturalist.org/observations/333385356",
+   "cekan": "(c) Sarinda Newell",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "16.jpg",
+   "tur": "Amanita phalloides",
+   "gozlem": "https://www.inaturalist.org/observations/333126052",
+   "cekan": "(c) Chuck Wilson",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "17.jpg",
+   "tur": "Amanita phalloides",
+   "gozlem": "https://www.inaturalist.org/observations/333125283",
+   "cekan": "(c) Chuck Wilson",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "18.jpg",
+   "tur": "Amanita phalloides",
+   "gozlem": "https://www.inaturalist.org/observations/333125283",
+   "cekan": "(c) Chuck Wilson",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "19.jpg",
+   "tur": "Amanita phalloides",
+   "gozlem": "https://www.inaturalist.org/observations/336068017",
+   "cekan": "(c) Chuck Wilson",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "20.jpg",
+   "tur": "Amanita phalloides",
+   "gozlem": "https://www.inaturalist.org/observations/336068118",
+   "cekan": "(c) Chuck Wilson",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "21.jpg",
+   "tur": "Amanita phalloides",
+   "gozlem": "https://www.inaturalist.org/observations/333939175",
+   "cekan": "(c) Chuck Wilson",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "22.jpg",
+   "tur": "Macrolepiota procera",
+   "gozlem": "https://www.inaturalist.org/observations/374332804",
+   "cekan": "(c) Jeff Clark",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "23.jpg",
+   "tur": "Macrolepiota procera",
+   "gozlem": "https://www.inaturalist.org/observations/372971455",
+   "cekan": "(c) Paul F",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "24.jpg",
+   "tur": "Macrolepiota procera",
+   "gozlem": "https://www.inaturalist.org/observations/384980676",
+   "cekan": "(c) Paula Nimigean",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "25.jpg",
+   "tur": "Pleurotus ostreatus",
+   "gozlem": "https://www.inaturalist.org/observations/334971772",
+   "cekan": "(c) Charles Joynson",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "26.jpg",
+   "tur": "Pleurotus ostreatus",
+   "gozlem": "https://www.inaturalist.org/observations/334971772",
+   "cekan": "(c) Charles Joynson",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "27.jpg",
+   "tur": "Pleurotus ostreatus",
+   "gozlem": "https://www.inaturalist.org/observations/335972064",
+   "cekan": "(c) considerthelilies",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "28.jpg",
+   "tur": "Pleurotus ostreatus",
+   "gozlem": "https://www.inaturalist.org/observations/335468174",
+   "cekan": "(c) Cain Scrimgeour",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "29.jpg",
+   "tur": "Pleurotus ostreatus",
+   "gozlem": "https://www.inaturalist.org/observations/335121870",
+   "cekan": "(c) Ben Gruhot",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "30.jpg",
+   "tur": "Pleurotus ostreatus",
+   "gozlem": "https://www.inaturalist.org/observations/335121870",
+   "cekan": "(c) Ben Gruhot",
+   "lisans": "cc-by"
+  }
+ ],
+ "gozenek": [
+  {
+   "dosya": "01.jpg",
+   "tur": "Boletus edulis",
+   "gozlem": "https://www.inaturalist.org/observations/336769051",
+   "cekan": "(c) Jeremy Rolfe",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "02.jpg",
+   "tur": "Boletus edulis",
+   "gozlem": "https://www.inaturalist.org/observations/338404782",
+   "cekan": "(c) Thomas Corrigan",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "03.jpg",
+   "tur": "Boletus edulis",
+   "gozlem": "https://www.inaturalist.org/observations/338994000",
+   "cekan": "(c) Oscar Dennison",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "04.jpg",
+   "tur": "Rubroboletus satanas",
+   "gozlem": "https://www.inaturalist.org/observations/399358764",
+   "cekan": "(c) Ondřej Křivan",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "tur": "Rubroboletus satanas",
+   "gozlem": "https://www.inaturalist.org/observations/402259542",
+   "cekan": "(c) Manuela Fiorini",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "tur": "Rubroboletus satanas",
+   "gozlem": "https://www.inaturalist.org/observations/402259542",
+   "cekan": "(c) Manuela Fiorini",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "tur": "Suillus luteus",
+   "gozlem": "https://www.inaturalist.org/observations/335328580",
+   "cekan": "(c) John Barkla",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "tur": "Suillus luteus",
+   "gozlem": "https://www.inaturalist.org/observations/344357641",
+   "cekan": "(c) Anna Burrows",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "tur": "Suillus luteus",
+   "gozlem": "https://www.inaturalist.org/observations/344357641",
+   "cekan": "(c) Anna Burrows",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "tur": "Suillus luteus",
+   "gozlem": "https://www.inaturalist.org/observations/387168498",
+   "cekan": "(c) Enrico Tomschke",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "11.jpg",
+   "tur": "Suillus luteus",
+   "gozlem": "https://www.inaturalist.org/observations/390800070",
+   "cekan": "(c) Lutra lutra",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "12.jpg",
+   "tur": "Suillus luteus",
+   "gozlem": "https://www.inaturalist.org/observations/395526326",
+   "cekan": "(c) Dr. Alan Inman",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "13.jpg",
+   "tur": "Leccinum scabrum",
+   "gozlem": "https://www.inaturalist.org/observations/338288850",
+   "cekan": "(c) Thomas Corrigan",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "14.jpg",
+   "tur": "Leccinum scabrum",
+   "gozlem": "https://www.inaturalist.org/observations/340119269",
+   "cekan": "(c) Brett Sandford",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "15.jpg",
+   "tur": "Leccinum scabrum",
+   "gozlem": "https://www.inaturalist.org/observations/341145757",
+   "cekan": "(c) Thomas Corrigan",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "16.jpg",
+   "tur": "Leccinum scabrum",
+   "gozlem": "https://www.inaturalist.org/observations/370069051",
+   "cekan": "(c) Марина Давлетшина",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "17.jpg",
+   "tur": "Laetiporus sulphureus",
+   "gozlem": "https://www.inaturalist.org/observations/342184768",
+   "cekan": "(c) Aidan Hamilton",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "18.jpg",
+   "tur": "Laetiporus sulphureus",
+   "gozlem": "https://www.inaturalist.org/observations/353995662",
+   "cekan": "(c) Jessica McDaniel",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "19.jpg",
+   "tur": "Imleria badia",
+   "gozlem": "https://www.inaturalist.org/observations/388558659",
+   "cekan": "(c) katifungi",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "20.jpg",
+   "tur": "Imleria badia",
+   "gozlem": "https://www.inaturalist.org/observations/388725385",
+   "cekan": "(c) Paulius Rupšas",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "21.jpg",
+   "tur": "Imleria badia",
+   "gozlem": "https://www.inaturalist.org/observations/393262664",
+   "cekan": "(c) Heiko Weber",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "22.jpg",
+   "tur": "Imleria badia",
+   "gozlem": "https://www.inaturalist.org/observations/389164677",
+   "cekan": "(c) Nat Gorka",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "23.jpg",
+   "tur": "Imleria badia",
+   "gozlem": "https://www.inaturalist.org/observations/400793725",
+   "cekan": "(c) Manuela Fiorini",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "24.jpg",
+   "tur": "Imleria badia",
+   "gozlem": "https://www.inaturalist.org/observations/402153252",
+   "cekan": "(c) Igor Balashov",
+   "lisans": "cc-by"
+  }
+ ],
+ "duz": [
+  {
+   "dosya": "01.jpg",
+   "tur": "Cantharellus cibarius",
+   "gozlem": "https://www.inaturalist.org/observations/373689595",
+   "cekan": "(c) Cara Ennis",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "02.jpg",
+   "tur": "Cantharellus cibarius",
+   "gozlem": "https://www.inaturalist.org/observations/373689595",
+   "cekan": "(c) Cara Ennis",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "03.jpg",
+   "tur": "Cantharellus cibarius",
+   "gozlem": "https://www.inaturalist.org/observations/376881514",
+   "cekan": "(c) Марина Давлетшина",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "04.jpg",
+   "tur": "Cantharellus cibarius",
+   "gozlem": "https://www.inaturalist.org/observations/379047223",
+   "cekan": "(c) Jeff Clark",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "tur": "Cantharellus cibarius",
+   "gozlem": "https://www.inaturalist.org/observations/382362045",
+   "cekan": "(c) Edoardo Nardelli",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "tur": "Craterellus cornucopioides",
+   "gozlem": "https://www.inaturalist.org/observations/383174947",
+   "cekan": "(c) earl woolsey",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "tur": "Craterellus cornucopioides",
+   "gozlem": "https://www.inaturalist.org/observations/383174947",
+   "cekan": "(c) earl woolsey",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "tur": "Craterellus cornucopioides",
+   "gozlem": "https://www.inaturalist.org/observations/387637858",
+   "cekan": "(c) Matt Pelikan",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "tur": "Cantharellus cinereus",
+   "gozlem": "https://www.inaturalist.org/observations/390324967",
+   "cekan": "(c) Filip Żuchowski",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "tur": "Cantharellus cinereus",
+   "gozlem": "https://www.inaturalist.org/observations/195740064",
+   "cekan": "(c) Umut Nuri Erdoğan",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "11.jpg",
+   "tur": "Cantharellus cinereus",
+   "gozlem": "https://www.inaturalist.org/observations/219896398",
+   "cekan": "(c) Sofia Zvolanek",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "tur": "Cantharellus cinereus",
+   "gozlem": "https://www.inaturalist.org/observations/243675622",
+   "cekan": "(c) Manuela Fiorini",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "tur": "Cantharellus cinereus",
+   "gozlem": "https://www.inaturalist.org/observations/141050900",
+   "cekan": "(c) Kirsten",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "14.jpg",
+   "tur": "Cantharellus cinereus",
+   "gozlem": "https://www.inaturalist.org/observations/101090559",
+   "cekan": "(c) Eli",
+   "lisans": "cc0"
+  }
+ ],
+ "diken": [
+  {
+   "dosya": "01.jpg",
+   "tur": "Hydnum repandum",
+   "gozlem": "https://www.inaturalist.org/observations/335577099",
+   "cekan": "(c) Chuck Wilson",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "02.jpg",
+   "tur": "Hydnum repandum",
+   "gozlem": "https://www.inaturalist.org/observations/336373691",
+   "cekan": "(c) Patrick Le Mao",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "03.jpg",
+   "tur": "Hydnum repandum",
+   "gozlem": "https://www.inaturalist.org/observations/301475342",
+   "cekan": "(c) Sofia Voynovskaya",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "04.jpg",
+   "tur": "Hydnum rufescens",
+   "gozlem": "https://www.inaturalist.org/observations/399478322",
+   "cekan": "(c) Tomas Pocius",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "05.jpg",
+   "tur": "Hydnum rufescens",
+   "gozlem": "https://www.inaturalist.org/observations/312445982",
+   "cekan": "(c) Axel Gudmundsson",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "tur": "Hydnum rufescens",
+   "gozlem": "https://www.inaturalist.org/observations/319755376",
+   "cekan": "(c) Matej Frančeškin",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "tur": "Hydnum rufescens",
+   "gozlem": "https://www.inaturalist.org/observations/328980604",
+   "cekan": "(c) fernium",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "tur": "Hydnum rufescens",
+   "gozlem": "https://www.inaturalist.org/observations/232537523",
+   "cekan": "(c) victor laborde",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "tur": "Hydnum rufescens",
+   "gozlem": "https://www.inaturalist.org/observations/250559286",
+   "cekan": "(c) victor laborde",
+   "lisans": "cc-by"
+  }
+ ]
+}

@@ -47,6 +47,10 @@ const MADDELER = {
   'mor-kadife': 'Clitocybe nuda',
   ballica: 'Armillaria mellea',
   'sahte-truf': 'Choiromyces meandriformis',
+  // 2026-10-27: kanlıcanın beyaz sütlü benzerleri (Metin'in isteği; TASLAK)
+  'ak-tuylu-sut': 'Lactarius pubescens',
+  'sararan-sut': 'Lactarius chrysorrheus',
+  'kusakli-sut': 'Lactarius zonarius',
 };
 
 // Commons'ta makine tarafından okunamayan çeken adları, dosya sayfalarından elle okundu (26 Ekim 2026).

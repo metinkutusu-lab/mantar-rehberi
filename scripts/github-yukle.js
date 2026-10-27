@@ -3,7 +3,7 @@
 // Kullanım: npm run yukle -- "Değişikliğin kısa açıklaması"
 // (npm run yukle önce testleri çalıştırır; testler geçmezse hiçbir şey gönderilmez.)
 import { execFileSync } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -14,6 +14,19 @@ const aciklama = process.argv.slice(2).join(' ').replace(/\^(.)/g, '$1').replace
 
 function git(...argumanlar) {
   return execFileSync(GIT, ['-C', KOK, ...argumanlar], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'] }).trim();
+}
+
+// Sürüm değiştiyse (sw.js → SURUM) uygulamada görünen yayın tarihi bugüne çekilir (js/surum.js → TARIH).
+const surumOku = (metin) => /const SURUM = '([^']+)'/.exec(metin)?.[1];
+let uzaktaki = null;
+try {
+  uzaktaki = surumOku(git('show', 'origin/main:sw.js'));
+} catch {}
+const yerel = surumOku(readFileSync(path.join(KOK, 'sw.js'), 'utf8'));
+if (yerel && yerel !== uzaktaki) {
+  const bugun = new Date().toLocaleDateString('sv-SE');
+  const dosya = path.join(KOK, 'js', 'surum.js');
+  writeFileSync(dosya, readFileSync(dosya, 'utf8').replace(/TARIH = '[^']*'/, `TARIH = '${bugun}'`));
 }
 
 git('add', '-A');

@@ -202,5 +202,23 @@
     "dosya": "Armillaria_mellea,_Honey_Fungus,_UK_1.jpg",
     "lisans": "CC BY-SA 3.0",
     "cekan": "Stu's Images"
+  },
+  "ak-tuylu-sut": {
+    "madde": "Lactarius pubescens",
+    "dosya": "Lacpub2big.jpg",
+    "lisans": "CC BY 3.0",
+    "cekan": "Игорь Лебединский"
+  },
+  "sararan-sut": {
+    "madde": "Lactarius chrysorrheus",
+    "dosya": "Lact.chry.jpg",
+    "lisans": "CC BY 3.0",
+    "cekan": "Luridiformis at English Wikipedia"
+  },
+  "kusakli-sut": {
+    "madde": "Lactarius zonarius",
+    "dosya": "Lactarius_zonarius_20100929w.JPG",
+    "lisans": "CC BY-SA 3.0",
+    "cekan": "Strobilomyces"
   }
 }

@@ -17,6 +17,14 @@ import { fileURLToPath } from 'node:url';
 const KOK = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const gerektir = createRequire(import.meta.url);
 const OLC = process.argv.includes('--olc');
+// --alt-yapi: tür yerine şapkanın altını (solungaç, gözenek, düz/kırışık, diken) ayıran ayırıcı (2026-10-27, Metin: "fotoğrafta
+// görünüyor, kendin bul"). Fotoğraflar fotograflar/alt-yapi/<sınıf>/ (gözle seçilmiş iNaturalist fotoğrafları;
+// kaynaklar fotograflar/alt-yapi-kaynaklar.json). Çıktı vendor/mobilenet/alt-yapi.json.
+const ALT = process.argv.includes('--alt-yapi');
+const ALT_SINIFLARI = ['solungac', 'gozenek', 'duz', 'diken'];
+// --renk: şapka rengi ayırıcısı. Her fotoğraf, türünün verideki ilk (baskın) şapka rengiyle öğretilir. Çıktı vendor/mobilenet/sapka-rengi.json.
+const RENK = process.argv.includes('--renk');
+const RENKLER = ['beyaz', 'krem-sari', 'kahverengi', 'kirmizi-turuncu', 'yesil-zeytin', 'gri-siyah'];
 // Hesaplanan izler burada saklanır (yeniden eğitim hızlı olsun; depoya girmez).
 const ONBELLEK = path.join(KOK, 'fotograflar', '.iz-onbellek.json');
 // İz birim uzunluktadır; ayırıcıya bu katsayıyla büyütülüp verilir (öğrenme hızlı olsun). Telefon da aynısını yapar.
@@ -45,21 +53,29 @@ const klasorDosyalari = (klasor) => {
   return existsSync(tam) ? readdirSync(tam).filter((d) => /^\d+\.jpe?g$/i.test(d)).sort().map((d) => `${klasor}/${d}`) : [];
 };
 const turler = JSON.parse(readFileSync(path.join(KOK, 'veri/turler.json'), 'utf8')).turler.filter((t) => t.fotograf?.dosya);
-const isler = turler.map((t) => ({
-  id: t.id,
-  tehlikeli: t.zehirlilik !== 'yenen',
-  ana: t.fotograf.dosya,
-  ekler: [...klasorDosyalari(`fotograflar/referans/${t.id}`), ...klasorDosyalari(`fotograflar/inat/${t.id}`)],
-}));
+const turunFotograflari = (t) => [t.fotograf.dosya, ...klasorDosyalari(`fotograflar/referans/${t.id}`), ...klasorDosyalari(`fotograflar/inat/${t.id}`)];
+const isler = ALT
+  ? ALT_SINIFLARI.map((id) => ({ id, tehlikeli: false, ana: null, ekler: klasorDosyalari(`fotograflar/alt-yapi/${id}`) }))
+  : RENK
+  ? RENKLER.map((id) => ({ id, tehlikeli: false, ana: null, ekler: turler.filter((t) => t.ozellikler?.sapkaRengi?.[0] === id).flatMap(turunFotograflari) }))
+  : turler.map((t) => ({
+    id: t.id,
+    tehlikeli: t.zehirlilik !== 'yenen',
+    ana: t.fotograf.dosya,
+    ekler: [...klasorDosyalari(`fotograflar/referans/${t.id}`), ...klasorDosyalari(`fotograflar/inat/${t.id}`)],
+  }));
 // Her fotoğraf birkaç biçimde öğretilir (mantar fotoğrafta farklı büyüklükte ve yönde olabilir).
 const ANA_BICIMLER = { t: {}, a: { cevir: true }, y: { yakinlik: 0.7 }, z: { yakinlik: 0.5 } };
 const EK_BICIMLER = { t: {}, a: { cevir: true } };
+// Bir işin fotoğrafları ve biçimleri (şapka altı fotoğrafları az olduğu için onlar da dört biçimde öğretilir).
+const dosyalari = (is) => [...(is.ana ? [[is.ana, ANA_BICIMLER]] : []), ...is.ekler.map((d) => [d, ALT ? ANA_BICIMLER : EK_BICIMLER])];
+const CIKTI = ALT ? 'vendor/mobilenet/alt-yapi.json' : RENK ? 'vendor/mobilenet/sapka-rengi.json' : 'vendor/mobilenet/tur-ayirici.json';
 
 // ---- 1. İzler (önbellekte olmayanlar tarayıcıda hesaplanır) ----
 const onbellek = existsSync(ONBELLEK) ? JSON.parse(readFileSync(ONBELLEK, 'utf8')) : {};
 const gereken = [];
 for (const is of isler) {
-  for (const [dosya, bicimler] of [[is.ana, ANA_BICIMLER], ...is.ekler.map((d) => [d, EK_BICIMLER])]) {
+  for (const [dosya, bicimler] of dosyalari(is)) {
     for (const [ad, secenek] of Object.entries(bicimler)) if (!onbellek[`${dosya}#${ad}`]) gereken.push({ anahtar: `${dosya}#${ad}`, dosya, secenek });
   }
 }
@@ -101,14 +117,14 @@ const saklanan = new Set();
 if (OLC) {
   for (const is of isler) {
     // Sabit seçim: her 7 fotoğraftan biri (en az 2).
-    const secilen = is.ekler.filter((_, i) => i % 7 === 3);
+    const secilen = is.ekler.filter((_, i) => i % (ALT ? 4 : 7) === (ALT ? 1 : 3));
     for (const d of secilen.length >= 2 ? secilen : is.ekler.slice(-2)) saklanan.add(d);
   }
 }
 const ornekler = [];
 const denemeler = [];
 isler.forEach((is, y) => {
-  for (const [dosya, bicimler] of [[is.ana, ANA_BICIMLER], ...is.ekler.map((d) => [d, EK_BICIMLER])]) {
+  for (const [dosya, bicimler] of dosyalari(is)) {
     if (saklanan.has(dosya)) { if (onbellek[`${dosya}#t`]) denemeler.push({ y, iz: onbellek[`${dosya}#t`], tehlikeli: is.tehlikeli }); continue; }
     for (const ad of Object.keys(bicimler)) if (onbellek[`${dosya}#${ad}`]) ornekler.push({ y, iz: onbellek[`${dosya}#${ad}`] });
   }
@@ -163,8 +179,12 @@ if (OLC) {
     const bayt = Buffer.from(Int8Array.from(satir, (w) => Math.round(w / olcek)).buffer);
     return { olcek: Number(olcek.toPrecision(6)), agirlik: bayt.toString('base64') };
   });
-  writeFileSync(path.join(KOK, 'vendor/mobilenet/tur-ayirici.json'), `${JSON.stringify({
-    _aciklama: 'Fotoğraf kıyasının tür ayırıcısı (MobileNet V2 izi → tür). scripts/tur-ayirici-egit.js üretir; elle düzenleme. Yalnızca adayları sıralamak içindir, hiçbir türü elemez.',
+  writeFileSync(path.join(KOK, CIKTI), `${JSON.stringify({
+    _aciklama: RENK
+      ? 'Şapka rengi ayırıcısı (MobileNet V2 izi → baskın şapka rengi). scripts/tur-ayirici-egit.js --renk üretir; elle düzenleme. Yalnızca öneri içindir; kullanıcı onaylamadan cevap sayılmaz.'
+      : ALT
+      ? 'Şapka altı ayırıcısı (MobileNet V2 izi → solungaç/gözenek/düz/diken). scripts/tur-ayirici-egit.js --alt-yapi üretir; elle düzenleme. Yalnızca öneri içindir; kullanıcı onaylamadan cevap sayılmaz.'
+      : 'Fotoğraf kıyasının tür ayırıcısı (MobileNet V2 izi → tür). scripts/tur-ayirici-egit.js üretir; elle düzenleme. Yalnızca adayları sıralamak içindir, hiçbir türü elemez.',
     model: 'mobilenet_v2_1.0_224 AvgPool',
     girdiOlcegi: GIRDI_OLCEGI,
     turler: Object.fromEntries(ids.map((id, k) => [id, { ...satirlar[k], sapma: Number(sonuc.sapma[k].toPrecision(6)) }])),

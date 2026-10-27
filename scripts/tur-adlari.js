@@ -35,4 +35,7 @@ export const KATEGORILER = {
   'mor-kadife': ['Lepista nuda', 'Clitocybe nuda'],
   ballica: ['Armillaria mellea'],
   'sahte-truf': ['Choiromyces meandriformis', 'Choiromyces venosus'],
+  'ak-tuylu-sut': ['Lactarius pubescens'],
+  'sararan-sut': ['Lactarius chrysorrheus'],
+  'kusakli-sut': ['Lactarius zonarius'],
 };

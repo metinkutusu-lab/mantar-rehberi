@@ -26,6 +26,7 @@ const IKONLAR = {
   firca:'<path d="M20 4l-7.5 7.5"/><path d="M11 10l3 3-2.5 2.5-3-3z"/><path d="M8.5 12.5 3.5 17.5 6.5 20.5l5-5"/><path d="M5 19l2.5-2.5"/>',
   sepet:'<path d="M3 10h18l-1.6 8.4a2 2 0 0 1-2 1.6H6.6a2 2 0 0 1-2-1.6z"/><path d="M7.5 10 11 4"/><path d="M16.5 10 13 4"/><path d="M9 13.5v3"/><path d="M12 13.5v3"/><path d="M15 13.5v3"/>',
   ses:'<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/>',
+  yenile:'<path d="M20 12a8 8 0 0 1-14.3 4.9"/><path d="M4 12a8 8 0 0 1 14.3-4.9"/><path d="M18.5 3v4.5H14"/><path d="M5.5 21v-4.5H10"/>',
   paylas:'<path d="M4 13v6a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-6"/><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/>',
 };
 

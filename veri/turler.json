@@ -804,7 +804,7 @@
       "bilimselAd": "Lactarius deliciosus ve benzer Lactarius türleri",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Çam ağaçları altında yaşayan Lactarius türleri olduğu ve Türkiye'de 4-5 türe bu adın verildiği: uzman açıklaması (NTV haberi). Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Çam ağaçları altında yaşayan Lactarius türleri olduğu ve Türkiye'de 4-5 türe bu adın verildiği: uzman açıklaması (NTV haberi). Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Zehirli benzerlerine 2026-10-27'de beyaz sütlü üç süt mantarı eklendi (TASLAK).",
       "aciklama": "Çam ağaçlarının altında çıkan, turuncu şapkalı mantar. Kesilince turuncu-kırmızı bir süt akar. Yaralanan veya bekleyen yerleri zamanla yeşile döner.",
       "ozellikler": {
         "sapkaRengi": [
@@ -848,6 +848,18 @@
         {
           "ad": "Tüylü süt mantarı",
           "fark": "Kanlıcanın sütü turuncu-kırmızıdır. Tüylü süt mantarının sütü beyazdır, şapka kenarı uzun tüylüdür ve çoğunlukla huş ağaçları altında çıkar."
+        },
+        {
+          "ad": "Ak tüylü süt mantarı",
+          "fark": "Sütü beyazdır; şapkası daha soluk (krem-pembe) ve kenarı tüylüdür, çoğunlukla huş altında çıkar. Kanlıcanın sütü turuncu-kırmızıdır."
+        },
+        {
+          "ad": "Sütü sararan süt mantarı",
+          "fark": "Sütü beyaz akar ve birkaç saniyede havada sarıya döner. Kanlıcanın sütü baştan turuncu-kırmızıdır ve sararmaz."
+        },
+        {
+          "ad": "Kuşaklı süt mantarı",
+          "fark": "Şapkası kanlıcaya çok benzer kuşaklıdır ama sütü beyaz ve çok acıdır; kanlıcada görülen yeşil lekeler olmaz, çoğunlukla meşe altında çıkar."
         }
       ],
       "fotograf": {
@@ -912,6 +924,171 @@
         "cekan": "Tocekas",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Lactarius torminosus (cropped).jpg"
+      }
+    },
+    {
+      "id": "ak-tuylu-sut",
+      "ad": "Ak tüylü süt mantarı",
+      "bilimselAd": "Lactarius pubescens",
+      "zehirlilik": "zehirli",
+      "zehirTipi": "mide",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı (Metin'in isteği, 2026-10-27: kanlıcanın beyaz sütlü benzerleri). Özellikler bilerek geniş tutuldu.",
+      "aciklama": "Soluk krem-pembe, kenarı tüylü şapkalı süt mantarı. Kesilince beyaz, acı süt akar. Çoğunlukla huş ağaçları altında çıkar. Mide-bağırsak zehirlenmesi yapar.",
+      "karistirilanlar": [
+        "Kanlıca (çıntar)",
+        "Tüylü süt mantarı"
+      ],
+      "ozellikler": {
+        "sapkaRengi": [
+          "beyaz",
+          "krem-sari",
+          "kirmizi-turuncu"
+        ],
+        "sapkaYuzeyi": [
+          "lifli",
+          "duz",
+          "pul"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "krem-sari",
+          "beyaz",
+          "pembe"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "beyaz"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "sporIzi": [
+          "krem",
+          "beyaz"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/ak-tuylu-sut.jpg",
+        "cekan": "Игорь Лебединский",
+        "lisans": "CC BY 3.0",
+        "kaynak": "Wikimedia Commons, Lacpub2big.jpg"
+      }
+    },
+    {
+      "id": "sararan-sut",
+      "ad": "Sütü sararan süt mantarı",
+      "bilimselAd": "Lactarius chrysorrheus",
+      "zehirlilik": "zehirli",
+      "zehirTipi": "mide",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı (Metin'in isteği, 2026-10-27: kanlıcanın beyaz sütlü benzerleri). Özellikler bilerek geniş tutuldu.",
+      "aciklama": "Soluk turuncu-ten rengi, hafif halkalı şapkalı süt mantarı. Kesilince beyaz süt akar ve birkaç saniyede havada sarıya döner. Çoğunlukla meşe altında çıkar. Mide-bağırsak zehirlenmesi yapar.",
+      "karistirilanlar": [
+        "Kanlıca (çıntar)"
+      ],
+      "ozellikler": {
+        "sapkaRengi": [
+          "kirmizi-turuncu",
+          "krem-sari",
+          "kahverengi"
+        ],
+        "sapkaYuzeyi": [
+          "duz",
+          "lifli"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "krem-sari",
+          "beyaz",
+          "pembe"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "beyaz",
+          "diger"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "sporIzi": [
+          "krem",
+          "beyaz"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/sararan-sut.jpg",
+        "cekan": "Luridiformis (İngilizce Vikipedi)",
+        "lisans": "CC BY 3.0",
+        "kaynak": "Wikimedia Commons, Lact.chry.jpg"
+      }
+    },
+    {
+      "id": "kusakli-sut",
+      "ad": "Kuşaklı süt mantarı",
+      "bilimselAd": "Lactarius zonarius",
+      "zehirlilik": "zehirli",
+      "zehirTipi": "mide",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı (Metin'in isteği, 2026-10-27: kanlıcanın beyaz sütlü benzerleri). Özellikler bilerek geniş tutuldu.",
+      "aciklama": "Turuncu-sarımsı, belirgin halkalı (kuşaklı) şapkalı süt mantarı; şapka kenarı içe kıvrık ama tüysüzdür. Kesilince beyaz, çok acı süt akar. Çoğunlukla meşe altında çıkar. Mide-bağırsak zehirlenmesi yapar.",
+      "karistirilanlar": [
+        "Kanlıca (çıntar)"
+      ],
+      "ozellikler": {
+        "sapkaRengi": [
+          "kirmizi-turuncu",
+          "krem-sari",
+          "kahverengi"
+        ],
+        "sapkaYuzeyi": [
+          "duz",
+          "lifli"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "krem-sari",
+          "beyaz",
+          "pembe"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "beyaz"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "sporIzi": [
+          "krem",
+          "beyaz"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/kusakli-sut.jpg",
+        "cekan": "Strobilomyces",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Lactarius_zonarius_20100929w.JPG"
       }
     },
     {

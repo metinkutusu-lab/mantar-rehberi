@@ -4,6 +4,7 @@ import { durumuOku, durumuYaz } from './durum.js';
 import { bildirim, cizim, el, ilerlemeCiz, kucukFotograf } from './dom.js';
 import { tanimlamaCiz, tanimlamaKapat } from './tanimla.js';
 import { hizliSuruyor } from './hizliTanimla.js';
+import { guncellemeyiDenetle, kayitAta, surumSatiri } from './surumSatiri.js';
 import { SOZLUK, SOZLUK_FOTOGRAFLARI } from './sozluk.js';
 import { sozlukFotografi } from './isaretliFoto.js';
 import { oku } from './depo.js';
@@ -344,6 +345,9 @@ function guncellemeUyarisiGoster() {
   );
 }
 
+// Sayfanın altında sürüm, yayın tarihi, "son sürüm yüklü" ve güncelle düğmesi (Metin'in isteği, 2026-10-27).
+document.querySelector('.feragat-satiri')?.before(surumSatiri());
+
 if ('serviceWorker' in navigator) {
   // İlk kurulumda da denetleyici değişir; uyarı yalnızca eski bir sürüm çalışıyorken gösterilir.
   const eskiSurumVardi = Boolean(navigator.serviceWorker.controller);
@@ -352,7 +356,9 @@ if ('serviceWorker' in navigator) {
   });
   navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' }).then((kayit) => {
     // Uygulama öne gelince ve açıkken yarım saatte bir yeni sürüm var mı diye bakılır (internet yoksa sessizce geçilir).
-    const bak = () => kayit.update().catch(() => {});
+    kayitAta(kayit);
+    const bak = () => guncellemeyiDenetle();
+    bak();
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState !== 'visible') return;
       if (yeniSurumHazir && !hizliSuruyor()) location.reload();

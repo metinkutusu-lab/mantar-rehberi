@@ -385,3 +385,15 @@ test('Kural 14: uygulama hiçbir yerde tadına bakmayı önermez', () => {
     assert.doesNotMatch(oku(dosya), /tad[ıi]na bak|tat(ma|arak|ın)\b|tükür|çiğne/i, dosya);
   }
 });
+
+test('Kural 3, 4: fotoğraftan öneri hayati soruları hiç önermez; ölümcül türü eleyecekse o türler gösterilir', async () => {
+  const { onerilebilirMi, onerininElediOlumculler } = await import('../js/kurallar.js');
+  const olumcul = { id: 'a', zehirlilik: 'olumcul' };
+  const zehirli = { id: 'b', zehirlilik: 'zehirli' };
+  const bilinmeyen = { id: 'c' };
+  const yenen = { id: 'd', zehirlilik: 'yenen' };
+  assert.deepEqual(onerininElediOlumculler([olumcul, zehirli, bilinmeyen, yenen], [yenen]).map((t) => t.id), ['a', 'c']);
+  assert.deepEqual(onerininElediOlumculler([olumcul, yenen], [olumcul, yenen]), []);
+  for (const soru of ['solungacRengi', 'halka', 'volva', 'genc', 'kesitteTaslak', 'kucukKahverengi']) assert.equal(onerilebilirMi(soru), false, soru);
+  for (const soru of ['sapkaRengi', 'altYapi']) assert.equal(onerilebilirMi(soru), true, soru);
+});

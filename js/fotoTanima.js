@@ -139,6 +139,34 @@ export function ayiriciyiCoz(veri) {
   return { girdiOlcegi: veri.girdiOlcegi ?? 1, turler };
 }
 
+// Şapka altı ayırıcısı (js/fotoOzellik.js): aynı biçimde, yalnızca öneri için.
+export const ALT_YAPI_DOSYASI = './vendor/mobilenet/alt-yapi.json';
+let altYapiSozu = null;
+export function altYapiAyiricisiniYukle() {
+  altYapiSozu ??= fetch(ALT_YAPI_DOSYASI)
+    .then((y) => y.json())
+    .then(ayiriciyiCoz)
+    .catch(() => {
+      altYapiSozu = null;
+      return { turler: {} };
+    });
+  return altYapiSozu;
+}
+
+// Şapka rengi ayırıcısı (js/fotoOzellik.js): aynı biçimde, yalnızca öneri için.
+export const SAPKA_RENGI_DOSYASI = './vendor/mobilenet/sapka-rengi.json';
+let sapkaRengiSozu = null;
+export function sapkaRengiAyiricisiniYukle() {
+  sapkaRengiSozu ??= fetch(SAPKA_RENGI_DOSYASI)
+    .then((y) => y.json())
+    .then(ayiriciyiCoz)
+    .catch(() => {
+      sapkaRengiSozu = null;
+      return { turler: {} };
+    });
+  return sapkaRengiSozu;
+}
+
 export function ayiriciyiYukle() {
   ayiriciSozu ??= fetch(MODEL_DOSYALARI[3])
     .then((y) => y.json())

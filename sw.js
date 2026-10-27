@@ -1,6 +1,6 @@
 // Çevrimdışı çalışma: uygulamanın bütün dosyaları ilk açılışta cihaza kaydedilir.
 // Yeni dosya eklenince DOSYALAR listesine ekle ve SURUM'u artır.
-const SURUM = 'v47';
+const SURUM = 'v48';
 // GitHub Pages'te aynı adreste başka uygulamalar da olabilir: önbellek adı bu uygulamaya ve adresine özeldir,
 // yalnızca kendi eski sürümlerini siler.
 const ONEK = `mantar-rehberi:${self.registration.scope}:`;
@@ -49,6 +49,9 @@ const DOSYALAR = [
   './js/sesliKomut.js',
   './js/zehir.js',
   './js/isaretliFoto.js',
+  './js/surum.js',
+  './js/surumSatiri.js',
+  './js/fotoOzellik.js',
   // Harita kütüphanesi MapLibre GL JS 4.7.1 (BSD-3, vendor/LICENSE.txt)
   './vendor/maplibre-gl.js',
   './vendor/maplibre-gl.css',
@@ -100,6 +103,9 @@ const DOSYALAR = [
   './fotograflar/sinek.jpg',
   './fotograflar/tavuk.jpg',
   './fotograflar/tuylu-sut.jpg',
+  './fotograflar/ak-tuylu-sut.jpg',
+  './fotograflar/sararan-sut.jpg',
+  './fotograflar/kusakli-sut.jpg',
   './fotograflar/yumurta.jpg',
   './fotograflar/zeytin.jpg',
 ];
@@ -212,7 +218,7 @@ self.addEventListener('fetch', (olay) => {
     return;
   }
   const yol = new URL(olay.request.url).pathname;
-  if (new URL(olay.request.url).origin === self.location.origin && yol.endsWith('/vendor/mobilenet/tur-ayirici.json')) {
+  if (new URL(olay.request.url).origin === self.location.origin && ['tur-ayirici.json', 'alt-yapi.json', 'sapka-rengi.json'].some((d) => yol.endsWith(`/vendor/mobilenet/${d}`))) {
     olay.respondWith(izYaniti(olay));
     return;
   }

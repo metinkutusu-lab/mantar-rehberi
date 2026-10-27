@@ -9,7 +9,9 @@ import { durumuOku, durumuYaz } from './durum.js';
 import { elleKayit, gunlukKayitlar, havaVerisiAl, mantarPenceresi, yerAra } from './yagmur.js';
 
 const AZAMI_KAYITLI_YER = 10;
-const YENILEME_ARALIGI = 3 * 60 * 60 * 1000;
+// Uygulama her açılışta (ve öne gelince) 20 dakikadan eski bilgiyi kendiliğinden yeniler (Metin'in isteği, 2026-10-27:
+// "yeni yağmur yağdı mı, günler arttı mı; güncellemeyi unutursak da görebilelim"). İnternet gelince de yenilenir.
+const YENILEME_ARALIGI = 20 * 60 * 1000;
 
 // Ekranda kalan geçici durum; kalıcı olanlar durumuOku()'da.
 const yagmur = {
@@ -156,6 +158,8 @@ function takipSatiriCiz() {
     ),
     cubukCiz(b?.yuzde ?? 0, `${takipYeri.ad}: mantar döneminin kalan kısmı`),
   ];
+  const { takipVerisi } = durumuOku();
+  if (takipVerisi?.alindi && !yagmur.yukleniyor) parcalar.push(el('p', { className: 'not takip-durum', textContent: `Son güncelleme: ${zamanYazisi(takipVerisi.alindi)}` }));
   if (yagmur.takipHatasi) parcalar.push(el('p', { className: 'not takip-durum', textContent: 'Güncellenemedi. İnternet bağlantını kontrol et.' }));
   else if (!b && !yagmur.yukleniyor) parcalar.push(el('p', { className: 'not takip-durum', textContent: 'İnternete bağlanınca kendiliğinden güncellenir.' }));
   parcalar.push(el('div', { className: 'takip-dugmeleri' },
@@ -294,4 +298,16 @@ export function aramaBolumu() {
   return aramaKap;
 }
 
+// "bugün 14:05", "dün 18:20" ya da "25 Ekim 09:10".
+export function zamanYazisi(iso) {
+  const t = new Date(iso);
+  const saat = t.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+  const gun = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+  const fark = Math.round((gun(new Date()) - gun(t)) / 86400000);
+  if (fark === 0) return `bugün ${saat}`;
+  if (fark === 1) return `dün ${saat}`;
+  return `${t.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' })} ${saat}`;
+}
+
 takibiYenile();
+window.addEventListener('online', () => takibiYenile());

@@ -211,3 +211,15 @@ export function egitimTamamlanabilirMi(sorular, cevaplar, feragatMaddeleri, isar
   const feragatTamam = feragatMaddeleri.every((_, i) => isaretler?.[i] === true);
   return sorular.length > 0 && feragatMaddeleri.length > 0 && sorularDogru && feragatTamam;
 }
+
+// Fotoğraftan bulunan öneriler (js/fotoOzellik.js; Metin'in isteği, 2026-10-27).
+// Kural 3 ve 4: makinenin tahmini tek başına hiçbir türü eleyemez; öneri ancak kullanıcı "Doğru" deyince cevap olur.
+// Hayati sorular (solungaç rengi: Amanita kuralı; halka, torba, genç mantar, kesit, küçük kahverengi) hiç önerilmez;
+// solungaç rengi ölçümde fotoğraftan yanlış bulundu (köygöçürenin beyaz solungaçlarını "kahverengi" sandı).
+// Öneri ölümcül (ya da zehirliliği bilinmeyen) bir türü eleyecekse, onaydan önce bu türler adıyla gösterilir.
+export const ONERILMEYEN_SORULAR = Object.freeze(['solungacRengi', 'halka', 'volva', 'genc', 'kesitteTaslak', 'kucukKahverengi']);
+export const onerilebilirMi = (soru) => !ONERILMEYEN_SORULAR.includes(soru);
+export function onerininElediOlumculler(oncekiAdaylar, sonrakiAdaylar) {
+  const kalan = new Set(sonrakiAdaylar.map((t) => t.id));
+  return oncekiAdaylar.filter((t) => !kalan.has(t.id) && (t.zehirlilik === 'olumcul' || !t.zehirlilik));
+}

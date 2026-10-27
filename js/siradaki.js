@@ -118,6 +118,31 @@ export function ayiranAdimlar(tur, benzer) {
   });
 }
 
+// Fotoğrafın güçlü tahmini (ayırıcı puanı ≥ 0,5) olan yenen tür; ikizleri = verideki zehirli benzerlerinden hâlâ aday olanlar.
+// Seçilen kontrol: tahmin doğruysa (cevap o türünkiyse) en çok ikizi eleyen. Hiçbir türü elemez; yalnızca sırayı belirler.
+export const GUCLU_TAHMIN = 0.5;
+function ikizAyiranAdim(turler, adaylar, bekleyenler, benzerlikler) {
+  const tahmin = adaylar
+    .filter((t) => t.zehirlilik === 'yenen' && (benzerlikler[t.id] ?? 0) >= GUCLU_TAHMIN)
+    .sort((a, b) => benzerlikler[b.id] - benzerlikler[a.id])[0];
+  if (!tahmin) return null;
+  const adlar = new Set((tahmin.zehirliBenzerler ?? []).map((b) => b.ad));
+  const ikizler = adaylar.filter((t) => adlar.has(t.ad));
+  if (!ikizler.length) return null;
+  let enIyi = null;
+  for (const adim of bekleyenler) {
+    if (adim.coklu || adim.sure >= 60) continue;
+    const kendi = izinliler(tahmin, adim.soru);
+    if (!kendi) continue;
+    const elenen = ikizler.filter((t) => {
+      const izin = izinliler(t, adim.soru);
+      return izin && !kendi.some((d) => izin.includes(d));
+    }).length;
+    if (elenen > (enIyi?.elenen ?? 0)) enIyi = { adim, elenen };
+  }
+  return enIyi?.adim ?? null;
+}
+
 /**
  * Sıradaki adım. Dönüş: { adim, neden } ya da tüm gerekli adımlar bittiyse null.
  * cevaplar: şimdiye kadarki cevaplar; sorulanlar: sorulmuş adımların soru adları.
@@ -137,6 +162,11 @@ export function siradakiAdim(turler, cevaplar, sorulanlar, benzerlikler = {}) {
   // Alttan bakınca solungaç rengi hemen sorulur (aynı fotoğraf).
   const solungac = bekleyenler.find((a) => a.soru === 'solungacRengi');
   if (solungac && sorulan.has('altYapi')) return { adim: solungac, neden: 'guvenlik' };
+
+  // Uzman gibi (Metin'in isteği, 2026-10-27): fotoğraf bir yenen türü güçlü tahmin ediyorsa önce o türü zehirli
+  // ikizlerinden en çok ayıran kontrol sorulur (kanlıcada süt rengi: turuncu-kırmızı ise beyaz sütlü benzerlerin hepsi düşer).
+  const ikiz = ikizAyiranAdim(turler, adaylar, bekleyenler, benzerlikler);
+  if (ikiz) return { adim: ikiz, neden: 'ayirt' };
 
   // Yalnızca "zehirli mi" sonucunu değiştirebilecek sorular. Uzun beklemeli adımlar (ör. kesince 5 dakika) eşit faydada sona kalır.
   const puanli = bekleyenler

@@ -10,7 +10,8 @@ import { cihazKonumu, gunlukKayitlar, havaVerileriAl, konumuYuvarla, mantarPence
 import { pencereBilgisi, pencereCiz, takibeAl } from './yagmurKarti.js';
 
 const AZAMI_GIZLI_YER = 50;
-const YENILEME_ARALIGI = 3 * 60 * 60 * 1000;
+// Yağmur takibiyle aynı: 20 dakikadan eski bilgi açılışta yenilenir (js/yagmurKarti.js).
+const YENILEME_ARALIGI = 20 * 60 * 1000;
 
 // Ekranda kalan geçici durum.
 const durum = {
