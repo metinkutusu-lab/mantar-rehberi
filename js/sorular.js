@@ -157,8 +157,12 @@ export const ADIMLAR = [
     sure: 10,
     sureMetni: 'Çizdikten sonra 10 saniye bekle ve çizdiğin yere bak.',
     baslik: 'Sıvı (süt) akıyor mu?',
-    yonerge: ['Kesilen yüzeyi ya da solungaçları bıçağın ucuyla hafifçe çiz.'],
-    soruMetni: 'Süt gibi bir sıvı çıkıyor mu?',
+    // Süt mantarlarında süt en çok solungaçlarda akar; sap da kesilebilir (2026-10-27, Metin'in sorusu üzerine araştırıldı).
+    yonerge: [
+      'Önce solungaçları bıçağın ucuyla hafifçe çiz: süt en kolay orada görünür. Sonra sapı enine kes ve kesik yüzüne bak.',
+      'Yaşlı ya da kurumuş mantarda süt az akar; birkaç yerden dene. Sütün rengine hemen ve birkaç saniye sonra bak.',
+    ],
+    soruMetni: 'Solungaçları bıçakla çiz (ya da sapı kes): süt gibi bir sıvı çıkıyor mu, ne renk?',
     secenekler: [
       ['yok', 'Hayır, sıvı çıkmıyor'],
       ['beyaz', 'Evet, beyaz'],

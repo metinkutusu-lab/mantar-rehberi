@@ -1017,3 +1017,6 @@ figcaption, .not, .tur-govde p { overflow-wrap: anywhere; }
 .oneri-satiri > span { flex: 1; min-width: 0; overflow-wrap: anywhere; }
 .oneri-satiri .metin-dugme { flex-shrink: 0; margin: 0; }
 .oneri-onay { width: 100%; margin-top: 12px; }
+/* Kontrolün istediği ek fotoğraf (ayak dibi, kesit): yalnızca gerektiğinde, sorunun içinde */
+.kontrol-foto { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 46px; margin: 0 0 10px; }
+.kontrol-foto .ikon { width: 20px; height: 20px; }

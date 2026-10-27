@@ -139,10 +139,22 @@ test('Kural 5: herhangi bir soruya "bilmiyorum" denirse sonuç en az turuncu', (
   }
 });
 
-test('Kural 5: cevapsız zorunlu soru "bilmiyorum" sayılır', () => {
+test('Kural 5: zehirli bir aday kaldıysa (ya da hiçbiriyle eşleşmediyse) cevapsız güvenlik sorusu "bilmiyorum" sayılır', () => {
+  for (const adaylar of [[yenenOnayli, { ad: 'Zehirli', zehirlilik: 'zehirli', mikologOnayi: true }], [yenenOnayli, { ad: 'Bilinmeyen' }], []]) {
+    const girdi = temizGirdi({ adaylar });
+    delete girdi.cevaplar.volva;
+    assert.notEqual(degerlendir(girdi).renk, 'sari');
+  }
+});
+
+test('Kural 5 (Metin\'in kararı, 2026-10-27): yalnızca yenen türler kaldıysa sorulmayan güvenlik sorusu sonucu düşürmez; "bilmiyorum" yine düşürür', () => {
   const girdi = temizGirdi();
   delete girdi.cevaplar.volva;
-  assert.notEqual(degerlendir(girdi).renk, 'sari');
+  delete girdi.cevaplar.halka;
+  assert.equal(degerlendir(girdi).renk, 'sari');
+  assert.equal(degerlendir(temizGirdi({ cevaplar: { volva: BILMIYORUM } })).renk, 'turuncu');
+  // Cevaplanmış bir Amanita işareti her durumda kırmızıdır (kural 4).
+  assert.equal(degerlendir(temizGirdi({ cevaplar: { solungacRengi: 'beyaz', volva: 'evet' } })).renk, 'kirmizi');
 });
 
 test('Kural 5: düşük veya geçersiz güven skoru turuncu', () => {

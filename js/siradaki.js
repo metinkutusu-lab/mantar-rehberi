@@ -159,14 +159,18 @@ export function siradakiAdim(turler, cevaplar, sorulanlar, benzerlikler = {}) {
   const kesit = bekleyenler.find((a) => a.soru === 'kesitteTaslak');
   if (kesit) return { adim: kesit, neden: 'guvenlik' };
 
-  // Alttan bakınca solungaç rengi hemen sorulur (aynı fotoğraf).
-  const solungac = bekleyenler.find((a) => a.soru === 'solungacRengi');
-  if (solungac && sorulan.has('altYapi')) return { adim: solungac, neden: 'guvenlik' };
-
   // Uzman gibi (Metin'in isteği, 2026-10-27): fotoğraf bir yenen türü güçlü tahmin ediyorsa önce o türü zehirli
   // ikizlerinden en çok ayıran kontrol sorulur (kanlıcada süt rengi: turuncu-kırmızı ise beyaz sütlü benzerlerin hepsi düşer).
   const ikiz = ikizAyiranAdim(turler, adaylar, bekleyenler, benzerlikler);
   if (ikiz) return { adim: ikiz, neden: 'ayirt' };
+
+  // Güvenlik soruları yalnızca kalan adaylarda zehirli/ölümcül bir tür varken (ya da hiçbiriyle eşleşmediyken) sorulur
+  // (Metin'in kararı, 2026-10-27: "hangi türe göre ne gerekiyorsa o çıksın"; js/kurallar.js degerlendir ile aynı ölçü).
+  const guvenlikGerekli = adaylar.length === 0 || adaylar.some(tehlikeli);
+
+  // Alttan bakınca solungaç rengi hemen sorulur (aynı fotoğraf).
+  const solungac = bekleyenler.find((a) => a.soru === 'solungacRengi');
+  if (guvenlikGerekli && solungac && sorulan.has('altYapi')) return { adim: solungac, neden: 'guvenlik' };
 
   // Yalnızca "zehirli mi" sonucunu değiştirebilecek sorular. Uzun beklemeli adımlar (ör. kesince 5 dakika) eşit faydada sona kalır.
   const puanli = bekleyenler
@@ -176,7 +180,8 @@ export function siradakiAdim(turler, cevaplar, sorulanlar, benzerlikler = {}) {
   const ayiran = puanli.filter((p) => p.fayda > 0.001).sort((a, b) => b.fayda - a.fayda)[0];
   if (ayiran) return { adim: ayiran.adim, neden: 'ayirt', fayda: ayiran.fayda };
 
-  // Kimseyi ayırmayan ama güvenlik için gereken adımlar.
+  // Kimseyi ayırmayan ama güvenlik için gereken adımlar (yalnızca tehlikeli bir aday kaldıkça).
+  if (!guvenlikGerekli) return null;
   const zorunlu = bekleyenler.find(zorunluMu);
   if (zorunlu) return { adim: zorunlu, neden: 'guvenlik' };
   return null;

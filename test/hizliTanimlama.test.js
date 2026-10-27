@@ -31,13 +31,20 @@ function hizliAkis(gercek, { benzerlikler = {}, cevapSec } = {}) {
   return { cevaplar, sorulanlar };
 }
 
-test('hızlı akış: güvenlik soruları her türde sorulur (kural 4, 5, 6)', () => {
+// Metin'in kararı (2026-10-27): güvenlik soruları zehirli/ölümcül bir aday kaldıkça sorulur; yalnızca yenen türler
+// kaldıysa sorulmaz. Akış bittiğinde ya güvenlik soruları sorulmuştur ya da kalan adayların hepsi yenendir.
+test('hızlı akış: zehirli bir aday kaldıkça güvenlik soruları sorulur; ölümcül ve zehirli türlerde hepsi sorulur (kural 4, 5, 6)', () => {
   for (const gercek of turler) {
     const { sorulanlar, cevaplar } = hizliAkis(gercek);
+    const kalan = adaylariBul(turler, sonCevaplar(cevaplar));
+    const hepsiYenen = kalan.length > 0 && kalan.every((t) => t.zehirlilik === 'yenen');
+    if (gercek.zehirlilik !== 'yenen') assert.ok(!hepsiYenen, `${gercek.id}: zehirli tür elendi`);
     for (const soru of [...ZORUNLU_SORULAR, 'altYapi', 'halka']) {
       if (soru === 'solungacRengi' && cevaplar.altYapi !== 'solungac') continue;
+      if (hepsiYenen) continue;
       assert.ok(sorulanlar.includes(soru), `${gercek.id}: ${soru} sorulmadı`);
     }
+    if (hepsiYenen) continue;
     // Üç zorunlu fotoğrafın adımları sorulur (üst fotoğraf akışın başında çekilir).
     for (const foto of GEREKLI_FOTOGRAFLAR.filter((f) => f !== 'ust')) {
       assert.ok(ADIMLAR.some((a) => a.fotograf === foto && sorulanlar.includes(a.soru)), `${gercek.id}: ${foto} fotoğrafı istenmedi`);
@@ -110,9 +117,13 @@ test('"zehirli mi" cevabı değişmeyecekse durulur: yalnızca taslak yenen tür
   // Biri zehirli olsaydı aynı soru sorulurdu.
   const biriZehirli = [{ ...yenenler[0], zehirlilik: 'olumcul' }, yenenler[1]];
   assert.equal(renkDegistirebilirMi(sapka, biriZehirli), true);
-  // Güvenlik soruları yine de sorulur: yenenler kaldı diye zorunlu adımlar atlanmaz.
-  const s = siradakiAdim(yenenler, {}, []);
-  assert.ok(s && s.neden === 'guvenlik', 'zorunlu adımlar sorulmalı');
+  // Metin'in kararı (2026-10-27): yalnızca yenen türler kaldıysa güvenlik soruları da sorulmaz (ör. turuncu süt
+  // akınca torbalı ölümcül türler zaten elenmiştir; uzmanlar süt mantarında torbaya bakmaz). Zehirli biri kalsaydı sorulurdu.
+  assert.equal(siradakiAdim(yenenler, {}, []), null);
+  const s = siradakiAdim(biriZehirli, { sapkaRengi: ['beyaz'] }, ['sapkaRengi']);
+  assert.ok(s && s.neden === 'guvenlik', 'zehirli aday kaldıkça zorunlu adımlar sorulmalı');
+  // Hiçbir türle eşleşmediyse de sorulur (Amanita işaretleri sonucu kırmızıya çevirebilir).
+  assert.ok(siradakiAdim([], {}, [])?.neden === 'guvenlik');
 });
 
 test('Kural 2, 3 ve 4: hızlı akışın sonucu da aynı kurallardan geçer; ölümcül türler kırmızı, hiçbir sonuç yeşil değil', () => {

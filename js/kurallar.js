@@ -130,8 +130,12 @@ export function degerlendir(girdi = {}) {
   }
 
   // Kural 5: "bilmiyorum" veya cevapsız soru.
+  // Güvenlik soruları yalnızca kalan adaylarda zehirli/ölümcül (ya da bilinmeyen) bir tür varken ya da hiçbir türle
+  // eşleşmediyken gereklidir (Metin'in kararı, 2026-10-27: "kanlıcada torbaya bakmak gerekiyor mu? Ona göre ilerlesin;
+  // hangi türe göre ne gerekiyorsa o çıksın"). Ör. turuncu süt akınca torbalı ölümcül türler (hiç süt akıtmazlar) elenmiştir.
   const bilinmeyenler = Object.keys(cevaplar).filter((s) => cevaplar[s] === BILMIYORUM);
-  const cevapsizlar = ZORUNLU_SORULAR.filter((s) => cevaplar[s] == null);
+  const guvenlikGerekli = adaylar.length === 0 || adaylar.some((t) => t.zehirlilik !== 'yenen');
+  const cevapsizlar = guvenlikGerekli ? ZORUNLU_SORULAR.filter((s) => cevaplar[s] == null) : [];
   if (bilinmeyenler.length > 0 || cevapsizlar.length > 0) {
     ekle('turuncu', 'Bazı sorular "bilmiyorum" diye cevaplandı veya cevapsız kaldı.');
   }

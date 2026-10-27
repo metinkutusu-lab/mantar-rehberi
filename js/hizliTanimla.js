@@ -28,14 +28,20 @@ turleriYukle().then((liste) => {
   turler = liste;
 });
 
-// Üç zorunlu fotoğraf (kural 6), önerilen ayak dibi fotoğrafı ve kısa yönergeleri.
+// Sırayla istenen üç zorunlu fotoğraf (kural 6) ve kısa yönergeleri.
 const YUVALAR = [
   { tur: 'ust', ad: 'Üstten', yonerge: 'Bütün şapka görünsün. Benekleri silmeden çek.' },
   { tur: 'alt', ad: 'Alttan', yonerge: 'Şapkanın altı: solungaç, gözenek ya da diken görünsün.' },
   { tur: 'yan', ad: 'Yandan', yonerge: 'Mantarın tamamı, ayağıyla birlikte görünsün.' },
-  // Ayak dibi (torba / volva) isteğe bağlı ama önerilir: en ölümcül türleri ayıran yer burası.
-  { tur: 'dip', ad: 'Ayak dibi', yonerge: 'Toprağı bıçakla aç, koparmadan çıkar; ayağın dibi görünsün.', istegeBagli: true },
 ];
+// Yalnızca gerektiğinde, ilgili kontrolün içinden istenen fotoğraflar (Metin'in kararı, 2026-10-27: "hangi türe göre
+// gerekiyorsa o çıksın; gerekmeyende ayak dibi fotoğrafı çıkmasın"). Ör. ayak dibi yalnızca torba sorusu gerekince.
+const EK_YUVALAR = [
+  { tur: 'dip', ad: 'Ayak dibi', soru: 'volva', yonerge: 'Toprağı bıçakla aç, koparmadan çıkar; ayağın dibi görünsün.' },
+  { tur: 'kesit', ad: 'Kesit', soru: 'kesitteTaslak', yonerge: 'Tepeden aşağı ortadan ikiye kes; iç yüzü görünsün.' },
+  { tur: 'kesit-sonra', ad: 'Kesitin rengi', soru: 'kesinceRenk', yonerge: 'Kestikten 5 dakika sonra kesilen yüzü çek.' },
+];
+const yuvaBul = (tur) => YUVALAR.find((y) => y.tur === tur) ?? EK_YUVALAR.find((y) => y.tur === tur);
 // Fotoğraf kıyasında kullanılan fotoğraflar (tür fotoğrafları çoğunlukla mantarın bütününü gösterir).
 const KIYAS_FOTOGRAFLARI = ['ust', 'yan'];
 const ADIM_DIZINI = new Map(ADIMLAR.map((a) => [a.soru, a]));
@@ -389,11 +395,13 @@ function dosyaGirdisi(tur, { galeri = false } = {}) {
     onchange: (olay) => {
       const dosyalar = [...(olay.target.files ?? [])];
       if (!dosyalar.length) return;
-      const bas = Math.max(0, YUVALAR.findIndex((y) => y.tur === tur));
-      const hedefler = [tur, ...YUVALAR.slice(bas + 1).filter((y) => !h.fotograflar[y.tur]).map((y) => y.tur)];
+      // Ek fotoğraf (ayak dibi, kesit) tek başına; sıradaki fotoğraflara yayılmaz.
+      const bas = YUVALAR.findIndex((y) => y.tur === tur);
+      const hedefler = bas < 0 ? [tur] : [tur, ...YUVALAR.slice(bas + 1).filter((y) => !h.fotograflar[y.tur]).map((y) => y.tur)];
       dosyalar.slice(0, hedefler.length).forEach((dosya, i) => fotografKoy(hedefler[i], URL.createObjectURL(dosya)));
       siradakiCekime();
       ciz();
+      ekKontroleDon(tur);
     },
   });
   if (!galeri) girdi.setAttribute('capture', 'environment');
@@ -402,7 +410,8 @@ function dosyaGirdisi(tur, { galeri = false } = {}) {
 
 // Çekilen fotoğrafların şeridi: dokununca o fotoğraf yeniden çekilir.
 function seritCiz() {
-  return el('div', { className: 'foto-serit' }, ...YUVALAR.map((y) => {
+  const gorunen = [...YUVALAR, ...EK_YUVALAR.filter((y) => h.fotograflar[y.tur] || h.cekim === y.tur)];
+  return el('div', { className: 'foto-serit' }, ...gorunen.map((y) => {
     const url = h.fotograflar[y.tur];
     return el('button', {
       type: 'button',
@@ -424,23 +433,26 @@ function fotograflarCiz() {
   const bolum = el('section', { className: 'fotograflar-bolumu' });
   if (h.cekim) {
     const sira = YUVALAR.findIndex((y) => y.tur === h.cekim);
-    const yuva = YUVALAR[sira];
+    const yuva = yuvaBul(h.cekim);
+    const ek = sira < 0;
     const dolu = Boolean(h.fotograflar[h.cekim]);
-    bolum.append(el('p', { className: 'cekim-adim' }, el('strong', { textContent: `${sira + 1} / ${YUVALAR.length} · ${yuva.ad}` }), yuva.istegeBagli ? ' (önerilir)' : ''));
+    bolum.append(el('p', { className: 'cekim-adim' }, el('strong', { textContent: ek ? `Ek fotoğraf · ${yuva.ad}` : `${sira + 1} / ${YUVALAR.length} · ${yuva.ad}` })));
     bolum.append(kameraVarMi() && !h.kameraYok ? kameraCiz(h.cekim) : telefonKamerasiCiz(yuva));
     const atla = el('button', {
       type: 'button',
       className: 'ikincil',
-      textContent: dolu ? 'Vazgeç' : 'Atla',
+      textContent: dolu || ek ? 'Vazgeç' : 'Atla',
       onclick: () => {
-        if (!dolu) h.atlanan.add(h.cekim);
+        if (!dolu && !ek) h.atlanan.add(h.cekim);
+        const sorulan = yuva.soru;
         siradakiCekime();
         ciz();
+        if (sorulan) kap.querySelector(`.kontrol[data-soru="${sorulan}"]`)?.scrollIntoView({ block: 'start', behavior: 'smooth' });
       },
     });
     bolum.append(el('div', { className: 'cekim-alt' },
       el('label', { className: 'ikincil galeri-dugme' }, ikon('galeri'), el('span', { textContent: 'Galeriden seç' }), dosyaGirdisi(h.cekim, { galeri: true })),
-      yuva.istegeBagli || dolu ? atla : '',
+      dolu || ek ? atla : '',
     ));
   }
   bolum.append(seritCiz());
@@ -473,6 +485,7 @@ function fotografCek(tur) {
     fotografKoy(tur, url);
     siradakiCekime();
     ciz();
+    ekKontroleDon(tur);
   });
 }
 
@@ -521,7 +534,22 @@ const REHBERLER = {
     yazi: 'Toprağı aç, koparmadan çıkar · ayağın dibi dairede',
     cizim: '<path d="M45 6 L45 46 M55 6 L55 46"/><path d="M41 46 Q41 40 45 40 M59 46 Q59 40 55 40" /><path d="M39 46 Q50 66 61 46" stroke-dasharray="1.8 1.4"/><path d="M14 30 Q30 30 34 42 Q50 72 66 42 Q70 30 86 30"/><path d="M70 14 L82 26" />',
   },
+  // Kesit: genç mantar tepeden aşağı ikiye kesilir; içeride mantar taslağı var mı (kural 13).
+  kesit: {
+    yazi: 'Ortadan ikiye kes · iç yüzü dairede',
+    cizim: '<path d="M30 30 Q50 6 70 30 Z" class="dolu-yok"/><path d="M46 30 L45 58 M54 30 L55 58"/><line x1="50" y1="8" x2="50" y2="62" stroke-dasharray="1.8 1.4"/>',
+  },
+  'kesit-sonra': {
+    yazi: '5 dakika sonra · kesilen yüz dairede',
+    cizim: '<path d="M30 30 Q50 6 70 30 Z" class="dolu-yok"/><path d="M46 30 L45 58 M54 30 L55 58"/><line x1="50" y1="8" x2="50" y2="62" stroke-dasharray="1.8 1.4"/>',
+  },
 };
+
+// Ek fotoğraf çekilince sayfa o fotoğrafı isteyen kontrole döner.
+function ekKontroleDon(tur) {
+  const soru = EK_YUVALAR.find((y) => y.tur === tur)?.soru;
+  if (soru) setTimeout(() => kap?.querySelector(`.kontrol[data-soru="${soru}"]`)?.scrollIntoView({ block: 'start', behavior: 'smooth' }), 60);
+}
 
 function rehberCiz(tur) {
   const rehber = REHBERLER[tur];
@@ -543,7 +571,7 @@ function kameraCiz(tur) {
     if (!acildi) {
       // Uygulama içi kamera açılamadı: telefonun kamerası kullanılır.
       h.kameraYok = true;
-      if (h.cekim === tur) kutu.replaceWith(telefonKamerasiCiz(YUVALAR.find((y) => y.tur === tur)));
+      if (h.cekim === tur) kutu.replaceWith(telefonKamerasiCiz(yuvaBul(tur)));
     } else if (ellerSerbest()) {
       setTimeout(() => video?.isConnected && h.cekim === tur && geriSayimBaslat(tur), sesAcik() ? 4000 : 800);
     }
@@ -685,6 +713,19 @@ function kontrolCiz({ adim, neden }, sira) {
         ? el('details', { className: 'kontrol-nasil' }, el('summary', { textContent: 'Nasıl bakılır?' }), ...yonerge.map((p) => el('p', { textContent: p })), ornek)
         : '',
     ));
+  }
+  // Bu kontrol bir ek fotoğraf istiyorsa (ayak dibi, kesit) ve çekilmediyse: yalnızca burada, gerektiğinde çıkar.
+  const ekYuva = EK_YUVALAR.find((y) => y.soru === adim.soru);
+  if (ekYuva && !h.fotograflar[ekYuva.tur] && h.cekim !== ekYuva.tur) {
+    kutu.append(el('button', {
+      type: 'button',
+      className: 'ikincil kontrol-foto',
+      onclick: () => {
+        h.cekim = ekYuva.tur;
+        ciz();
+        kap.querySelector('.cekim-adim')?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      },
+    }, ikon('kamera'), el('span', { textContent: `${ekYuva.ad} fotoğrafını çek` })));
   }
   if (adim.sure) kutu.append(sayacCiz(adim));
 
