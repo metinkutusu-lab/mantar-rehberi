@@ -54,6 +54,7 @@ const ara = {
   pusulayiDurdur: null,
   bakis: null, // telefonun baktığı yön (0 = kuzey)
   bakisKaynagi: null, // 'pusula' | 'hareket'
+  yonumeDon: false, // harita, telefonun baktığı yön yukarıda olacak şekilde döner
   oncekiKonum: null,
   ilkKonum: true,
   hesaplaniyor: false,
@@ -265,6 +266,56 @@ function bakisGeldi(derece) {
   ara.bakis = derece;
   ara.bakisKaynagi = 'pusula';
   oklariGuncelle();
+  haritayiYoneCevir();
+}
+
+// --- Harita yönü düğmesi (Metin, 2026-10-27: eski pusula düğmesi harita döndürülmemişken hiçbir şey yapmıyordu) ---
+// Dokununca: harita döndürülmüşse önce kuzeye döner; kuzeye bakıyorsa "baktığım yön yukarı" olur (harita telefonla döner);
+// bir daha dokununca yine kuzey yukarı. Simgedeki ok her zaman kuzeyi gösterir.
+let yonDugmesi = null;
+
+function haritayiYoneCevir() {
+  if (!ara.yonumeDon || ara.bakis == null || !ara.harita) return;
+  const fark = Math.abs(((ara.harita.getBearing() - ara.bakis + 540) % 360) - 180);
+  if (fark > 3) ara.harita.easeTo({ bearing: ara.bakis, duration: 250 });
+}
+
+function yonDugmesiniGuncelle() {
+  if (!yonDugmesi) return;
+  yonDugmesi.querySelector('.harita-yon-oku').style.transform = `rotate(${-ara.harita.getBearing()}deg)`;
+  yonDugmesi.classList.toggle('acik', ara.yonumeDon);
+  const etiket = ara.yonumeDon ? 'Baktığın yön yukarıda. Kuzey yukarı için dokun.' : 'Haritayı baktığın yöne çevir';
+  yonDugmesi.title = etiket;
+  yonDugmesi.setAttribute('aria-label', etiket);
+}
+
+function yonDugmesineBasildi() {
+  if (ara.yonumeDon) {
+    ara.yonumeDon = false;
+    ara.harita.easeTo({ bearing: 0, duration: 300 });
+  } else if (Math.abs(ara.harita.getBearing()) > 1) {
+    ara.harita.easeTo({ bearing: 0, duration: 300 });
+  } else {
+    ara.yonumeDon = true;
+    // Yön henüz yoksa konum ve pusula açılır (aynı dokunuşla; iPhone izni ancak dokunuşta sorulabilir).
+    if (ara.bakis == null) konumuAc();
+    haritayiYoneCevir();
+  }
+  yonDugmesiniGuncelle();
+}
+
+class YonDenetimi {
+  onAdd() {
+    yonDugmesi = el('button', { type: 'button', className: 'harita-yon-dugme', onclick: yonDugmesineBasildi });
+    yonDugmesi.innerHTML = '<span class="harita-yon-oku" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 7 13h10z" fill="#d92d20"/><path d="M12 21 7 13h10z" fill="#9a918a"/></svg><b>K</b></span>';
+    this.kap = el('div', { className: 'maplibregl-ctrl maplibregl-ctrl-group' }, yonDugmesi);
+    return this.kap;
+  }
+
+  onRemove() {
+    this.kap.remove();
+    yonDugmesi = null;
+  }
 }
 
 // Pusula yokken: GPS'in gidiş yönü ya da son iki konum arasındaki yön.
@@ -384,6 +435,7 @@ function konumGeldi(k) {
     return;
   }
   hareketYonu(k);
+  haritayiYoneCevir();
   const yer = [k.boylam, k.enlem];
   if (!konumIsareti) {
     const nokta = el('div', { className: 'konum-isareti' }, el('div', { className: 'yon-burnu', hidden: true }), el('div', { className: 'konum-noktasi' }));
@@ -903,7 +955,16 @@ async function kur() {
     zoom,
     attributionControl: { compact: true, customAttribution: HARITA_ATFI },
   });
-  ara.harita.addControl(new window.maplibregl.NavigationControl({ visualizePitch: false }), 'top-right');
+  ara.harita.addControl(new window.maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+  ara.harita.addControl(new YonDenetimi(), 'top-right');
+  ara.harita.on('rotate', yonDugmesiniGuncelle);
+  // Parmakla döndürülünce "baktığım yön" takibi bırakılır (kullanıcının çevirdiği yön kalır).
+  ara.harita.on('rotatestart', (olay) => {
+    if (olay.originalEvent && ara.yonumeDon) {
+      ara.yonumeDon = false;
+      yonDugmesiniGuncelle();
+    }
+  });
   ara.harita.on('load', () => {
     // Atıf kutusu küçük başlasın (i'ye dokununca açılır); telefonda haritayı kapatmasın.
     haritaKap.querySelector('.maplibregl-ctrl-attrib')?.classList.remove('maplibregl-compact-show');
