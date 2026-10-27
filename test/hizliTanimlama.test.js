@@ -8,7 +8,7 @@ import { GEREKLI_FOTOGRAFLAR, ZORUNLU_SORULAR, degerlendir, yasakIfadeler } from
 import { ADIMLAR, aktifAdimlar, sonCevaplar } from '../js/sorular.js';
 import { adaylariBul } from '../js/anahtar.js';
 import { HIZLI_AKISTA_YOK, adimFaydasi, agirliklar, ayiranAdimlar, renkDegistirebilirMi, siradakiAdim } from '../js/siradaki.js';
-import { benzerlikSozu, benzerlikleriHesapla, birimYap, izCoz, izKodla, kosinus, MODEL_DOSYALARI } from '../js/fotoTanima.js';
+import { ayiriciyiCoz, benzerlikSozu, benzerlikleriHesapla, birimYap, izCoz, izKodla, kosinus, MODEL_DOSYALARI, satirCoz } from '../js/fotoTanima.js';
 import { komutuAnla, sadele } from '../js/sesliKomut.js';
 
 const KOK = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -162,22 +162,29 @@ test('fotoğraf kıyası: parmak izi 8 bite sıkıştırılıp açılınca yön�
   assert.ok(kosinus(iz, geri) > 0.999);
 });
 
-test('fotoğraf kıyası: en benzer tür 1, en az benzer 0; benzerlik yüzde olarak yazılmaz (kural 1, 5)', () => {
+test('fotoğraf kıyası: ayırıcı fotoğrafa uyan türü öne koyar, puanların toplamı 1; yüzde olarak yazılmaz (kural 1, 5)', () => {
   const a = birimYap(Float32Array.from([1, 0, 0]));
-  const b = birimYap(Float32Array.from([0, 1, 0]));
-  const sonuc = benzerlikleriHesapla([a], { x: [a], y: [b] });
-  assert.equal(sonuc.x, 1);
-  assert.equal(sonuc.y, 0);
-  for (const d of [0, 0.5, 0.7, 0.9, 1]) {
+  const ayirici = { girdiOlcegi: 10, turler: { x: { agirlik: Float32Array.from([1, 0, 0]), sapma: 0 }, y: { agirlik: Float32Array.from([0, 1, 0]), sapma: 0 } } };
+  const sonuc = benzerlikleriHesapla([a], ayirici);
+  assert.ok(sonuc.x > 0.99 && sonuc.y < 0.01);
+  assert.ok(Math.abs(sonuc.x + sonuc.y - 1) < 1e-9);
+  assert.deepEqual(benzerlikleriHesapla([], ayirici), {});
+  for (const d of [0, 0.3, 0.5, 0.7, 0.9, 1]) {
     const soz = benzerlikSozu(d);
     assert.doesNotMatch(soz, /%|yüzde|kesin/i);
     assert.deepEqual(yasakIfadeler(soz), []);
   }
 });
 
-test('fotoğraf kıyası: her türün parmak izi var; model uygulamayla birlikte indirilmez (az veri)', () => {
-  const izler = JSON.parse(oku('vendor/mobilenet/parmak-izleri.json')).turler;
-  for (const tur of turler.filter((t) => t.fotograf)) assert.ok(izler[tur.id]?.length, tur.id);
+test('fotoğraf kıyası: ayırıcı dosyası 8 bitten doğru açılır', () => {
+  const satir = Int8Array.from([127, -128, 0, 5]);
+  const geri = satirCoz(Buffer.from(satir.buffer).toString('base64'), 0.5);
+  assert.deepEqual(Array.from(geri), [63.5, -64, 0, 2.5]);
+});
+
+test('fotoğraf kıyası: her tür ayırıcıda var; model uygulamayla birlikte indirilmez (az veri)', () => {
+  const ayirici = ayiriciyiCoz(JSON.parse(oku('vendor/mobilenet/tur-ayirici.json')));
+  for (const tur of turler.filter((t) => t.fotograf)) assert.equal(ayirici.turler[tur.id]?.agirlik.length, 1280, tur.id);
   const sw = oku('sw.js');
   for (const dosya of MODEL_DOSYALARI) assert.ok(!sw.includes(`'${dosya}'`), `${dosya} uygulamayla indirilmemeli`);
   assert.match(sw, /MODEL_ONBELLEGI/);

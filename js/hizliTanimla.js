@@ -16,7 +16,7 @@ import { zehirRozeti } from './zehir.js';
 import { durumuOku, durumuYaz } from './durum.js';
 import { sesHazirMi, sesiKes, soyle } from './ses.js';
 import { kameraAc, kameraKapat, kameraVarMi, kareAl, resimAdresi } from './kamera.js';
-import { benzerlikSozu, benzerlikleriHesapla, modelDurumu, modelDurumunuDinle, modeliHazirla, parmakIzi, referanslariYukle } from './fotoTanima.js';
+import { benzerlikSozu, benzerlikleriHesapla, modelDurumu, modelDurumunuDinle, modeliHazirla, parmakIzi, ayiriciyiYukle } from './fotoTanima.js';
 import { dinlemeyiBaslat, dinlemeyiDurdur, komutuAnla, yerelTanimaDurumu, yerelTanimayiKur } from './sesliKomut.js';
 
 let turler = [];
@@ -66,6 +66,9 @@ export function hizliBaslat() {
   if (kiyasAcik()) kiyasiHazirla();
 }
 
+// Yarım kalmış bir tanımlama var mı (yeni sürüm gelince sayfa bu sırada kendiliğinden yenilenmez).
+export const hizliSuruyor = () => h.adim !== null;
+
 export function hizliSifirla() {
   for (const url of Object.values(h.fotograflar)) URL.revokeObjectURL(url);
   sayaciDurdur();
@@ -104,7 +107,7 @@ function yenidenCiz() {
 
 async function kiyasiHazirla() {
   try {
-    await Promise.all([modeliHazirla(), referanslariYukle()]);
+    await Promise.all([modeliHazirla(), ayiriciyiYukle()]);
     await izleriHesapla();
   } catch {
     // İnternet yok ve model daha önce indirilmemiş: tanımlama sorularla devam eder.
@@ -113,7 +116,7 @@ async function kiyasiHazirla() {
 
 async function izleriHesapla() {
   if (modelDurumu() !== 'hazir') return;
-  const referanslar = await referanslariYukle();
+  const ayirici = await ayiriciyiYukle();
   const izler = [];
   for (const tur of KIYAS_FOTOGRAFLARI) {
     const url = h.fotograflar[tur];
@@ -129,7 +132,7 @@ async function izleriHesapla() {
     return;
   }
   h.izler = izler;
-  h.benzerlikler = benzerlikleriHesapla(izler, referanslar);
+  h.benzerlikler = benzerlikleriHesapla(izler, ayirici);
   // Yalnızca kıyas kartı yenilenir; kamera ve sayaç olduğu gibi kalır.
   const kart = kap?.isConnected ? kap.querySelector('.kiyas') : null;
   kart?.replaceWith(adaylarCiz());

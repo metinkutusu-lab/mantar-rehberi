@@ -3,6 +3,7 @@ import { DERSLER, FERAGAT_MADDELERI, FERAGAT_TASLAK_NOTU, SORULAR } from './egit
 import { durumuOku, durumuYaz } from './durum.js';
 import { bildirim, cizim, el, ilerlemeCiz, kucukFotograf } from './dom.js';
 import { tanimlamaCiz, tanimlamaKapat } from './tanimla.js';
+import { hizliSuruyor } from './hizliTanimla.js';
 import { SOZLUK, SOZLUK_FOTOGRAFLARI } from './sozluk.js';
 import { sozlukFotografi } from './isaretliFoto.js';
 import { oku } from './depo.js';
@@ -324,8 +325,15 @@ sozlukCiz();
 turleriCiz();
 ekraniGoster();
 
-// Yeni sürüm indirilince kullanıcıya haber verilir. Sayfa kendiliğinden yenilenmez:
-// yarım kalan bir tanımlama ve fotoğrafları kaybolmasın.
+// Yeni sürüm indirilince sayfa kendiliğinden yenilenir (Metin'in isteği, 2026-10-26: güncelleme geç geliyordu).
+// Yarım kalan bir tanımlama varsa yenilenmez (fotoğraflar kaybolmasın): bant gösterilir, uygulama öne gelince yeniden bakılır.
+let yeniSurumHazir = false;
+function yeniSurumaGec() {
+  yeniSurumHazir = true;
+  if (hizliSuruyor()) guncellemeUyarisiGoster();
+  else location.reload();
+}
+
 function guncellemeUyarisiGoster() {
   if (document.getElementById('guncelleme')) return;
   document.body.append(
@@ -340,12 +348,18 @@ if ('serviceWorker' in navigator) {
   // İlk kurulumda da denetleyici değişir; uyarı yalnızca eski bir sürüm çalışıyorken gösterilir.
   const eskiSurumVardi = Boolean(navigator.serviceWorker.controller);
   navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (eskiSurumVardi) guncellemeUyarisiGoster();
+    if (eskiSurumVardi) yeniSurumaGec();
   });
-  navigator.serviceWorker.register('./sw.js').then((kayit) => {
-    // Uygulama arka plandan öne gelince yeni sürüm var mı diye bakılır (internet yoksa sessizce geçilir).
+  navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' }).then((kayit) => {
+    // Uygulama öne gelince ve açıkken yarım saatte bir yeni sürüm var mı diye bakılır (internet yoksa sessizce geçilir).
+    const bak = () => kayit.update().catch(() => {});
     document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') kayit.update().catch(() => {});
+      if (document.visibilityState !== 'visible') return;
+      if (yeniSurumHazir && !hizliSuruyor()) location.reload();
+      else bak();
     });
+    setInterval(() => {
+      if (document.visibilityState === 'visible') bak();
+    }, 30 * 60 * 1000);
   });
 }

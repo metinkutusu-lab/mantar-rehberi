@@ -1,18 +1,19 @@
 // Fotoğraf kıyası (Metin'in isteği, 2026-10-26): çekilen fotoğraf, uygulamadaki tür fotoğraflarıyla telefonda kıyaslanır.
 // Küçük bir yapay zeka modeli (MobileNet V2, Apache 2.0) fotoğrafın "parmak izini" çıkarır (1280 sayı);
-// türlerin parmak izleri önceden hesaplanıp vendor/mobilenet/parmak-izleri.json'a yazılmıştır (scripts/parmak-izi-uret.js).
+// izi türlere ayıran küçük ayırıcı, tür başına ~100 lisanslı fotoğraftan önceden öğrenilip
+// vendor/mobilenet/tur-ayirici.json'a yazılmıştır (scripts/tur-ayirici-egit.js).
 // - Fotoğraf hiçbir yere gönderilmez; model ve parmak izleri uygulamanın kendi dosyalarıdır (kural 12).
 // - Model ilk kullanımda bir kez indirilir (~5 MB) ve cihazda kalır (sw.js, model önbelleği); sonra internetsiz çalışır.
 // - Kıyas yalnızca adayları sıralar ve hangi sorunun önce sorulacağına yardım eder. Hiçbir türü elemez,
 //   sonucun rengini değiştirmez (kural 3, 5). Model yüklenemezse tanımlama sorularla aynen çalışır.
 
 // Bu dosyalar uygulamayla birlikte indirilmez; yalnızca kullanıcı fotoğraf kıyasını açınca bir kez iner.
-export const MODEL_DOSYALARI = ['./vendor/tf.min.js', './vendor/mobilenet/model.json', './vendor/mobilenet/agirliklar.bin', './vendor/mobilenet/parmak-izleri.json'];
+export const MODEL_DOSYALARI = ['./vendor/tf.min.js', './vendor/mobilenet/model.json', './vendor/mobilenet/agirliklar.bin', './vendor/mobilenet/tur-ayirici.json'];
 const CIKIS = 'module_apply_default/MobilenetV2/Logits/AvgPool';
 const BOYUT = 224;
 
 let modelSozu = null;
-let referansSozu = null;
+let ayiriciSozu = null;
 let durum = 'yok'; // 'yok' | 'yukleniyor' | 'hazir' | 'hata'
 const dinleyiciler = new Set();
 
@@ -88,26 +89,31 @@ export function kosinus(a, b) {
 }
 
 /**
- * Kullanıcının fotoğraflarının izlerini tür izleriyle kıyaslar.
- * Dönüş: { türId: 0–1 } — her tür için en benzer referansla en benzer fotoğrafın benzerliği (kosinüs).
- * Değerler "olasılık" değildir; yalnızca sıralama içindir. Ölçüm (2026-10-26, tür başına 3–20 referans fotoğraf,
- * uygulamanın görmediği 99 fotoğraf): doğru tür 1. sırada %43, ilk 3'te %73 (tek fotoğrafla %30 ve %46'ydı).
+ * Kullanıcının fotoğraflarının izlerini tür ayırıcısından geçirir (vendor/mobilenet/tur-ayirici.json).
+ * Dönüş: { türId: 0–1 } — toplamı 1; fotoğraf birden fazlaysa (üst ve yan) puanları birlikte değerlendirilir.
+ * Değer yalnızca sıralama ve "muhtemelen" eşiği içindir; kullanıcıya yüzde olarak gösterilmez (kural 1, 5).
+ * Ayırıcı tür başına yaklaşık 100 lisanslı fotoğraftan öğrenilmiştir (scripts/tur-ayirici-egit.js).
  */
-export function benzerlikleriHesapla(kullaniciIzleri, referanslar) {
-  const sonuc = {};
-  for (const [id, izler] of Object.entries(referanslar)) {
-    let enIyi = 0;
-    for (const k of kullaniciIzleri) for (const r of izler) enIyi = Math.max(enIyi, kosinus(k, r));
-    sonuc[id] = Math.min(1, enIyi);
-  }
-  return sonuc;
+export function benzerlikleriHesapla(kullaniciIzleri, ayirici) {
+  const ids = Object.keys(ayirici.turler ?? {});
+  if (!ids.length || !kullaniciIzleri.length) return {};
+  const puanlar = ids.map((id) => {
+    const { agirlik, sapma } = ayirici.turler[id];
+    let toplam = 0;
+    for (const iz of kullaniciIzleri) toplam += kosinus(iz, agirlik) * ayirici.girdiOlcegi + sapma;
+    return toplam / kullaniciIzleri.length;
+  });
+  const enCok = Math.max(...puanlar);
+  const us = puanlar.map((p) => Math.exp(p - enCok));
+  const toplam = us.reduce((a, b) => a + b, 0);
+  return Object.fromEntries(ids.map((id, i) => [id, us[i] / toplam]));
 }
 
-// Eşikler ölçümle seçildi (2026-10-26; 34 tür, 520 referans, saklanan 99 deneme fotoğrafı): en üstteki tahmin
-// 0,68'i geçince yalnızca %43, 0,75'i geçince %64, 0,80'i geçince ölçülen hepsi doğruydu. Bu yüzden "muhtemelen"
-// yalnızca 0,80 ve üstünde denir; altında yalnızca sıralanır. (Eski eşik 0,68 tek fotoğraflı referanslara göreydi.)
-export const BELIRGIN_BENZERLIK = 0.8;
-const BENZER = 0.75;
+// Eşikler ölçümle seçildi (2026-10-27; 34 tür, ~5.000 lisanslı fotoğraf, ayırıcının görmediği 384 fotoğraf:
+// doğru tür 1. sırada %68, ilk 3'te %87). En üstteki tür 0,9'u geçince %94, 0,6'yı geçince %83, 0,3'ü geçince %72
+// doğruydu. Bu yüzden "muhtemelen" yalnızca 0,9 ve üstünde denir; altında yalnızca sıralanır.
+export const BELIRGIN_BENZERLIK = 0.9;
+const BENZER = 0.6;
 
 // Benzerliği okunur söze çevirir (yüzde gösterilmez: güven gibi okunmasın).
 export function benzerlikSozu(deger) {
@@ -116,15 +122,32 @@ export function benzerlikSozu(deger) {
   return 'Fotoğrafa az benziyor';
 }
 
-export function referanslariYukle() {
-  referansSozu ??= fetch(MODEL_DOSYALARI[3])
+// Tür ayırıcısının 8 bitlik satırını sayılara çevirir (scripts/tur-ayirici-egit.js'in kodlamasının tersi).
+export function satirCoz(metin, olcek) {
+  const ikili = typeof atob === 'function' ? atob(metin) : Buffer.from(metin, 'base64').toString('binary');
+  const satir = new Float32Array(ikili.length);
+  for (let i = 0; i < ikili.length; i++) {
+    const bayt = ikili.charCodeAt(i);
+    satir[i] = (bayt > 127 ? bayt - 256 : bayt) * olcek;
+  }
+  return satir;
+}
+
+export function ayiriciyiCoz(veri) {
+  const turler = {};
+  for (const [id, t] of Object.entries(veri.turler ?? {})) turler[id] = { agirlik: satirCoz(t.agirlik, t.olcek), sapma: t.sapma };
+  return { girdiOlcegi: veri.girdiOlcegi ?? 1, turler };
+}
+
+export function ayiriciyiYukle() {
+  ayiriciSozu ??= fetch(MODEL_DOSYALARI[3])
     .then((y) => y.json())
-    .then((veri) => Object.fromEntries(Object.entries(veri.turler ?? {}).map(([id, liste]) => [id, liste.map(izCoz)])))
+    .then(ayiriciyiCoz)
     .catch(() => {
-      referansSozu = null;
-      return {};
+      ayiriciSozu = null;
+      return { turler: {} };
     });
-  return referansSozu;
+  return ayiriciSozu;
 }
 
 // Resmin ortasından kare kesip 224x224'e küçültür. yakinlik < 1 ise ortaya yaklaşır; cevir: aynalar.

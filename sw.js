@@ -1,6 +1,6 @@
 // Çevrimdışı çalışma: uygulamanın bütün dosyaları ilk açılışta cihaza kaydedilir.
 // Yeni dosya eklenince DOSYALAR listesine ekle ve SURUM'u artır.
-const SURUM = 'v43';
+const SURUM = 'v44';
 // GitHub Pages'te aynı adreste başka uygulamalar da olabilir: önbellek adı bu uygulamaya ve adresine özeldir,
 // yalnızca kendi eski sürümlerini siler.
 const ONEK = `mantar-rehberi:${self.registration.scope}:`;
@@ -102,10 +102,32 @@ const DOSYALAR = [
   './fotograflar/zeytin.jpg',
 ];
 
+// Fotoğraflar ayrı önbellekte durur ve her sürümde yeniden inmez (güncelleme hızlı gelsin; yalnızca yeni eklenen fotoğraf iner).
+// Var olan bir fotoğrafı aynı adla değiştirirsen FOTO_SURUM'u da artır.
+const FOTO_SURUM = 'f1';
+const FOTO_ONBELLEGI = ONEK + 'foto-' + FOTO_SURUM;
+const fotografMi = (d) => d.startsWith('./fotograflar/');
+
+// Dosya her sürümde yeni adresle istenir (?s=v44): ne tarayıcının ne de GitHub'ın ara önbelleği eski bir dosya verebilir.
+// Cihaza adres eki olmadan yazılır.
+async function indirVeYaz(onbellek, dosya) {
+  const yanit = await fetch(new Request(`${dosya}?s=${SURUM}`, { cache: 'reload' }));
+  if (!yanit.ok) throw new Error(`${dosya} indirilemedi`);
+  await onbellek.put(dosya, yanit);
+}
+
 self.addEventListener('install', (olay) => {
-  // Tarayıcının HTTP önbelleği atlanır: yeni sürüme eski bir dosya karışmasın.
   olay.waitUntil(
-    caches.open(ONBELLEK).then((onbellek) => onbellek.addAll(DOSYALAR.map((d) => new Request(d, { cache: 'reload' })))),
+    (async () => {
+      const onbellek = await caches.open(ONBELLEK);
+      const fotoOnbellegi = await caches.open(FOTO_ONBELLEGI);
+      await Promise.all(
+        DOSYALAR.map(async (d) => {
+          if (!fotografMi(d)) return indirVeYaz(onbellek, d);
+          if (!(await fotoOnbellegi.match(d))) await indirVeYaz(fotoOnbellegi, d);
+        }),
+      );
+    })(),
   );
   self.skipWaiting();
 });
@@ -115,9 +137,14 @@ self.addEventListener('activate', (olay) => {
     caches
       .keys()
       .then((adlar) =>
-        Promise.all(adlar.filter((ad) => ad.startsWith(ONEK) && ad !== ONBELLEK && ad !== HARITA_ONBELLEGI && ad !== MODEL_ONBELLEGI).map((ad) => caches.delete(ad))),
+        Promise.all(adlar.filter((ad) => ad.startsWith(ONEK) && ![ONBELLEK, FOTO_ONBELLEGI, HARITA_ONBELLEGI, MODEL_ONBELLEGI].includes(ad)).map((ad) => caches.delete(ad))),
       )
       .then(haritaOnbelleginiSinirla)
+      // Eski kıyas dosyası (v44'te yerini tur-ayirici.json aldı) cihazda yer kaplamasın.
+      .then(async () => {
+        const model = await caches.open(MODEL_ONBELLEGI);
+        for (const a of await model.keys()) if (a.url.includes('parmak-izleri.json')) await model.delete(a);
+      })
       .then(() => self.clients.claim()),
   );
 });
@@ -149,7 +176,7 @@ async function haritaYaniti(istek) {
   }
 }
 
-// Parmak izleri güncellenebilir (yeni referans fotoğrafları eklenince): cihazdaki kopya hemen kullanılır,
+// Tür ayırıcısı güncellenebilir (yeni fotoğraflarla yeniden eğitilince): cihazdaki kopya hemen kullanılır,
 // internet varsa arkada yenisi indirilip saklanır (bir sonraki tanımlamada kullanılır). Büyük model dosyaları yeniden inmez.
 async function izYaniti(olay) {
   const onbellek = await caches.open(MODEL_ONBELLEGI);
@@ -183,7 +210,7 @@ self.addEventListener('fetch', (olay) => {
     return;
   }
   const yol = new URL(olay.request.url).pathname;
-  if (new URL(olay.request.url).origin === self.location.origin && yol.endsWith('/vendor/mobilenet/parmak-izleri.json')) {
+  if (new URL(olay.request.url).origin === self.location.origin && yol.endsWith('/vendor/mobilenet/tur-ayirici.json')) {
     olay.respondWith(izYaniti(olay));
     return;
   }
@@ -192,9 +219,11 @@ self.addEventListener('fetch', (olay) => {
     return;
   }
   olay.respondWith(
-    caches
-      .open(ONBELLEK)
-      .then((onbellek) => onbellek.match(olay.request, { ignoreSearch: true }))
-      .then((kayitli) => kayitli ?? fetch(olay.request)),
+    (async () => {
+      const kayitli =
+        (await (await caches.open(ONBELLEK)).match(olay.request, { ignoreSearch: true })) ??
+        (await (await caches.open(FOTO_ONBELLEGI)).match(olay.request, { ignoreSearch: true }));
+      return kayitli ?? fetch(olay.request);
+    })(),
   );
 });

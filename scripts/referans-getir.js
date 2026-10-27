@@ -1,55 +1,19 @@
 // Fotoğraf kıyası için tür başına ek referans fotoğrafları (Metin'in isteği, 2026-10-26: "her türe 10–20 lisanslı fotoğraf").
 // Wikimedia Commons'ta türün kategorisindeki fotoğraflardan yalnızca ticari kullanıma izin veren lisanslılar
 // (CC0, kamu malı, CC BY, CC BY-SA; NC/ND asla) alınır, 480 piksel genişlikte fotograflar/referans/<tür-id>/ altına iner.
-// Fotoğraflar uygulamaya ve depoya girmez (.gitignore); yalnızca parmak izleri girer (scripts/parmak-izi-uret.js).
+// Fotoğraflar uygulamaya ve depoya girmez (.gitignore); yalnızca onlardan öğrenilen tür ayırıcısı girer (scripts/tur-ayirici-egit.js).
 // Her fotoğrafın kaynağı, çekeni ve lisansı fotograflar/referans-kaynaklar.json'a yazılır (depoda durur).
 // Kullanım: node scripts/referans-getir.js [tür-id ...]   (internet gerekir; uygulamanın parçası değildir)
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import { KATEGORILER } from './tur-adlari.js';
 
 const KOK = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ISTEK = { headers: { 'User-Agent': 'MushKey-mantar-rehberi/1.0 (egitim amacli; metinkutusu-lab)' } };
 const API = 'https://commons.wikimedia.org/w/api.php';
 const EN_COK = 20;
 
-// Tür kimliği → Commons kategorileri (bilimsel ad). Grup türlerde birkaç kategori.
-const KATEGORILER = {
-  koygocuren: ['Amanita phalloides'],
-  'ak-koygocuren': ['Amanita virosa', 'Amanita verna'],
-  panter: ['Amanita pantherina'],
-  sinek: ['Amanita muscaria'],
-  yumurta: ['Amanita caesarea'],
-  'kucuk-semsiye': ['Lepiota brunneoincarnata', 'Lepiota helveola', 'Lepiota subincarnata', 'Lepiota cristata'],
-  'buyuk-semsiye': ['Macrolepiota procera'],
-  galerina: ['Galerina marginata'],
-  cortinarius: ['Cortinarius orellanus', 'Cortinarius rubellus'],
-  inocybe: ['Inocybe erubescens', 'Inocybe geophylla'],
-  kuzugobegi: ['Morchella esculenta', 'Morchella elata', 'Morchella importuna'],
-  'sahte-kuzugobegi': ['Gyromitra esculenta'],
-  horozmantari: ['Cantharellus cibarius'],
-  zeytin: ['Omphalotus olearius'],
-  kanlica: ['Lactarius deliciosus', 'Lactarius sanguifluus', 'Lactarius deterrimus'],
-  'tuylu-sut': ['Lactarius torminosus'],
-  'ayi-mantari': ['Boletus edulis', 'Boletus aereus', 'Boletus reticulatus'],
-  seytan: ['Rubroboletus satanas'],
-  cayir: ['Agaricus campestris'],
-  'sariya-boyanan': ['Agaricus xanthodermus'],
-  entoloma: ['Entoloma sinuatum'],
-  istiridye: ['Pleurotus ostreatus'],
-  'kukurt-basli': ['Hypholoma fasciculare'],
-  tavuk: ['Laetiporus sulphureus'],
-  puf: ['Lycoperdon perlatum', 'Calvatia gigantea'],
-  'sahte-puf': ['Scleroderma citrinum'],
-  'beyaz-truf': ['Tuber magnatum'],
-  'kara-truf': ['Tuber aestivum', 'Tuber melanosporum'],
-  keme: ['Terfezia', 'Terfezia boudieri', 'Terfezia claveryi'],
-  casir: ['Pleurotus eryngii'],
-  mayis: ['Calocybe gambosa'],
-  'mor-kadife': ['Lepista nuda', 'Clitocybe nuda'],
-  ballica: ['Armillaria mellea'],
-  'sahte-truf': ['Choiromyces meandriformis', 'Choiromyces venosus'],
-};
 
 // Mantarın kendisi olmayan görseller (mikroskop, spor, çizim, pul, harita…) adından elenir.
 const ISTENMEYEN = /micro|mikro|spore|spora|sporen|cystid|basid|ascus|asci\b|hyph|\bsem\b|illustr|drawing|zeichnung|plate|tafel|planche|tav\.|stamp|briefmarke|timbre|map|karte|herbar|exsic|cartoon|logo|diagram|icon|dried|getrocknet|séché|soup|dish|cooked|recipe|market|markt|mercado/i;
