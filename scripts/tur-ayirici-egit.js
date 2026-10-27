@@ -125,7 +125,7 @@ const ornekler = [];
 const denemeler = [];
 isler.forEach((is, y) => {
   for (const [dosya, bicimler] of dosyalari(is)) {
-    if (saklanan.has(dosya)) { if (onbellek[`${dosya}#t`]) denemeler.push({ y, iz: onbellek[`${dosya}#t`], tehlikeli: is.tehlikeli }); continue; }
+    if (saklanan.has(dosya)) { if (onbellek[`${dosya}#t`]) denemeler.push({ y, iz: onbellek[`${dosya}#t`], tehlikeli: is.tehlikeli, dosya }); continue; }
     for (const ad of Object.keys(bicimler)) if (onbellek[`${dosya}#${ad}`]) ornekler.push({ y, iz: onbellek[`${dosya}#${ad}`] });
   }
 });
@@ -161,6 +161,7 @@ const sonuc = await sayfa.evaluate(async ({ ornekler, denemeler, K, OLCEK }) => 
       if (d.tehlikeli) { olcum.tehlikeliN++; if (yer < 3) olcum.tehlikeliIlk3++; }
       for (const e of esikler) if (sira[0][1] >= e) { olcum.esikler[e].gecen++; if (yer === 0) olcum.esikler[e].dogru++; }
     });
+    olcum.puanlar = denemeler.map((d, i) => ({ dosya: d.dosya, y: d.y, olas: olas[i].map((p) => Number(p.toFixed(5))) }));
   }
   return { agirlik, sapma, olcum };
 }, { ornekler, denemeler, K: ids.length, OLCEK: GIRDI_OLCEGI });
@@ -172,6 +173,9 @@ if (OLC) {
   const yuzde = (a, b) => `%${Math.round((a / Math.max(1, b)) * 100)}`;
   console.log(`Eğitim: ${ornekler.length} örnek. Saklanan ${o.n} fotoğraf: doğru tür 1. sırada ${yuzde(o.ilk1, o.n)}, ilk 3'te ${yuzde(o.ilk3, o.n)}; zehirli/şüpheli türlerde ilk 3'te ${yuzde(o.tehlikeliIlk3, o.tehlikeliN)}`);
   for (const [e, s] of Object.entries(o.esikler)) console.log(`  en üstteki ≥ ${e}: ${s.gecen} fotoğraf, ${yuzde(s.dogru, s.gecen)} doğru`);
+  // İstenirse saklanan fotoğrafların puanları yazılır (ör. mevsim ağırlığının etkisini ölçmek için).
+  const puanDosyasi = process.env.MANTAR_OLCUM_DOSYASI;
+  if (puanDosyasi) writeFileSync(puanDosyasi, JSON.stringify({ turler: ids, puanlar: o.puanlar }));
 } else {
   // Ağırlıklar tür başına 8 bite sıkıştırılır (dosya küçük kalsın).
   const satirlar = sonuc.agirlik.map((satir) => {

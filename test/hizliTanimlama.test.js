@@ -295,3 +295,19 @@ test('fotoğraftan öneri: tür güçlü tahmin edilince türün rengi ve şapka
   // Şapka altı ayırıcısının cevabı türünkinden önce gelir.
   assert.equal(onerileriBirlestir({ alt: 'gozenek', tur }).altYapi, 'gozenek');
 });
+
+test('mevsim ağırlığı: hiçbir türü elemez, toplam 1 kalır; mevsimi olmayan tür geri itilir ama sıfırlanmaz (kural 3)', async () => {
+  const { mevsimeGoreAgirlikla, MEVSIM_TABANI } = await import('../js/mevsimAgirligi.js');
+  const mevsim = JSON.parse(oku('veri/mevsim.json')).turler;
+  for (const t of turler) assert.ok(t.id in mevsim, `${t.id} mevsim takviminde yok`);
+  const b = Object.fromEntries(turler.map((t) => [t.id, 1 / turler.length]));
+  const nisan = mevsimeGoreAgirlikla(b, mevsim, 3);
+  assert.equal(Object.keys(nisan).length, turler.length);
+  assert.ok(Math.abs(Object.values(nisan).reduce((x, y) => x + y, 0) - 1) < 1e-9);
+  for (const p of Object.values(nisan)) assert.ok(p > 0);
+  // Nisan'da kuzugöbeği kanlıcadan önde; Ekim'de tersi.
+  assert.ok(nisan.kuzugobegi > nisan.kanlica);
+  const ekim = mevsimeGoreAgirlikla(b, mevsim, 9);
+  assert.ok(ekim.kanlica > ekim.kuzugobegi);
+  assert.ok(nisan.kanlica / nisan.kuzugobegi >= MEVSIM_TABANI - 1e-9);
+});

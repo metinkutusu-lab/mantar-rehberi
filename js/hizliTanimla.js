@@ -12,6 +12,7 @@ import { el, ikon, kucukFotograf, bildirim } from './dom.js';
 import { adimFotografi, secenekFotografi } from './isaretliFoto.js';
 import { BILMIYORUM, GEREKLI_FOTOGRAFLAR, degerlendir, onerilebilirMi, onerininElediOlumculler } from './kurallar.js';
 import { altYapiyiOner, onerileriBirlestir, sapkaRenkleriniOner, turdenOner } from './fotoOzellik.js';
+import { mevsimeGoreAgirlikla, mevsimiYukle } from './mevsimAgirligi.js';
 import { ADIMLAR, adimSecenekleri, sonCevaplar } from './sorular.js';
 import { adaylariBul } from './anahtar.js';
 import { ayiranAdimlar, kisaAd, kontrolListesi } from './siradaki.js';
@@ -149,7 +150,8 @@ async function izleriHesapla() {
   }
   h.izler = izler;
   // Fotoğraflar silindiyse eski tahmin de silinir.
-  h.benzerlikler = izler.length ? benzerlikleriHesapla(izler, ayirici) : {};
+  // Mevsim bilgisi tahmini hafifçe ağırlıklar (js/mevsimAgirligi.js); hiçbir tür elenmez.
+  h.benzerlikler = izler.length ? mevsimeGoreAgirlikla(benzerlikleriHesapla(izler, ayirici), await mevsimiYukle(), new Date().getMonth()) : {};
   await onerileriHesapla(izi);
   // Tahmin kontrollerin sırasını etkiler; kamera açıksa yalnızca tahmin kartı yenilenir.
   if (!kap?.isConnected) return;
