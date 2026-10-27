@@ -233,12 +233,19 @@ function turCiz() {
   const tur = seciliTur();
   const bilgi = [];
   if (tur) {
-    if (tur.cigkenZehirli) parcalar.push(bildirim('tehlike', el('p', {}, el('strong', { textContent: CIG_UYARISI }))));
-    if (tur.zehirliBenzerler?.length) {
-      parcalar.push(bildirim('tehlike', el('p', {},
-        el('strong', { textContent: 'Karıştırılan zehirli türler: ' }),
-        `${tur.zehirliBenzerler.map((b) => b.ad).join(', ')}. Aynı yerlerde çıkabilirler.`)));
+    // Tek satırlık uyarılar (Metin, 2026-10-27: büyük kutu kafa karıştırıyordu); dokununca ayrıntı açılır.
+    const tekSatir = (ozet, ...ayrinti) => el('details', { className: 'ara-tek-uyari' },
+      el('summary', {}, ikon('uyari'), el('span', { textContent: ozet })),
+      el('div', { className: 'ara-tek-uyari-govde' }, ...ayrinti));
+    const benzerler = tur.zehirliBenzerler ?? [];
+    if (benzerler.length) {
+      const ilk = benzerler[0].ad.replace(/\s*\(.*\)$/, '');
+      parcalar.push(tekSatir(
+        `Aynı yerde zehirli benzerleri çıkar (${ilk}${benzerler.length > 1 ? ` ve ${benzerler.length - 1} tür daha` : ''}). Bulduğunu Tanımla ile kontrol et.`,
+        el('p', {}, el('strong', { textContent: 'Karıştırılan zehirli türler: ' }), `${benzerler.map((b) => b.ad).join(', ')}.`),
+      ));
     }
+    if (tur.cigkenZehirli) parcalar.push(tekSatir('Çiğken zehirlidir.', el('p', { textContent: CIG_UYARISI })));
     const ayYazisi = ayAraligi(tur.aylar);
     if (ayYazisi) {
       bilgi.push(el('p', { className: mevsimdeMi(tur, ay) ? 'not' : 'not tur-mevsim-uyari' },
