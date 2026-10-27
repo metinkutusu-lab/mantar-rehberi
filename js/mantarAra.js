@@ -318,6 +318,61 @@ class YonDenetimi {
   }
 }
 
+// --- Haritanın boyu ve tam ekran (Metin'in isteği, 2026-10-27: "haritanın tamamı ekrana sığsın; tam ekran düğmesi olsun,
+// bölgeyi seçince tam ekrandan çıkıp aşağıdan istediğimi seçeyim") ---
+// Normalde harita, ekranın alt menüye kadar kalan kısmını doldurur (sayfanın başındayken tamamı görünür).
+// Tam ekranda harita üst çubuğun altından ekranın dibine kadar uzanır; üst çubuktaki ACİL düğmesi görünür kalır (kural 9).
+let tamEkranDugmesi = null;
+const tamEkrandaMi = () => haritaKap.parentElement?.classList.contains('tam-ekran') ?? false;
+
+function haritaBoyunuAyarla() {
+  if (!haritaKap.isConnected || tamEkrandaMi()) return;
+  const ust = haritaKap.getBoundingClientRect().top + window.scrollY;
+  const menu = document.querySelector('.alt-menu')?.offsetHeight ?? 68;
+  haritaKap.style.height = `${Math.round(Math.max(280, Math.min(720, window.innerHeight - menu - ust - 8)))}px`;
+  ara.harita?.resize();
+}
+
+function tamEkraniDegistir(ac = !tamEkrandaMi()) {
+  const kapsayici = haritaKap.parentElement;
+  if (!kapsayici) return;
+  document.documentElement.style.setProperty('--ust-bar-yuksekligi', `${document.querySelector('.ust-bar')?.offsetHeight ?? 56}px`);
+  kapsayici.classList.toggle('tam-ekran', ac);
+  document.body.classList.toggle('harita-tam-ekran', ac);
+  if (tamEkranDugmesi) {
+    tamEkranDugmesi.innerHTML = ac
+      ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>'
+      : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
+    const etiket = ac ? 'Tam ekrandan çık' : 'Haritayı tam ekran yap';
+    tamEkranDugmesi.title = etiket;
+    tamEkranDugmesi.setAttribute('aria-label', etiket);
+  }
+  haritaKap.style.height = '';
+  setTimeout(() => {
+    if (ac) ara.harita?.resize();
+    else haritaBoyunuAyarla();
+  }, 30);
+}
+
+class TamEkranDenetimi {
+  onAdd() {
+    tamEkranDugmesi = el('button', { type: 'button', className: 'harita-tam-ekran-dugme', onclick: () => tamEkraniDegistir() });
+    this.kap = el('div', { className: 'maplibregl-ctrl maplibregl-ctrl-group' }, tamEkranDugmesi);
+    tamEkraniDegistir(false);
+    return this.kap;
+  }
+
+  onRemove() {
+    this.kap.remove();
+    tamEkranDugmesi = null;
+  }
+}
+
+window.addEventListener('resize', () => haritaBoyunuAyarla());
+document.addEventListener('keydown', (olay) => {
+  if (olay.key === 'Escape' && tamEkrandaMi()) tamEkraniDegistir(false);
+});
+
 // Pusula yokken: GPS'in gidiş yönü ya da son iki konum arasındaki yön.
 function hareketYonu(k) {
   if (ara.bakisKaynagi === 'pusula') return;
@@ -526,6 +581,7 @@ function konumDugmesiCiz(yazi) {
 
 export function mantarAraKapat() {
   ara.izlemeyiDurdur?.();
+  if (tamEkrandaMi()) tamEkraniDegistir(false);
   ara.izlemeyiDurdur = null;
   ara.pusulayiDurdur?.();
   ara.pusulayiDurdur = null;
@@ -957,6 +1013,7 @@ async function kur() {
   });
   ara.harita.addControl(new window.maplibregl.NavigationControl({ showCompass: false }), 'top-right');
   ara.harita.addControl(new YonDenetimi(), 'top-right');
+  ara.harita.addControl(new TamEkranDenetimi(), 'top-left');
   ara.harita.on('rotate', yonDugmesiniGuncelle);
   // Parmakla döndürülünce "baktığım yön" takibi bırakılır (kullanıcının çevirdiği yön kalır).
   ara.harita.on('rotatestart', (olay) => {
@@ -983,4 +1040,6 @@ export function mantarAraAc() {
   if (!kap.contains(kok)) kap.replaceChildren(kok);
   if (!ara.kuruldu) kur();
   else ara.harita?.resize();
+  // Sayfa yerleştikten sonra harita kalan ekranı doldurur.
+  setTimeout(haritaBoyunuAyarla, 60);
 }

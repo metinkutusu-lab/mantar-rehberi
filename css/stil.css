@@ -1024,3 +1024,10 @@ figcaption, .not, .tur-govde p { overflow-wrap: anywhere; }
    1,5 saniye sonra yine görünür; Acil ekranı hiç etkilenmez (kural 9). */
 #tanimla:not(.hazir) { opacity: 0; animation: tanimla-goster 0s linear 1.5s forwards; }
 @keyframes tanimla-goster { to { opacity: 1; } }
+
+/* Mantar ara: tam ekran harita (üst çubuk ve içindeki ACİL düğmesi görünür kalır; kural 9) */
+.ara-harita-kap.tam-ekran { position: fixed; left: 0; right: 0; top: var(--ust-bar-yuksekligi, 56px); bottom: 0; margin: 0; z-index: 30; background: var(--yuzey-2); }
+.ara-harita-kap.tam-ekran .ara-harita { height: 100%; min-height: 0; }
+body.harita-tam-ekran { overflow: hidden; }
+.harita-tam-ekran-dugme { display: flex; align-items: center; justify-content: center; }
+.harita-tam-ekran-dugme svg { width: 26px; height: 26px; fill: none; stroke: #1d1a17; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
