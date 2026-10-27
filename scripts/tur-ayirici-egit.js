@@ -5,14 +5,18 @@
 // Ayırıcı yalnızca adayları sıralar; hiçbir türü elemez, sonucun rengini değiştirmez (kural 3, 5).
 // Fotoğraflar: veri/turler.json (fotograf.dosya), fotograflar/referans/<id>/ (scripts/referans-getir.js),
 //              fotograflar/inat/<id>/ (scripts/inat-getir.js). Lisanslar ticari kullanıma uygun; kaynaklar depoda.
+// Eğitimde yalnızca CC0, kamu malı ve CC BY lisanslı fotoğraflar kullanılır; sabit deneme seti (fotograflar/deneme/,
+// scripts/deneme-seti.js) eğitime hiç girmez.
 // Kullanım: node scripts/tur-ayirici-egit.js          (eğitir ve yazar)
-//           node scripts/tur-ayirici-egit.js --olc    (her türün fotoğraflarının %15'ini saklayıp doğruluğu ölçer; dosya yazmaz)
+//           node scripts/tur-ayirici-egit.js --olc    (sabit deneme setiyle doğruluğu ölçer; dosya yazmaz)
+//           Haftalık otomatik güncelleme: scripts/haftalik-guncelle.js
 // Playwright ya da playwright-core + bilgisayardaki Chrome/Edge gerekir; Claude çalıştırır.
 import { createServer } from 'node:http';
 import { createRequire } from 'node:module';
-import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { egitimeUygunLisans } from './lisans.js';
 
 const KOK = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const gerektir = createRequire(import.meta.url);
@@ -29,6 +33,8 @@ const RENKLER = ['beyaz', 'krem-sari', 'kahverengi', 'kirmizi-turuncu', 'yesil-z
 const ONBELLEK = path.join(KOK, 'fotograflar', '.iz-onbellek.json');
 // İz birim uzunluktadır; ayırıcıya bu katsayıyla büyütülüp verilir (öğrenme hızlı olsun). Telefon da aynısını yapar.
 const GIRDI_OLCEGI = 10;
+// Eğitim ayarı: tur sayısı ve ağırlıkların küçük tutulma katsayısı (ölçümle seçildi; deneme için ortamdan değiştirilebilir).
+const EGITIM_AYARI = { devir: Number(process.env.MANTAR_DEVIR ?? 400), l2: Number(process.env.MANTAR_L2 ?? 1e-4) };
 
 function tarayiciAc() {
   try {
@@ -53,7 +59,18 @@ const klasorDosyalari = (klasor) => {
   return existsSync(tam) ? readdirSync(tam).filter((d) => /^\d+\.jpe?g$/i.test(d)).sort().map((d) => `${klasor}/${d}`) : [];
 };
 const turler = JSON.parse(readFileSync(path.join(KOK, 'veri/turler.json'), 'utf8')).turler.filter((t) => t.fotograf?.dosya);
-const turunFotograflari = (t) => [t.fotograf.dosya, ...klasorDosyalari(`fotograflar/referans/${t.id}`), ...klasorDosyalari(`fotograflar/inat/${t.id}`)];
+const jsonOku = (d) => (existsSync(path.join(KOK, d)) ? JSON.parse(readFileSync(path.join(KOK, d), 'utf8')) : {});
+
+// Eğitimde yalnızca CC0, kamu malı ve CC BY lisanslı fotoğraflar (scripts/lisans.js).
+const LISANSLAR = new Map();
+for (const t of turler) LISANSLAR.set(t.fotograf.dosya, t.fotograf.lisans);
+for (const [id, liste] of Object.entries(jsonOku('fotograflar/referans-kaynaklar.json'))) for (const k of liste) LISANSLAR.set(`fotograflar/referans/${id}/${k.dosya}`, k.lisans);
+for (const [id, liste] of Object.entries(jsonOku('fotograflar/inat-kaynaklar.json'))) for (const k of liste) LISANSLAR.set(`fotograflar/inat/${id}/${k.dosya}`, k.lisans);
+for (const [sinif, liste] of Object.entries(jsonOku('fotograflar/alt-yapi-kaynaklar.json'))) for (const k of liste) LISANSLAR.set(`fotograflar/alt-yapi/${sinif}/${k.dosya}`, k.lisans);
+// MANTAR_DENEY_TUM_LISANSLAR=1 yalnızca karşılaştırma ölçümü içindir (lisans süzgecinin etkisini görmek); yayına çıkan
+// dosya hiçbir zaman bununla üretilmez (scripts/haftalik-guncelle.js kullanmaz).
+const egitimeUygun = (dosya) => (process.env.MANTAR_DENEY_TUM_LISANSLAR === '1' && OLC ? LISANSLAR.has(dosya) : egitimeUygunLisans(LISANSLAR.get(dosya)));
+const turunFotograflari = (t) => [t.fotograf.dosya, ...klasorDosyalari(`fotograflar/referans/${t.id}`), ...klasorDosyalari(`fotograflar/inat/${t.id}`)].filter(egitimeUygun);
 const isler = ALT
   ? ALT_SINIFLARI.map((id) => ({ id, tehlikeli: false, ana: null, ekler: klasorDosyalari(`fotograflar/alt-yapi/${id}`) }))
   : RENK
@@ -61,8 +78,10 @@ const isler = ALT
   : turler.map((t) => ({
     id: t.id,
     tehlikeli: t.zehirlilik !== 'yenen',
-    ana: t.fotograf.dosya,
-    ekler: [...klasorDosyalari(`fotograflar/referans/${t.id}`), ...klasorDosyalari(`fotograflar/inat/${t.id}`)],
+    ana: egitimeUygun(t.fotograf.dosya) ? t.fotograf.dosya : null,
+    ekler: [...klasorDosyalari(`fotograflar/referans/${t.id}`), ...klasorDosyalari(`fotograflar/inat/${t.id}`)].filter(egitimeUygun),
+    // Sabit deneme seti (scripts/deneme-seti.js): eğitime hiç girmez, yalnızca ölçümde kullanılır.
+    deneme: klasorDosyalari(`fotograflar/deneme/${t.id}`),
   }));
 // Her fotoğraf birkaç biçimde öğretilir (mantar fotoğrafta farklı büyüklükte ve yönde olabilir).
 const ANA_BICIMLER = { t: {}, a: { cevir: true }, y: { yakinlik: 0.7 }, z: { yakinlik: 0.5 } };
@@ -72,11 +91,19 @@ const dosyalari = (is) => [...(is.ana ? [[is.ana, ANA_BICIMLER]] : []), ...is.ek
 const CIKTI = ALT ? 'vendor/mobilenet/alt-yapi.json' : RENK ? 'vendor/mobilenet/sapka-rengi.json' : 'vendor/mobilenet/tur-ayirici.json';
 
 // ---- 1. İzler (önbellekte olmayanlar tarayıcıda hesaplanır) ----
+// Önbellek anahtarı dosyanın değiştirilme zamanını da içerir: aynı adla yeni fotoğraf inerse eski iz kullanılmaz.
 const onbellek = existsSync(ONBELLEK) ? JSON.parse(readFileSync(ONBELLEK, 'utf8')) : {};
+const anahtar = (dosya, ad) => `${dosya}@${Math.round(statSync(path.join(KOK, dosya)).mtimeMs)}#${ad}`;
 const gereken = [];
+const istenen = new Set();
 for (const is of isler) {
-  for (const [dosya, bicimler] of dosyalari(is)) {
-    for (const [ad, secenek] of Object.entries(bicimler)) if (!onbellek[`${dosya}#${ad}`]) gereken.push({ anahtar: `${dosya}#${ad}`, dosya, secenek });
+  for (const [dosya, bicimler] of [...dosyalari(is), ...(is.deneme ?? []).map((d) => [d, { t: {} }])]) {
+    for (const [ad, secenek] of Object.entries(bicimler)) {
+      const a = anahtar(dosya, ad);
+      if (onbellek[a] || istenen.has(a)) continue;
+      istenen.add(a);
+      gereken.push({ anahtar: a, dosya, secenek });
+    }
   }
 }
 
@@ -112,11 +139,11 @@ for (let i = 0; i < gereken.length; i += 200) {
 
 // ---- 2. Eğitim (tarayıcıdaki TensorFlow.js ile) ----
 const ids = isler.map((i) => i.id);
-// Ölçümde her türün ek fotoğraflarının %15'i (en az 2) saklanır; saklanan hiçbir biçimiyle eğitime girmez.
+// Ölçüm: tür ayırıcısında sabit deneme seti (fotograflar/deneme/; eğitime hiç girmez). Şapka altı ve renk ayırıcılarında
+// her sınıfın ek fotoğraflarının bir kısmı saklanır; saklanan hiçbir biçimiyle eğitime girmez.
 const saklanan = new Set();
-if (OLC) {
+if (OLC && (ALT || RENK)) {
   for (const is of isler) {
-    // Sabit seçim: her 7 fotoğraftan biri (en az 2).
     const secilen = is.ekler.filter((_, i) => i % (ALT ? 4 : 7) === (ALT ? 1 : 3));
     for (const d of secilen.length >= 2 ? secilen : is.ekler.slice(-2)) saklanan.add(d);
   }
@@ -125,12 +152,13 @@ const ornekler = [];
 const denemeler = [];
 isler.forEach((is, y) => {
   for (const [dosya, bicimler] of dosyalari(is)) {
-    if (saklanan.has(dosya)) { if (onbellek[`${dosya}#t`]) denemeler.push({ y, iz: onbellek[`${dosya}#t`], tehlikeli: is.tehlikeli, dosya }); continue; }
-    for (const ad of Object.keys(bicimler)) if (onbellek[`${dosya}#${ad}`]) ornekler.push({ y, iz: onbellek[`${dosya}#${ad}`] });
+    if (saklanan.has(dosya)) { const iz = onbellek[anahtar(dosya, 't')]; if (iz) denemeler.push({ y, iz, tehlikeli: is.tehlikeli, dosya }); continue; }
+    for (const ad of Object.keys(bicimler)) { const iz = onbellek[anahtar(dosya, ad)]; if (iz) ornekler.push({ y, iz }); }
   }
+  if (OLC) for (const dosya of is.deneme ?? []) { const iz = onbellek[anahtar(dosya, 't')]; if (iz) denemeler.push({ y, iz, tehlikeli: is.tehlikeli, dosya }); }
 });
 
-const sonuc = await sayfa.evaluate(async ({ ornekler, denemeler, K, OLCEK }) => {
+const sonuc = await sayfa.evaluate(async ({ ornekler, denemeler, K, OLCEK, AYAR }) => {
   const tf = window.tf;
   const coz = (m) => Array.from(window.f.izCoz(m), (d) => d * OLCEK);
   const X = tf.tensor2d(ornekler.map((o) => coz(o.iz)));
@@ -142,8 +170,8 @@ const sonuc = await sayfa.evaluate(async ({ ornekler, denemeler, K, OLCEK }) => 
   const W = tf.variable(tf.zeros([1280, K]));
   const b = tf.variable(tf.zeros([K]));
   const eniyilestirici = tf.train.adam(0.01);
-  for (let devir = 0; devir < 400; devir++) {
-    eniyilestirici.minimize(() => tf.losses.softmaxCrossEntropy(Y, X.matMul(W).add(b), A).add(W.square().sum().mul(1e-4)));
+  for (let devir = 0; devir < AYAR.devir; devir++) {
+    eniyilestirici.minimize(() => tf.losses.softmaxCrossEntropy(Y, X.matMul(W).add(b), A).add(W.square().sum().mul(AYAR.l2)));
   }
   const agirlik = await W.transpose().array();
   const sapma = Array.from(await b.data());
@@ -164,7 +192,7 @@ const sonuc = await sayfa.evaluate(async ({ ornekler, denemeler, K, OLCEK }) => 
     olcum.puanlar = denemeler.map((d, i) => ({ dosya: d.dosya, y: d.y, olas: olas[i].map((p) => Number(p.toFixed(5))) }));
   }
   return { agirlik, sapma, olcum };
-}, { ornekler, denemeler, K: ids.length, OLCEK: GIRDI_OLCEGI });
+}, { ornekler, denemeler, K: ids.length, OLCEK: GIRDI_OLCEGI, AYAR: EGITIM_AYARI });
 await tarayici.close();
 sunucu.close();
 
@@ -176,6 +204,9 @@ if (OLC) {
   // İstenirse saklanan fotoğrafların puanları yazılır (ör. mevsim ağırlığının etkisini ölçmek için).
   const puanDosyasi = process.env.MANTAR_OLCUM_DOSYASI;
   if (puanDosyasi) writeFileSync(puanDosyasi, JSON.stringify({ turler: ids, puanlar: o.puanlar }));
+  // Haftalık güncelleme için kısa özet (scripts/haftalik-guncelle.js).
+  const ozetDosyasi = process.env.MANTAR_OLCUM_OZETI;
+  if (ozetDosyasi) writeFileSync(ozetDosyasi, JSON.stringify({ fotograf: o.n, ilk1: o.ilk1 / o.n, ilk3: o.ilk3 / o.n, ornek: ornekler.length }));
 } else {
   // Ağırlıklar tür başına 8 bite sıkıştırılır (dosya küçük kalsın).
   const satirlar = sonuc.agirlik.map((satir) => {

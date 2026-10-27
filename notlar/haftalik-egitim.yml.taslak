@@ -1,0 +1,66 @@
+# Haftalık fotoğraf kıyası güncellemesi (Metin'in isteği, 2026-10-27): iNaturalist'e eklenen yeni, doğrulanmış
+# CC0/CC BY fotoğraflarla tür ayırıcısı yeniden eğitilir; sabit deneme setinde eskisinden kötü değilse yayınlanır.
+# Ayrıntı: scripts/haftalik-guncelle.js. Elle başlatmak için: GitHub → Actions → bu iş → "Run workflow".
+name: Haftalik fotograf kiyasi guncellemesi
+
+on:
+  schedule:
+    - cron: '0 2 * * 1' # her pazartesi 05:00 (Türkiye saati)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: haftalik-egitim
+  cancel-in-progress: false
+
+jobs:
+  guncelle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm ci
+
+      # Eğitim fotoğrafları ve hesaplanmış izler depoya girmez; haftadan haftaya burada saklanır (her hafta yalnızca yenileri iner).
+      - uses: actions/cache@v4
+        with:
+          path: |
+            fotograflar/inat
+            fotograflar/referans
+            fotograflar/deneme
+            fotograflar/.iz-onbellek.json
+          key: egitim-fotograflari-${{ github.run_id }}
+          restore-keys: egitim-fotograflari-
+
+      - name: Yeni fotograflarla egit ve olc
+        run: node scripts/haftalik-guncelle.js
+        env:
+          MANTAR_TARAYICI: /usr/bin/google-chrome
+
+      - name: Testler
+        run: npm test
+
+      - name: Degisiklik varsa yayinla
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "MushKey haftalik guncelleme"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add vendor/mobilenet fotograflar/inat-kaynaklar.json fotograflar/referans-kaynaklar.json
+          if git diff --cached --quiet; then
+            echo "Degisiklik yok."
+            exit 0
+          fi
+          git commit -m "Haftalik: fotograf kiyasi yeni fotograflarla yeniden egitildi"
+          git pull --rebase origin main
+          git push origin HEAD:main
+          # Bu işin gönderdiği değişiklik sayfayı kendiliğinden yeniden yayınlatmaz; yayın elle istenir.
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" || true

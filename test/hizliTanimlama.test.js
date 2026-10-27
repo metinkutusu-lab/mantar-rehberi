@@ -311,3 +311,9 @@ test('mevsim ağırlığı: hiçbir türü elemez, toplam 1 kalır; mevsimi olma
   assert.ok(ekim.kanlica > ekim.kuzugobegi);
   assert.ok(nisan.kanlica / nisan.kuzugobegi >= MEVSIM_TABANI - 1e-9);
 });
+
+test('fotoğraf kıyası eğitimi: yalnızca CC0, kamu malı ve CC BY; CC BY-SA, NC, ND ve bilinmeyen lisans alınmaz', async () => {
+  const { egitimeUygunLisans } = await import('../scripts/lisans.js');
+  for (const l of ['cc0', 'CC0', 'cc-by', 'CC BY 2.0', 'CC BY 3.0', 'CC BY 4.0', 'Public domain']) assert.equal(egitimeUygunLisans(l), true, l);
+  for (const l of ['cc-by-sa', 'CC BY-SA 3.0', 'CC BY-SA 3.0 es', 'CC BY-NC 4.0', 'cc-by-nc', 'CC BY-ND 4.0', '', undefined, 'GFDL']) assert.equal(egitimeUygunLisans(l), false, String(l));
+});

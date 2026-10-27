@@ -1,0 +1,3283 @@
+{
+ "koygocuren": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "2005-09 Amanita phalloides crop.jpg",
+   "cekan": "Amanita_phalloides_1.JPG: User:Archenzo derivative work: Ak ccm",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Amanita phalloides (5).JPG",
+   "cekan": "Thomas Pruß",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "commons",
+   "commons": "Amanita phalloides - Death Cap (15411234250).jpg",
+   "cekan": "Daniel Neal from Sacramento, CA, US",
+   "lisans": "CC BY 2.0"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/36362978",
+   "cekan": "no rights reserved",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/37806145",
+   "cekan": "(c) Jeremiah Degenhardt, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/140998043",
+   "cekan": "(c) Annie Weissman, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/238669963",
+   "cekan": "(c) reagan peschke, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/193269159",
+   "cekan": "(c) reagan peschke, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/104143620",
+   "cekan": "(c) Jonathan Curley, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/112637996",
+   "cekan": "(c) David Whyte, some rights reserved (CC BY-SA)",
+   "lisans": "cc-by-sa"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/179037575",
+   "cekan": "no rights reserved",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/333696573",
+   "cekan": "no rights reserved",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/328052484",
+   "cekan": "no rights reserved",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "14.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/315239327",
+   "cekan": "(c) gerardbertrand, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  }
+ ],
+ "ak-koygocuren": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Amanita virosa qtl1.jpg",
+   "cekan": "Quartl",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Amanita virosa 12.jpg",
+   "cekan": "Σ64",
+   "lisans": "CC BY 3.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "commons",
+   "commons": "Amanita virosa goitik.jpg",
+   "cekan": "Jose Angel Urquia Goitia",
+   "lisans": "CC BY-SA 4.0"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/394685367",
+   "cekan": "(c) Hannes H",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/398808897",
+   "cekan": "(c) Konsta Ala-Ilomäki",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/311058455",
+   "cekan": "(c) Tero Linjama",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/236468653",
+   "cekan": "(c) tomisc",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/241619425",
+   "cekan": "(c) Uilleam Uir",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/116319563",
+   "cekan": "(c) Davide Puddu",
+   "lisans": "cc-by"
+  }
+ ],
+ "panter": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Amanita pantherina (3).JPG",
+   "cekan": "Thomas Pruß",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Amanita pantherina (45193385992).jpg",
+   "cekan": "Björn S...",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "commons",
+   "commons": "Amanita pantherina (30629736747).jpg",
+   "cekan": "Lukas from London, England",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/137679971",
+   "cekan": "(c) Alessia Guggisberg, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/18349207",
+   "cekan": "(c) Drepanostoma, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/9181181",
+   "cekan": "(c) Erlon Bailey, some rights reserved (CC BY-SA)",
+   "lisans": "cc-by-sa"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/318647147",
+   "cekan": "(c) Jose Castro, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/123069610",
+   "cekan": "(c) Антон Кузьмицкий, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/27014997",
+   "cekan": "(c) Ivor Wilson, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/135142205",
+   "cekan": "(c) Gabriel Mayrhofer, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/319320163",
+   "cekan": "(c) Letizia Weichgrebe, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/83963614",
+   "cekan": "(c) Александр Косоротов, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/139444204",
+   "cekan": "(c) Letizia Weichgrebe, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "14.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/235001398",
+   "cekan": "no rights reserved",
+   "lisans": "cc0"
+  }
+ ],
+ "sinek": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "A battered Super Mario Toadstool.jpg",
+   "cekan": "Mendhak",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "2019-10-29 15-52-40 champ-de-roches.jpg",
+   "cekan": "Thomas Bresson",
+   "lisans": "CC BY 4.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/242423358",
+   "cekan": "(c) Johan Adler, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/16535658",
+   "cekan": "(c) Marc Hermann, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/183438445",
+   "cekan": "(c) TM, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/135976211",
+   "cekan": "(c) Don Loarie, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/7844040",
+   "cekan": "(c) Tom Norton, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/261580618",
+   "cekan": "no rights reserved",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/35706188",
+   "cekan": "no rights reserved",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/232725369",
+   "cekan": "(c) Alan Prather, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/91100415",
+   "cekan": "(c) Matthew Vosper, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/175817112",
+   "cekan": "(c) Manuel Nicolás Madrigal Pérez, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/188813702",
+   "cekan": "no rights reserved",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "14.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/33766850",
+   "cekan": "(c) Björn Sothmann, some rights reserved (CC BY-SA)",
+   "lisans": "cc-by-sa"
+  }
+ ],
+ "yumurta": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Amanita caesarea 5.JPG",
+   "cekan": "I.slobodan at Serbian Wikipedia",
+   "lisans": "Public domain"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "AMANITA CAESAREA - panoramio.jpg",
+   "cekan": "M.C. JORGE M. MEJÍA …",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "commons",
+   "commons": "AMANITA CAESAREA (Scop.) Pers. (9146544976).jpg",
+   "cekan": "GLJIVARSKO DRUSTVO NIS from Serbia",
+   "lisans": "CC BY 2.0"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/315230013",
+   "cekan": "(c) Manuela Fiorini",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/312258142",
+   "cekan": "(c) Manuela Fiorini",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/239134050",
+   "cekan": "(c) Andrea Gobetti",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/245758383",
+   "cekan": "(c) Asrın Akıncıoğlu",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/185784331",
+   "cekan": "(c) Sarah Faulwetter",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/146657472",
+   "cekan": "(c) Dimitǎr Boevski",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/286239325",
+   "cekan": "(c) Ivana Capan",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/147826917",
+   "cekan": "(c) Dimitǎr Boevski",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/71495657",
+   "cekan": "(c) Lazar Popović",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/31805453",
+   "cekan": "(c) Asrın Akıncıoğlu",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "14.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/19060542",
+   "cekan": "(c) Davide Puddu",
+   "lisans": "cc-by"
+  }
+ ],
+ "kucuk-semsiye": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Lepiota cristata (Bolt.- Fr.) Kumm (11034605625).jpg",
+   "cekan": "GLJIVARSKO DRUSTVO NIS from Serbia",
+   "lisans": "CC BY 2.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Lepiota brunneoincarnata 170929w.JPG",
+   "cekan": "Strobilomyces",
+   "lisans": "CC BY-SA 4.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/244906295",
+   "cekan": "(c) ÖkopatóPál",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/318653740",
+   "cekan": "(c) Michel Langeveld",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/245232698",
+   "cekan": "(c) Michel Langeveld",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/248296091",
+   "cekan": "(c) Michel Langeveld",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/390412247",
+   "cekan": "(c) Nathan Cobbett",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/404750564",
+   "cekan": "(c) Michel Langeveld",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/303196048",
+   "cekan": "(c) Michel Langeveld",
+   "lisans": "cc-by"
+  }
+ ],
+ "buyuk-semsiye": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Bedla-vysoka.jpg",
+   "cekan": "Napalmdeath",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Agaricaceae » Macrolepiota procera (Scop.) Singer (5872119024).jpg",
+   "cekan": "Dinesh Valke from Thane, India",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/373554245",
+   "cekan": "(c) Heiko Weber",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/382097459",
+   "cekan": "(c) Николай Соболев",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/382086008",
+   "cekan": "(c) Andrejus Gaidamavičius",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/389140310",
+   "cekan": "(c) Heiko Weber",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/393525430",
+   "cekan": "(c) Tatyana Davidova",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/395418023",
+   "cekan": "(c) Tobias Dietrich",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/396065699",
+   "cekan": "(c) Анна Митрошенкова",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/394646233",
+   "cekan": "(c) Kari Lehikoinen",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/397240623",
+   "cekan": "(c) James Fowler",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/397201678",
+   "cekan": "(c) Евгений Маринкин",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/396899013",
+   "cekan": "(c) Paweł Sadkowski",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "14.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/401352008",
+   "cekan": "(c) Eiroth",
+   "lisans": "cc0"
+  }
+ ],
+ "galerina": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "2011-10-30 Galerina marginata (Batsch) Kühner 178829.jpg",
+   "cekan": "This image was created by user Dan Molter (shroomydan) at Mushroom Observer, a source for mycological images.You can con",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Galerina marginata (Batsch) Kühner 867078.jpg",
+   "cekan": "This image was created by user walt sturgeon (Mycowalt) at Mushroom Observer, a source for mycological images.You can co",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "commons",
+   "commons": "Funeral Bell (Galerina marginata) - Gatineau Park 04.jpg",
+   "cekan": "Ryan Hodnett",
+   "lisans": "CC BY-SA 4.0"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/333914396",
+   "cekan": "(c) moorebuesing",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/335431635",
+   "cekan": "(c) Alex Heyman",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/339831423",
+   "cekan": "(c) Alex",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/342568493",
+   "cekan": "(c) victor laborde",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/405883107",
+   "cekan": "(c) Erica Tava Johnson",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/259060424",
+   "cekan": "(c) Mike Mulqueen",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/257145475",
+   "cekan": "(c) Matt Rine",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/260857755",
+   "cekan": "(c) Po T Ato",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/264143453",
+   "cekan": "(c) Sam Taylor",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/265464618",
+   "cekan": "(c) kedgehog",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "14.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/274905726",
+   "cekan": "(c) kristinpiston",
+   "lisans": "cc0"
+  }
+ ],
+ "cortinarius": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Cortinarius-rubellus064.jpg",
+   "cekan": "Danny Steven S.",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "C. orellanus jung.jpg",
+   "cekan": "Thomas Pruß",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/299281797",
+   "cekan": "(c) Tim Eberling",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/236964279",
+   "cekan": "(c) ikelman",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/240781198",
+   "cekan": "(c) Patrick Bayan",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/186443682",
+   "cekan": "(c) J Castillo",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/132800309",
+   "cekan": "(c) Victoria M.",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/58488538",
+   "cekan": "(c) Albert Cardona",
+   "lisans": "cc-by"
+  }
+ ],
+ "inocybe": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "2012-04-19 Inocybe geophylla (Pers.) P. Kumm 213743.jpg",
+   "cekan": "This image was created by user Alan Rockefeller (Alan Rockefeller) at Mushroom Observer, a source for mycological images",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Inocybe geophylla 157526505.jpg",
+   "cekan": "muukalainen",
+   "lisans": "CC0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "commons",
+   "commons": "Inocybe geophylla 310050892.jpg",
+   "cekan": "Michel Langeveld",
+   "lisans": "CC BY-SA 4.0"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/50267582",
+   "cekan": "(c) Peeter Talvistu",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/275264516",
+   "cekan": "(c) Barbara Banfield",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/325518668",
+   "cekan": "(c) karliatje",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/243420692",
+   "cekan": "(c) Michal Honskus",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/246980992",
+   "cekan": "(c) Katrin Simon",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/184130753",
+   "cekan": "(c) Erick Vélez Sánchez",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/183434961",
+   "cekan": "(c) Jeff",
+   "lisans": "cc-by"
+  }
+ ],
+ "terleme": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Clitocybe dealbata 2 - Lindsey.jpg",
+   "cekan": "James Lindsey at Ecology of Commanster",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "2012-04-18 Clitocybe rivulosa (Pers.) P. Kumm 213588.jpg",
+   "cekan": "This image was created by user Souhila Aouali at Mushroom Observer, a source for mycological images.You can contact this",
+   "lisans": "CC BY-SA 3.0"
+  }
+ ],
+ "kuzugobegi": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Cueillette de morilles.JPG",
+   "cekan": "Eporte",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Morchella esculenta (26902814196).jpg",
+   "cekan": "Björn S...",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/354785816",
+   "cekan": "(c) clarko13",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/357521431",
+   "cekan": "(c) Patrick Bayan",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/272268582",
+   "cekan": "(c) Saskia Kollegger",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/277804394",
+   "cekan": "(c) Emil Jantke",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/205854581",
+   "cekan": "(c) Amy",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/81291469",
+   "cekan": "(c) Eija-Leena Laiho",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/349127226",
+   "cekan": "(c) Chris Tanis",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/200485934",
+   "cekan": "(c) Ann Akey",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/206226402",
+   "cekan": "(c) Bee Together",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/209473818",
+   "cekan": "(c) Darcie Towers",
+   "lisans": "cc0"
+  }
+ ],
+ "sahte-kuzugobegi": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Gyromitra esculenta - Fruehjahrslorchel 01-04-2009 04.jpg",
+   "cekan": "Botaurus",
+   "lisans": "Public domain"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Gyromitra esculenta (26718904747).jpg",
+   "cekan": "Lukas from London, England",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "commons",
+   "commons": "Gyromitra esculenta (39779276500).jpg",
+   "cekan": "Lukas from London, England",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/6132211",
+   "cekan": "(c) Derek, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/73135070",
+   "cekan": "(c) Robin Holm, some rights reserved (CC BY-SA)",
+   "lisans": "cc-by-sa"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/363497697",
+   "cekan": "(c) Christian Back, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/9185704",
+   "cekan": "(c) Tim Sage, some rights reserved (CC BY-SA)",
+   "lisans": "cc-by-sa"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/115450577",
+   "cekan": "(c) Павлик Лисицын, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/376393622",
+   "cekan": "(c) Andrejus Gaidamavičius, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/47890180",
+   "cekan": "(c) Vsevolod Rudyi, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/6163041",
+   "cekan": "(c) naturalist charlie, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/47957165",
+   "cekan": "no rights reserved",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/155135739",
+   "cekan": "(c) Feo Marshmallow, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "14.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/159818506",
+   "cekan": "(c) Антон Кузьмицкий, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  }
+ ],
+ "yuksuk": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "2009-03-30 Ptychoverpa bohemica (Krombholz) Boudier 40185.jpg",
+   "cekan": "This image was created by user Copyright © 2009 J.H. at Mushroom Observer, a source for mycological images.You can conta",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Kurrel.JPG",
+   "cekan": "Ireen Trummer",
+   "lisans": "CC BY-SA 4.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/342124547",
+   "cekan": "(c) Patrick Bayan",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/347315302",
+   "cekan": "(c) Paula Nimigean",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/354317250",
+   "cekan": "(c) kirinzi",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/351454598",
+   "cekan": "(c) Björn Sothmann",
+   "lisans": "cc-by-sa"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/356530311",
+   "cekan": "(c) Анна Митрошенкова",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/357947365",
+   "cekan": "(c) Алексей",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/362257397",
+   "cekan": "(c) Oleg Kosterin",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/357564361",
+   "cekan": "(c) Солей",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/267718024",
+   "cekan": "(c) Silviu Chiriac",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/271891918",
+   "cekan": "(c) Фая Баландина",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/278113302",
+   "cekan": "(c) Oleg Kosterin",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "14.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/280519152",
+   "cekan": "(c) Роман Шестеров",
+   "lisans": "cc-by"
+  }
+ ],
+ "horozmantari": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Cantharellus cibarius (da Silvio Rossi).jpg",
+   "cekan": "Silvio Rossi",
+   "lisans": "CC BY 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Cantharellus cibarius (30087691041).jpg",
+   "cekan": "Dr. Hans-Günter Wagner",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/372587387",
+   "cekan": "(c) Олеся",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/378471592",
+   "cekan": "(c) Andrejus Gaidamavičius",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/380797566",
+   "cekan": "(c) olmagon",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/381500678",
+   "cekan": "(c) Andrejus Gaidamavičius",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/383404080",
+   "cekan": "(c) Полина Полежанкина",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/383249146",
+   "cekan": "(c) Bartosz Czołczyński",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/386954119",
+   "cekan": "(c) Paula Nimigean",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/389242363",
+   "cekan": "(c) K.P.",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/391669174",
+   "cekan": "(c) Andrejus Gaidamavičius",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/391868541",
+   "cekan": "(c) Andrejus Gaidamavičius",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/394252256",
+   "cekan": "(c) ahabo",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "14.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/395140357",
+   "cekan": "(c) Алексей Логинов",
+   "lisans": "cc-by"
+  }
+ ],
+ "zeytin": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Chompignons (pleurote de l'olivier).jpg",
+   "cekan": "Leghmizi",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Omphalotus olearius (DC.) Singer 699861.jpg",
+   "cekan": "This image was created by user Glen van Niekerk (primordius) at Mushroom Observer, a source for mycological images.You c",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "commons",
+   "commons": "Omphalotus olearius (DC.) Singer 471654.jpg",
+   "cekan": "This image was created by user zaca at Mushroom Observer, a source for mycological images.You can contact this user here",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/305464216",
+   "cekan": "(c) Manuela Fiorini",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/322488344",
+   "cekan": "(c) Mustapha",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/330472133",
+   "cekan": "(c) Rui Ribeiro",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/246383226",
+   "cekan": "(c) Arianna Altigieri",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/249396396",
+   "cekan": "(c) Paulo Martins",
+   "lisans": "cc-by-sa"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/286216911",
+   "cekan": "(c) Ivana Capan",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/254445874",
+   "cekan": "(c) Cristina Olivares Collado",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/188036464",
+   "cekan": "(c) Lorenzo Emanuele Labate",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/200644082",
+   "cekan": "(c) Kristian Bosak",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/146501625",
+   "cekan": "(c) Dimitǎr Boevski",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "14.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/191215982",
+   "cekan": "(c) Ross Krisztina",
+   "lisans": "cc-by"
+  }
+ ],
+ "sahte-horoz": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "False Chanterelle Hygrophoropsis aurantiaca.jpg",
+   "cekan": "Holger Krisp",
+   "lisans": "CC BY 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Botanical Garden Gothenburg and Anggårdsbergen 13.08.2017 False Chanterelle - Hygrophoropsis aurantiaca (37345396751).jpg",
+   "cekan": "Björn S...",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/380177403",
+   "cekan": "(c) Megan Dark",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/395497419",
+   "cekan": "(c) Tomos Hughes",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/389172118",
+   "cekan": "(c) Alex",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/396707548",
+   "cekan": "(c) Charlotte Forrest-King",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/397807003",
+   "cekan": "(c) Rosie",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/397401685",
+   "cekan": "(c) suemay",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/399065200",
+   "cekan": "(c) Heiko Weber",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/399206669",
+   "cekan": "(c) Tim Parker",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/398397138",
+   "cekan": "(c) Katharine Khamhaengwong",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/403607172",
+   "cekan": "(c) Corinna",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/403334089",
+   "cekan": "(c) Sheelagh Halsey",
+   "lisans": "cc-by"
+  }
+ ],
+ "kanlica": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Lactarius deliciosus 2010 G1.jpg",
+   "cekan": "George Chernilevsky",
+   "lisans": "Public domain"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Lactarius deliciosus - lying.jpg",
+   "cekan": "Eleassar",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "commons",
+   "commons": "Hypomyces lateritius en niscalo (8148576936).jpg",
+   "cekan": "jacilluch",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/268889824",
+   "cekan": "(c) Heather Merrylees, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/55784369",
+   "cekan": "(c) Vsevolod Rudyi, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/59909642",
+   "cekan": "(c) Виктория Билоус, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/244128572",
+   "cekan": "(c) Sandy Rae, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/334158286",
+   "cekan": "(c) Umut Nuri Erdoğan, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/332334931",
+   "cekan": "(c) Σταυρούλα Χρήστος, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/247782311",
+   "cekan": "(c) victor laborde, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/319855277",
+   "cekan": "(c) Lucian Clanet, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/235758687",
+   "cekan": "(c) relew, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/138273001",
+   "cekan": "(c) Felicia Seichter, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "14.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/58363031",
+   "cekan": "(c) David Sandler, some rights reserved (CC BY)",
+   "lisans": "cc-by"
+  }
+ ],
+ "tuylu-sut": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Lactarius torminosus (3).JPG",
+   "cekan": "Th. Kuhnigk",
+   "lisans": "CC BY 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Lactarius torminosus fungus.jpg",
+   "cekan": "Paulo Kiefe",
+   "lisans": "CC BY-SA 4.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/397702197",
+   "cekan": "(c) Lutra lutra",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/401939799",
+   "cekan": "(c) Георгий Виноградов (Georgy Vinogradov)",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/403348205",
+   "cekan": "(c) ikelman",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/403658665",
+   "cekan": "(c) Sylvain Gérard",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/310472107",
+   "cekan": "(c) Anatoliy Ananin",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/307958743",
+   "cekan": "(c) Svyatoslav Knyazev",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/337241611",
+   "cekan": "(c) akhmelyuk",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/311860355",
+   "cekan": "(c) Константин Селивёрстов",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/316125282",
+   "cekan": "(c) Алёна Осипова",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/317688501",
+   "cekan": "(c) Ondřej Křivan",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/311204557",
+   "cekan": "(c) Евгений Маринкин",
+   "lisans": "cc-by"
+  }
+ ],
+ "ak-tuylu-sut": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Lacpub3big.jpg",
+   "cekan": "Игорь Лебединский",
+   "lisans": "CC BY 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Lactarius pubescens - Pilzausstellung Rostock 2015.jpg",
+   "cekan": "Worstbull",
+   "lisans": "CC0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "commons",
+   "commons": "Downy Milk Cap - Lactarius pubescens (37670403225).jpg",
+   "cekan": "Björn S...",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/399891972",
+   "cekan": "(c) Fyodor Pudovikov",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/299745548",
+   "cekan": "(c) Zac T.",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/314819343",
+   "cekan": "(c) Petr Harant",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/316095306",
+   "cekan": "(c) Maxim K.",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/321663510",
+   "cekan": "(c) famkoe",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/243948329",
+   "cekan": "(c) Stuart Fraser",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/248853070",
+   "cekan": "(c) Jean-Paul Boerekamps",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/161905110",
+   "cekan": "(c) Bryan Menger",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/187907206",
+   "cekan": "(c) Nelson Balcar",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/188417186",
+   "cekan": "(c) Angelique",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "14.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/139538854",
+   "cekan": "(c) Oleg Kosterin",
+   "lisans": "cc-by"
+  }
+ ],
+ "sararan-sut": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "2004-09-30 Lactarius chrysorrheus 14203.jpg",
+   "cekan": "This image was created by user Irene Andersson (irenea) at Mushroom Observer, a source for mycological images.You can co",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Lactarius chrysorrheus Fr 771712.jpg",
+   "cekan": "This image was created by user Jimmie Veitch (jimmiev) at Mushroom Observer, a source for mycological images.You can con",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/404551321",
+   "cekan": "(c) Felicia Seichter",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/315319039",
+   "cekan": "(c) Manuela Fiorini",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/321607075",
+   "cekan": "(c) glomik",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/236363190",
+   "cekan": "(c) Annie Weissman",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/251894752",
+   "cekan": "(c) Vasco Henrique Oliveira Fonseca",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/255882279",
+   "cekan": "(c) Vasco Henrique Oliveira Fonseca",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/137222864",
+   "cekan": "(c) Beth Ace",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/56437306",
+   "cekan": "(c) Sigrid Jakob",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/5650474",
+   "cekan": "(c) Davide Puddu",
+   "lisans": "cc-by"
+  }
+ ],
+ "kusakli-sut": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Lactarius zonarius (29718177125).jpg",
+   "cekan": "Björn S...",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Vöötriisikas.jpg",
+   "cekan": "Svencapoeira",
+   "lisans": "CC BY-SA 4.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/303434133",
+   "cekan": "(c) yellowplant",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/244002278",
+   "cekan": "(c) ionafraser",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/9367847",
+   "cekan": "(c) Davide Puddu",
+   "lisans": "cc-by"
+  }
+ ],
+ "ayi-mantari": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Boletus edulis2.jpg",
+   "cekan": "Tocekas",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Bolet partiellement mangé .jpg",
+   "cekan": "B59210",
+   "lisans": "CC BY-SA 4.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/335900806",
+   "cekan": "(c) reagan peschke",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/339405767",
+   "cekan": "(c) Max Elysian",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/345435773",
+   "cekan": "(c) Jeremy Rolfe",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/352186502",
+   "cekan": "(c) Oscar Dennison",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/373869310",
+   "cekan": "(c) Paula Nimigean",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/306080236",
+   "cekan": "(c) Paula Nimigean",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/313906503",
+   "cekan": "(c) victor laborde",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/312037394",
+   "cekan": "(c) Manuela Fiorini",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/373654559",
+   "cekan": "(c) Daniel Ghyselinck",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/397407915",
+   "cekan": "(c) Jannik Scherer",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/385321196",
+   "cekan": "(c) Bobo-X",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "14.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/395617796",
+   "cekan": "(c) Atsushi Nakajima",
+   "lisans": "cc-by"
+  }
+ ],
+ "seytan": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Boletus satanas cropped.jpg",
+   "cekan": "Boletus_satanas.JPG: photo taken by Archenzo in an Italian forest of the Piacenza's Apennines. derivative work: Ak ccm (",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Frankenwarte 10.08.2016 Satan's Bolete - Rubroboletus satanas (28615873174).jpg",
+   "cekan": "Björn S...",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/388502923",
+   "cekan": "(c) Patrick Bayan",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/397457986",
+   "cekan": "(c) Daniel Ghyselinck",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/400270027",
+   "cekan": "(c) vuikaan",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/399359514",
+   "cekan": "(c) Ondřej Křivan",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/402405620",
+   "cekan": "(c) vuikaan",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/304577196",
+   "cekan": "(c) agujaceratops",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/312338670",
+   "cekan": "(c) Samuele Papeschi",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/317063970",
+   "cekan": "(c) Bobo-X",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/237253426",
+   "cekan": "(c) Ondřej Křivan",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/246593276",
+   "cekan": "(c) Павлик Лисицын",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/183418822",
+   "cekan": "(c) Archie",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "14.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/134626048",
+   "cekan": "(c) Alessia Guggisberg",
+   "lisans": "cc-by"
+  }
+ ],
+ "aci-corek": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Boletus calopus a1.jpg",
+   "cekan": "Jerzy Opioła",
+   "lisans": "CC BY-SA 4.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Caloboletus calopus (cropped).JPG",
+   "cekan": "H. Krisp",
+   "lisans": "CC BY 3.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "commons",
+   "commons": "Botanical Garden Gothenburg and Anggårdsbergen 13.08.2017 Bitter Beech Bolete - Caloboletus calopus (37321279256).jpg",
+   "cekan": "Björn S...",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/388845518",
+   "cekan": "(c) Katrin Simon",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/402852582",
+   "cekan": "(c) Anne Heckmann",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/295619826",
+   "cekan": "(c) victor laborde",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/307741309",
+   "cekan": "(c) empressmoth",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/317791454",
+   "cekan": "(c) Yannick Brenz",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/319904252",
+   "cekan": "(c) Jean-Paul Boerekamps",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/232718941",
+   "cekan": "(c) Lucian Clanet",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/239597516",
+   "cekan": "(c) Gustaf Fredell",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/248253833",
+   "cekan": "(c) Albert Surmacz",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/178671034",
+   "cekan": "(c) Dave Martin",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "14.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/185731029",
+   "cekan": "(c) Martin Kleikamp",
+   "lisans": "cc-by"
+  }
+ ],
+ "cayir": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "2010-08-07 Agaricus campestris gills.jpg",
+   "cekan": "Ak ccm",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "2012-10-03 Agaricus campestris.jpg",
+   "cekan": "Andreas Kunze",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "commons",
+   "commons": "Agaricus campestris 234933604.jpg",
+   "cekan": "E. A.",
+   "lisans": "CC BY 4.0"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/397850720",
+   "cekan": "(c) fernium",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/405781891",
+   "cekan": "(c) Stephen James McWilliam",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/293061892",
+   "cekan": "(c) Svetlana Polevova",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/304798024",
+   "cekan": "(c) Todd Huang",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/312562361",
+   "cekan": "(c) Priya Sandhu",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/316831333",
+   "cekan": "(c) kedgehog",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/319206759",
+   "cekan": "(c) Stephen James McWilliam",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/210389800",
+   "cekan": "(c) Earl Agpawa",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/235093784",
+   "cekan": "(c) Michal Honskus",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/245352823",
+   "cekan": "(c) Jane Weeden",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "14.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/247083361",
+   "cekan": "(c) Acrocephalus",
+   "lisans": "cc0"
+  }
+ ],
+ "sariya-boyanan": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "2012-04-19 Agaricus xanthodermus Genev 213787.jpg",
+   "cekan": "This image was created by user Ron Pastorino (Ronpast) at Mushroom Observer, a source for mycological images.You can con",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Agaricus xanthodermus 242525565.jpg",
+   "cekan": "Monika Fischer",
+   "lisans": "CC0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "commons",
+   "commons": "Agaricus xanthodermus 2.jpg",
+   "cekan": "Jose Angel Urquia Goitia",
+   "lisans": "CC BY-SA 4.0"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/337769247",
+   "cekan": "(c) Chuck Wilson",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/359440871",
+   "cekan": "(c) Chuck Wilson",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/382159009",
+   "cekan": "(c) caitlincornwall",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/397411997",
+   "cekan": "(c) Naomi Moore",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/402765536",
+   "cekan": "(c) Michel Langeveld",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/268042849",
+   "cekan": "(c) Heather Merrylees",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/290917183",
+   "cekan": "(c) Patrick Bayan",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/315327483",
+   "cekan": "(c) Michel Langeveld",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/315327438",
+   "cekan": "(c) Michel Langeveld",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/314784104",
+   "cekan": "(c) Viktor Underwood",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "14.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/318363752",
+   "cekan": "(c) Jean-Paul Boerekamps",
+   "lisans": "cc0"
+  }
+ ],
+ "entoloma": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "2013-11-02 Entoloma sinuatum (Bull.) P. Kumm 393814.jpg",
+   "cekan": "This image was created by user zaca at Mushroom Observer, a source for mycological images.You can contact this user here",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Entoloma sinuatum 24548200.jpg",
+   "cekan": "pinonbistro",
+   "lisans": "CC BY-SA 4.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "commons",
+   "commons": "Entoloma sinuatum 6.jpg",
+   "cekan": "Jose Angel Urquia Goitia",
+   "lisans": "CC BY-SA 4.0"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/247091652",
+   "cekan": "(c) Jo Ga",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/34492154",
+   "cekan": "(c) Eugene Popov",
+   "lisans": "cc-by"
+  }
+ ],
+ "istiridye": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Austernpilz Pleurotus ostreatus.jpg",
+   "cekan": "Holger Krisp",
+   "lisans": "CC BY 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Austernseitling (5).jpg",
+   "cekan": "Thomas Pruß",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/333638827",
+   "cekan": "(c) NENP_StBartsNewbury",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/335380533",
+   "cekan": "(c) Charles Joynson",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/335863549",
+   "cekan": "(c) Kirstie S",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/335102893",
+   "cekan": "(c) Jose Gutierrez Higa",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/334280268",
+   "cekan": "(c) Atsushi Nakajima",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/334472214",
+   "cekan": "(c) Liviu Chiriac",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/336965841",
+   "cekan": "(c) Nick Butcher",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/338224902",
+   "cekan": "(c) Piermario Maculan",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/338353504",
+   "cekan": "(c) ikelman",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/339752042",
+   "cekan": "(c) inbetweenbays",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/342652587",
+   "cekan": "(c) Daniel J. Layton",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "14.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/345344079",
+   "cekan": "(c) Robert Hoard",
+   "lisans": "cc-by"
+  }
+ ],
+ "kukurt-basli": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Fungi near the woodland track to Green Moor - geograph.org.uk - 670247.jpg",
+   "cekan": "Andrew Hill",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/333473391",
+   "cekan": "(c) kdcs",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/333698705",
+   "cekan": "(c) Dan Scali",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/336067443",
+   "cekan": "(c) Chuck Wilson",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/336898347",
+   "cekan": "(c) Ben Keen",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/340357057",
+   "cekan": "(c) Tracy Gould",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/345929488",
+   "cekan": "(c) Cara Ennis",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/345285280",
+   "cekan": "(c) Heather Alice-Grace Orchard",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/346849920",
+   "cekan": "(c) MadMagpie",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/348499289",
+   "cekan": "(c) Cara Ennis",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/350922658",
+   "cekan": "(c) Andrea",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/362350205",
+   "cekan": "(c) Heiko Weber",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/365664696",
+   "cekan": "(c) juniperus_com",
+   "lisans": "cc-by"
+  }
+ ],
+ "tavuk": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "AnotherImpressiveGrowth6.jpg",
+   "cekan": "Gargoyle888",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "2017-07-15 (149) Laetiporus sulphureus (crab-of-the-woods) in Zedlacher Paradies.jpg",
+   "cekan": "GT1976",
+   "lisans": "CC BY-SA 4.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "commons",
+   "commons": "Chicken-of-the-woods - Laetiporus sulphureus (43883355694).jpg",
+   "cekan": "Björn S...",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/339420036",
+   "cekan": "(c) Codrin Bucur",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/345098807",
+   "cekan": "(c) biogeek",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/343482485",
+   "cekan": "(c) Piermario Maculan",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/355675125",
+   "cekan": "(c) Olha Sira",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/355321966",
+   "cekan": "(c) Fabian Graubereich",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/352321876",
+   "cekan": "(c) aga_l_",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/359777117",
+   "cekan": "(c) J Straka",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/359783155",
+   "cekan": "(c) Casey Harless",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/362686367",
+   "cekan": "(c) otomops",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/362605308",
+   "cekan": "(c) Brian C. Hunt",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "14.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/362827190",
+   "cekan": "(c) Stanislav Murashkin",
+   "lisans": "cc-by"
+  }
+ ],
+ "puf": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Common puffball (Lycoperdon perlatum), Faulston Down - geograph.org.uk - 1492481.jpg",
+   "cekan": "Trish Steel",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "COB 2460.jpg",
+   "cekan": "Corion",
+   "lisans": "CC BY-SA 4.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/335959897",
+   "cekan": "(c) Rocco Lieghio",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/361798835",
+   "cekan": "(c) Tom and T Herman",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/376185871",
+   "cekan": "(c) Brandon Johnson",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/385595539",
+   "cekan": "(c) Анна Васильченко",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/389781757",
+   "cekan": "(c) Stanislav Murashkin",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/392160578",
+   "cekan": "(c) Hannah Jones",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/350019216",
+   "cekan": "(c) Paul Cook",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/378273052",
+   "cekan": "(c) Carter Ertel",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/392243218",
+   "cekan": "(c) Larry Jensen",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/391903314",
+   "cekan": "(c) Andrew Murray",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/391903279",
+   "cekan": "(c) Andrew Murray",
+   "lisans": "cc-by"
+  }
+ ],
+ "sahte-puf": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Boletus parasiticus on Scleroderma citrinum (HDR 4).jpg",
+   "cekan": "© Hans Hillewaert",
+   "lisans": "CC BY-SA 4.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Huciska Puszcza Zielonka mushrooms (2).jpg",
+   "cekan": "MOs810",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/336110082",
+   "cekan": "(c) dave_r_clark",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/391112836",
+   "cekan": "(c) Paula Romano",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/385050764",
+   "cekan": "(c) James Weaver",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/389634379",
+   "cekan": "(c) Nat Gorka",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/390667092",
+   "cekan": "(c) Robert Eberhardt",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/389395390",
+   "cekan": "(c) Dawid Juszczak",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/395644665",
+   "cekan": "(c) khoberg",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/397569842",
+   "cekan": "(c) DillonM",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/399601909",
+   "cekan": "(c) Petr Harant",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/400939783",
+   "cekan": "(c) Michele Wiseman",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/402976782",
+   "cekan": "(c) Bobo-X",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "14.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/401381907",
+   "cekan": "(c) Sheila S",
+   "lisans": "cc-by"
+  }
+ ],
+ "beyaz-truf": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "LaSierra10.jpg",
+   "cekan": "Gregoriobart",
+   "lisans": "CC BY-SA 3.0 es"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Tuber magnatum Picco 690635.jpg",
+   "cekan": "This image was created by user Nicolò Oppicelli (Nicolò Oppicelli) at Mushroom Observer, a source for mycological images",
+   "lisans": "CC BY-SA 3.0"
+  }
+ ],
+ "kara-truf": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Truffe blanche d'été tuber aestivum.jpg",
+   "cekan": "dailylifeofmojo",
+   "lisans": "CC BY 2.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/202568757",
+   "cekan": "(c) Brian C. Hunt",
+   "lisans": "cc-by"
+  }
+ ],
+ "keme": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "2008-05-02 Terfezia arenaria (Moris) Trappe 220243.jpg",
+   "cekan": "This image was created by user Gerhard Koller (Gerhard) at Mushroom Observer, a source for mycological images.You can co",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "2014-01-22 Terfezia alsheikhii Kovács, M.P. Martín & Calonge 400061.jpg",
+   "cekan": "This image was created by user Elsa (pinknailsgirl) at Mushroom Observer, a source for mycological images.You can contac",
+   "lisans": "CC BY-SA 3.0"
+  }
+ ],
+ "casir": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Pleurotus eryngii (DC.) Gillet 54415 2008-11-11.jpg",
+   "cekan": "This image was created by user Gerhard Koller (Gerhard) at Mushroom Observer, a source for mycological images.You can co",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Pleurotus ferulae.jpg",
+   "cekan": "Paulu",
+   "lisans": "CC0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/329102881",
+   "cekan": "(c) Katrin Simon",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/186699696",
+   "cekan": "(c) Mario",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/19154567",
+   "cekan": "(c) Davide Puddu",
+   "lisans": "cc-by"
+  }
+ ],
+ "mayis": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Calocybe gambosa 3.jpg",
+   "cekan": "Harlekin96",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Calocybe gambosa (36064595975).jpg",
+   "cekan": "Dr. Hans-Günter Wagner",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/344711226",
+   "cekan": "(c) Rosie",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/348927835",
+   "cekan": "(c) Michel Langeveld",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/355360538",
+   "cekan": "(c) Sarah Adamson",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/351293264",
+   "cekan": "(c) Piermario Maculan",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/355985276",
+   "cekan": "(c) guywallbanks",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/358255296",
+   "cekan": "(c) Sara Scorey",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/360644963",
+   "cekan": "(c) Steve Milsom",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/363304280",
+   "cekan": "(c) Sara Scorey",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/273020514",
+   "cekan": "(c) Charlotte Forrest-King",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/278349394",
+   "cekan": "(c) carnifex",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/279316955",
+   "cekan": "(c) Ondřej Křivan",
+   "lisans": "cc-by"
+  }
+ ],
+ "mor-kadife": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Almost gone Lepista nuda (paarse schijnridderzwam) near the airborne cemetry Oosterbeek - panoramio.jpg",
+   "cekan": "Henk Monster",
+   "lisans": "CC BY 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Clitocybe.nuda Wood.blewit Pied.bleu cap.serrat tunisia.jpg",
+   "cekan": "Yassinloo",
+   "lisans": "CC BY-SA 4.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/335016278",
+   "cekan": "(c) Kyle Elshoff",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/334701400",
+   "cekan": "(c) Alex",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/337309850",
+   "cekan": "(c) charlie chaviano",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/339437922",
+   "cekan": "(c) gerardbertrand",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/341100139",
+   "cekan": "(c) Mustafa Arisli",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/359373349",
+   "cekan": "(c) Ian Dickie",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/370249788",
+   "cekan": "(c) Eileen Laidlaw",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/376726467",
+   "cekan": "(c) ratbagplant",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/379596107",
+   "cekan": "(c) Nathan Odgers",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/387089863",
+   "cekan": "(c) Jacklem",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/399136237",
+   "cekan": "(c) Bethany Teigen",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "14.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/403659247",
+   "cekan": "(c) Erica Tava Johnson",
+   "lisans": "cc-by"
+  }
+ ],
+ "sahte-truf": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Stachelsporige Mäandertrüffel Choiromyces maeandriformis 1.jpg",
+   "cekan": "Holger Krisp",
+   "lisans": "CC BY 4.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "Stachelsporige Mäandertrüffel Choiromyces maeandriformis 2.jpg",
+   "cekan": "Holger Krisp",
+   "lisans": "CC BY 4.0"
+  }
+ ],
+ "ballica": [
+  {
+   "dosya": "01.jpg",
+   "kaynak": "commons",
+   "commons": "Armillaria Kummer Naratake samodasi Edit.jpg",
+   "cekan": "あおもりくま",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "kaynak": "commons",
+   "commons": "2010-09-30 Armillaria mellea s.str. cropped.jpg",
+   "cekan": "Stu's Images",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/333058378",
+   "cekan": "(c) common_snowball",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "04.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/334695565",
+   "cekan": "(c) Irina Mitine",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "05.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/394077705",
+   "cekan": "(c) Kevin Barnes",
+   "lisans": "cc0"
+  },
+  {
+   "dosya": "06.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/402133165",
+   "cekan": "(c) Björn Sothmann",
+   "lisans": "cc-by-sa"
+  },
+  {
+   "dosya": "07.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/402312046",
+   "cekan": "(c) David LaMagna",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "08.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/403941868",
+   "cekan": "(c) Christophe",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "09.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/405291776",
+   "cekan": "(c) Ondřej Křivan",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "10.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/308716611",
+   "cekan": "(c) elazinha",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "11.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/312342222",
+   "cekan": "(c) Hill Craddock",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "12.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/317515187",
+   "cekan": "(c) Ben Gruhot",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "13.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/317644689",
+   "cekan": "(c) Ana Ka'ahanui",
+   "lisans": "cc-by"
+  },
+  {
+   "dosya": "14.jpg",
+   "kaynak": "inaturalist",
+   "gozlem": "https://www.inaturalist.org/observations/312349370",
+   "cekan": "(c) Julia Beach",
+   "lisans": "cc-by"
+  }
+ ]
+}
