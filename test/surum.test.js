@@ -19,3 +19,8 @@ test('sürüm: sürüm dosyaları çevrimdışı önbellekte', () => {
   const sw = oku('sw.js');
   for (const dosya of ['./js/surum.js', './js/surumSatiri.js']) assert.ok(sw.includes(`'${dosya}'`), dosya);
 });
+
+test('service worker dosyası sözdizimi hatasız (bozuk sw.js telefonda güncellemeyi ve internetsiz çalışmayı durdurur)', async () => {
+  const { Script } = await import('node:vm');
+  assert.doesNotThrow(() => new Script(oku('sw.js'), { filename: 'sw.js' }));
+});

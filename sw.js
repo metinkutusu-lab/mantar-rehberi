@@ -1,6 +1,6 @@
 // Çevrimdışı çalışma: uygulamanın bütün dosyaları ilk açılışta cihaza kaydedilir.
 // Yeni dosya eklenince DOSYALAR listesine ekle ve SURUM'u artır.
-const SURUM = 'v55';
+const SURUM = 'v56';
 // GitHub Pages'te aynı adreste başka uygulamalar da olabilir: önbellek adı bu uygulamaya ve adresine özeldir,
 // yalnızca kendi eski sürümlerini siler.
 const ONEK = `mantar-rehberi:${self.registration.scope}:`;
@@ -232,7 +232,7 @@ self.addEventListener('fetch', (olay) => {
     return;
   }
   const yol = new URL(olay.request.url).pathname;
-  if (new URL(olay.request.url).origin === self.location.origin && //vendor/(mobilenet|mantar-modeli[^/]*)/(tur-ayirici|alt-yapi|sapka-rengi).json$/.test(yol)) {
+  if (new URL(olay.request.url).origin === self.location.origin && /\/vendor\/(mobilenet|mantar-modeli[^/]*)\/(tur-ayirici|alt-yapi|sapka-rengi)\.json$/.test(yol)) {
     olay.respondWith(izYaniti(olay));
     return;
   }
