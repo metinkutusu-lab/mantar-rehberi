@@ -232,16 +232,6 @@ function turKartiCiz(tur, adlaTur) {
       ),
     );
   }
-  // Yenen ikizler (Metin'in isteği, 2026-10-27: "kaç ikizi var?"): aynı gruptan, aynı şekilde toplanan yakın türler.
-  // Uygulama bunları ayrı tanımaz; bilgi içindir (TASLAK).
-  if (tur.ikizler?.length) {
-    govde.append(
-      el('h4', { className: 'tur-alt-baslik', textContent: `Yenen ikizleri (${tur.ikizler.length})` }),
-      el('ul', { className: 'ikiz-listesi' }, ...tur.ikizler.map((i) => el('li', {},
-        el('strong', { textContent: i.ad }), ' ', el('em', { textContent: i.bilimselAd }), el('span', { textContent: `: ${i.not}` }),
-      ))),
-    );
-  }
   if (tur.karistirilanlar?.length) {
     govde.append(el('p', {}, el('strong', { textContent: 'Şunlarla karıştırılır: ' }), tur.karistirilanlar.join(', ')));
   }
