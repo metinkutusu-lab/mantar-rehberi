@@ -779,7 +779,9 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .tur-secenek-not { font-size: 10.5px; color: var(--soluk); line-height: 1.1; }
 .tur-secici.kucuk .tur-secenek { width: 74px; padding: 6px 4px; }
 .tur-secici.kucuk .tur-secenek-resim { width: 46px; height: 46px; }
-.tur-secici-not { margin: 0 0 8px; font-size: 12px; }
+.tur-secenek.burada .tur-secenek-not { color: #2f7d32; font-weight: 700; }
+.ara-tur .bildirim { margin: 0 0 8px; }
+.ara-tur-bilgi { margin: 4px 0 6px; }
 .tur-ipucu { font-size: 14.5px; margin: 4px 0 8px; }
 .tur-mevsim-uyari { color: var(--turuncu); }
 .ara-bolge-baslik { margin: 6px 0 6px !important; font-size: 14.5px; }

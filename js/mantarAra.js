@@ -70,6 +70,7 @@ const kok = el('div', { className: 'ara-ekrani' });
 const haritaKap = el('div', { className: 'ara-harita' });
 const turKap = el('div', { className: 'ara-tur' });
 const durumKap = el('div', { className: 'ara-durum' });
+const turBilgiKap = el('div', { className: 'ara-tur-bilgi' });
 const ipucuKap = el('div', { className: 'ara-canli-ipucu' });
 const hedefKap = el('div', { className: 'ara-hedef' });
 const isaretKap = el('div', { className: 'ara-isaret' });
@@ -84,6 +85,7 @@ const bilgiPaneli = el('div', { className: 'bilgi-paneli', hidden: true },
   el('p', { textContent: 'Harita, çevrendeki yaklaşık 2,5 km içinde mantar çıkmaya uygun olabilecek yerleri koyu turuncudan açığa boyar. Bu bir tahmindir; mantarın yerini göstermez.' }),
   el('p', { textContent: 'Hesaba girenler: ormanlık, çayır, meyve bahçesi ya da çalılık olması; yamacın baktığı yön (serin havada ve ilkbaharda güneye bakan yamaçlar önce ısınır, sıcak ve kuru havada kuzeye bakanlar nemini korur); yamacın dikliği; aradığın mantarın sevdiği zemin; bölgenin son yağmuru ve sıcaklığı.' }),
   el('p', { textContent: 'Haritada ağaç cinsi (çam, meşe) yazmaz; bu yüzden ağacı yerinde kendin kontrol et. Tür bilgileri taslaktır, uzman onayı bekliyor.' }),
+  el('p', { textContent: 'Üstteki şeritten ne aradığını seç (sağa kaydır). Önce "burada" yazanlar gelir: bakılan alanın zeminine ve bu aya göre aranabilecekler (taslak; gözlem kaydı değildir). Sonra mevsimi olan diğerleri, en sonda soluk "mevsimi değil" olanlar. Her grubun içinde dünya mutfağında en gözde olanlar önce (taslak sıra).' }),
   el('p', { className: 'not', textContent: `Harita: OpenFreeMap, OpenMapTiles, © OpenStreetMap katkıcıları. ${HARITA_ATFI}. Hava: Open-Meteo.com. Konumun hiçbir yere gönderilmez; harita sunucusu yalnızca bakılan bölgenin harita parçalarını görür.` }),
 );
 const bilgiDugmesi = el('button', {
@@ -113,6 +115,7 @@ kok.append(
   turKap,
   el('div', { className: 'ara-harita-kap' }, haritaKap, el('div', { className: 'ara-nisan' })),
   lejant,
+  turBilgiKap,
   hedefKap,
   ipucuKap,
   el('div', { className: 'ara-dugmeler' }, konumDugmesi, sesDugmesi, bakDugmesi),
@@ -195,48 +198,62 @@ function turSec(id) {
   if (ara.sonuc) bolgeyeBak(ara.sonuc.merkez, { canli: ara.sonuc.canli });
 }
 
-// Fotoğraflı tür seçici: toplayıcıların en çok aradığı türler önce; mevsimi olmayanlar soluk.
+// Tek, fotoğraflı tür seçici (Metin, 2026-10-27: üstteki seçici ile alttaki "bu alanda aranabilecekler" birleşti,
+// harita yukarı çıksın). Sıra: Hepsi; bakılan alanda bu mevsimde aranabilecekler ("burada" işaretli); mevsimi olan
+// diğerleri; en sonda mevsimi olmayanlar (soluk). Her grubun içinde dünya mutfağında en gözde olanlar önce (taslak).
 function turCiz() {
   const ay = new Date().getMonth() + 1;
-  const secenek = (id, ad, resim, mevsimde = true) => {
+  const secenek = (id, ad, resim, not = '') => {
     const d = el('button', {
       type: 'button',
-      className: `tur-secenek${ara.turId === id ? ' secili' : ''}${mevsimde ? '' : ' mevsim-disi'}`,
+      className: `tur-secenek${ara.turId === id ? ' secili' : ''}${not === 'mevsimi değil' ? ' mevsim-disi' : ''}${not === 'burada' ? ' burada' : ''}`,
       onclick: () => turSec(id),
     },
     resim,
     el('span', { className: 'tur-secenek-ad', textContent: ad }),
-    mevsimde ? '' : el('span', { className: 'tur-secenek-not', textContent: 'mevsimi değil' }),
+    not ? el('span', { className: 'tur-secenek-not', textContent: not }) : '',
     );
     d.setAttribute('aria-pressed', String(ara.turId === id));
     return d;
   };
-  const hepsiResmi = el('span', { className: 'tur-secenek-hepsi' }, ikon('konum'));
+  const burada = new Set(ara.sonuc ? bolgedeAranabilecekler(ara.turler, ara.sonuc.zeminPayi, ay).map((t) => t.id) : []);
+  const grup = (t) => (burada.has(t.id) ? 0 : mevsimdeMi(t, ay) ? 1 : 2);
+  const sirali = aranmaSirasinaGore(ara.turler).sort((a, b) => grup(a) - grup(b));
+  const notu = (t) => ['burada', '', 'mevsimi değil'][grup(t)];
+  const onceki = turKap.querySelector('.tur-secici')?.scrollLeft ?? 0;
+  const secici = el('div', { className: 'tur-secici kucuk' },
+    secenek('', 'Hepsi', el('span', { className: 'tur-secenek-hepsi' }, ikon('konum'))),
+    ...sirali.map((t) => secenek(t.id, t.ad.replace(/\s*\(.*\)$/, ''), kucukFotograf(t, 'tur-secenek-resim'), notu(t))),
+  );
+  secici.setAttribute('aria-label', 'Ne arıyorsun?');
+  const parcalar = [secici];
+  // Zehir uyarıları haritanın üstünde kalır (her zaman görünsün); mevsim ve ipucu haritanın altında.
   const tur = seciliTur();
-  const parcalar = [
-    el('p', { className: 'ara-tur-etiket', textContent: 'Ne arıyorsun?' }),
-    el('div', { className: 'tur-secici' },
-      secenek('', 'Hepsi', hepsiResmi),
-      ...ara.turler.map((t) => secenek(t.id, t.ad.replace(/\s*\(.*\)$/, ''), kucukFotograf(t, 'tur-secenek-resim'), mevsimdeMi(t, ay))),
-    ),
-    el('p', { className: 'not tur-secici-not', textContent: 'Sıra: dünya mutfağında en gözde olanlar önce (taslak). Sağa kaydır.' }),
-  ];
+  const bilgi = [];
   if (tur) {
-    const ayYazisi = ayAraligi(tur.aylar);
-    if (ayYazisi) {
-      parcalar.push(el('p', { className: mevsimdeMi(tur, ay) ? 'not' : 'not tur-mevsim-uyari' },
-        el('strong', { textContent: 'Mevsimi (taslak): ' }), ayYazisi, mevsimdeMi(tur, ay) ? '.' : '. Şu an mevsimi değil; bulma ihtimali düşük.'));
-    }
-    if (tur.aramaIpucu) parcalar.push(el('p', { className: 'tur-ipucu' }, el('strong', { textContent: 'Nereye bakmalı (taslak): ' }), tur.aramaIpucu));
-    else if (tur.nerede) parcalar.push(el('p', { className: 'not', textContent: `Nerede çıkar (taslak): ${tur.nerede}` }));
     if (tur.cigkenZehirli) parcalar.push(bildirim('tehlike', el('p', {}, el('strong', { textContent: CIG_UYARISI }))));
     if (tur.zehirliBenzerler?.length) {
       parcalar.push(bildirim('tehlike', el('p', {},
         el('strong', { textContent: 'Karıştırılan zehirli türler: ' }),
         `${tur.zehirliBenzerler.map((b) => b.ad).join(', ')}. Aynı yerlerde çıkabilirler.`)));
     }
+    const ayYazisi = ayAraligi(tur.aylar);
+    if (ayYazisi) {
+      bilgi.push(el('p', { className: mevsimdeMi(tur, ay) ? 'not' : 'not tur-mevsim-uyari' },
+        el('strong', { textContent: `${tur.ad.replace(/\s*\(.*\)$/, '')}, mevsimi (taslak): ` }), ayYazisi, mevsimdeMi(tur, ay) ? '.' : '. Şu an mevsimi değil; bulma ihtimali düşük.'));
+    }
+    if (tur.aramaIpucu) bilgi.push(el('p', { className: 'tur-ipucu' }, el('strong', { textContent: 'Nereye bakmalı (taslak): ' }), tur.aramaIpucu));
+    else if (tur.nerede) bilgi.push(el('p', { className: 'not', textContent: `Nerede çıkar (taslak): ${tur.nerede}` }));
   }
   turKap.replaceChildren(...parcalar);
+  turBilgiKap.replaceChildren(...bilgi);
+  secici.scrollLeft = onceki;
+  // Sıra değişince seçili tür görünmez kalmasın.
+  const secili = secici.querySelector('.secili');
+  if (secili && (secili.offsetLeft < secici.scrollLeft || secili.offsetLeft + secili.offsetWidth > secici.scrollLeft + secici.clientWidth)) {
+    secici.scrollLeft = secili.offsetLeft - secici.offsetLeft - 8;
+  }
+  if (haritaKap.isConnected) haritaBoyunuAyarla();
 }
 
 // --- Canlı konum ---
@@ -785,20 +802,7 @@ function durumCiz() {
       parcalar.push(el('p', { className: 'not', textContent: 'Bölgenin yağmur bilgisi alınamadı; harita yalnızca araziye ve mevsime göre çizildi.' }));
     }
     parcalar.push(el('p', { textContent: s.tercih.aciklama }));
-    // Bu alanda bu mevsimde aranabilecekler (alandaki zemine ve aya göre; gözlem kaydı değildir).
-    const aranabilir = bolgedeAranabilecekler(ara.turler, s.zeminPayi, new Date().getMonth() + 1);
-    if (aranabilir.length) {
-      parcalar.push(
-        el('p', { className: 'ara-bolge-baslik' }, el('strong', { textContent: 'Bu alanda bu mevsimde aranabilecekler' }), ' (taslak; dokununca seçilir):'),
-        el('div', { className: 'tur-secici kucuk' }, ...aranabilir.map((t) => {
-          const d = el('button', { type: 'button', className: `tur-secenek${ara.turId === t.id ? ' secili' : ''}`, onclick: () => turSec(t.id) },
-            kucukFotograf(t, 'tur-secenek-resim'),
-            el('span', { className: 'tur-secenek-ad', textContent: t.ad.replace(/\s*\(.*\)$/, '') }));
-          d.setAttribute('aria-pressed', String(ara.turId === t.id));
-          return d;
-        })),
-      );
-    }
+    // Bu alanda bu mevsimde aranabilecekler artık üstteki tür seçicide, "burada" işaretiyle önde (turCiz).
     const toplam = s.sayilar.reduce((a, b) => a + b, 0) || 1;
     const uygun = Math.round(((s.sayilar[2] + s.sayilar[3]) / toplam) * 100);
     parcalar.push(el('p', { className: 'not', textContent: `Bakılan alanın yaklaşık %${uygun}'i uygun ya da çok uygun görünüyor.` }));
@@ -816,6 +820,7 @@ function durumCiz() {
     }
   }
   durumKap.replaceChildren(...parcalar);
+  turCiz();
 }
 
 function hedefSec(hedef) {
