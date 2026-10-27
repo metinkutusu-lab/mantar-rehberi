@@ -903,6 +903,8 @@ figcaption, .not, .tur-govde p { overflow-wrap: anywhere; }
 .yuva-dugme .ikon { width: 16px; height: 16px; flex-shrink: 0; }
 .galeri-hepsi { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; margin-top: 10px; min-height: 52px; border-radius: 14px; font-weight: 700; cursor: pointer; }
 .kamera-kutusu { margin: 0 0 12px; }
+/* Tanımlamada kamera dikey ve büyük (telefon dik tutulur) */
+.tek-sayfa .kamera { aspect-ratio: 3 / 4; max-height: 70vh; margin: 0 auto; }
 .kamera-baslik { margin: 0 0 8px; }
 
 .kontroller-bolumu { margin-top: 8px; }
@@ -949,3 +951,38 @@ figcaption, .not, .tur-govde p { overflow-wrap: anywhere; }
 .canli-turuncu strong { color: var(--turuncu); }
 .canli-sari { border-top-color: var(--sari); background: var(--sari-zemin); }
 .canli-sari strong { color: var(--sari); }
+
+/* Kamerada çekim rehberi: ortada net daire, dışı puslu ve koyu; içinde ne çekileceğinin çizimi */
+.kamera-pus {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: rgb(0 0 0 / 0.35);
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
+  -webkit-mask-image: radial-gradient(circle closest-side at 50% 50%, transparent 79%, #000 81%);
+  mask-image: radial-gradient(circle closest-side at 50% 50%, transparent 79%, #000 81%);
+}
+.kamera-rehber { position: absolute; inset: 0; pointer-events: none; }
+.kamera-rehber svg { width: 100%; height: 100%; display: block; }
+.rehber-daire { fill: none; stroke: #fff; stroke-width: 0.7; stroke-dasharray: 2.5 1.5; opacity: 0.95; }
+.rehber-cizim { fill: rgb(255 255 255 / 0.55); stroke: rgb(255 255 255 / 0.75); stroke-width: 0.5; stroke-linecap: round; }
+.rehber-cizim .dolu-yok, .rehber-cizim line, .rehber-cizim path { fill: none; }
+.kamera-rehber-yazi {
+  position: absolute;
+  left: 50%;
+  top: 8px;
+  transform: translateX(-50%);
+  max-width: calc(100% - 16px);
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 0.6);
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}

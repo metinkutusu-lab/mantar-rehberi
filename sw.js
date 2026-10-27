@@ -1,6 +1,6 @@
 // Çevrimdışı çalışma: uygulamanın bütün dosyaları ilk açılışta cihaza kaydedilir.
 // Yeni dosya eklenince DOSYALAR listesine ekle ve SURUM'u artır.
-const SURUM = 'v45';
+const SURUM = 'v46';
 // GitHub Pages'te aynı adreste başka uygulamalar da olabilir: önbellek adı bu uygulamaya ve adresine özeldir,
 // yalnızca kendi eski sürümlerini siler.
 const ONEK = `mantar-rehberi:${self.registration.scope}:`;
@@ -55,6 +55,8 @@ const DOSYALAR = [
   './veri/turler.json',
   './ikonlar/ikon-192.png',
   './ikonlar/ikon-512.png',
+  './ikonlar/ikon-maskeli-192.png',
+  './ikonlar/ikon-maskeli-512.png',
   // Ansiklopedi fotoğrafları (Wikimedia Commons; lisans ve çeken veri/turler.json'da)
   './fotograflar/sozluk-anatomi.jpg',
   './fotograflar/sozluk-diken.jpg',

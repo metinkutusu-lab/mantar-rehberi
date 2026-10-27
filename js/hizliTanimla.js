@@ -412,12 +412,40 @@ function geriSayimBaslat(tur, saniye = 5) {
   }, 1000);
 }
 
+// Çekim rehberi (Metin'in isteği, 2026-10-27: "yazı okumak odağı kaçırıyor; kamera ekranında yönlendirsin"):
+// ortada bir daire, dışı puslu ve koyu, içinde neyin çekileceğini gösteren basit çizim ve tek satır yazı.
+// Mantar dairenin içine girince fotoğraf kıyasında da işe yarar: kıyas fotoğrafın ortasına bakar (js/fotoTanima.js).
+// Çizimler sabit metinlerdir; kullanıcı girdisi içermez. (Çizimler 100x75 alanda; daire kısa kenarın %80'i, pus maskesiyle aynı.)
+const REHBERLER = {
+  ust: {
+    yazi: 'Şapka daireyi doldursun · tam üstten',
+    cizim: '<circle cx="42" cy="30" r="2.2"/><circle cx="56" cy="27" r="1.8"/><circle cx="50" cy="40" r="2.4"/><circle cx="62" cy="38" r="1.6"/><circle cx="40" cy="44" r="1.7"/>',
+  },
+  alt: {
+    yazi: 'Şapkayı çevir · solungaçlar daireyi doldursun',
+    cizim: `<circle cx="50" cy="37.5" r="5" class="dolu-yok"/>${Array.from({ length: 24 }, (_, i) => {
+      const a = (i * Math.PI) / 12;
+      return `<line x1="${(50 + 6.5 * Math.cos(a)).toFixed(1)}" y1="${(37.5 + 6.5 * Math.sin(a)).toFixed(1)}" x2="${(50 + 27 * Math.cos(a)).toFixed(1)}" y2="${(37.5 + 27 * Math.sin(a)).toFixed(1)}"/>`;
+    }).join('')}`,
+  },
+  yan: {
+    yazi: 'Mantarın tamamı ve ayağın dibi dairede olsun',
+    cizim: '<path d="M30 30 Q50 6 70 30 Z" class="dolu-yok"/><path d="M46 30 L45 56 M54 30 L55 56" /><path d="M43.5 38 Q50 42 56.5 38" stroke-dasharray="1.5 1.5"/><path d="M42 56 Q50 63 58 56" stroke-dasharray="1.5 1.5"/><line x1="26" y1="58" x2="74" y2="58"/>',
+  },
+};
+
+function rehberCiz(tur) {
+  const rehber = REHBERLER[tur];
+  const cizim = el('span', { className: 'kamera-rehber' });
+  cizim.innerHTML = `<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><circle cx="50" cy="50" r="40" class="rehber-daire"/><g class="rehber-cizim" transform="translate(50 50) scale(1.3333) translate(-50 -37.5)">${rehber.cizim}</g></svg>`;
+  return [el('span', { className: 'kamera-pus' }), cizim, el('span', { className: 'kamera-rehber-yazi', textContent: rehber.yazi })];
+}
+
 function kameraCiz(tur) {
   const yuva = YUVALAR.find((y) => y.tur === tur);
   video = el('video', { className: 'kamera-goruntu', autoplay: true, muted: true });
   const kutu = el('div', { className: 'kamera-kutusu' },
-    el('p', { className: 'kamera-baslik' }, el('strong', { textContent: `${yuva.ad}: ` }), yuva.yonerge),
-    el('div', { className: 'kamera' }, video, el('span', { className: 'geri-sayim', 'aria-live': 'polite' })),
+    el('div', { className: 'kamera' }, video, ...rehberCiz(tur), el('span', { className: 'geri-sayim', 'aria-live': 'polite' })),
     el('div', { className: 'kamera-dugmeler' },
       el('button', { type: 'button', className: 'birincil', onclick: () => fotografCek(tur) }, ikon('kamera'), el('span', { textContent: 'Çek' })),
       el('button', { type: 'button', className: 'ikincil', textContent: '5 sn sonra', onclick: () => geriSayimBaslat(tur) }),
