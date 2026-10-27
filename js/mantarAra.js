@@ -241,8 +241,8 @@ function turCiz() {
     if (benzerler.length) {
       const ilk = benzerler[0].ad.replace(/\s*\(.*\)$/, '');
       parcalar.push(tekSatir(
-        `Aynı yerde zehirli benzerleri çıkar (${ilk}${benzerler.length > 1 ? ` ve ${benzerler.length - 1} tür daha` : ''}). Bulduğunu Tanımla ile kontrol et.`,
-        el('p', {}, el('strong', { textContent: 'Karıştırılan zehirli türler: ' }), `${benzerler.map((b) => b.ad).join(', ')}.`),
+        `Zehirli benzeri: ${ilk}${benzerler.length > 1 ? ` +${benzerler.length - 1}` : ''}`,
+        el('p', {}, el('strong', { textContent: 'Karıştırılan zehirli türler: ' }), `${benzerler.map((b) => b.ad).join(', ')}. Aynı yerde çıkabilirler; bulduğunu Tanımla ile kontrol et.`),
       ));
     }
     if (tur.cigkenZehirli) parcalar.push(tekSatir('Çiğken zehirlidir.', el('p', { textContent: CIG_UYARISI })));
