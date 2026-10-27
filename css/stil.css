@@ -1020,3 +1020,7 @@ figcaption, .not, .tur-govde p { overflow-wrap: anywhere; }
 /* Kontrolün istediği ek fotoğraf (ayak dibi, kesit): yalnızca gerektiğinde, sorunun içinde */
 .kontrol-foto { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 46px; margin: 0 0 10px; }
 .kontrol-foto .ikon { width: 20px; height: 20px; }
+/* Açılışta ana ekran, JavaScript kartları yerleştirene kadar görünmez (zıplamasın). JavaScript çalışmazsa
+   1,5 saniye sonra yine görünür; Acil ekranı hiç etkilenmez (kural 9). */
+#tanimla:not(.hazir) { opacity: 0; animation: tanimla-goster 0s linear 1.5s forwards; }
+@keyframes tanimla-goster { to { opacity: 1; } }

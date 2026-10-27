@@ -159,14 +159,17 @@ function takipSatiriCiz() {
     cubukCiz(b?.yuzde ?? 0, `${takipYeri.ad}: mantar döneminin kalan kısmı`),
   ];
   const { takipVerisi } = durumuOku();
-  if (takipVerisi?.alindi && !yagmur.yukleniyor) parcalar.push(el('p', { className: 'not takip-durum', textContent: `Son güncelleme: ${zamanYazisi(takipVerisi.alindi)}` }));
-  if (yagmur.takipHatasi) parcalar.push(el('p', { className: 'not takip-durum', textContent: 'Güncellenemedi. İnternet bağlantını kontrol et.' }));
-  else if (!b && !yagmur.yukleniyor) parcalar.push(el('p', { className: 'not takip-durum', textContent: 'İnternete bağlanınca kendiliğinden güncellenir.' }));
+  // Durum her zaman tek satırdır; yenilenirken yalnızca yazısı değişir (Metin, 2026-10-27: açılışta kart daralıp büyüyordu).
+  let durumSatiri = 'İnternete bağlanınca kendiliğinden güncellenir.';
+  if (yagmur.yukleniyor) durumSatiri = 'Güncelleniyor…';
+  else if (yagmur.takipHatasi) durumSatiri = 'Güncellenemedi. İnternet bağlantını kontrol et.';
+  else if (takipVerisi?.alindi) durumSatiri = `Son güncelleme: ${zamanYazisi(takipVerisi.alindi)}`;
+  parcalar.push(el('p', { className: 'not takip-durum', textContent: durumSatiri }));
   parcalar.push(el('div', { className: 'takip-dugmeleri' },
     el('button', {
       type: 'button',
       className: 'metin-dugme',
-      textContent: yagmur.yukleniyor ? 'Güncelleniyor…' : 'Şimdi güncelle',
+      textContent: 'Şimdi güncelle',
       disabled: yagmur.yukleniyor,
       onclick: () => takibiYenile({ zorla: true }),
     }),

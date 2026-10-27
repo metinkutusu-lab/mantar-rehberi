@@ -325,6 +325,8 @@ tanimlaCiz();
 sozlukCiz();
 turleriCiz();
 ekraniGoster();
+// Sayfa kurulunca ana ekran görünür olur (css: #tanimla:not(.hazir)); kurulurken kartlar yerleşip zıplamasın.
+document.getElementById('tanimla').classList.add('hazir');
 
 // Yeni sürüm indirilince sayfa kendiliğinden yenilenir (Metin'in isteği, 2026-10-26: güncelleme geç geliyordu).
 // Yarım kalan bir tanımlama varsa yenilenmez (fotoğraflar kaybolmasın): bant gösterilir, uygulama öne gelince yeniden bakılır.

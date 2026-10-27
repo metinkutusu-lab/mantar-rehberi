@@ -130,13 +130,13 @@ function listeCiz() {
     return icerik;
   }
   if (durum.sonuclar) yerler.sort((a, b) => (durum.sonuclar.get(anahtar(b))?.puan ?? -1) - (durum.sonuclar.get(anahtar(a))?.puan ?? -1));
-  icerik.push(el('p', { className: 'not yerlerim-aciklama', textContent: 'Mantar zamanı en yakın olan yer en üstte.' }));
-  if (durum.yukleniyor) icerik.push(el('p', { className: 'not', textContent: 'Yerlerinin yağmuruna bakılıyor…' }));
-  if (durum.hata) icerik.push(el('p', { className: 'not', textContent: 'Yağmur bilgisi alınamadı. İnternet bağlantını kontrol et.' }));
+  // Durum tek satırda; yenilenirken yalnızca yazısı değişir, düğme hep yerinde (kart daralıp büyümesin).
+  let aciklama = 'Mantar zamanı en yakın olan yer en üstte.';
+  if (durum.yukleniyor) aciklama = 'Yerlerinin yağmuruna bakılıyor…';
+  else if (durum.hata) aciklama = 'Yağmur bilgisi alınamadı. İnternet bağlantını kontrol et.';
+  icerik.push(el('p', { className: 'not yerlerim-aciklama', textContent: aciklama }));
   icerik.push(el('div', { className: 'yerlerim-listesi' }, ...yerler.map(yerSatiri)));
-  if (durum.sonuclar || durum.hata) {
-    icerik.push(el('button', { type: 'button', className: 'metin-dugme yerlerim-yenile', textContent: 'Yeniden bak', disabled: durum.yukleniyor, onclick: radaraBak }));
-  }
+  icerik.push(el('button', { type: 'button', className: 'metin-dugme yerlerim-yenile', textContent: 'Yeniden bak', disabled: durum.yukleniyor, onclick: radaraBak }));
   icerik.push(el('p', { className: 'not', textContent: 'Bir yerde mantar bulman, oradaki her mantarın aynı tür olduğu anlamına gelmez. Her mantarı yine Tanımla ile incele.' }));
   return icerik;
 }
