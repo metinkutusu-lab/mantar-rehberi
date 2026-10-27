@@ -108,7 +108,7 @@ kok.append(
     bilgiDugmesi,
   ),
   el('h1', { textContent: 'Mantar ara' }),
-  el('p', { className: 'alt-baslik', textContent: 'Haritada çevrendeki mantar çıkmaya uygun yerler. Bu bir tahmindir; mantarın yerini göstermez.' }),
+  // Açıklama (i) panelinin ilk paragrafında (Metin, 2026-10-27: "ekranda boşuna yer kaplamasın, harita yukarı çıksın").
   bilgiPaneli,
   turKap,
   el('div', { className: 'ara-harita-kap' }, haritaKap, el('div', { className: 'ara-nisan' })),
