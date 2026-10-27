@@ -11,7 +11,7 @@
 import { el, ikon, kucukFotograf, bildirim } from './dom.js';
 import { adimFotografi, secenekFotografi } from './isaretliFoto.js';
 import { BILMIYORUM, GEREKLI_FOTOGRAFLAR, degerlendir, onerilebilirMi, onerininElediOlumculler } from './kurallar.js';
-import { altYapiyiOner, sapkaRenkleriniOner } from './fotoOzellik.js';
+import { altYapiyiOner, onerileriBirlestir, sapkaRenkleriniOner, turdenOner } from './fotoOzellik.js';
 import { ADIMLAR, adimSecenekleri, sonCevaplar } from './sorular.js';
 import { adaylariBul } from './anahtar.js';
 import { ayiranAdimlar, kisaAd, kontrolListesi } from './siradaki.js';
@@ -157,16 +157,15 @@ async function izleriHesapla() {
 // Fotoğraftan şapka rengi ve şapkanın altı önerileri (js/fotoOzellik.js). Onaylanmadan cevap sayılmaz.
 async function onerileriHesapla(izi) {
   const [renkAyirici, altAyirici] = await Promise.all([sapkaRengiAyiricisiniYukle(), altYapiAyiricisiniYukle()]);
-  const oneriler = {};
-  if (izi.ust) {
-    const renkler = sapkaRenkleriniOner(izi.ust, renkAyirici);
-    if (renkler.length) oneriler.sapkaRengi = renkler;
-  }
-  if (izi.alt) {
-    const alt = altYapiyiOner(izi.alt, altAyirici);
-    if (alt) oneriler.altYapi = alt;
-  }
-  h.oneriler = oneriler;
+  // Fotoğraftaki tür güçlü tahmin ediliyorsa o türün bilinen özellikleri de kullanılır (uzman gibi).
+  const tur = turdenOner(h.benzerlikler, turler);
+  const tahminEdilen = Object.entries(h.benzerlikler).sort((a, b) => b[1] - a[1])[0]?.[0];
+  h.oneriler = onerileriBirlestir({
+    renkler: izi.ust ? sapkaRenkleriniOner(izi.ust, renkAyirici) : [],
+    alt: izi.alt ? altYapiyiOner(izi.alt, altAyirici) : null,
+    tur,
+    turRenkleri: turler.find((t) => t.id === tahminEdilen)?.ozellikler?.sapkaRengi ?? [],
+  });
 }
 
 // Şu an gösterilebilecek öneriler: cevaplanmamış, reddedilmemiş, hayati olmayan sorular (kural 3, 4; js/kurallar.js).

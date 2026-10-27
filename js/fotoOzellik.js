@@ -15,6 +15,37 @@ export function sapkaRenkleriniOner(iz, ayirici) {
   return sirali.filter(([, p], i) => i === 0 || p >= 0.25).slice(0, 2).map(([renk]) => renk);
 }
 
+// Uzman gibi: fotoğraf bir türü güçlü tahmin ediyorsa (≥ 0,6; ölçümde bu eşiğin üstünde %84 doğru) o türün bilinen
+// özellikleri önerilir (Metin, 2026-10-27: "kanlıcanın şapkası turuncu; kahverengi demişsin", "şapkanın altı resimde belli").
+// Şapka rengi: türün baskın rengi (verideki ilk renk); şapkanın altı: türde tek bir yapı yazıyorsa o.
+export const TUR_ESIGI = 0.6;
+// Şapkanın altı için tür kesin olmasa da yeter: olası türlerin toplam puanının %80'i aynı yapıdaysa (ör. hepsi solungaçlı) önerilir.
+export const ALT_YAPI_TOPLAM_ESIGI = 0.8;
+export function turdenOner(benzerlikler, turler) {
+  const oneri = {};
+  const toplam = {};
+  for (const [id, p] of Object.entries(benzerlikler)) {
+    const yapi = turler.find((t) => t.id === id)?.ozellikler?.altYapi;
+    if (yapi?.length === 1) toplam[yapi[0]] = (toplam[yapi[0]] ?? 0) + p;
+  }
+  const [yapi] = Object.entries(toplam).sort((a, b) => b[1] - a[1]);
+  if (yapi && yapi[1] >= ALT_YAPI_TOPLAM_ESIGI) oneri.altYapi = yapi[0];
+  const [enIyi] = Object.entries(benzerlikler).sort((a, b) => b[1] - a[1]);
+  const renkler = enIyi && enIyi[1] >= TUR_ESIGI ? turler.find((t) => t.id === enIyi[0])?.ozellikler?.sapkaRengi : null;
+  if (renkler?.length) oneri.sapkaRengi = [renkler[0]];
+  return oneri;
+}
+
+// Önerileri birleştirir: tür tahmini güçlüyse şapka rengi türün rengidir (renk ayırıcısının o türde de olan rengi eklenir);
+// şapkanın altında önce şapka altı ayırıcısı, yoksa türün bilgisi.
+export function onerileriBirlestir({ renkler = [], alt = null, tur = {}, turRenkleri = [] }) {
+  const oneri = {};
+  if (tur.sapkaRengi) oneri.sapkaRengi = [...tur.sapkaRengi, ...renkler.filter((r) => turRenkleri.includes(r) && !tur.sapkaRengi.includes(r))].slice(0, 2);
+  else if (renkler.length) oneri.sapkaRengi = renkler;
+  if (alt ?? tur.altYapi) oneri.altYapi = alt ?? tur.altYapi;
+  return oneri;
+}
+
 // Şapkanın altı: ayırıcı (vendor/mobilenet/alt-yapi.json; gözle seçilmiş 77 fotoğraf) emin olduğunda (≥ 0,8).
 // Ölçüm (görmediği 20 fotoğraf): genelde %65 doğru, 0,8'i geçenlerin (11) hepsi doğru. Örnek az; eşik bu yüzden yüksek.
 export const ALT_YAPI_ESIGI = 0.8;

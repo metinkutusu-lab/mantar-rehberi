@@ -268,3 +268,19 @@ test('tek sayfa kontrol listesi: fotoğraf tahmini zehirli adayın kontrolünü 
   const liste = kontrolListesi(turler, {}, [], benzerlikler).map((k) => k.adim.soru);
   for (const soru of ['volva', 'halka', 'genc']) assert.ok(liste.includes(soru), soru);
 });
+
+test('fotoğraftan öneri: tür güçlü tahmin edilince türün rengi ve şapka altı önerilir (kanlıca turuncu, solungaçlı)', async () => {
+  const { turdenOner, onerileriBirlestir, TUR_ESIGI } = await import('../js/fotoOzellik.js');
+  const kanlica = turler.find((t) => t.id === 'kanlica');
+  assert.equal(kanlica.ozellikler.sapkaRengi[0], 'kirmizi-turuncu');
+  const tur = turdenOner({ kanlica: 0.9, 'tuylu-sut': 0.1 }, turler);
+  assert.deepEqual(tur, { sapkaRengi: ['kirmizi-turuncu'], altYapi: 'solungac' });
+  // Renk ayırıcısı kahverengi dese de güçlü tür tahmininde türün rengi önce gelir; türde olmayan renk eklenmez.
+  assert.deepEqual(onerileriBirlestir({ renkler: ['kahverengi'], tur, turRenkleri: kanlica.ozellikler.sapkaRengi }).sapkaRengi, ['kirmizi-turuncu']);
+  assert.deepEqual(onerileriBirlestir({ renkler: ['krem-sari'], tur, turRenkleri: kanlica.ozellikler.sapkaRengi }).sapkaRengi, ['kirmizi-turuncu', 'krem-sari']);
+  // Zayıf tahminde türün rengi önerilmez; ama olası türlerin hepsi solungaçlıysa şapka altı yine önerilir.
+  assert.deepEqual(turdenOner({ kanlica: TUR_ESIGI - 0.01, 'tuylu-sut': 0.4 }, turler), { altYapi: 'solungac' });
+  assert.deepEqual(turdenOner({ kanlica: 0.45, 'ayi-mantari': 0.45 }, turler), {});
+  // Şapka altı ayırıcısının cevabı türünkinden önce gelir.
+  assert.equal(onerileriBirlestir({ alt: 'gozenek', tur }).altYapi, 'gozenek');
+});
