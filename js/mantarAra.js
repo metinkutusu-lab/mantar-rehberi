@@ -355,7 +355,9 @@ function haritaBoyunuAyarla() {
   if (!haritaKap.isConnected || tamEkrandaMi()) return;
   const ust = haritaKap.getBoundingClientRect().top + window.scrollY;
   const menu = document.querySelector('.alt-menu')?.offsetHeight ?? 68;
-  haritaKap.style.height = `${Math.round(Math.max(280, Math.min(720, window.innerHeight - menu - ust - 8)))}px`;
+  // Haritanın altındaki renk açıklaması ve "Konumumu göster" de ilk ekrana sığsın (Metin, 2026-10-27).
+  const altKisim = konumDugmesi.getBoundingClientRect().bottom - haritaKap.getBoundingClientRect().bottom;
+  haritaKap.style.height = `${Math.round(Math.max(280, Math.min(720, window.innerHeight - menu - ust - altKisim - 10)))}px`;
   ara.harita?.resize();
 }
 
