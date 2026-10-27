@@ -29,13 +29,13 @@ function izinliler(tur, soru) {
   return Array.isArray(liste) && liste.length ? liste : null;
 }
 
-// Türlerin ağırlığı: fotoğraf benzerliği (0–1) varsa öne çıkar; tehlikeli türler her zaman ağır basar.
+// Türlerin ağırlığı: fotoğraf kıyası (tür ayırıcısının 0–1 puanı, toplamı 1) varsa öne çıkar;
+// tehlikeli türler her zaman ağır basar (fotoğrafa hiç benzemese de).
 export function agirliklar(adaylar, benzerlikler = {}) {
   const sonuc = new Map();
   for (const tur of adaylar) {
     const b = benzerlikler[tur.id];
-    // Benzerlik (kosinüs) çoğunlukla 0,5–0,9 arasıdır; 0,45 altı hiç benzemiyor sayılır.
-    const foto = typeof b === 'number' ? Math.min(1, Math.max(0.05, (b - 0.45) / 0.45)) ** 2 : 0.3;
+    const foto = typeof b === 'number' ? Math.min(1, Math.max(0.02, b)) : 0.3;
     sonuc.set(tur.id, foto + (tehlikeli(tur) ? 0.5 : 0));
   }
   return sonuc;
@@ -91,6 +91,9 @@ export function renkDegistirebilirMi(adim, adaylar) {
 // Kıyas kartlarında ayıran kontrolün kısa adı (adım başlıkları fotoğraf adı olabildiği için).
 const KISA_ADLAR = {
   sapkaRengi: 'şapka rengi',
+  sapkaYuzeyi: 'şapkanın üstü',
+  genc: 'genç mantar',
+  kesitteTaslak: 'kesitte taslak',
   kucukKahverengi: 'boyut',
   altYapi: 'şapkanın altı',
   solungacRengi: 'solungaç rengi',
@@ -147,4 +150,22 @@ export function siradakiAdim(turler, cevaplar, sorulanlar, benzerlikler = {}) {
   const zorunlu = bekleyenler.find(zorunluMu);
   if (zorunlu) return { adim: zorunlu, neden: 'guvenlik' };
   return null;
+}
+
+/**
+ * Tek sayfalık kontrol listesi (Metin'in isteği, 2026-10-27: "sayfa sayfa sormak sıkıcı; uzman nasıl bakıyorsa öyle"):
+ * şu anki cevaplara göre daha yapılması gereken bütün kontroller, yapılacakları sırayla. siradakiAdim ile aynı kurallar
+ * (güvenlik soruları hep var, zehirli aday elenebilecekken liste bitmez); cevap geldikçe yeniden hesaplanır.
+ * Dönüş: [{ adim, neden }]
+ */
+export function kontrolListesi(turler, cevaplar, sorulanlar, benzerlikler = {}) {
+  const liste = [];
+  const atlanan = [...sorulanlar];
+  for (let i = 0; i < ADIMLAR.length; i++) {
+    const sonraki = siradakiAdim(turler, cevaplar, atlanan, benzerlikler);
+    if (!sonraki) break;
+    liste.push(sonraki);
+    atlanan.push(sonraki.adim.soru);
+  }
+  return liste;
 }

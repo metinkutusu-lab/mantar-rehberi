@@ -78,7 +78,7 @@ function girisCiz() {
     ['sepet', 'Sepet, mantarları toplamak için (naylon poşette mantar ezilip bozulur)'],
   ];
   const bilgi = el('div', { className: 'bilgi-paneli', hidden: true },
-    el('p', { textContent: 'Önce mantarın üstten fotoğrafını çek. Uygulama yalnızca olası türleri birbirinden ayıran kontrolleri sorar; tehlikeli türleri ayıran kontrolleri hiçbir zaman atlamaz. İstersen her adımı sesli okur.' }),
+    el('p', { textContent: 'Üç fotoğraf ekle: üstten, alttan ve yandan (galeriden üçü birden seçilebilir). Uygulama fotoğrafa göre tahmin eder ve tek sayfada yalnızca o tahmini zehirli benzerlerinden ayıran kontrolleri gösterir; tehlikeli türleri ayıran kontrolleri hiçbir zaman atlamaz. Sonuç sen cevapladıkça aynı sayfada değişir. İstersen sesli okur.' }),
     el('p', {}, el('strong', { textContent: 'Emin olmadığın her soruda "Bilmiyorum" seç. Tahmin etme.' })),
   );
   const bilgiDugmesi = el('button', {

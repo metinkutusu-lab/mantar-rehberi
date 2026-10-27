@@ -3,7 +3,11 @@ import { CIZIMLER } from './cizimler.js';
 
 export function el(etiket, ozellikler = {}, ...cocuklar) {
   const oge = document.createElement(etiket);
-  Object.assign(oge, ozellikler);
+  // Tireli adlar (aria-label, data-soru…) öznitelik olarak yazılır; diğerleri özellik olarak.
+  for (const [ad, deger] of Object.entries(ozellikler)) {
+    if (ad.includes('-')) oge.setAttribute(ad, deger);
+    else oge[ad] = deger;
+  }
   oge.append(...cocuklar);
   return oge;
 }

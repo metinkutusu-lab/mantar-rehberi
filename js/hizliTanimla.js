@@ -1,16 +1,19 @@
-// Hızlı tanımlama (Metin'in isteği, 2026-10-26): önce üstten fotoğraf, sonra yalnızca kalan türleri ayıran
-// kontroller. Eski adım adım akış (js/tanimla.js) aynen durur; bu akış onun yanına eklendi.
-// - Yapay zeka gerekmez: sıradaki soru kural tablosundan seçilir (js/siradaki.js).
-// - Fotoğraf kıyası isteğe bağlıdır (js/fotoTanima.js); açılınca bir kez ~5 MB iner, sonra internetsiz çalışır.
-// - Her olası tür, karıştırıldığı zehirli/yenen türle yan yana ve ayıran kontrolle gösterilir (kural 8).
+// Fotoğrafla tanımlama, tek sayfa (Metin'in isteği, 2026-10-27: "sayfa sayfa sormak sıkıcı ve verimsiz; mantarı tanıyan
+// bir insan nasıl ve neresine bakıyorsa öyle hızlı olmalı"). Uzman gibi çalışır: önce bir bakışta tahmin, sonra yalnızca
+// o tahmini zehirli benzerlerinden ayıran ve hayati önemdeki kontroller.
+// - Üstte üç fotoğraf yuvası (üstten, alttan, yandan/ayak dibi); galeriden üçü birden seçilebilir (kural 6).
+// - Fotoğraf eklenince tahmin hemen görünür (js/fotoTanima.js, telefonda; fotoğraf hiçbir yere gitmez).
+// - Altında tek sayfalık kontrol listesi (js/siradaki.js → kontrolListesi): cevap geldikçe yeniden hesaplanır,
+//   gereksizleşen kontrol kaybolur. Güvenlik soruları her zaman listededir; zehirli bir aday elenebilecekken liste bitmez.
+// - En altta canlı sonuç (aynı değerlendirme, js/kurallar.js); "Sonucu gör" ile ayrıntılı sonuç ekranı.
+// - Fotoğraf kıyası hiçbir türü elemez, sonucun rengini değiştirmez (kural 3, 5).
 // - Sesli yönlendirme telefonun kendi sesiyle (js/ses.js); sesli komut yalnızca telefon içi tanımayla (js/sesliKomut.js).
-// - Sonuç, eski akıştaki aynı değerlendirmeden geçer (kurallar.js); yeşil yoktur, her sonuçta "uzmana sor" yazar.
-import { bildirim, el, ikon, kucukFotograf } from './dom.js';
+import { el, ikon, kucukFotograf, bildirim } from './dom.js';
 import { adimFotografi, secenekFotografi } from './isaretliFoto.js';
-import { BILMIYORUM, GEREKLI_FOTOGRAFLAR } from './kurallar.js';
+import { BILMIYORUM, GEREKLI_FOTOGRAFLAR, degerlendir } from './kurallar.js';
 import { ADIMLAR, adimSecenekleri, sonCevaplar } from './sorular.js';
 import { adaylariBul } from './anahtar.js';
-import { ayiranAdimlar, kisaAd, siradakiAdim } from './siradaki.js';
+import { ayiranAdimlar, kisaAd, kontrolListesi } from './siradaki.js';
 import { ZEHIRLILIK_ADLARI, tehlikeyeGoreSirala, turleriYukle } from './turler.js';
 import { zehirRozeti } from './zehir.js';
 import { durumuOku, durumuYaz } from './durum.js';
@@ -24,25 +27,28 @@ turleriYukle().then((liste) => {
   turler = liste;
 });
 
+// Üç zorunlu fotoğraf (kural 6) ve kısa yönergeleri.
+const YUVALAR = [
+  { tur: 'ust', ad: 'Üstten', yonerge: 'Bütün şapka görünsün. Benekleri silmeden çek.' },
+  { tur: 'alt', ad: 'Alttan', yonerge: 'Şapkanın altı: solungaç, gözenek ya da diken görünsün.' },
+  { tur: 'yan', ad: 'Yandan', yonerge: 'Ayak ve ayağın dibi görünsün (koparmadan, toprağı bıçakla açarak).' },
+];
 // Fotoğraf kıyasında kullanılan fotoğraflar (tür fotoğrafları çoğunlukla mantarın bütününü gösterir).
 const KIYAS_FOTOGRAFLARI = ['ust', 'yan'];
-const UST_ADIM = {
-  soru: '__ust',
-  fotograf: 'ust',
-  baslik: 'Üstten fotoğraf',
-  yonerge: ['Mantarı yerinden oynatmadan, tam üstünden çek. Bütün şapka görünsün.'],
-};
+const ADIM_DIZINI = new Map(ADIMLAR.map((a) => [a.soru, a]));
+const SONUC_SOZLERI = { kirmizi: 'Zehirli veya ölümcül olabilir', turuncu: 'Tanımlanamadı', sari: 'Muhtemelen yenen bir tür, uzmana göster' };
 
 // Fotoğraflar ve izler yalnızca bellekte tutulur (kural 12).
 const h = {
-  adim: null, // o anki adım (UST_ADIM ya da sorular.js'teki bir adım)
-  neden: null,
+  basladi: false,
   cevaplar: {},
   sorulanlar: [],
   fotograflar: {},
   izler: [],
   benzerlikler: {},
-  sayacBitis: null,
+  kamera: null, // uygulama içi kamera açıksa hangi fotoğraf için ('ust' | 'alt' | 'yan')
+  acik: null, // çoklu seçimli, düzenlenmekte olan kontrol
+  sayaclar: {}, // { soru: bitiş zamanı }
   sayac: null,
   geriSayim: null,
 };
@@ -62,24 +68,24 @@ const ellerSerbest = () => ayar().ellerSerbest === true;
 
 export function hizliBaslat() {
   hizliSifirla();
-  h.adim = UST_ADIM;
+  h.basladi = true;
   if (kiyasAcik()) kiyasiHazirla();
 }
 
 // Yarım kalmış bir tanımlama var mı (yeni sürüm gelince sayfa bu sırada kendiliğinden yenilenmez).
-export const hizliSuruyor = () => h.adim !== null;
+export const hizliSuruyor = () => h.basladi;
 
 export function hizliSifirla() {
   for (const url of Object.values(h.fotograflar)) URL.revokeObjectURL(url);
-  sayaciDurdur();
-  Object.assign(h, { adim: null, neden: null, cevaplar: {}, sorulanlar: [], fotograflar: {}, izler: [], benzerlikler: {} });
+  sayaclariDurdur();
+  Object.assign(h, { basladi: false, cevaplar: {}, sorulanlar: [], fotograflar: {}, izler: [], benzerlikler: {}, kamera: null, acik: null, sayaclar: {} });
 }
 
 // Ekrandan çıkınca kamera, mikrofon ve ses kapanır.
 export function hizliKapat() {
   kameraKapat();
   dinlemeyiDurdur();
-  sayaciDurdur();
+  sayaclariDurdur();
   sesiKes();
 }
 
@@ -87,20 +93,18 @@ export function hizliCiz(hedef, secenekler) {
   kap = hedef;
   ayarlar = secenekler;
   ciz();
-  adimiSoyle();
+  siradakiniSoyle();
   dinlemeyiAyarla();
 }
 
 function ciz() {
-  kameraKapat();
-  video = null;
-  kap.replaceChildren(adimCiz());
-}
-
-function yenidenCiz() {
-  ciz();
-  window.scrollTo(0, 0);
-  adimiSoyle();
+  const kaydirma = window.scrollY;
+  if (!h.kamera) {
+    kameraKapat();
+    video = null;
+  }
+  kap.replaceChildren(sayfaCiz());
+  window.scrollTo(0, kaydirma);
 }
 
 // ---- Fotoğraf kıyası (isteğe bağlı) ----
@@ -110,7 +114,7 @@ async function kiyasiHazirla() {
     await Promise.all([modeliHazirla(), ayiriciyiYukle()]);
     await izleriHesapla();
   } catch {
-    // İnternet yok ve model daha önce indirilmemiş: tanımlama sorularla devam eder.
+    // İnternet yok ve model daha önce indirilmemiş: tanımlama kontrollerle devam eder.
   }
 }
 
@@ -126,23 +130,17 @@ async function izleriHesapla() {
     await resim.decode();
     izler.push(await parmakIzi(resim));
   }
-  if (!izler.length) {
-    // Fotoğraflar silindiyse eski benzerlik de silinir.
-    Object.assign(h, { izler: [], benzerlikler: {} });
-    return;
-  }
   h.izler = izler;
-  h.benzerlikler = benzerlikleriHesapla(izler, ayirici);
-  // Yalnızca kıyas kartı yenilenir; kamera ve sayaç olduğu gibi kalır.
-  const kart = kap?.isConnected ? kap.querySelector('.kiyas') : null;
-  kart?.replaceWith(adaylarCiz());
+  // Fotoğraflar silindiyse eski tahmin de silinir.
+  h.benzerlikler = izler.length ? benzerlikleriHesapla(izler, ayirici) : {};
+  // Tahmin kontrollerin sırasını etkiler; kamera açıksa yalnızca tahmin kartı yenilenir.
+  if (!kap?.isConnected) return;
+  if (h.kamera) kap.querySelector('.kiyas')?.replaceWith(adaylarCiz());
+  else ciz();
 }
 
 modelDurumunuDinle(() => {
-  if (kap?.isConnected && h.adim) {
-    const yer = kap.querySelector('.hizli-ayarlar');
-    yer?.replaceWith(ayarlarCiz());
-  }
+  if (kap?.isConnected && h.basladi) kap.querySelector('.hizli-ayarlar')?.replaceWith(ayarlarCiz());
 });
 
 // ---- Ayarlar satırı: ses, eller serbest, fotoğraf kıyası ----
@@ -179,7 +177,7 @@ function ayarlarCiz() {
         dinlemeyiDurdur();
       }
       ciz();
-      adimiSoyle();
+      siradakiniSoyle();
       dinlemeyiAyarla();
     }),
     ayarDugmesi('Eller serbest çekim', ellerSerbest(), () => {
@@ -196,7 +194,7 @@ function ayarNotlari() {
     notlar.push('Bu telefonda Türkçe yerel ses bulunamadı. Telefonun ayarlarından "Metin okuma" (yazıdan konuşmaya) Türkçe sesi indirilebilir.');
   }
   if (kiyasAcik() && modelDurumu() === 'hata') {
-    notlar.push('Fotoğraf kıyası için bir kez internet gerekir (yaklaşık 5 MB). İnternet yokken tanımlama sorularla devam eder.');
+    notlar.push('Fotoğraf kıyası için bir kez internet gerekir (yaklaşık 5 MB). İnternet yokken tanımlama kontrollerle devam eder.');
   }
   if (!kiyasAcik()) {
     notlar.push('Fotoğraf kıyası kapalıyken de tanımlama çalışır. Açarsan bir kez yaklaşık 5 MB iner; sonra internetsiz çalışır ve fotoğrafın hiçbir yere gitmez.');
@@ -253,7 +251,7 @@ function kiyasKartiCiz(tur, ilk) {
   );
   for (const b of karistirilanlar(tur).slice(0, ilk ? 2 : 1)) {
     const ayiranlar = b.tur ? ayiranAdimlar(tur, b.tur).map(kisaAd) : [];
-    const fark = el('details', { className: 'kiyas-fark', open: ilk }, el('summary', { textContent: 'Farkı' }), el('p', { textContent: b.fark }));
+    const fark = el('details', { className: 'kiyas-fark' }, el('summary', { textContent: 'Farkı' }), el('p', { textContent: b.fark }));
     kart.append(el('div', { className: `kiyas-benzer ${tur.zehirlilik === 'yenen' ? 'kiyas-zehirli' : ''}` },
       kucukFotograf(b.tur, 'benzer-kucuk'),
       el('div', {},
@@ -273,9 +271,9 @@ function adaylarCiz() {
   const liste = siraliAdaylar();
   const benzerlikVar = Object.keys(h.benzerlikler).length > 0;
   const sayi = el('p', { className: 'not', textContent: liste.length ? `Cevaplarınla çelişmeyen ${liste.length} tür var.` : 'Cevapların uygulamadaki türlerin hiçbiriyle uyuşmadı.' });
-  // Benzerlik yokken uzun liste gösterilmez; 5 ve altına inince gösterilir.
+  // Tahmin yokken uzun liste gösterilmez; 5 ve altına inince gösterilir.
   if (!benzerlikVar && liste.length > 5) {
-    const bekliyor = kiyasAcik() && h.fotograflar.ust && ['yok', 'yukleniyor'].includes(modelDurumu());
+    const bekliyor = kiyasAcik() && KIYAS_FOTOGRAFLARI.some((t) => h.fotograflar[t]) && ['yok', 'yukleniyor'].includes(modelDurumu());
     return el('div', { className: 'kart kiyas' },
       el('h3', { className: 'kart-baslik', textContent: 'Olası türler' }),
       sayi,
@@ -283,14 +281,97 @@ function adaylarCiz() {
     );
   }
   return el('div', { className: 'kart kiyas' },
-    el('h3', { className: 'kart-baslik', textContent: benzerlikVar ? 'Fotoğrafa en çok benzeyenler' : 'Olası türler' }),
+    el('h3', { className: 'kart-baslik', textContent: benzerlikVar ? 'Fotoğrafa göre en çok benzeyenler' : 'Olası türler' }),
     sayi,
     ...liste.slice(0, 3).map((tur, i) => kiyasKartiCiz(tur, i === 0)),
-    el('p', { className: 'not', textContent: 'Bu bir tahmindir. Zehirli bir tür elenmeden sonuç kırmızı kalır.' }),
+    el('p', { className: 'not', textContent: 'Bu bir tahmindir. Aşağıdaki kontroller zehirli benzerleri ayırır; zehirli bir tür elenmeden sonuç kırmızı kalır.' }),
   );
 }
 
-// ---- Kamera ----
+// ---- Fotoğraflar ----
+
+function fotografKoy(tur, url) {
+  if (h.fotograflar[tur]) URL.revokeObjectURL(h.fotograflar[tur]);
+  h.fotograflar[tur] = url;
+  if (kiyasAcik() && KIYAS_FOTOGRAFLARI.includes(tur)) izleriHesapla();
+}
+
+function fotografiSil(tur) {
+  if (h.fotograflar[tur]) URL.revokeObjectURL(h.fotograflar[tur]);
+  delete h.fotograflar[tur];
+  if (kiyasAcik() && KIYAS_FOTOGRAFLARI.includes(tur)) izleriHesapla();
+  ciz();
+}
+
+// Telefonun kamerası (galeri: false) ya da galeri (galeri: true). Galeriden birden çok fotoğraf seçilirse
+// boş yuvalara sırayla (üstten, alttan, yandan) yerleşir (Metin'in isteği, 2026-10-27: üç fotoğraf zaten telefonda).
+function dosyaGirdisi(tur, { galeri = false, coklu = false } = {}) {
+  const girdi = el('input', {
+    type: 'file',
+    accept: 'image/*',
+    className: 'gizli',
+    multiple: coklu,
+    onchange: (olay) => {
+      const dosyalar = [...(olay.target.files ?? [])];
+      if (!dosyalar.length) return;
+      if (coklu) {
+        const bos = YUVALAR.map((y) => y.tur).filter((t) => !h.fotograflar[t]);
+        const hedefler = bos.length >= dosyalar.length ? bos : YUVALAR.map((y) => y.tur);
+        dosyalar.slice(0, 3).forEach((dosya, i) => fotografKoy(hedefler[i], URL.createObjectURL(dosya)));
+      } else {
+        fotografKoy(tur, URL.createObjectURL(dosyalar[0]));
+      }
+      h.kamera = null;
+      ciz();
+    },
+  });
+  if (!galeri) girdi.setAttribute('capture', 'environment');
+  return girdi;
+}
+
+function yuvaCiz({ tur, ad, yonerge }) {
+  const url = h.fotograflar[tur];
+  // Dolu yuvada yalnızca simgeler (yer kaplamasın); boş yuvada simge ve yazı.
+  const yazi = (metin) => (url ? '' : el('span', { textContent: metin }));
+  const cek = kameraVarMi()
+    ? el('button', { type: 'button', className: 'ikincil yuva-dugme', 'aria-label': `${ad} fotoğraf çek`, onclick: () => kameraAcYuva(tur) }, ikon('kamera'), yazi('Çek'))
+    : el('label', { className: 'ikincil yuva-dugme', 'aria-label': `${ad} fotoğraf çek` }, ikon('kamera'), yazi('Çek'), dosyaGirdisi(tur));
+  const galeri = el('label', { className: 'ikincil yuva-dugme', 'aria-label': `${ad} fotoğrafı galeriden seç` }, ikon('galeri'), yazi('Galeri'), dosyaGirdisi(tur, { galeri: true }));
+  return el('div', { className: `yuva${url ? ' dolu' : ''}` },
+    url
+      ? el('img', { src: url, alt: `${ad} fotoğraf` })
+      : el('div', { className: 'yuva-bos' }, el('strong', { textContent: ad }), el('span', { textContent: yonerge })),
+    el('div', { className: 'yuva-alt' },
+      url ? el('strong', { className: 'yuva-ad', textContent: ad }) : '',
+      el('div', { className: 'yuva-dugmeler' },
+        cek, galeri,
+        url ? el('button', { type: 'button', className: 'ikincil yuva-dugme', textContent: '✕', 'aria-label': `${ad} fotoğrafı sil`, onclick: () => fotografiSil(tur) }) : '',
+      ),
+    ),
+  );
+}
+
+function fotograflarCiz() {
+  const eksik = GEREKLI_FOTOGRAFLAR.filter((t) => !h.fotograflar[t]).length;
+  return el('section', { className: 'fotograflar-bolumu' },
+    el('h2', { className: 'bolum-baslik', textContent: 'Fotoğraflar' }),
+    h.kamera ? kameraCiz(h.kamera) : '',
+    el('div', { className: 'yuvalar' }, ...YUVALAR.map(yuvaCiz)),
+    eksik === 3
+      ? el('label', { className: 'birincil galeri-hepsi' }, ikon('galeri'), el('span', { textContent: 'Galeriden üçünü birden seç' }), dosyaGirdisi('ust', { galeri: true, coklu: true }))
+      : '',
+    eksik ? el('p', { className: 'not', textContent: 'Üç fotoğraf olmadan sonuç verilmez. Galeriden seçerken sırası: üstten, alttan, yandan.' }) : '',
+  );
+}
+
+// ---- Uygulama içi kamera ----
+
+function kameraAcYuva(tur) {
+  h.kamera = tur;
+  ciz();
+  kap.querySelector('.kamera')?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  if (sesAcik()) soyle(`${YUVALAR.find((y) => y.tur === tur).ad} fotoğraf. ${YUVALAR.find((y) => y.tur === tur).yonerge} ${ellerSerbest() ? 'Kendim çekeceğim.' : 'Hazır olunca çek de.'}`, { oncelikli: true });
+}
 
 function fotografCek(tur) {
   if (!video) return;
@@ -302,12 +383,11 @@ function fotografCek(tur) {
   const tuval = kareAl(video);
   resimAdresi(tuval).then((url) => {
     if (!url) return;
-    if (h.fotograflar[tur]) URL.revokeObjectURL(h.fotograflar[tur]);
-    h.fotograflar[tur] = url;
-    // Fotoğraf hemen gösterilir; beğenilmezse yeniden çekilir ya da silinir (Metin'in isteği, 2026-10-26).
-    // Üstten fotoğrafta "Devam" ile ilk soruya geçilir.
-    if (sesAcik()) soyle(h.adim === UST_ADIM ? 'Çekildi. Beğendiysen devam de.' : 'Çekildi.', { oncelikli: true });
-    if (kiyasAcik() && KIYAS_FOTOGRAFLARI.includes(tur)) izleriHesapla();
+    fotografKoy(tur, url);
+    // Sıradaki boş yuva varsa kamera onun için açık kalır; yoksa kapanır.
+    const sonraki = YUVALAR.find((y) => !h.fotograflar[y.tur]);
+    h.kamera = sonraki ? sonraki.tur : null;
+    if (sesAcik()) soyle(sonraki ? `Çekildi. Şimdi ${sonraki.ad.toLocaleLowerCase('tr')}. ${sonraki.yonerge}` : 'Çekildi. Fotoğraflar tamam.', { oncelikli: true });
     ciz();
   });
 }
@@ -332,197 +412,115 @@ function geriSayimBaslat(tur, saniye = 5) {
   }, 1000);
 }
 
-// galeri: true ise telefon kamerayı açmaz, daha önce çekilmiş fotoğraflardan seçtirir
-// (Metin'in isteği, 2026-10-26: evde eski fotoğraflarla aynı adımları deneyebilmek için).
-function dosyaGirdisi(tur, { galeri = false } = {}) {
-  const girdi = el('input', {
-    type: 'file',
-    accept: 'image/*',
-    className: 'gizli',
-    onchange: (olay) => {
-      const dosya = olay.target.files?.[0];
-      if (!dosya) return;
-      if (h.fotograflar[tur]) URL.revokeObjectURL(h.fotograflar[tur]);
-      h.fotograflar[tur] = URL.createObjectURL(dosya);
-      if (kiyasAcik() && KIYAS_FOTOGRAFLARI.includes(tur)) izleriHesapla();
-      ciz();
-    },
-  });
-  if (!galeri) girdi.setAttribute('capture', 'environment');
-  return girdi;
-}
-
-// Her fotoğraf adımında: telefondaki eski fotoğraflardan seçmek için düğme.
-function galeriDugmesi(tur) {
-  return el('label', { className: 'ikincil galeri-dugme' }, ikon('galeri'), el('span', { textContent: 'Galeriden seç' }), dosyaGirdisi(tur, { galeri: true }));
-}
-
-function fotografiSil(tur) {
-  if (h.fotograflar[tur]) URL.revokeObjectURL(h.fotograflar[tur]);
-  delete h.fotograflar[tur];
-  if (kiyasAcik() && KIYAS_FOTOGRAFLARI.includes(tur)) izleriHesapla();
-  ciz();
-}
-
-// Çekilen fotoğraf: üstüne dokununca yeniden çekilir; altında galeriden seç ve sil.
 function kameraCiz(tur) {
-  const url = h.fotograflar[tur];
-  if (url) {
-    return el('div', {},
-      el('label', { className: 'foto-alan dolu' },
-        el('img', { src: url, alt: 'Çekilen fotoğraf' }),
-        el('span', { className: 'foto-yeniden' }, ikon('kamera'), el('span', { textContent: 'Yeniden çek' })),
-        dosyaGirdisi(tur),
-      ),
-      el('div', { className: 'foto-secenekleri' },
-        galeriDugmesi(tur),
-        el('button', { type: 'button', className: 'ikincil foto-sil', onclick: () => fotografiSil(tur) }, el('span', { textContent: 'Sil' })),
-      ),
-    );
-  }
-  const zorunlu = GEREKLI_FOTOGRAFLAR.includes(tur);
-  const yedek = el('div', {},
-    el('label', { className: 'foto-alan' },
-      el('span', { className: 'foto-ikon' }, ikon('kamera')),
-      el('strong', { textContent: 'Fotoğraf çek' }),
-      el('span', { className: 'foto-not', textContent: zorunlu ? 'Bu fotoğraf olmadan sonuç verilemez.' : 'İsteğe bağlı; uzmana göstermek için faydalı.' }),
-      dosyaGirdisi(tur),
-    ),
-    galeriDugmesi(tur),
-  );
-  if (!kameraVarMi()) return yedek;
-
+  const yuva = YUVALAR.find((y) => y.tur === tur);
   video = el('video', { className: 'kamera-goruntu', autoplay: true, muted: true });
-  const alan = el('div', { className: 'kamera' },
-    video,
-    el('span', { className: 'geri-sayim', 'aria-live': 'polite' }),
+  const kutu = el('div', { className: 'kamera-kutusu' },
+    el('p', { className: 'kamera-baslik' }, el('strong', { textContent: `${yuva.ad}: ` }), yuva.yonerge),
+    el('div', { className: 'kamera' }, video, el('span', { className: 'geri-sayim', 'aria-live': 'polite' })),
+    el('div', { className: 'kamera-dugmeler' },
+      el('button', { type: 'button', className: 'birincil', onclick: () => fotografCek(tur) }, ikon('kamera'), el('span', { textContent: 'Çek' })),
+      el('button', { type: 'button', className: 'ikincil', textContent: '5 sn sonra', onclick: () => geriSayimBaslat(tur) }),
+      el('button', { type: 'button', className: 'ikincil', textContent: 'Kapat', onclick: () => { h.kamera = null; ciz(); } }),
+    ),
   );
-  const dugmeler = el('div', { className: 'kamera-dugmeler' },
-    el('button', { type: 'button', className: 'birincil', onclick: () => fotografCek(tur) }, ikon('kamera'), el('span', { textContent: 'Çek' })),
-    el('button', { type: 'button', className: 'ikincil', textContent: '5 sn sonra çek', onclick: () => geriSayimBaslat(tur) }),
-  );
-  const kutu = el('div', {}, alan, dugmeler, galeriDugmesi(tur));
   kameraAc(video).then((acildi) => {
-    if (!acildi) kutu.replaceWith(yedek);
-    else if (ellerSerbest()) setTimeout(() => video?.isConnected && !h.fotograflar[tur] && geriSayimBaslat(tur), sesAcik() ? 4000 : 800);
+    if (!acildi) {
+      // Uygulama içi kamera açılamadı: telefonun kamerası kullanılır.
+      kutu.replaceWith(el('label', { className: 'foto-alan' },
+        el('span', { className: 'foto-ikon' }, ikon('kamera')),
+        el('strong', { textContent: `${yuva.ad} fotoğraf çek` }),
+        dosyaGirdisi(tur),
+      ));
+    } else if (ellerSerbest()) {
+      setTimeout(() => video?.isConnected && h.kamera === tur && geriSayimBaslat(tur), sesAcik() ? 4000 : 800);
+    }
   });
   return kutu;
 }
 
-// ---- Süreli kontroller ----
+// ---- Süreli kontroller (süt 10 sn, ezince 30 sn, kesince 5 dk); her kontrolün kendi sayacı ----
 
-function sayaciDurdur() {
+function sayaclariDurdur() {
   clearInterval(h.sayac);
   clearInterval(h.geriSayim);
-  Object.assign(h, { sayac: null, sayacBitis: null, geriSayim: null });
+  Object.assign(h, { sayac: null, geriSayim: null });
 }
 
 const sureYazisi = (sn) => (sn >= 60 ? `${Math.floor(sn / 60)}:${String(sn % 60).padStart(2, '0')}` : `${sn} sn`);
 
-function sayacCiz(adim) {
-  const yazi = el('strong', { className: 'sayac-sure' });
-  const dugme = el('button', { type: 'button', className: 'ikincil' });
-  const kutu = el('div', { className: 'sayac' }, el('p', { textContent: adim.sureMetni }), yazi, dugme);
-  const guncelle = () => {
-    if (!h.sayacBitis) {
-      yazi.textContent = sureYazisi(adim.sure);
-      dugme.textContent = 'Sayacı başlat';
-      return;
+function sayaclariIslet() {
+  if (h.sayac) return;
+  const soylenen = new Set();
+  h.sayac = setInterval(() => {
+    let calisan = false;
+    for (const [soru, bitis] of Object.entries(h.sayaclar)) {
+      const kalan = Math.max(0, Math.round((bitis - Date.now()) / 1000));
+      if (kalan > 0) calisan = true;
+      else if (!soylenen.has(soru)) {
+        soylenen.add(soru);
+        sureDoldu(soru);
+      }
+      const kutu = kap?.querySelector(`.sayac[data-soru="${soru}"]`);
+      if (kutu) sayacGuncelle(kutu, soru);
     }
-    const kalan = Math.max(0, Math.round((h.sayacBitis - Date.now()) / 1000));
-    yazi.textContent = kalan > 0 ? sureYazisi(kalan) : 'Şimdi bak';
-    dugme.textContent = kalan > 0 ? 'Beklemeden bak' : 'Sayacı yeniden başlat';
-    if (kalan === 0) {
+    if (!calisan) {
       clearInterval(h.sayac);
       h.sayac = null;
-      kutu.classList.add('bitti');
-    }
-  };
-  dugme.onclick = () => {
-    if (h.sayacBitis && h.sayacBitis > Date.now()) {
-      h.sayacBitis = Date.now();
-    } else {
-      sayacBaslat(adim, guncelle);
-    }
-    guncelle();
-  };
-  guncelle();
-  if (h.sayac) {
-    clearInterval(h.sayac);
-    h.sayac = setInterval(() => {
-      guncelle();
-      if (h.sayacBitis <= Date.now()) sureDoldu(adim);
-    }, 1000);
-  }
-  return kutu;
-}
-
-function sayacBaslat(adim, guncelle) {
-  clearInterval(h.sayac);
-  h.sayacBitis = Date.now() + adim.sure * 1000;
-  let soylendi = false;
-  h.sayac = setInterval(() => {
-    guncelle();
-    if (!soylendi && h.sayacBitis <= Date.now()) {
-      soylendi = true;
-      sureDoldu(adim);
     }
   }, 1000);
 }
 
-function sureDoldu(adim) {
-  if (sesAcik()) soyle(`Süre doldu. Şimdi bak. ${adim.soruMetni} ${seceneklerSozu(adim)}`, { oncelikli: true });
+function sayacGuncelle(kutu, soru) {
+  const adim = kontrolBul(soru);
+  const bitis = h.sayaclar[soru];
+  const kalan = bitis ? Math.max(0, Math.round((bitis - Date.now()) / 1000)) : null;
+  kutu.querySelector('.sayac-sure').textContent = kalan === null ? sureYazisi(adim.sure) : kalan > 0 ? sureYazisi(kalan) : 'Şimdi bak';
+  kutu.querySelector('button').textContent = kalan === null ? 'Sayacı başlat' : kalan > 0 ? 'Beklemeden bak' : 'Yeniden başlat';
+  kutu.classList.toggle('bitti', kalan === 0);
+}
+
+function sayacCiz(adim) {
+  const kutu = el('div', { className: 'sayac', 'data-soru': adim.soru },
+    el('p', { textContent: adim.sureMetni }),
+    el('strong', { className: 'sayac-sure' }),
+    el('button', {
+      type: 'button',
+      className: 'ikincil',
+      onclick: () => {
+        const bitis = h.sayaclar[adim.soru];
+        h.sayaclar[adim.soru] = bitis && bitis > Date.now() ? Date.now() : Date.now() + adim.sure * 1000;
+        sayacGuncelle(kutu, adim.soru);
+        sayaclariIslet();
+      },
+    }),
+  );
+  sayacGuncelle(kutu, adim.soru);
+  return kutu;
+}
+
+function sureDoldu(soru) {
+  const adim = kontrolBul(soru);
+  if (sesAcik() && adim) soyle(`Süre doldu. ${adim.soruMetni} ${seceneklerSozu(adim)}`, { oncelikli: true });
   else if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
 }
 
-// ---- Adımlar ----
+// ---- Kontrol listesi ----
 
-function ilerle() {
-  sayaciDurdur();
-  const sonraki = siradakiAdim(turler, h.cevaplar, h.sorulanlar, h.benzerlikler);
-  if (!sonraki) {
-    bitir();
-    return;
-  }
-  h.adim = sonraki.adim;
-  h.neden = sonraki.neden;
-  yenidenCiz();
+function bekleyenler() {
+  return kontrolListesi(turler, h.cevaplar, h.sorulanlar, h.benzerlikler);
 }
 
-function geri() {
-  sayaciDurdur();
-  if (h.adim === UST_ADIM) {
-    hizliKapat();
-    ayarlar.vazgec();
-    return;
-  }
-  const son = h.sorulanlar.pop();
-  if (son) delete h.cevaplar[son];
-  h.adim = (son && ADIMLAR.find((x) => x.soru === son)) || UST_ADIM;
-  h.neden = null;
-  yenidenCiz();
+function kontrolBul(soru) {
+  return ADIM_DIZINI.get(soru);
 }
 
-function cevapla(adim, deger) {
-  h.cevaplar[adim.soru] = deger;
-  if (!h.sorulanlar.includes(adim.soru)) h.sorulanlar.push(adim.soru);
-  // Fotoğraf istenen adımda fotoğraf yoksa önce o istenir (kural 6).
-  ciz();
-  setTimeout(() => {
-    if (h.adim === adim) ilerle();
-  }, 250);
+// Cevaplanmış kontroller, cevaplandıkları sırayla.
+function cevaplananlar() {
+  return h.sorulanlar.map((s) => ADIM_DIZINI.get(s)).filter(Boolean);
 }
 
-function bitir() {
-  hizliKapat();
-  ayarlar.bitir({
-    cevaplar: { ...h.cevaplar },
-    fotograflar: { ...h.fotograflar },
-    benzerlikler: { ...h.benzerlikler },
-  });
-}
-
-// Bu adım hangi olası türleri birbirinden ayırır? (en çok iki çift)
+// Bu kontrol hangi olası türleri birbirinden ayırır? (en çok iki çift; uzmanın "neden bakıyorum" cevabı)
 function ayirdigiCiftler(adim) {
   const liste = siraliAdaylar().slice(0, 6);
   const ciftler = [];
@@ -536,90 +534,160 @@ function ayirdigiCiftler(adim) {
   return ciftler.slice(0, 2);
 }
 
-function seceneklerSozu(adim) {
-  if (!adim.secenekler) return '';
-  return `${adimSecenekleri(adim).map((s) => s.metin.split('/')[0].trim()).join(', ')}?`;
+// Kontrolle ilgili kullanıcı fotoğrafı (ör. solungaç sorusunun yanında alttan fotoğraf): uzman fotoğrafa bakarak cevaplar.
+const ILGILI_FOTOGRAF = { sapkaRengi: 'ust', sapkaYuzeyi: 'ust', kucukKahverengi: 'ust', genc: 'yan', altYapi: 'alt', solungacRengi: 'alt', halka: 'yan', volva: 'yan' };
+
+function kontrolCiz({ adim, neden }, sira) {
+  const secili = h.cevaplar[adim.soru];
+  const cevapli = secili !== undefined;
+  // Cevaplanan kontrol tek satıra küçülür; dokununca açılır (çoklu seçimli olan düzenlenirken açık kalır).
+  if (cevapli && h.acik !== adim.soru) {
+    const metinler = adimSecenekleri(adim).filter((s) => (Array.isArray(secili) ? secili.includes(s.deger) : secili === s.deger)).map((s) => s.metin);
+    return el('button', {
+      type: 'button',
+      className: `kontrol-ozet${secili === BILMIYORUM ? ' bilinmiyor' : ''}`,
+      onclick: () => {
+        h.acik = adim.soru;
+        ciz();
+      },
+    }, el('span', { className: 'kontrol-tik', textContent: secili === BILMIYORUM ? '?' : '✓' }),
+    el('span', {}, el('strong', { textContent: `${kisaAd(adim).replace(/^./, (c) => c.toLocaleUpperCase('tr'))}: ` }), metinler.join(', ')),
+    el('span', { className: 'kontrol-degistir', textContent: 'Değiştir' }));
+  }
+
+  const kutu = el('div', { className: `kontrol${sira === 0 ? ' siradaki' : ''}`, 'data-soru': adim.soru });
+  kutu.append(el('h3', { className: 'kontrol-soru', textContent: adim.soruMetni ?? adim.baslik }));
+  const ciftler = neden === 'ayirt' ? ayirdigiCiftler(adim) : [];
+  if (ciftler.length) kutu.append(el('p', { className: 'neden', textContent: `Bu kontrol ayırır: ${ciftler.map(([x, y]) => `${x} ↔ ${y}`).join('; ')}` }));
+  else if (neden === 'guvenlik') kutu.append(el('p', { className: 'neden', textContent: 'Ölümcül türler yüzünden her mantarda bakılır.' }));
+  if (adim.uyari) kutu.append(bildirim('tehlike', el('p', {}, el('strong', { textContent: adim.uyari }))));
+
+  // Kendi fotoğrafın ve nasıl bakılacağı (örnek gerçek fotoğraf) yan yana; yönerge dokununca açılır.
+  const kendi = h.fotograflar[ILGILI_FOTOGRAF[adim.soru] ?? adim.fotograf];
+  const ornek = adimFotografi(adim);
+  const yonerge = adim.yonerge ?? [];
+  if (kendi || ornek || yonerge.length) {
+    kutu.append(el('div', { className: 'kontrol-yardim' },
+      kendi ? el('img', { className: 'kontrol-kendi', src: kendi, alt: 'Senin fotoğrafın' }) : '',
+      ornek || yonerge.length
+        ? el('details', { className: 'kontrol-nasil' }, el('summary', { textContent: 'Nasıl bakılır?' }), ...yonerge.map((p) => el('p', { textContent: p })), ornek)
+        : '',
+    ));
+  }
+  if (adim.sure) kutu.append(sayacCiz(adim));
+
+  const liste = el('div', { className: `secenekler kontrol-secenekler${adim.coklu ? ' coklu' : ''}` });
+  for (const secenek of adimSecenekleri(adim)) {
+    const seciliMi = Array.isArray(secili) ? secili.includes(secenek.deger) : secili === secenek.deger;
+    const siniflar = ['secenek'];
+    if (seciliMi) siniflar.push('secili');
+    if (secenek.deger === BILMIYORUM) siniflar.push('bilmiyorum');
+    const foto = secenekFotografi(secenek.cizim);
+    if (foto) siniflar.push('resimli');
+    const dugme = el('button',
+      { type: 'button', className: siniflar.join(' '), onclick: () => (adim.coklu ? cokluSec(adim, secenek.deger) : cevapla(adim, secenek.deger)) },
+      foto,
+      ...(adim.coklu ? [el('span', { className: 'onay-kutusu', textContent: seciliMi ? '✓' : '' })] : []),
+      el('span', { textContent: secenek.metin }),
+    );
+    dugme.setAttribute('aria-pressed', String(seciliMi));
+    liste.append(dugme);
+  }
+  kutu.append(liste);
+  if (adim.coklu && cevapli) kutu.append(el('button', { type: 'button', className: 'birincil kontrol-tamam', textContent: 'Tamam', onclick: () => { h.acik = null; ciz(); siradakineKaydir(); } }));
+  return kutu;
 }
 
-function adimiSoyle() {
-  if (!sesAcik() || !h.adim) return;
-  const a = h.adim;
-  const parcalar = [a.baslik, a.uyari, ...(a.yonerge ?? [])];
-  if (a.fotograf && !h.fotograflar[a.fotograf]) parcalar.push(ellerSerbest() ? 'Kamerayı mantara tut, kendim çekeceğim.' : 'Hazır olunca "çek" de ya da düğmeye bas.');
-  if (a.sure) parcalar.push(`${a.sureMetni} Sayacı başlatmak için düğmeye bas.`);
-  if (a.soruMetni) parcalar.push(a.soruMetni, seceneklerSozu(a));
-  soyle(parcalar.filter(Boolean).join(' '), { oncelikli: true });
+function kontrollerCiz() {
+  const liste = bekleyenler();
+  const yapilan = cevaplananlar().map((adim) => kontrolCiz({ adim, neden: null }, -1));
+  // Sıradaki en çok 3 kontrol gösterilir; cevap geldikçe gereksizleşenler listeden düşer (baştaki uzun liste gözü korkutmasın).
+  return el('section', { className: 'kontroller-bolumu' },
+    el('h2', { className: 'bolum-baslik', textContent: 'Kontroller' }),
+    el('p', { className: 'not', textContent: liste.length
+      ? 'Fotoğrafına bakarak cevapla. Emin olmadığında "Bilmiyorum" seç; tahmin etme.'
+      : 'Gereken bütün kontroller yapıldı.' }),
+    ...yapilan,
+    ...liste.slice(0, 3).map((k, i) => kontrolCiz(k, i)),
+  );
 }
 
-function adimCiz() {
-  const a = h.adim ?? UST_ADIM;
-  const sira = h.sorulanlar.length + 1;
-  const govde = el('div', { className: 'adim hizli' },
-    el('p', { className: 'ust-etiket', textContent: `Hızlı tanımlama · ${sira}. adım` }),
+// ---- Canlı sonuç ----
+
+function canliSonuc() {
+  const cevaplar = sonCevaplar(h.cevaplar);
+  return degerlendir({ fotograflar: Object.keys(h.fotograflar), cevaplar, adaylar: adaylariBul(turler, cevaplar) });
+}
+
+function canliSonucCiz() {
+  const sonuc = canliSonuc();
+  const bitti = bekleyenler().length === 0;
+  const eksikFoto = GEREKLI_FOTOGRAFLAR.filter((t) => !h.fotograflar[t]).length;
+  const yapilan = h.sorulanlar.length;
+  const durum = [
+    bitti && !eksikFoto ? 'Bütün kontroller yapıldı.' : 'Şimdilik;',
+    eksikFoto ? `${eksikFoto} fotoğraf eksik.` : '',
+    !bitti ? (yapilan ? `${yapilan} kontrol yapıldı.` : 'Kontrolleri cevapla.') : '',
+  ].filter(Boolean).join(' ');
+  return el('div', { className: `canli-sonuc canli-${sonuc.renk}` },
+    el('div', { className: 'canli-yazi' },
+      el('strong', { textContent: SONUC_SOZLERI[sonuc.renk] }),
+      el('span', { textContent: durum }),
+    ),
+    el('button', { type: 'button', className: 'birincil', textContent: 'Sonucu gör', onclick: bitir }),
+  );
+}
+
+// ---- Sayfa ----
+
+function sayfaCiz() {
+  const govde = el('div', { className: 'adim hizli tek-sayfa' },
+    el('div', { className: 'tek-sayfa-ust' },
+      el('p', { className: 'ust-etiket', textContent: 'Fotoğrafla tanımla' }),
+      el('button', { type: 'button', className: 'ikincil kucuk-dugme', textContent: 'Vazgeç', onclick: vazgec }),
+    ),
     ayarlarCiz(),
     ...ayarNotlari(),
+    fotograflarCiz(),
   );
-  // Üstten fotoğraf çekildiyse şapka rengi adımı "Üstten fotoğraf" diye değil, kısa adıyla gösterilir.
-  const baslik = a.fotograf === 'ust' && a !== UST_ADIM && h.fotograflar.ust ? 'Şapka rengi' : a.baslik;
-  govde.append(el('h2', { className: 'adim-baslik', textContent: baslik }));
-  if (h.neden === 'ayirt' && a !== UST_ADIM) {
-    const ciftler = ayirdigiCiftler(a);
-    if (ciftler.length) govde.append(el('p', { className: 'neden', textContent: `Bu kontrol şunları ayırır: ${ciftler.map(([x, y]) => `${x} ↔ ${y}`).join('; ')}` }));
+  // Fotoğraf gelince tahmin ve kontroller görünür (fotoğrafa bakarak cevaplanır).
+  if (Object.keys(h.fotograflar).length) {
+    govde.append(adaylarCiz(), kontrollerCiz(), canliSonucCiz());
   }
-  if (a.uyari) govde.append(bildirim('tehlike', el('p', {}, el('strong', { textContent: a.uyari }))));
-  // Gerçek örnek fotoğraf (çizim yok). Kamera olan adımda yer kaplamasın diye dokununca açılır.
-  const ornek = adimFotografi(a);
-  if (ornek && a.fotograf) govde.append(el('details', { className: 'ornek-foto' }, el('summary', { textContent: 'Örnek fotoğrafa bak' }), ornek));
-  else if (ornek) govde.append(ornek);
-  const ustCekildi = a.fotograf === 'ust' && a !== UST_ADIM && h.fotograflar.ust;
-  if (!ustCekildi) for (const paragraf of a.yonerge ?? []) govde.append(el('p', { className: 'yonerge', textContent: paragraf }));
-  // Üstten fotoğraf akışın başında çekildi; şapka rengi adımında küçük gösterilir.
-  if (ustCekildi) govde.append(el('img', { className: 'ust-kucuk', src: h.fotograflar.ust, alt: 'Üstten çektiğin fotoğraf' }));
-  else if (a.fotograf) govde.append(kameraCiz(a.fotograf));
-  if (a.sure) govde.append(sayacCiz(a));
-
-  if (a.soruMetni) {
-    govde.append(el('h3', { className: 'soru-metni', textContent: a.soruMetni }));
-    const secili = h.cevaplar[a.soru];
-    const liste = el('div', { className: `secenekler${a.coklu ? ' coklu' : ''}` });
-    for (const secenek of adimSecenekleri(a)) {
-      const seciliMi = Array.isArray(secili) ? secili.includes(secenek.deger) : secili === secenek.deger;
-      const siniflar = ['secenek'];
-      if (seciliMi) siniflar.push('secili');
-      if (secenek.deger === BILMIYORUM) siniflar.push('bilmiyorum');
-      const foto = secenekFotografi(secenek.cizim);
-      if (foto) siniflar.push('resimli');
-      const dugme = el('button',
-        { type: 'button', className: siniflar.join(' '), onclick: () => (a.coklu ? cokluSec(a, secenek.deger) : cevapla(a, secenek.deger)) },
-        foto,
-        ...(a.coklu ? [el('span', { className: 'onay-kutusu', textContent: seciliMi ? '✓' : '' })] : []),
-        el('span', { textContent: secenek.metin }),
-      );
-      dugme.setAttribute('aria-pressed', String(seciliMi));
-      liste.append(dugme);
-    }
-    govde.append(liste);
-  }
-
-  const dugmeler = el('div', { className: 'dugmeler' },
-    el('button', { type: 'button', className: 'ikincil', textContent: 'Geri', onclick: geri }),
-  );
-  if (sesAcik()) dugmeler.append(el('button', { type: 'button', className: 'ikincil', textContent: 'Tekrar oku', onclick: adimiSoyle }));
-  if (a.coklu) {
-    dugmeler.append(el('button', { type: 'button', className: 'birincil', textContent: 'İleri', disabled: h.cevaplar[a.soru] === undefined, onclick: ilerle }));
-  }
-  // Üstten fotoğraf: önce fotoğraf gösterilir, beğenilince "Devam" ile sorulara geçilir.
-  if (a === UST_ADIM && h.fotograflar.ust) {
-    dugmeler.append(el('button', { type: 'button', className: 'birincil', textContent: 'Devam', onclick: ilerle }));
-  }
-  govde.append(dugmeler);
-  // Olası türler ve zehirli benzerleri adımın altında: önce yapılacak iş, sonra kıyas.
-  // Üstten fotoğraf çekilince tahmin hemen, fotoğrafın altında görünür.
-  if (a !== UST_ADIM || h.fotograflar.ust) govde.append(adaylarCiz());
   return govde;
 }
 
-// Çoklu seçim (ör. çevrede neler var): eski akıştaki gibi; "Bilmiyorum" tek başına seçilir.
+function vazgec() {
+  hizliKapat();
+  hizliSifirla();
+  ayarlar.vazgec();
+}
+
+function siradakineKaydir() {
+  setTimeout(() => {
+    const hedef = kap?.querySelector('.kontrol.siradaki');
+    if (hedef) hedef.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    siradakiniSoyle();
+  }, 60);
+}
+
+function cevapla(adim, deger) {
+  // Seçili cevaba yeniden dokununca cevap kalkar.
+  if (h.cevaplar[adim.soru] === deger) {
+    delete h.cevaplar[adim.soru];
+    h.sorulanlar = h.sorulanlar.filter((s) => s !== adim.soru);
+  } else {
+    h.cevaplar[adim.soru] = deger;
+    if (!h.sorulanlar.includes(adim.soru)) h.sorulanlar.push(adim.soru);
+  }
+  // Koşulu kalkan adımların cevabı silinir (ör. "genç değil" denince kesit sorusu).
+  temizle();
+  h.acik = null;
+  ciz();
+  siradakineKaydir();
+}
+
+// Çoklu seçim (ör. çevrede neler var); "Bilmiyorum" tek başına seçilir.
 function cokluSec(adim, deger) {
   const once = h.cevaplar[adim.soru];
   if (deger === BILMIYORUM) {
@@ -629,9 +697,56 @@ function cokluSec(adim, deger) {
     const yeni = liste.includes(deger) ? liste.filter((d) => d !== deger) : [...liste, deger];
     h.cevaplar[adim.soru] = yeni.length ? yeni : undefined;
   }
-  if (h.cevaplar[adim.soru] !== undefined && !h.sorulanlar.includes(adim.soru)) h.sorulanlar.push(adim.soru);
-  if (h.cevaplar[adim.soru] === undefined) h.sorulanlar = h.sorulanlar.filter((s) => s !== adim.soru);
+  if (h.cevaplar[adim.soru] === undefined) {
+    delete h.cevaplar[adim.soru];
+    h.sorulanlar = h.sorulanlar.filter((s) => s !== adim.soru);
+  } else if (!h.sorulanlar.includes(adim.soru)) {
+    h.sorulanlar.push(adim.soru);
+  }
+  h.acik = adim.soru;
   ciz();
+}
+
+function temizle() {
+  for (const soru of [...h.sorulanlar]) {
+    const adim = ADIM_DIZINI.get(soru);
+    if (adim?.kosul && !adim.kosul(h.cevaplar)) {
+      delete h.cevaplar[soru];
+      h.sorulanlar = h.sorulanlar.filter((s) => s !== soru);
+    }
+  }
+}
+
+function bitir() {
+  hizliKapat();
+  h.basladi = false;
+  ayarlar.bitir({
+    cevaplar: { ...h.cevaplar },
+    fotograflar: { ...h.fotograflar },
+    benzerlikler: { ...h.benzerlikler },
+  });
+}
+
+function seceneklerSozu(adim) {
+  if (!adim.secenekler) return '';
+  return `${adimSecenekleri(adim).map((s) => s.metin.split('/')[0].trim()).join(', ')}?`;
+}
+
+// Sesli: eksik fotoğraf varsa onu, yoksa sıradaki kontrolü okur.
+function siradakiniSoyle() {
+  if (!sesAcik() || !h.basladi) return;
+  const eksik = YUVALAR.find((y) => !h.fotograflar[y.tur]);
+  if (eksik && !Object.keys(h.fotograflar).length) {
+    soyle(`Önce üç fotoğraf: üstten, alttan ve yandan. ${eksik.ad} fotoğraf için çek düğmesine bas.`, { oncelikli: true });
+    return;
+  }
+  const siradaki = bekleyenler()[0];
+  if (!siradaki) {
+    soyle(eksik ? `${eksik.ad} fotoğraf eksik.` : 'Kontroller bitti. Sonucu gör düğmesine bas.', { oncelikli: true });
+    return;
+  }
+  const a = siradaki.adim;
+  soyle([a.uyari, a.soruMetni, seceneklerSozu(a)].filter(Boolean).join(' '), { oncelikli: true });
 }
 
 // ---- Sesli komutlar ----
@@ -646,15 +761,13 @@ async function dinlemeyiAyarla() {
 
 function sesliKomut(metin) {
   // Telefon kendi konuşmasını duymasın.
-  if (window.speechSynthesis?.speaking || !kap?.isConnected || !h.adim) return;
-  const a = h.adim;
-  const secenekler = a.soruMetni ? adimSecenekleri(a) : [];
-  const komut = komutuAnla(metin, secenekler);
+  if (window.speechSynthesis?.speaking || !kap?.isConnected || !h.basladi) return;
+  const a = bekleyenler()[0]?.adim;
+  const komut = komutuAnla(metin, a?.soruMetni ? adimSecenekleri(a) : []);
   if (!komut) return;
-  if (komut.komut === 'tekrar') adimiSoyle();
-  else if (komut.komut === 'geri') geri();
-  else if (komut.komut === 'cek' && a.fotograf) fotografCek(a.fotograf);
-  else if (komut.komut === 'devam' && a.sure && h.sayacBitis) h.sayacBitis = Date.now();
-  else if (komut.komut === 'devam' && a === UST_ADIM && h.fotograflar.ust) ilerle();
-  else if (komut.komut === 'secenek' && !a.coklu) cevapla(a, komut.deger);
+  if (komut.komut === 'tekrar') siradakiniSoyle();
+  else if (komut.komut === 'geri') vazgec();
+  else if (komut.komut === 'cek' && h.kamera) fotografCek(h.kamera);
+  else if (komut.komut === 'devam' && a?.sure && h.sayaclar[a.soru]) h.sayaclar[a.soru] = Date.now();
+  else if (komut.komut === 'secenek' && a && !a.coklu) cevapla(a, komut.deger);
 }

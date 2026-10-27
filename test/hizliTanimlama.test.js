@@ -7,7 +7,7 @@ import path from 'node:path';
 import { GEREKLI_FOTOGRAFLAR, ZORUNLU_SORULAR, degerlendir, yasakIfadeler } from '../js/kurallar.js';
 import { ADIMLAR, aktifAdimlar, sonCevaplar } from '../js/sorular.js';
 import { adaylariBul } from '../js/anahtar.js';
-import { HIZLI_AKISTA_YOK, adimFaydasi, agirliklar, ayiranAdimlar, renkDegistirebilirMi, siradakiAdim } from '../js/siradaki.js';
+import { HIZLI_AKISTA_YOK, adimFaydasi, agirliklar, ayiranAdimlar, kontrolListesi, renkDegistirebilirMi, siradakiAdim } from '../js/siradaki.js';
 import { ayiriciyiCoz, benzerlikSozu, benzerlikleriHesapla, birimYap, izCoz, izKodla, kosinus, MODEL_DOSYALARI, satirCoz } from '../js/fotoTanima.js';
 import { komutuAnla, sadele } from '../js/sesliKomut.js';
 
@@ -238,4 +238,33 @@ test('zehir sembolleri: her zehirli türün zehir türü tanımlı ya da "bilinm
   assert.match(ERKEN_BASLAMA_UYARISI, /hafif olduğu anlamına gelmez/);
   assert.match(oku('js/zehir.js'), /tel:114/);
   assert.match(oku('js/zehir.js'), /tel:112/);
+});
+
+test('tek sayfa kontrol listesi: güvenlik soruları baştan listede; listeyi cevaplamak hızlı akışla aynı yere varır (kural 3, 4, 5)', () => {
+  const bos = kontrolListesi(turler, {}, []).map((k) => k.adim.soru);
+  for (const soru of ZORUNLU_SORULAR.filter((s) => s !== 'solungacRengi')) assert.ok(bos.includes(soru), `${soru} listede yok`);
+  for (const gercek of turler) {
+    const cevaplar = {};
+    const sorulanlar = [];
+    for (let i = 0; i < ADIMLAR.length + 2; i++) {
+      const liste = kontrolListesi(turler, cevaplar, sorulanlar);
+      if (!liste.length) break;
+      // Listenin ilk maddesi, adım adım akışın sıradaki sorusudur.
+      assert.equal(liste[0].adim.soru, siradakiAdim(turler, cevaplar, sorulanlar).adim.soru, gercek.id);
+      const adim = liste[0].adim;
+      sorulanlar.push(adim.soru);
+      let cevap = gercek.ozellikler?.[adim.soru]?.[0] ?? (adim.secenekler.some(([d]) => d === 'hayir') ? 'hayir' : adim.secenekler[0][0]);
+      if (adim.coklu && !Array.isArray(cevap)) cevap = [cevap];
+      cevaplar[adim.soru] = cevap;
+    }
+    assert.deepEqual(kontrolListesi(turler, cevaplar, sorulanlar), [], gercek.id);
+    assert.deepEqual(sorulanlar, hizliAkis(gercek).sorulanlar, gercek.id);
+  }
+});
+
+test('tek sayfa kontrol listesi: fotoğraf tahmini zehirli adayın kontrolünü listeden çıkarmaz (kural 3)', () => {
+  // Fotoğraf yalnızca kanlıcaya benzese de, hiçbir şey cevaplanmamışken ölümcül türleri ayıran güvenlik soruları listededir.
+  const benzerlikler = Object.fromEntries(turler.map((t) => [t.id, t.id === 'kanlica' ? 1 : 0]));
+  const liste = kontrolListesi(turler, {}, [], benzerlikler).map((k) => k.adim.soru);
+  for (const soru of ['volva', 'halka', 'genc']) assert.ok(liste.includes(soru), soru);
 });
