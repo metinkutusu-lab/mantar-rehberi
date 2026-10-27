@@ -3225,12 +3225,6 @@
    "lisans": "CC BY 3.0"
   },
   {
-   "dosya": "07.jpg",
-   "commons": "Coloured Figures of English Fungi or Mushrooms - t. 103.jpg",
-   "cekan": "James Sowerby",
-   "lisans": "Public domain"
-  },
-  {
    "dosya": "08.jpg",
    "commons": "07.10.2006-Lactarius. pubescens.jpg",
    "cekan": "Th. Kuhnigk",
@@ -3341,12 +3335,6 @@
    "lisans": "CC BY 3.0"
   },
   {
-   "dosya": "06.jpg",
-   "commons": "Lactarius chrysorheus-Cooke.jpg",
-   "cekan": "Mordecai Cubitt Cooke",
-   "lisans": "Public domain"
-  },
-  {
    "dosya": "07.jpg",
    "commons": "2012-08-28 Lactarius chrysorrheus Fr 255803.jpg",
    "cekan": "This image was created by user Gerhard Koller (Gerhard) at Mushroom Observer, a source for mycological images.You can co",
@@ -3389,30 +3377,6 @@
    "lisans": "CC BY-SA 3.0"
   },
   {
-   "dosya": "14.jpg",
-   "commons": "Lactarius chrysorrheus 15856868.jpg",
-   "cekan": "Django Grootmyers",
-   "lisans": "CC BY-SA 4.0"
-  },
-  {
-   "dosya": "15.jpg",
-   "commons": "Lactarius chrysorrheus 15856872.jpg",
-   "cekan": "Django Grootmyers",
-   "lisans": "CC BY-SA 4.0"
-  },
-  {
-   "dosya": "16.jpg",
-   "commons": "Lactarius chrysorrheus 13073760.jpg",
-   "cekan": "mycowalt",
-   "lisans": "CC BY-SA 4.0"
-  },
-  {
-   "dosya": "17.jpg",
-   "commons": "Lactarius chrysorrheus 13073717.jpg",
-   "cekan": "mycowalt",
-   "lisans": "CC BY-SA 4.0"
-  },
-  {
    "dosya": "18.jpg",
    "commons": "Lactarius chrysorrheus 13084330.jpg",
    "cekan": "mycowalt",
@@ -3445,28 +3409,10 @@
    "lisans": "CC BY-SA 3.0"
   },
   {
-   "dosya": "03.jpg",
-   "commons": "Lactarius piperatus — Flora Batava — Volume v11.jpg",
-   "cekan": "Jan Kops",
-   "lisans": "Public domain"
-  },
-  {
    "dosya": "04.jpg",
    "commons": "2008-11-15 Lactarius zonarius (Bull.) Fr 29114.jpg",
    "cekan": "This image was created by user Irene Andersson (irenea) at Mushroom Observer, a source for mycological images.You can co",
    "lisans": "CC BY-SA 3.0"
-  },
-  {
-   "dosya": "05.jpg",
-   "commons": "Lactarius insulsus-Cooke.jpg",
-   "cekan": "Mordecai Cubitt Cooke",
-   "lisans": "Public domain"
-  },
-  {
-   "dosya": "06.jpg",
-   "commons": "Herbier de la France (10038431155).jpg",
-   "cekan": "Bulliard, Pierre",
-   "lisans": "Public domain"
   },
   {
    "dosya": "07.jpg",
@@ -3535,22 +3481,402 @@
    "lisans": "CC BY 4.0"
   },
   {
-   "dosya": "18.jpg",
-   "commons": "Lactarius zonarius 570903482.jpg",
-   "cekan": "Matej Frančeškin",
-   "lisans": "CC BY 4.0"
-  },
-  {
-   "dosya": "19.jpg",
-   "commons": "Lactarius zonarius MHNT.MISC.2025.0.1.36.jpg",
-   "cekan": "Roger Culos",
-   "lisans": "CC BY-SA 4.0"
-  },
-  {
    "dosya": "20.jpg",
    "commons": "Lactarius zonarius.jpg",
    "cekan": "Claude PAGE",
    "lisans": "CC BY-SA 4.0"
+  }
+ ],
+ "sahte-horoz": [
+  {
+   "dosya": "04.jpg",
+   "commons": "2011-10-11 Hygrophoropsis aurantiaca crop.jpg",
+   "cekan": "Hygrophoropsis_aurantiaca_anglars.jpg: Bubulcus derivative work: Ak ccm",
+   "lisans": "CC BY 3.0"
+  },
+  {
+   "dosya": "05.jpg",
+   "commons": "2011-09-16 Hygrophoropsis aurantiaca.jpg",
+   "cekan": "Hygrophoropsis_aurantiaca_Valevahvero_C_IMG_6188.jpg: Anneli Salo derivative work: Ak ccm",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "06.jpg",
+   "commons": "2012-03-19 Hygrophoropsis aurantiaca var. pallida (Cooke) Heykoop & Esteve-Rav 206301.jpg",
+   "cekan": "This image was created by user Gerhard Koller (Gerhard) at Mushroom Observer, a source for mycological images.You can co",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "09.jpg",
+   "commons": "False Chanterelle Hygrophoropsis aurantiaca.jpg",
+   "cekan": "Holger Krisp",
+   "lisans": "CC BY 3.0"
+  },
+  {
+   "dosya": "10.jpg",
+   "commons": "Falsch Pfifferling.JPG",
+   "cekan": "Thomas Pruß",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "12.jpg",
+   "commons": "Hygrophoropsis aurantiaca (23822624116).jpg",
+   "cekan": "USFWS - Pacific Region",
+   "lisans": "Public domain"
+  },
+  {
+   "dosya": "13.jpg",
+   "commons": "2012-08-27 Hygrophoropsis aurantiaca (Wulfen) Maire 320034.jpg",
+   "cekan": "This image was created by user Dr. Suzanne Carriere (CarriereS) at Mushroom Observer, a source for mycological images.Yo",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "14.jpg",
+   "commons": "Botanical Garden Gothenburg and Anggårdsbergen 13.08.2017 False Chanterelle - Hygrophoropsis aurantiaca (37308815042).jpg",
+   "cekan": "Björn S...",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "15.jpg",
+   "commons": "Botanical Garden Gothenburg and Anggårdsbergen 13.08.2017 False Chanterelle - Hygrophoropsis aurantiaca (37308805172).jpg",
+   "cekan": "Björn S...",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "16.jpg",
+   "commons": "Botanical Garden Gothenburg and Anggårdsbergen 13.08.2017 False Chanterelle - Hygrophoropsis aurantiaca (36669224613).jpg",
+   "cekan": "Björn S...",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "17.jpg",
+   "commons": "Botanical Garden Gothenburg and Anggårdsbergen 13.08.2017 False Chanterelle - Hygrophoropsis aurantiaca (37345396751).jpg",
+   "cekan": "Björn S...",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "18.jpg",
+   "commons": "False Chanterelle - Hygrophoropsis aurantiaca (24049700248).jpg",
+   "cekan": "Björn S...",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "19.jpg",
+   "commons": "Fungus 6-2 (Bukovec) (15803543777).jpg",
+   "cekan": "David Short from Windsor, UK",
+   "lisans": "CC BY 2.0"
+  },
+  {
+   "dosya": "20.jpg",
+   "commons": "Fungus 6-1 (Bukovec) (15803544867).jpg",
+   "cekan": "David Short from Windsor, UK",
+   "lisans": "CC BY 2.0"
+  }
+ ],
+ "terleme": [
+  {
+   "dosya": "01.jpg",
+   "commons": "Clitocybe dealbata.jpg",
+   "cekan": "Pau Cabot",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "commons": "Clitocybe dealbata 1.jpg",
+   "cekan": "Archenzo",
+   "lisans": "CC BY 3.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "commons": "Clitocybe.dealbata.-.lindsey.jpg",
+   "cekan": "James Lindsey at Ecology of Commanster",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "04.jpg",
+   "commons": "Clitocybe dealbata 2 - Lindsey.jpg",
+   "cekan": "James Lindsey at Ecology of Commanster",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "05.jpg",
+   "commons": "Clitocybe rivulosa 20081116w.JPG",
+   "cekan": "Strobilomyces",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "06.jpg",
+   "commons": "2007-08-29 Clitocybe rivulosa.jpg",
+   "cekan": "Andreas Kunze",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "08.jpg",
+   "commons": "Cllitocybe rivulosa BS17.JPG",
+   "cekan": "Jerzy Opioła",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "09.jpg",
+   "commons": "Clitocybe rivulosa G14.JPG",
+   "cekan": "Jerzy Opioła",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "11.jpg",
+   "commons": "Clitocybe rivulosa a1 (4).JPG",
+   "cekan": "Jerzy Opioła",
+   "lisans": "CC BY-SA 4.0"
+  },
+  {
+   "dosya": "12.jpg",
+   "commons": "Clitocybe candicans (4).JPG",
+   "cekan": "Jerzy Opioła",
+   "lisans": "CC BY-SA 4.0"
+  },
+  {
+   "dosya": "13.jpg",
+   "commons": "2012-04-18 Clitocybe rivulosa (Pers.) P. Kumm 213588.jpg",
+   "cekan": "This image was created by user Souhila Aouali at Mushroom Observer, a source for mycological images.You can contact this",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "14.jpg",
+   "commons": "2016-09-14 Clitocybe rivulosa (Pers.) P. Kumm 688616.jpg",
+   "cekan": "This image was created by user Igor (Igor_Yevdokimov) at Mushroom Observer, a source for mycological images.You can cont",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "17.jpg",
+   "commons": "Clitocybe dealbata (32275792405).jpg",
+   "cekan": "Dick Culbert from Gibsons, B.C., Canada",
+   "lisans": "CC BY 2.0"
+  },
+  {
+   "dosya": "19.jpg",
+   "commons": "Clitocybe rivulosa 236994574.jpg",
+   "cekan": "Георгий Виноградов (Georgy Vinogradov)",
+   "lisans": "CC BY 4.0"
+  },
+  {
+   "dosya": "20.jpg",
+   "commons": "Clitocybe rivulosa 236994862.jpg",
+   "cekan": "Георгий Виноградов (Georgy Vinogradov)",
+   "lisans": "CC BY 4.0"
+  }
+ ],
+ "yuksuk": [
+  {
+   "dosya": "01.jpg",
+   "commons": "Smardz zwyczajny (Morchella vulgaris (Pers.) Boud.).jpg",
+   "cekan": "Kruczy89",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "commons": "2012-03-24 Verpa bohemica (Krombh.) J. Schröt 207675.jpg",
+   "cekan": "This image was created by user Sava Krstic (sava) at Mushroom Observer, a source for mycological images.You can contact ",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "commons": "2011-03-27 Verpa bohemica (Krombh.) J. Schröt 138643.jpg",
+   "cekan": "This image was created by user Sava Krstic (sava) at Mushroom Observer, a source for mycological images.You can contact ",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "04.jpg",
+   "commons": "2009-03-30 Ptychoverpa bohemica (Krombholz) Boudier 40185.jpg",
+   "cekan": "This image was created by user Copyright © 2009 J.H. at Mushroom Observer, a source for mycological images.You can conta",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "05.jpg",
+   "commons": "2013-03-25 Verpa bohemica (Krombh.) J. Schröt 318334.jpg",
+   "cekan": "This image was created by user NeoSporen at Mushroom Observer, a source for mycological images.You can contact this user",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "06.jpg",
+   "commons": "2013-03-25 Verpa bohemica (Krombh.) J. Schröt 318336.jpg",
+   "cekan": "This image was created by user NeoSporen at Mushroom Observer, a source for mycological images.You can contact this user",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "07.jpg",
+   "commons": "2013-03-25 Verpa bohemica (Krombh.) J. Schröt 318342.jpg",
+   "cekan": "This image was created by user NeoSporen at Mushroom Observer, a source for mycological images.You can contact this user",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "08.jpg",
+   "commons": "Morchella 01.jpg",
+   "cekan": "Kruczy89",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "09.jpg",
+   "commons": "Natural monument Štola Jarnice in spring 2013 (21).JPG",
+   "cekan": "Chmee2",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "10.jpg",
+   "commons": "Natural monument Štola Jarnice in spring 2013 (26).JPG",
+   "cekan": "Chmee2",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "11.jpg",
+   "commons": "Kurrel.JPG",
+   "cekan": "Ireen Trummer",
+   "lisans": "CC BY-SA 4.0"
+  },
+  {
+   "dosya": "12.jpg",
+   "commons": "Smardzówka czeska 1.jpg",
+   "cekan": "Epegeiro",
+   "lisans": "CC BY-SA 3.0 pl"
+  },
+  {
+   "dosya": "13.jpg",
+   "commons": "Smardzówka czeska.jpg",
+   "cekan": "Epegeiro",
+   "lisans": "CC BY-SA 3.0 pl"
+  },
+  {
+   "dosya": "18.jpg",
+   "commons": "Verpa bohemica (Morchellaceae) (26966866102).jpg",
+   "cekan": "yakovlev.alexey from Moscow, Russia",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "19.jpg",
+   "commons": "Verpa bohemica (8726589854).jpg",
+   "cekan": "Tatiana Bulyonkova from Novosibirsk, Russia",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "20.jpg",
+   "commons": "Verpa bohemica (17391589881).jpg",
+   "cekan": "GLJIVARSKO DRUSTVO NIS from Serbia",
+   "lisans": "CC BY 2.0"
+  }
+ ],
+ "aci-corek": [
+  {
+   "dosya": "01.jpg",
+   "commons": "Boletus calopus.JPG",
+   "cekan": "Dezidor",
+   "lisans": "CC BY 3.0"
+  },
+  {
+   "dosya": "02.jpg",
+   "commons": "Boletus.calopus.-.lindsey.jpg",
+   "cekan": "James Lindsey at Ecology of Commanster",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "03.jpg",
+   "commons": "Boletus.calopus2.-.lindsey.jpg",
+   "cekan": "James Lindsey at Ecology of Commanster",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "04.jpg",
+   "commons": "Boletus calopus a1.jpg",
+   "cekan": "Jerzy Opioła",
+   "lisans": "CC BY-SA 4.0"
+  },
+  {
+   "dosya": "05.jpg",
+   "commons": "Boletus calopus - Saint-Hubert.JPG",
+   "cekan": "Jean-Pol GRANDMONT",
+   "lisans": "CC BY 3.0"
+  },
+  {
+   "dosya": "06.jpg",
+   "commons": "Boletus calopus 110921wa.JPG",
+   "cekan": "Strobilomyces",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "07.jpg",
+   "commons": "Boletus calopus G2.jpg",
+   "cekan": "Jerzy Opioła",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "08.jpg",
+   "commons": "Boletus calopus G3 (1).JPG",
+   "cekan": "Jerzy Opioła",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "09.jpg",
+   "commons": "Boletus calopus G4.jpg",
+   "cekan": "Jerzy Opioła",
+   "lisans": "CC BY-SA 3.0"
+  },
+  {
+   "dosya": "11.jpg",
+   "commons": "Boletus calopus a1 (2).JPG",
+   "cekan": "Jerzy Opioła",
+   "lisans": "CC BY-SA 4.0"
+  },
+  {
+   "dosya": "12.jpg",
+   "commons": "Caloboletus calopus (cropped).JPG",
+   "cekan": "H. Krisp",
+   "lisans": "CC BY 3.0"
+  },
+  {
+   "dosya": "13.jpg",
+   "commons": "Caloboletus calopus - Flickr - Dick Culbert.jpg",
+   "cekan": "Dick Culbert from Gibsons, B.C., Canada",
+   "lisans": "CC BY 2.0"
+  },
+  {
+   "dosya": "14.jpg",
+   "commons": "Botanical Garden Gothenburg and Anggårdsbergen 13.08.2017 Bitter Beech Bolete - Caloboletus calopus (37321275956).jpg",
+   "cekan": "Björn S...",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "15.jpg",
+   "commons": "Botanical Garden Gothenburg and Anggårdsbergen 13.08.2017 Bitter Beech Bolete - Caloboletus calopus (37339640862).jpg",
+   "cekan": "Björn S...",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "16.jpg",
+   "commons": "Botanical Garden Gothenburg and Anggårdsbergen 13.08.2017 Bitter Beech Bolete - Caloboletus calopus (37339639122).jpg",
+   "cekan": "Björn S...",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "17.jpg",
+   "commons": "Botanical Garden Gothenburg and Anggårdsbergen 13.08.2017 Bitter Beech Bolete - Caloboletus calopus (37369490141).jpg",
+   "cekan": "Björn S...",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "18.jpg",
+   "commons": "Botanical Garden Gothenburg and Anggårdsbergen 13.08.2017 Bitter Beech Bolete - Caloboletus calopus (37321277276).jpg",
+   "cekan": "Björn S...",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "19.jpg",
+   "commons": "Botanical Garden Gothenburg and Anggårdsbergen 13.08.2017 Bitter Beech Bolete - Caloboletus calopus (37321279256).jpg",
+   "cekan": "Björn S...",
+   "lisans": "CC BY-SA 2.0"
+  },
+  {
+   "dosya": "20.jpg",
+   "commons": "Botanical Garden Gothenburg and Anggårdsbergen 13.08.2017 Bitter Beech Bolete - Caloboletus calopus (37321278126).jpg",
+   "cekan": "Björn S...",
+   "lisans": "CC BY-SA 2.0"
   }
  ]
 }

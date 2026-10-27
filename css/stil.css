@@ -1017,3 +1017,8 @@ figcaption, .not, .tur-govde p { overflow-wrap: anywhere; }
 .oneri-satiri > span { flex: 1; min-width: 0; overflow-wrap: anywhere; }
 .oneri-satiri .metin-dugme { flex-shrink: 0; margin: 0; }
 .oneri-onay { width: 100%; margin-top: 12px; }
+
+/* Ansiklopedi: yenen ikizler */
+.ikiz-listesi { margin: 4px 0 10px; padding-left: 20px; }
+.ikiz-listesi li { margin: 4px 0; overflow-wrap: anywhere; }
+.ikiz-listesi em { color: var(--soluk); }

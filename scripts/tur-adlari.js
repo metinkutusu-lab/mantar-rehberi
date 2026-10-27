@@ -38,4 +38,8 @@ export const KATEGORILER = {
   'ak-tuylu-sut': ['Lactarius pubescens'],
   'sararan-sut': ['Lactarius chrysorrheus'],
   'kusakli-sut': ['Lactarius zonarius'],
+  'sahte-horoz': ['Hygrophoropsis aurantiaca'],
+  terleme: ['Clitocybe rivulosa', 'Clitocybe dealbata'],
+  yuksuk: ['Verpa bohemica'],
+  'aci-corek': ['Caloboletus calopus'],
 };

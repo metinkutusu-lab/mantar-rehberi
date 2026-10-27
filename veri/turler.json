@@ -424,7 +424,14 @@
         10,
         11
       ],
-      "aramaIpucu": "Orman kenarlarında, açıklıklarda, çayırda ve yol kenarlarında ara; boyu uzun olduğu için uzaktan görünür."
+      "aramaIpucu": "Orman kenarlarında, açıklıklarda, çayırda ve yol kenarlarında ara; boyu uzun olduğu için uzaktan görünür.",
+      "ikizler": [
+        {
+          "ad": "Memeli şemsiye mantarı",
+          "bilimselAd": "Macrolepiota mastoidea",
+          "not": "Daha küçük, şapka tepesinde belirgin bir meme olur."
+        }
+      ]
     },
     {
       "id": "galerina",
@@ -579,12 +586,66 @@
       }
     },
     {
+      "id": "terleme",
+      "ad": "Terleme mantarı",
+      "bilimselAd": "Clitocybe rivulosa",
+      "zehirlilik": "zehirli",
+      "zehirTipi": "ter",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı (Metin'in isteği, 2026-10-27: her yenen türün zehirli benzerleri). Özellikler bilerek geniş tutuldu.",
+      "aciklama": "Küçük (2–5 cm), beyaz-pudralı, ortası hafif çukur şapkalı mantar. Solungaçları beyazımsıdır ve ayağa doğru iner. Çayırlarda, çoğu zaman halka biçiminde çıkar. Aşırı terleme, salya ve kalp yavaşlaması yapan zehir (muskarin) içerir.",
+      "karistirilanlar": [
+        "Mayıs mantarı",
+        "Çaşır mantarı",
+        "Çayır mantarı"
+      ],
+      "ozellikler": {
+        "sapkaRengi": [
+          "beyaz",
+          "krem-sari",
+          "gri-siyah"
+        ],
+        "sapkaYuzeyi": [
+          "duz"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "cayir",
+          "toprak"
+        ],
+        "sporIzi": [
+          "beyaz"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/terleme.jpg",
+        "cekan": "Andreas Kunze",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, 2007-08-29_Clitocybe_rivulosa.jpg"
+      }
+    },
+    {
       "id": "kuzugobegi",
       "ad": "Kuzugöbeği",
       "bilimselAd": "Morchella türleri",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Zehirli benzerleri ve ikizleri 2026-10-27'de genişletildi (TASLAK).",
       "aciklama": "İlkbaharda çıkar. Şapkası bal peteği gibi çukurlu ve süngerimsidir. Boyuna kesildiğinde şapka ile ayak tek parçadır ve baştan sona içi boştur. Çiğken zehirlidir; iyice pişirilmeden yenmez.",
       "ozellikler": {
         "sapkaRengi": [
@@ -619,6 +680,10 @@
         {
           "ad": "Sahte kuzugöbeği",
           "fark": "Kuzugöbeğinin şapkası bal peteği gibi çukurludur ve boyuna kesince içi baştan sona boştur. Sahte kuzugöbeğinin şapkası beyin gibi kıvrımlıdır ve içi pamuksu bölmelerle doludur."
+        },
+        {
+          "ad": "Yüksük kuzugöbeği",
+          "fark": "Boyuna ikiye kes: yüksük kuzugöbeğinin şapkası ayağa yalnızca tepeden bağlıdır, etek gibi serbest sarkar ve ayağın içi pamuk gibi doludur. Kuzugöbeğinde şapka ayağa dipten kaynaşıktır ve içi baştan sona tek bir boşluktur."
         }
       ],
       "fotograf": {
@@ -634,7 +699,19 @@
         5
       ],
       "aramaIpucu": "İlkbaharda yerde ara: meyve bahçelerinde, dişbudak ve karaağaç diplerinde, devrilmiş ağaçların çevresinde, geçen yıl yanmış alanlarda. Rengi kuru yapraklarla karışır; yavaş yürü ve yere yakın bak.",
-      "cigkenZehirli": true
+      "cigkenZehirli": true,
+      "ikizler": [
+        {
+          "ad": "Siyah kuzugöbeği",
+          "bilimselAd": "Morchella elata",
+          "not": "Koyu, sivri; çoğu zaman çam altında ve yanık alanlarda."
+        },
+        {
+          "ad": "Bahçe kuzugöbeği",
+          "bilimselAd": "Morchella importuna",
+          "not": "Bahçe ve yol kenarında, talaşlı yerlerde."
+        }
+      ]
     },
     {
       "id": "sahte-kuzugobegi",
@@ -679,12 +756,59 @@
       }
     },
     {
+      "id": "yuksuk",
+      "ad": "Yüksük kuzugöbeği",
+      "bilimselAd": "Verpa bohemica",
+      "zehirlilik": "zehirli",
+      "zehirTipi": "mide",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı (Metin'in isteği, 2026-10-27: her yenen türün zehirli benzerleri). Özellikler bilerek geniş tutuldu.",
+      "aciklama": "İlkbaharda çıkan, kırışık kahverengi şapkalı, kuzugöbeğine benzeyen mantar. Şapkası ayağa yalnızca tepeden bağlıdır ve bir yüksük gibi serbest sarkar; ayağın içi pamuk gibi doludur. Mide-bağırsak zehirlenmesi ve baş dönmesi yapabilir.",
+      "karistirilanlar": [
+        "Kuzugöbeği"
+      ],
+      "ozellikler": {
+        "sapkaRengi": [
+          "kahverengi",
+          "krem-sari"
+        ],
+        "sapkaYuzeyi": [
+          "kirisik"
+        ],
+        "altYapi": [
+          "duz"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "sporIzi": [
+          "krem",
+          "beyaz"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/yuksuk.jpg",
+        "cekan": "Jason Hollinger",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Verpa_bohemica1.jpg"
+      }
+    },
+    {
       "id": "horozmantari",
       "ad": "Horozmantarı (sarıkız)",
       "bilimselAd": "Cantharellus cibarius",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Zehirli benzerleri ve ikizleri 2026-10-27'de genişletildi (TASLAK).",
       "aciklama": "Sarı-turuncu, huni biçimli bir mantar. Şapkanın altında ince solungaçlar yerine kalın, kenarı küt, çatallanan ve ayağa doğru inen kırışıklar vardır. Topraktan tek tek çıkar.",
       "ozellikler": {
         "sapkaRengi": [
@@ -729,6 +853,10 @@
         {
           "ad": "Ağ perdeli mantarlar",
           "fark": "Ağ perdeli mantarların gerçek solungaçları vardır, gençken solungaçların önünde örümcek ağı gibi perde olur ve spor izi pas kahverengisidir."
+        },
+        {
+          "ad": "Sahte horozmantarı",
+          "fark": "Sahte horozmantarının altında ince, sık ve çatallanan gerçek solungaçlar vardır; eti yumuşak ve ince, rengi daha koyu turuncudur. Horozmantarının altında solungaç değil, ayağa doğru inen kalın, kabarık damarlar (kırışıklar) vardır; eti sıkı ve beyazdır."
         }
       ],
       "fotograf": {
@@ -745,7 +873,24 @@
         10,
         11
       ],
-      "aramaIpucu": "Meşe, kayın ve çam altında, yosunlu ve nemli toprakta ara. Çoğu zaman gruplar halinde çıkar; birini görünce çevresine iyice bak."
+      "aramaIpucu": "Meşe, kayın ve çam altında, yosunlu ve nemli toprakta ara. Çoğu zaman gruplar halinde çıkar; birini görünce çevresine iyice bak.",
+      "ikizler": [
+        {
+          "ad": "Soluk horozmantarı",
+          "bilimselAd": "Cantharellus pallens",
+          "not": "Yapraklı ağaç altında; daha soluk, sarı-krem."
+        },
+        {
+          "ad": "Küçük horozmantarı",
+          "bilimselAd": "Cantharellus friesii",
+          "not": "Küçük ve turuncu-pembemsi."
+        },
+        {
+          "ad": "Mor pullu horozmantarı",
+          "bilimselAd": "Cantharellus amethysteus",
+          "not": "Şapkasında morumsu ince pullar olur."
+        }
+      ]
     },
     {
       "id": "zeytin",
@@ -796,6 +941,59 @@
         "cekan": "Antonio Abbatiello",
         "lisans": "Public domain",
         "kaynak": "Wikimedia Commons, Omphalotus olearius.JPG"
+      }
+    },
+    {
+      "id": "sahte-horoz",
+      "ad": "Sahte horozmantarı",
+      "bilimselAd": "Hygrophoropsis aurantiaca",
+      "zehirlilik": "zehirli",
+      "zehirTipi": "mide",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı (Metin'in isteği, 2026-10-27: her yenen türün zehirli benzerleri). Özellikler bilerek geniş tutuldu.",
+      "aciklama": "Turuncu, ince etli, horozmantarına benzeyen mantar. Altında gerçek, ince ve sık, çatallanan solungaçlar vardır; eti yumuşaktır. Çam altında ve çürümüş odunda çıkar. Bazı kişilerde mide-bağırsak rahatsızlığı yapar.",
+      "karistirilanlar": [
+        "Horozmantarı (sarıkız)"
+      ],
+      "ozellikler": {
+        "sapkaRengi": [
+          "kirmizi-turuncu",
+          "krem-sari",
+          "kahverengi"
+        ],
+        "sapkaYuzeyi": [
+          "duz",
+          "lifli"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "krem-sari"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "toprak",
+          "odun"
+        ],
+        "sporIzi": [
+          "beyaz",
+          "krem"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/sahte-horoz.jpg",
+        "cekan": "Walt Sturgeon (Mycowalt)",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Hygrophoropsis_aurantiaca_241718.jpg"
       }
     },
     {
@@ -874,7 +1072,29 @@
         10,
         11
       ],
-      "aramaIpucu": "Çam ağaçlarının altında, iğne yaprak ve yosun arasında ara; genç çamlıklarda ve orman kenarında sık çıkar. Çoğu zaman yarısı iğne yaprakların altında kalır."
+      "aramaIpucu": "Çam ağaçlarının altında, iğne yaprak ve yosun arasında ara; genç çamlıklarda ve orman kenarında sık çıkar. Çoğu zaman yarısı iğne yaprakların altında kalır.",
+      "ikizler": [
+        {
+          "ad": "Ladin kanlıcası",
+          "bilimselAd": "Lactarius deterrimus",
+          "not": "Ladin altında; sütü turuncu, kesik yüzeyi çabuk şarap rengine döner."
+        },
+        {
+          "ad": "Kan kırmızısı sütlü kanlıca",
+          "bilimselAd": "Lactarius sanguifluus",
+          "not": "Çam altında; sütü baştan şarap kırmızısıdır."
+        },
+        {
+          "ad": "Yarı kırmızı sütlü kanlıca",
+          "bilimselAd": "Lactarius semisanguifluus",
+          "not": "Çam altında; sütü turuncu akar, birkaç dakikada şarap rengine döner."
+        },
+        {
+          "ad": "Göknar kanlıcası",
+          "bilimselAd": "Lactarius salmonicolor",
+          "not": "Göknar altında; şapkası somon-turuncu, yeşil leke yapmaz."
+        }
+      ]
     },
     {
       "id": "tuylu-sut",
@@ -1097,7 +1317,7 @@
       "bilimselAd": "Boletus edulis",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Zehirli benzerleri ve ikizleri 2026-10-27'de genişletildi (TASLAK).",
       "aciklama": "Kahverengi şapkalı, kalın ve şişkin ayaklı mantar. Şapkanın altında solungaç yerine sünger gibi gözenekler vardır; gözenekler beyazdan sarı-yeşile döner. Ayakta açık renkli ağ deseni olur. Kesince ve ezince rengi değişmez.",
       "ozellikler": {
         "sapkaRengi": [
@@ -1136,6 +1356,10 @@
         {
           "ad": "Şeytan mantarı",
           "fark": "Şeytan mantarının gözenekleri kırmızıdır, ayağında kırmızı ağ deseni olur ve kesince maviye döner. Ayı mantarının gözenekleri beyaz-sarıdır ve kesince rengi değişmez."
+        },
+        {
+          "ad": "Acı ayaklı çörek mantarı",
+          "fark": "Acı ayaklı çörek mantarının ayağı kırmızımsı ağ desenlidir, kesince ve bastırınca maviye döner ve çok acıdır. Ayı mantarının ayağı beyaz-krem ağ desenlidir ve kesince renk değiştirmez."
         }
       ],
       "fotograf": {
@@ -1153,7 +1377,24 @@
         10,
         11
       ],
-      "aramaIpucu": "Çam, ladin, kayın ve meşe ağaçlarının birkaç metre çevresinde yerde ara; yosun ve iğne yaprak arasından, orman kenarlarında ve açıklıklarda çıkar. Ağacın kökleriyle ortak yaşar, kütük üzerinde çıkmaz."
+      "aramaIpucu": "Çam, ladin, kayın ve meşe ağaçlarının birkaç metre çevresinde yerde ara; yosun ve iğne yaprak arasından, orman kenarlarında ve açıklıklarda çıkar. Ağacın kökleriyle ortak yaşar, kütük üzerinde çıkmaz.",
+      "ikizler": [
+        {
+          "ad": "Bronz ayı mantarı",
+          "bilimselAd": "Boletus aereus",
+          "not": "Meşe ve kestane altında; şapkası koyu kahve-siyahımsı."
+        },
+        {
+          "ad": "Yaz ayı mantarı",
+          "bilimselAd": "Boletus reticulatus",
+          "not": "Yazın, meşe ve kayın altında; şapkası açık kahve, kuru ve ince çatlaklı."
+        },
+        {
+          "ad": "Çam ayı mantarı",
+          "bilimselAd": "Boletus pinophilus",
+          "not": "Çam altında; şapkası kırmızımsı kahverengi."
+        }
+      ]
     },
     {
       "id": "seytan",
@@ -1209,12 +1450,66 @@
       }
     },
     {
+      "id": "aci-corek",
+      "ad": "Acı ayaklı çörek mantarı",
+      "bilimselAd": "Caloboletus calopus",
+      "zehirlilik": "zehirli",
+      "zehirTipi": "mide",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı (Metin'in isteği, 2026-10-27: her yenen türün zehirli benzerleri). Özellikler bilerek geniş tutuldu.",
+      "aciklama": "Ayı mantarına benzeyen, gri-krem şapkalı, gözenekleri sarı, ayağı kırmızı ağ desenli çörek mantarı. Kesince ve bastırınca maviye döner; çok acıdır. Mide-bağırsak rahatsızlığı yapar.",
+      "karistirilanlar": [
+        "Ayı mantarı (çörek mantarı)"
+      ],
+      "ozellikler": {
+        "sapkaRengi": [
+          "beyaz",
+          "krem-sari",
+          "gri-siyah",
+          "kahverengi"
+        ],
+        "sapkaYuzeyi": [
+          "duz"
+        ],
+        "altYapi": [
+          "gozenek"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "kesinceRenk": [
+          "mavi"
+        ],
+        "ezince": [
+          "mavi"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "sporIzi": [
+          "kahverengi"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/aci-corek.jpg",
+        "cekan": "W. J. Pilsak",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Schoenfussroehrling.jpg"
+      }
+    },
+    {
       "id": "cayir",
       "ad": "Çayır mantarı",
       "bilimselAd": "Agaricus campestris",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Zehirli benzerleri ve ikizleri 2026-10-27'de genişletildi (TASLAK).",
       "aciklama": "Çayır ve meralarda çıkan beyaz şapkalı mantar. Solungaçları hiçbir zaman beyaz değildir: gençken pembe, sonra çikolata kahvesi olur. Ayakta ince bir halka bulunur, ayak dibinde torba yoktur.",
       "ozellikler": {
         "sapkaRengi": [
@@ -1272,6 +1567,10 @@
         {
           "ad": "Sarıya boyanan mantar",
           "fark": "Sarıya boyanan mantarın şapkası ve ayak dibi çizilince hemen parlak sarıya döner ve mürekkep gibi kötü kokar."
+        },
+        {
+          "ad": "Terleme mantarı",
+          "fark": "Terleme mantarının solungaçları beyazımsıdır ve hiç pembeleşmez, ayağa doğru iner; halkası yoktur. Çayır mantarının solungaçları pembeden çikolata rengine döner ve ayağında halka vardır."
         }
       ],
       "fotograf": {
@@ -1288,7 +1587,19 @@
         10,
         11
       ],
-      "aramaIpucu": "Ağaçsız çayırlarda ve otlaklarda, özellikle hayvan otlatılan yerlerde ara; yağmurdan sonra çimenin arasında beyaz başlar görünür. Ağaç altında aranmaz."
+      "aramaIpucu": "Ağaçsız çayırlarda ve otlaklarda, özellikle hayvan otlatılan yerlerde ara; yağmurdan sonra çimenin arasında beyaz başlar görünür. Ağaç altında aranmaz.",
+      "ikizler": [
+        {
+          "ad": "At mantarı",
+          "bilimselAd": "Agaricus arvensis",
+          "not": "Daha iri, anason kokar; bastırınca hafif sararır ama sarıya boyanan mantar gibi parlak sarı olmaz ve mürekkep gibi kokmaz."
+        },
+        {
+          "ad": "Kültür mantarı",
+          "bilimselAd": "Agaricus bisporus",
+          "not": "Markette satılan mantarın yabanisi; gübreli toprakta çıkar."
+        }
+      ]
     },
     {
       "id": "sariya-boyanan",
@@ -1472,7 +1783,19 @@
         3,
         4
       ],
-      "aramaIpucu": "Yerde değil, ağacın üstünde ara: ölü ya da zayıf düşmüş kayın, kavak ve söğüt gövdelerinde ve kütüklerde raf gibi üst üste çıkar. Serin aylarda çıkar."
+      "aramaIpucu": "Yerde değil, ağacın üstünde ara: ölü ya da zayıf düşmüş kayın, kavak ve söğüt gövdelerinde ve kütüklerde raf gibi üst üste çıkar. Serin aylarda çıkar.",
+      "ikizler": [
+        {
+          "ad": "Yaz istiridye mantarı",
+          "bilimselAd": "Pleurotus pulmonarius",
+          "not": "Yazın çıkar, daha soluk ve küçük."
+        },
+        {
+          "ad": "Boru istiridye mantarı",
+          "bilimselAd": "Pleurotus cornucopiae",
+          "not": "Huni biçimli, solungaçları ayağa kadar iner."
+        }
+      ]
     },
     {
       "id": "kukurt-basli",
@@ -1579,7 +1902,14 @@
         10
       ],
       "aramaIpucu": "Yerde değil, ağacın gövdesinde ara: meşe, kestane, söğüt ve kiraz gövdelerinde sarı-turuncu raflar halinde çıkar, uzaktan dikkat çeker.",
-      "cigkenZehirli": true
+      "cigkenZehirli": true,
+      "ikizler": [
+        {
+          "ad": "Dağ tavuk mantarı",
+          "bilimselAd": "Laetiporus montanus",
+          "not": "Dağlarda, iğne yapraklı ağaçlarda."
+        }
+      ]
     },
     {
       "id": "puf",
@@ -1647,7 +1977,19 @@
         10,
         11
       ],
-      "aramaIpucu": "Orman tabanında yaprak ve iğne arasında, çayırda ve yol kenarlarında ara; yuvarlak, beyaz bir top gibidir."
+      "aramaIpucu": "Orman tabanında yaprak ve iğne arasında, çayırda ve yol kenarlarında ara; yuvarlak, beyaz bir top gibidir.",
+      "ikizler": [
+        {
+          "ad": "Dev puf mantarı",
+          "bilimselAd": "Calvatia gigantea",
+          "not": "Futbol topu büyüklüğünde, içi bembeyaz."
+        },
+        {
+          "ad": "Odun puf mantarı",
+          "bilimselAd": "Apioperdon pyriforme",
+          "not": "Çürük odun üstünde kümeler halinde."
+        }
+      ]
     },
     {
       "id": "sahte-puf",
@@ -1749,7 +2091,14 @@
         11,
         12
       ],
-      "aramaIpucu": "Yerin altında ara: nemli vadilerde ve dere kenarlarında kavak, söğüt, meşe ve ıhlamur köklerinin çevresinde. Üstten görünmez; neredeyse her zaman eğitimli köpekle bulunur. Türkiye'de çok nadirdir."
+      "aramaIpucu": "Yerin altında ara: nemli vadilerde ve dere kenarlarında kavak, söğüt, meşe ve ıhlamur köklerinin çevresinde. Üstten görünmez; neredeyse her zaman eğitimli köpekle bulunur. Türkiye'de çok nadirdir.",
+      "ikizler": [
+        {
+          "ad": "Beyazımsı trüf",
+          "bilimselAd": "Tuber borchii",
+          "not": "Daha küçük ve daha keskin kokulu; ilkbaharda çıkar."
+        }
+      ]
     },
     {
       "id": "kara-truf",
@@ -1808,7 +2157,19 @@
         11,
         12
       ],
-      "aramaIpucu": "Yerin altında, 5–20 cm derinde ara: kireçli toprakta meşe, fındık, kayın ve ıhlamur köklerinin çevresinde. Ağacın çevresinde otun seyrek, yanmış gibi göründüğü halkaya dikkat et. Üstten görünmez; çoğu zaman eğitimli köpekle aranır. Toprağı dikkatle açıp sonra geri kapat."
+      "aramaIpucu": "Yerin altında, 5–20 cm derinde ara: kireçli toprakta meşe, fındık, kayın ve ıhlamur köklerinin çevresinde. Ağacın çevresinde otun seyrek, yanmış gibi göründüğü halkaya dikkat et. Üstten görünmez; çoğu zaman eğitimli köpekle aranır. Toprağı dikkatle açıp sonra geri kapat.",
+      "ikizler": [
+        {
+          "ad": "Burgonya trüfü",
+          "bilimselAd": "Tuber uncinatum",
+          "not": "Yaz trüfünün sonbahar biçimi; içi daha koyu."
+        },
+        {
+          "ad": "Kış kara trüfü",
+          "bilimselAd": "Tuber melanosporum",
+          "not": "Kışın; içi siyah-mor, ince beyaz damarlı."
+        }
+      ]
     },
     {
       "id": "keme",
@@ -1865,7 +2226,19 @@
         4,
         5
       ],
-      "aramaIpucu": "İlkbaharda, kışı yağmurlu geçen yıllarda bozkırda ara: güneşçik denen küçük sarı çiçekli bitkinin yakınında, toprağın hafifçe kabarıp çatladığı yerlerin altında olur. Çatlağı dikkatle açıp bak, sonra toprağı geri kapat."
+      "aramaIpucu": "İlkbaharda, kışı yağmurlu geçen yıllarda bozkırda ara: güneşçik denen küçük sarı çiçekli bitkinin yakınında, toprağın hafifçe kabarıp çatladığı yerlerin altında olur. Çatlağı dikkatle açıp bak, sonra toprağı geri kapat.",
+      "ikizler": [
+        {
+          "ad": "Kum kemesi",
+          "bilimselAd": "Terfezia claveryi",
+          "not": "Kumlu topraklarda, Helianthemum bitkisinin yanında."
+        },
+        {
+          "ad": "Beyaz keme",
+          "bilimselAd": "Tirmania nivea",
+          "not": "Kabuğu açık renkli, çöl ve bozkırda."
+        }
+      ]
     },
     {
       "id": "casir",
@@ -1873,7 +2246,7 @@
       "bilimselAd": "Pleurotus eryngii var. ferulae",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Yetişme yeri (çaşır bitkisinin kök kalıntıları), iller ve aylar: OGM Doğu Akdeniz, \"Çakşır mantarının yetişme ortamı isteklerinin araştırılması\" (2018). Zehirli benzerler genel bilgiye göre yazıldı, uzman doğrulamalı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Yetişme yeri (çaşır bitkisinin kök kalıntıları), iller ve aylar: OGM Doğu Akdeniz, \"Çakşır mantarının yetişme ortamı isteklerinin araştırılması\" (2018). Zehirli benzerler genel bilgiye göre yazıldı, uzman doğrulamalı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Zehirli benzerleri ve ikizleri 2026-10-27'de genişletildi (TASLAK).",
       "aciklama": "Bozkırda çaşır (çakşır, Ferula) bitkisinin ölü kökleri üzerinde büyüyen, kahverengi-gri şapkalı, beyaz solungaçlı, etli mantar. Solungaçları ayağa doğru iner, halkası yoktur. Doğu Anadolu'da çok aranır.",
       "ozellikler": {
         "sapkaRengi": [
@@ -1923,6 +2296,10 @@
         {
           "ad": "Lifli başlı mantarlar",
           "fark": "Lifli başlı mantarların şapkası çoğunlukla küçük, ince lifli ve sivri tepelidir, solungaçları ayağa inmez ve spor izi kahverengidir. Çaşır mantarının spor izi beyazdır."
+        },
+        {
+          "ad": "Terleme mantarı",
+          "fark": "Terleme mantarı küçük, ince etli ve beyaz-pudralıdır; çayırda halka biçiminde çıkar. Çaşır mantarı etli, kalın ayaklıdır ve çaşır (Eryngium) bitkisinin kökü üstünde çıkar."
         }
       ],
       "fotograf": {
@@ -1937,7 +2314,19 @@
         5,
         6
       ],
-      "aramaIpucu": "Ağaçsız bozkır ve yaylalarda ara: geçen yıldan kalmış kuru, iri çaşır (çakşır) bitkilerinin dibine bak; mantar bitkinin kökünden, topraktan çıkar. İlkbaharda yağmurdan sonra, özellikle mayıs ve haziranda çıkar."
+      "aramaIpucu": "Ağaçsız bozkır ve yaylalarda ara: geçen yıldan kalmış kuru, iri çaşır (çakşır) bitkilerinin dibine bak; mantar bitkinin kökünden, topraktan çıkar. İlkbaharda yağmurdan sonra, özellikle mayıs ve haziranda çıkar.",
+      "ikizler": [
+        {
+          "ad": "Çakşır mantarı",
+          "bilimselAd": "Pleurotus ferulae",
+          "not": "Çakşır (Ferula) bitkisinin kökünde çıkar."
+        },
+        {
+          "ad": "Ak çaşır",
+          "bilimselAd": "Pleurotus nebrodensis",
+          "not": "Bembeyaz, dağ çayırlarında; nadirdir ve korunur."
+        }
+      ]
     },
     {
       "id": "mayis",
@@ -1945,7 +2334,7 @@
       "bilimselAd": "Calocybe gambosa",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Zehirli benzerleri ve ikizleri 2026-10-27'de genişletildi (TASLAK).",
       "aciklama": "İlkbaharda çıkan, beyaz-krem renkli, etli şapkalı mantar. Solungaçları beyaz ve sıktır; halkası ve torbası yoktur. Belirgin taze un kokusu vardır.",
       "ozellikler": {
         "sapkaRengi": [
@@ -1997,6 +2386,10 @@
         {
           "ad": "Kurşuni entoloma",
           "fark": "Kurşuni entolomanın solungaçları yaşlandıkça pembeleşir ve spor izi pembedir; mayıs mantarının solungaçları ve spor izi beyazdır."
+        },
+        {
+          "ad": "Terleme mantarı",
+          "fark": "Terleme mantarı küçüktür (2–5 cm), ince etlidir, şapkası beyaz-pudralıdır ve solungaçları ayağa doğru iner; çayırda halka biçiminde çıkar. Mayıs mantarı etli ve kalındır (5–15 cm), solungaçları sık ve ayağa inmez, belirgin un kokar."
         }
       ],
       "fotograf": {
@@ -2079,7 +2472,19 @@
         12
       ],
       "aramaIpucu": "Sonbaharın sonunda, ilk soğuklardan sonra çürümüş yaprak ve iğne yığınlarında, orman kenarında ve çürük bitki yığınlarında ara; çoğu zaman halka şeklinde dizilir.",
-      "cigkenZehirli": true
+      "cigkenZehirli": true,
+      "ikizler": [
+        {
+          "ad": "Kirli mor kadife",
+          "bilimselAd": "Lepista sordida",
+          "not": "Daha küçük, çayır ve bahçe kenarında."
+        },
+        {
+          "ad": "Mor ayaklı mantar",
+          "bilimselAd": "Lepista saeva",
+          "not": "Şapkası krem-kahve, yalnızca ayağı mor; çayırlarda."
+        }
+      ]
     },
     {
       "id": "sahte-truf",
@@ -2196,7 +2601,24 @@
         11
       ],
       "aramaIpucu": "Yerde değil, ağaçta ara: kütüklerin, ölü ya da hastalıklı ağaçların gövde diplerinde ve köklerinde büyük kümeler halinde çıkar. Ölümcül galerina da kütüklerde çıkar; bu ikisi karışır.",
-      "cigkenZehirli": true
+      "cigkenZehirli": true,
+      "ikizler": [
+        {
+          "ad": "Soğanlı ballıca",
+          "bilimselAd": "Armillaria gallica",
+          "not": "Ayak dibi şişkin, halkası ince."
+        },
+        {
+          "ad": "Koyu ballıca",
+          "bilimselAd": "Armillaria ostoyae",
+          "not": "Daha koyu kahve, şapkasında belirgin koyu pullar."
+        },
+        {
+          "ad": "Halkasız ballıca",
+          "bilimselAd": "Desarmillaria tabescens",
+          "not": "Ayağında halka yoktur."
+        }
+      ]
     }
   ]
 }

@@ -51,6 +51,11 @@ const MADDELER = {
   'ak-tuylu-sut': 'Lactarius pubescens',
   'sararan-sut': 'Lactarius chrysorrheus',
   'kusakli-sut': 'Lactarius zonarius',
+  // 2026-10-27: diğer yenen türlerin zehirli benzerleri (TASLAK)
+  'sahte-horoz': 'Hygrophoropsis aurantiaca',
+  terleme: 'Clitocybe rivulosa',
+  yuksuk: 'Verpa bohemica',
+  'aci-corek': 'Caloboletus calopus',
 };
 
 // Commons'ta makine tarafından okunamayan çeken adları, dosya sayfalarından elle okundu (26 Ekim 2026).
