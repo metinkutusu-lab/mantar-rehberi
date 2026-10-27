@@ -65,8 +65,10 @@ export function mevsimiYenile() {
   mevsimSatiri.className = `ana-satir${d.icinde ? '' : ' mevsim-disi'}`;
   mevsimSatiri.replaceChildren(
     el('div', { className: 'mevsim-ust' },
-      el('strong', { textContent: d.icinde ? d.ad : 'Şu an mantar mevsimi değil' }),
-      el('span', { className: 'mevsim-gun', textContent: d.icinde ? `${d.kalanGun} gün kaldı` : `${d.kalanGun} gün sonra` }),
+      // Mevsim dışında sıradaki mevsimin adı ve başlamasına kalan gün yazar (Metin, 2026-10-27: "bitince sıradaki sezona
+      // kadar şu kadar gün kaldı mı yazacak?").
+      el('strong', { textContent: d.icinde ? d.ad : `Sıradaki: ${d.ad}` }),
+      el('span', { className: 'mevsim-gun', textContent: d.icinde ? `${d.kalanGun} gün kaldı` : `${d.kalanGun} gün sonra başlıyor` }),
     ),
     cubukCiz(Math.round((d.icinde ? d.kalanOran : 0) * 100), 'Mantar mevsiminin kalan kısmı'),
   );
