@@ -85,7 +85,7 @@ const bilgiPaneli = el('div', { className: 'bilgi-paneli', hidden: true },
   el('p', { textContent: 'Harita, çevrendeki yaklaşık 2,5 km içinde mantar çıkmaya uygun olabilecek yerleri koyu turuncudan açığa boyar. Bu bir tahmindir; mantarın yerini göstermez.' }),
   el('p', { textContent: 'Hesaba girenler: ormanlık, çayır, meyve bahçesi ya da çalılık olması; yamacın baktığı yön (serin havada ve ilkbaharda güneye bakan yamaçlar önce ısınır, sıcak ve kuru havada kuzeye bakanlar nemini korur); yamacın dikliği; aradığın mantarın sevdiği zemin; bölgenin son yağmuru ve sıcaklığı.' }),
   el('p', { textContent: 'Haritada ağaç cinsi (çam, meşe) yazmaz; bu yüzden ağacı yerinde kendin kontrol et. Tür bilgileri taslaktır, uzman onayı bekliyor.' }),
-  el('p', { textContent: 'Üstteki şeritten ne aradığını seç (sağa kaydır). Önce "burada" yazanlar gelir: bakılan alanın zeminine ve bu aya göre aranabilecekler (taslak; gözlem kaydı değildir). Sonra mevsimi olan diğerleri, en sonda soluk "mevsimi değil" olanlar. Her grubun içinde dünya mutfağında en gözde olanlar önce (taslak sıra).' }),
+  el('p', { textContent: 'Haritanın altındaki şeritten ne aradığını seç (sağa kaydır). Önce "burada" yazanlar gelir: bakılan alanın zeminine ve bu aya göre aranabilecekler (taslak; gözlem kaydı değildir). Sonra mevsimi olan diğerleri, en sonda soluk "mevsimi değil" olanlar. Her grubun içinde dünya mutfağında en gözde olanlar önce (taslak sıra).' }),
   el('p', { className: 'not', textContent: `Harita: OpenFreeMap, OpenMapTiles, © OpenStreetMap katkıcıları. ${HARITA_ATFI}. Hava: Open-Meteo.com. Konumun hiçbir yere gönderilmez; harita sunucusu yalnızca bakılan bölgenin harita parçalarını görür.` }),
 );
 const bilgiDugmesi = el('button', {
@@ -112,13 +112,15 @@ kok.append(
   el('h1', { textContent: 'Mantar ara' }),
   // Açıklama (i) panelinin ilk paragrafında (Metin, 2026-10-27: "ekranda boşuna yer kaplamasın, harita yukarı çıksın").
   bilgiPaneli,
-  turKap,
   el('div', { className: 'ara-harita-kap' }, haritaKap, el('div', { className: 'ara-nisan' })),
   lejant,
+  // Tür şeridi "Haritanın ortasına bak"ın hemen altında (Metin, 2026-10-27: bölgeye bakıp "burada" olanları
+  // görmek için yukarı aşağı gezilmesin, harita da yukarı çıksın).
+  el('div', { className: 'ara-dugmeler' }, konumDugmesi, sesDugmesi, bakDugmesi),
+  turKap,
   turBilgiKap,
   hedefKap,
   ipucuKap,
-  el('div', { className: 'ara-dugmeler' }, konumDugmesi, sesDugmesi, bakDugmesi),
   durumKap,
   isaretKap,
   indirKap,
@@ -227,7 +229,7 @@ function turCiz() {
   );
   secici.setAttribute('aria-label', 'Ne arıyorsun?');
   const parcalar = [secici];
-  // Zehir uyarıları haritanın üstünde kalır (her zaman görünsün); mevsim ve ipucu haritanın altında.
+  // Zehir uyarıları şeridin hemen altında (seçilen türün yanında, her zaman görünür); mevsim ve ipucu onların altında.
   const tur = seciliTur();
   const bilgi = [];
   if (tur) {
