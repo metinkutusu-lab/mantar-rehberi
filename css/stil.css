@@ -822,6 +822,7 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .hizli-ayarlar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0 4px; }
 .ayar-dugme { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 9px 11px; min-height: 56px; border-radius: 12px; border: 1px solid var(--cizgi); background: var(--yuzey); color: var(--soluk); font-size: 13px; text-align: left; line-height: 1.25; }
 .ayar-dugme strong { color: var(--yazi); font-size: 14px; }
+.ayar-aciklama { font-size: 11.5px; color: var(--soluk); line-height: 1.2; }
 .ayar-dugme.acik { border-color: var(--marka); background: var(--marka-acik); }
 .ayar-dugme.acik strong { color: var(--marka); }
 .neden { font-size: 15px; font-weight: 650; color: var(--marka); background: var(--marka-acik); border-radius: 12px; padding: 8px 12px; }

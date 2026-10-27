@@ -222,10 +222,13 @@ modelDurumunuDinle(() => {
   if (kap?.isConnected && h.basladi) kap.querySelector('.hizli-ayarlar')?.replaceWith(ayarlarCiz());
 });
 
-// ---- Ayarlar satırı: ses, eller serbest, fotoğraf kıyası ----
+// ---- Ayarlar satırı: ses, otomatik çekim (ayar adı ellerSerbest), fotoğraf kıyası ----
 
-function ayarDugmesi(metin, acik, onclick) {
-  const d = el('button', { type: 'button', className: `ayar-dugme${acik ? ' acik' : ''}`, onclick }, el('span', { textContent: metin }), el('strong', { textContent: acik ? 'Açık' : 'Kapalı' }));
+function ayarDugmesi(metin, acik, onclick, aciklama = '') {
+  const d = el('button', { type: 'button', className: `ayar-dugme${acik ? ' acik' : ''}`, onclick },
+    el('span', { textContent: metin }),
+    aciklama ? el('small', { className: 'ayar-aciklama', textContent: aciklama }) : '',
+    el('strong', { textContent: acik ? 'Açık' : 'Kapalı' }));
   d.setAttribute('aria-pressed', String(acik));
   return d;
 }
@@ -259,10 +262,11 @@ function ayarlarCiz() {
       siradakiniSoyle();
       dinlemeyiAyarla();
     }),
-    ayarDugmesi('Eller serbest çekim', ellerSerbest(), () => {
+    // Adı "Otomatik çekim" (Metin, 2026-10-27: "Eller serbest" yanlış anlaşılıyordu; telefon yine elde).
+    ayarDugmesi('Otomatik çekim', ellerSerbest(), () => {
       ayarYaz({ ellerSerbest: !ellerSerbest() });
       ciz();
-    }),
+    }, "5'ten sayar, kendisi çeker"),
     kiyas,
   );
 }
