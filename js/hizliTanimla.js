@@ -22,7 +22,7 @@ import { durumuOku, durumuYaz } from './durum.js';
 import { sesHazirMi, sesiKes, soyle } from './ses.js';
 import { kameraAc, kameraKapat, kameraVarMi, kareAl, resimAdresi } from './kamera.js';
 import { altYapiAyiricisiniYukle, benzerlikSozu, benzerlikleriHesapla, modelDurumu, modelDurumunuDinle, modeliHazirla, parmakIzi, ayiriciyiYukle, sapkaRengiAyiricisiniYukle } from './fotoTanima.js';
-import { dinlemeyiBaslat, dinlemeyiDurdur, komutuAnla, yerelTanimaDurumu, yerelTanimayiKur } from './sesliKomut.js';
+import { dinlemeyiBaslat, dinlemeyiDurdur, dinliyorMu, komutuAnla, yerelTanimaDurumu, yerelTanimayiKur } from './sesliKomut.js';
 
 let turler = [];
 turleriYukle().then((liste) => {
@@ -900,7 +900,9 @@ function siradakiniSoyle() {
   const eksik = YUVALAR.find((y) => !h.fotograflar[y.tur] && !h.atlanan.has(y.tur));
   if (h.cekim) {
     const yuva = YUVALAR.find((y) => y.tur === h.cekim);
-    soyle(`${yuva.ad} fotoğraf. ${REHBERLER[h.cekim].yazi}. ${ellerSerbest() ? 'Kendim çekeceğim.' : 'Hazır olunca çek de.'}`, { oncelikli: true });
+    // "çek de" sesle "çek D" gibi okunuyordu; sesli komut çoğu telefonda yok, o zaman yalnızca düğme söylenir (Metin, 2026-10-27).
+    const nasil = ellerSerbest() ? 'Kendim çekeceğim.' : dinliyorMu() ? 'Hazır olunca, çek, diye söyle ya da düğmeye bas.' : 'Hazır olunca ekrandaki düğmeye bas.';
+    soyle(`${yuva.ad} fotoğraf. ${REHBERLER[h.cekim].yazi}. ${nasil}`, { oncelikli: true });
     return;
   }
   const siradaki = bekleyenler()[0];
