@@ -88,12 +88,18 @@ const ANA_BICIMLER = { t: {}, a: { cevir: true }, y: { yakinlik: 0.7 }, z: { yak
 const EK_BICIMLER = { t: {}, a: { cevir: true } };
 // Bir işin fotoğrafları ve biçimleri (şapka altı fotoğrafları az olduğu için onlar da dört biçimde öğretilir).
 const dosyalari = (is) => [...(is.ana ? [[is.ana, ANA_BICIMLER]] : []), ...is.ekler.map((d) => [d, ALT ? ANA_BICIMLER : EK_BICIMLER])];
-const CIKTI = ALT ? 'vendor/mobilenet/alt-yapi.json' : RENK ? 'vendor/mobilenet/sapka-rengi.json' : 'vendor/mobilenet/tur-ayirici.json';
+// Hangi modelin izleriyle eğitilecek: uygulamanınki (js/modelAyari.js) ya da denenen aday model (MANTAR_MODEL_KLASORU,
+// MANTAR_MODEL_CIKIS; scripts/ince-ayar-dene.js). Ayırıcılar modelin klasörüne yazılır.
+const { MODEL: UYGULAMA_MODELI } = await import('../js/modelAyari.js');
+const MODEL = process.env.MANTAR_MODEL_KLASORU
+  ? { klasor: `./${process.env.MANTAR_MODEL_KLASORU.replace(/^\.?\/*/, '').replace(/\/?$/, '/')}`, cikis: process.env.MANTAR_MODEL_CIKIS || null }
+  : UYGULAMA_MODELI;
+const CIKTI = `${MODEL.klasor.replace(/^\.\//, '')}${ALT ? 'alt-yapi.json' : RENK ? 'sapka-rengi.json' : 'tur-ayirici.json'}`;
 
 // ---- 1. İzler (önbellekte olmayanlar tarayıcıda hesaplanır) ----
 // Önbellek anahtarı dosyanın değiştirilme zamanını da içerir: aynı adla yeni fotoğraf inerse eski iz kullanılmaz.
 const onbellek = existsSync(ONBELLEK) ? JSON.parse(readFileSync(ONBELLEK, 'utf8')) : {};
-const anahtar = (dosya, ad) => `${dosya}@${Math.round(statSync(path.join(KOK, dosya)).mtimeMs)}#${ad}`;
+const anahtar = (dosya, ad) => `${MODEL.klasor}|${dosya}@${Math.round(statSync(path.join(KOK, dosya)).mtimeMs)}#${ad}`;
 const gereken = [];
 const istenen = new Set();
 for (const is of isler) {
@@ -117,7 +123,7 @@ const sunucu = createServer((istek, yanit) => {
 const tarayici = await tarayiciAc();
 const sayfa = await tarayici.newPage();
 await sayfa.goto(`http://localhost:${sunucu.address().port}/__bos`);
-await sayfa.evaluate(async () => { window.f = await import('/js/fotoTanima.js'); await window.f.modeliHazirla(); });
+await sayfa.evaluate(async (model) => { window.MANTAR_MODEL = model; window.f = await import('/js/fotoTanima.js'); await window.f.modeliHazirla(); }, MODEL);
 
 for (let i = 0; i < gereken.length; i += 200) {
   const parca = gereken.slice(i, i + 200);

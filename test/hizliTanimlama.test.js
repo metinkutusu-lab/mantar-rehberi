@@ -1,7 +1,7 @@
 // Hızlı tanımlama testleri: sıradaki soru seçimi, güvenlik soruları, fotoğraf kıyası ve sesli komutlar.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { GEREKLI_FOTOGRAFLAR, ZORUNLU_SORULAR, degerlendir, yasakIfadeler } from '../js/kurallar.js';
@@ -194,7 +194,7 @@ test('fotoğraf kıyası: ayırıcı dosyası 8 bitten doğru açılır', () => 
 });
 
 test('fotoğraf kıyası: her tür ayırıcıda var; model uygulamayla birlikte indirilmez (az veri)', () => {
-  const ayirici = ayiriciyiCoz(JSON.parse(oku('vendor/mobilenet/tur-ayirici.json')));
+  const ayirici = ayiriciyiCoz(JSON.parse(oku(MODEL_DOSYALARI[2])));
   for (const tur of turler.filter((t) => t.fotograf)) assert.equal(ayirici.turler[tur.id]?.agirlik.length, 1280, tur.id);
   const sw = oku('sw.js');
   for (const dosya of MODEL_DOSYALARI) assert.ok(!sw.includes(`'${dosya}'`), `${dosya} uygulamayla indirilmemeli`);
@@ -316,4 +316,11 @@ test('fotoğraf kıyası eğitimi: yalnızca CC0, kamu malı ve CC BY; CC BY-SA,
   const { egitimeUygunLisans } = await import('../scripts/lisans.js');
   for (const l of ['cc0', 'CC0', 'cc-by', 'CC BY 2.0', 'CC BY 3.0', 'CC BY 4.0', 'Public domain']) assert.equal(egitimeUygunLisans(l), true, l);
   for (const l of ['cc-by-sa', 'CC BY-SA 3.0', 'CC BY-SA 3.0 es', 'CC BY-NC 4.0', 'cc-by-nc', 'CC BY-ND 4.0', '', undefined, 'GFDL']) assert.equal(egitimeUygunLisans(l), false, String(l));
+});
+
+test('fotoğraf modeli: uygulamanın modeli ile sw.js içindeki model klasörü aynı; ayırıcılar modelin klasöründe', async () => {
+  const { MODEL } = await import('../js/modelAyari.js');
+  const sw = oku('sw.js');
+  assert.equal(`./${/const AKTIF_MODEL_KLASORU = '([^']+)'/.exec(sw)[1]}`, MODEL.klasor);
+  for (const dosya of ['model.json', 'tur-ayirici.json', 'sapka-rengi.json', 'alt-yapi.json']) assert.ok(existsSync(path.join(KOK, MODEL.klasor, dosya)), dosya);
 });

@@ -1,0 +1,113 @@
+# Fotoğraf modelinin mantar fotoğraflarıyla ince ayarı (Metin'in onayı, 2026-10-27: "GitHub'da dene; daha iyi çıkarsa yükle").
+# Elle başlatılır: GitHub → Actions → "Ince ayar" → "Run workflow". İki adımdır (her biri GitHub'ın 6 saatlik sınırına sığsın):
+# 1. egit: fotoğraflar indirilir, model Python/TensorFlow ile ince ayarlanır ve telefonda çalışacak biçime çevrilir.
+# 2. olc: yayındaki modelle aynı fotoğraflar ve aynı deneme setiyle kıyaslanır; yalnızca daha iyiyse uygulamaya geçer.
+name: Ince ayar
+
+on:
+  workflow_dispatch:
+  # notlar/ince-ayar-baslat.txt değişince de başlar (Claude bilgisayardan böyle başlatır).
+  push:
+    branches: [main]
+    paths: ['notlar/ince-ayar-baslat.txt']
+
+env:
+  KLASOR: vendor/mantar-modeli-1
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: ince-ayar
+  cancel-in-progress: false
+
+jobs:
+  egit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install "tensorflow==2.15.1" "tensorflowjs==4.17.0" "tensorflow-decision-forests==1.8.1"
+
+      - name: Fotograflari indir
+        run: |
+          node scripts/kaynaklari-indir.js
+          node scripts/inat-getir.js
+          node scripts/egitim-listesi.js
+
+      - name: Ince ayar
+        run: python scripts/ince-ayar.py /tmp/ince-ayar-model
+
+      - name: Telefon bicimine cevir (8 bit)
+        run: |
+          tensorflowjs_converter --input_format=tf_saved_model --output_format=tfjs_graph_model \
+            --signature_name=serving_default --saved_model_tags=serve --quantize_uint8 '*' \
+            /tmp/ince-ayar-model "${{ env.KLASOR }}"
+          ls -la "${{ env.KLASOR }}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: aday-model
+          path: ${{ env.KLASOR }}
+
+      - uses: actions/cache/save@v4
+        with:
+          path: |
+            fotograflar/inat
+            fotograflar/referans
+            fotograflar/deneme
+            fotograflar/inat-kaynaklar.json
+          key: ince-ayar-fotograflari-${{ github.run_id }}
+
+  olc:
+    needs: egit
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - uses: actions/cache/restore@v4
+        with:
+          path: |
+            fotograflar/inat
+            fotograflar/referans
+            fotograflar/deneme
+            fotograflar/inat-kaynaklar.json
+          key: ince-ayar-fotograflari-${{ github.run_id }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: aday-model
+          path: ${{ env.KLASOR }}
+
+      - name: Kiyasla, daha iyiyse uygulamaya gecir
+        run: node scripts/ince-ayar-dene.js "${{ env.KLASOR }}"
+        env:
+          MANTAR_TARAYICI: /usr/bin/google-chrome
+
+      - name: Testler
+        run: npm test
+
+      - name: Sonucu gonder
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cat ince-ayar-sonucu.txt
+          if ! grep -q '^gecildi' ince-ayar-sonucu.txt; then exit 0; fi
+          git config user.name "MushKey ince ayar"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add js/modelAyari.js js/surum.js sw.js "${{ env.KLASOR }}"
+          git commit -m "Ince ayarli fotograf modeli: $(head -1 ince-ayar-sonucu.txt)"
+          git pull --rebase origin main
+          git push origin HEAD:main
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" || true

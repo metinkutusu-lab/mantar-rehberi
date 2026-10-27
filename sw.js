@@ -1,6 +1,6 @@
 // Çevrimdışı çalışma: uygulamanın bütün dosyaları ilk açılışta cihaza kaydedilir.
 // Yeni dosya eklenince DOSYALAR listesine ekle ve SURUM'u artır.
-const SURUM = 'v54';
+const SURUM = 'v55';
 // GitHub Pages'te aynı adreste başka uygulamalar da olabilir: önbellek adı bu uygulamaya ve adresine özeldir,
 // yalnızca kendi eski sürümlerini siler.
 const ONEK = `mantar-rehberi:${self.registration.scope}:`;
@@ -13,7 +13,10 @@ const AZAMI_HARITA_PARCASI = 6000;
 // Fotoğraf kıyası modeli (js/fotoTanima.js, yaklaşık 5 MB): uygulamayla indirilmez; ilk fotoğraflı tanımlamada bir kez iner,
 // ayrı önbellekte kalır ve sürüm değişince silinmez (yeniden veri harcanmasın, internetsiz çalışsın).
 const MODEL_ONBELLEGI = ONEK + 'model';
-const MODEL_YOLLARI = ['vendor/tf.min.js', 'vendor/mobilenet/'];
+// Telefondaki model ve ayırıcıları: js/modelAyari.js'teki klasörle aynı olmalı (test denetler). Model değişince eski
+// klasörün dosyaları model önbelleğinden silinir (eski modelle yeni ayırıcı karışmasın, yer kaplamasın).
+const AKTIF_MODEL_KLASORU = 'vendor/mobilenet/';
+const MODEL_YOLLARI = ['vendor/tf.min.js', 'vendor/mobilenet/', 'vendor/mantar-modeli'];
 const DOSYALAR = [
   './',
   './index.html',
@@ -52,6 +55,7 @@ const DOSYALAR = [
   './js/surum.js',
   './js/surumSatiri.js',
   './js/fotoOzellik.js',
+  './js/modelAyari.js',
   './js/mevsimAgirligi.js',
   './veri/mevsim.json',
   // Harita kütüphanesi MapLibre GL JS 4.7.1 (BSD-3, vendor/LICENSE.txt)
@@ -157,7 +161,11 @@ self.addEventListener('activate', (olay) => {
       // Eski kıyas dosyası (v44'te yerini tur-ayirici.json aldı) cihazda yer kaplamasın.
       .then(async () => {
         const model = await caches.open(MODEL_ONBELLEGI);
-        for (const a of await model.keys()) if (a.url.includes('parmak-izleri.json')) await model.delete(a);
+        for (const a of await model.keys()) {
+          const yol = new URL(a.url).pathname;
+          const eskiModel = yol.includes('/vendor/') && !yol.includes('/vendor/tf.min.js') && !yol.includes(`/${AKTIF_MODEL_KLASORU}`);
+          if (a.url.includes('parmak-izleri.json') || eskiModel) await model.delete(a);
+        }
       })
       .then(() => self.clients.claim()),
   );
@@ -224,7 +232,7 @@ self.addEventListener('fetch', (olay) => {
     return;
   }
   const yol = new URL(olay.request.url).pathname;
-  if (new URL(olay.request.url).origin === self.location.origin && ['tur-ayirici.json', 'alt-yapi.json', 'sapka-rengi.json'].some((d) => yol.endsWith(`/vendor/mobilenet/${d}`))) {
+  if (new URL(olay.request.url).origin === self.location.origin && //vendor/(mobilenet|mantar-modeli[^/]*)/(tur-ayirici|alt-yapi|sapka-rengi).json$/.test(yol)) {
     olay.respondWith(izYaniti(olay));
     return;
   }

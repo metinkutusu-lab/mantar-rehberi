@@ -1,0 +1,1 @@
+İnce ayarı başlatmak için bu dosya değiştirilir (.github/workflows/ince-ayar.yml). 2026-10-27

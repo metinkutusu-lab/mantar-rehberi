@@ -1,15 +1,19 @@
 // Fotoğraf kıyası (Metin'in isteği, 2026-10-26): çekilen fotoğraf, uygulamadaki tür fotoğraflarıyla telefonda kıyaslanır.
 // Küçük bir yapay zeka modeli (MobileNet V2, Apache 2.0) fotoğrafın "parmak izini" çıkarır (1280 sayı);
 // izi türlere ayıran küçük ayırıcı, tür başına ~100 lisanslı fotoğraftan önceden öğrenilip
-// vendor/mobilenet/tur-ayirici.json'a yazılmıştır (scripts/tur-ayirici-egit.js).
+// modelin klasöründeki tur-ayirici.json'a yazılmıştır (js/modelAyari.js, scripts/tur-ayirici-egit.js).
 // - Fotoğraf hiçbir yere gönderilmez; model ve parmak izleri uygulamanın kendi dosyalarıdır (kural 12).
 // - Model ilk kullanımda bir kez indirilir (~5 MB) ve cihazda kalır (sw.js, model önbelleği); sonra internetsiz çalışır.
 // - Kıyas yalnızca adayları sıralar ve hangi sorunun önce sorulacağına yardım eder. Hiçbir türü elemez,
 //   sonucun rengini değiştirmez (kural 3, 5). Model yüklenemezse tanımlama sorularla aynen çalışır.
 
+import { MODEL } from './modelAyari.js';
+
 // Bu dosyalar uygulamayla birlikte indirilmez; yalnızca kullanıcı fotoğraf kıyasını açınca bir kez iner.
-export const MODEL_DOSYALARI = ['./vendor/tf.min.js', './vendor/mobilenet/model.json', './vendor/mobilenet/agirliklar.bin', './vendor/mobilenet/tur-ayirici.json'];
-const CIKIS = 'module_apply_default/MobilenetV2/Logits/AvgPool';
+// Model ve ona bağlı ayırıcılar aynı klasörde (js/modelAyari.js).
+export const MODEL_DOSYALARI = ['./vendor/tf.min.js', `${MODEL.klasor}model.json`, `${MODEL.klasor}tur-ayirici.json`];
+// Modelden izin okunduğu katman (null: modelin kendi çıkışı).
+const calistir = (model, girdi) => (MODEL.cikis ? model.execute(girdi, MODEL.cikis) : model.execute(girdi));
 const BOYUT = 224;
 
 let modelSozu = null;
@@ -47,7 +51,7 @@ export function modeliHazirla() {
     await window.tf.ready();
     const model = await window.tf.loadGraphModel(MODEL_DOSYALARI[1]);
     // İlk çalıştırma yavaştır; boş bir resimle ısıtılır.
-    window.tf.tidy(() => model.execute(window.tf.zeros([1, BOYUT, BOYUT, 3]), CIKIS));
+    window.tf.tidy(() => calistir(model, window.tf.zeros([1, BOYUT, BOYUT, 3])));
     durumYaz('hazir');
     return model;
   })().catch((hata) => {
@@ -89,7 +93,7 @@ export function kosinus(a, b) {
 }
 
 /**
- * Kullanıcının fotoğraflarının izlerini tür ayırıcısından geçirir (vendor/mobilenet/tur-ayirici.json).
+ * Kullanıcının fotoğraflarının izlerini tür ayırıcısından geçirir (modelin klasöründeki tur-ayirici.json).
  * Dönüş: { türId: 0–1 } — toplamı 1; fotoğraf birden fazlaysa (üst ve yan) puanları birlikte değerlendirilir.
  * Değer yalnızca sıralama ve "muhtemelen" eşiği içindir; kullanıcıya yüzde olarak gösterilmez (kural 1, 5).
  * Ayırıcı tür başına yaklaşık 100 lisanslı fotoğraftan öğrenilmiştir (scripts/tur-ayirici-egit.js).
@@ -140,7 +144,7 @@ export function ayiriciyiCoz(veri) {
 }
 
 // Şapka altı ayırıcısı (js/fotoOzellik.js): aynı biçimde, yalnızca öneri için.
-export const ALT_YAPI_DOSYASI = './vendor/mobilenet/alt-yapi.json';
+export const ALT_YAPI_DOSYASI = `${MODEL.klasor}alt-yapi.json`;
 let altYapiSozu = null;
 export function altYapiAyiricisiniYukle() {
   altYapiSozu ??= fetch(ALT_YAPI_DOSYASI)
@@ -154,7 +158,7 @@ export function altYapiAyiricisiniYukle() {
 }
 
 // Şapka rengi ayırıcısı (js/fotoOzellik.js): aynı biçimde, yalnızca öneri için.
-export const SAPKA_RENGI_DOSYASI = './vendor/mobilenet/sapka-rengi.json';
+export const SAPKA_RENGI_DOSYASI = `${MODEL.klasor}sapka-rengi.json`;
 let sapkaRengiSozu = null;
 export function sapkaRengiAyiricisiniYukle() {
   sapkaRengiSozu ??= fetch(SAPKA_RENGI_DOSYASI)
@@ -168,7 +172,7 @@ export function sapkaRengiAyiricisiniYukle() {
 }
 
 export function ayiriciyiYukle() {
-  ayiriciSozu ??= fetch(MODEL_DOSYALARI[3])
+  ayiriciSozu ??= fetch(MODEL_DOSYALARI[2])
     .then((y) => y.json())
     .then(ayiriciyiCoz)
     .catch(() => {
@@ -202,7 +206,7 @@ export async function parmakIzi(kaynak, secenekler) {
   const tuval = kareCiz(kaynak, secenekler);
   const cikti = tf.tidy(() => {
     const girdi = tf.browser.fromPixels(tuval).toFloat().div(255).expandDims(0);
-    return model.execute(girdi, CIKIS).reshape([-1]);
+    return calistir(model, girdi).reshape([-1]);
   });
   const iz = await cikti.data();
   cikti.dispose();
