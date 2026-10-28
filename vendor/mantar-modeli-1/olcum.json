@@ -1,0 +1,20 @@
+{
+ "_aciklama": "İnce ayarlı modelin sabit deneme setindeki ölçümü ve yayındaki modelinki (scripts/ince-ayar-dene.js, GitHub run 40645739198; ayırıcılar bilgisayarda yeniden öğrenildi, 2026-10-28).",
+ "tarih": "2026-10-28",
+ "yeni_github": {
+  "fotograf": 419,
+  "ilk1": 0.654,
+  "ilk3": 0.854
+ },
+ "eski_github": {
+  "fotograf": 419,
+  "ilk1": 0.604,
+  "ilk3": 0.802
+ },
+ "yeni_yerel_tum_bicimler": {
+  "fotograf": 457,
+  "ilk1": 0.67,
+  "ilk3": 0.87,
+  "esik09_dogru": 0.93
+ }
+}

@@ -3,7 +3,7 @@
 // izi türlere ayıran küçük ayırıcı, tür başına ~100 lisanslı fotoğraftan önceden öğrenilip
 // modelin klasöründeki tur-ayirici.json'a yazılmıştır (js/modelAyari.js, scripts/tur-ayirici-egit.js).
 // - Fotoğraf hiçbir yere gönderilmez; model ve parmak izleri uygulamanın kendi dosyalarıdır (kural 12).
-// - Model ilk kullanımda bir kez indirilir (~5 MB) ve cihazda kalır (sw.js, model önbelleği); sonra internetsiz çalışır.
+// - Model ilk kullanımda bir kez indirilir (~6 MB) ve cihazda kalır (sw.js, model önbelleği); sonra internetsiz çalışır.
 // - Kıyas yalnızca adayları sıralar ve hangi sorunun önce sorulacağına yardım eder. Hiçbir türü elemez,
 //   sonucun rengini değiştirmez (kural 3, 5). Model yüklenemezse tanımlama sorularla aynen çalışır.
 

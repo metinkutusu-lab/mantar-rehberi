@@ -819,12 +819,27 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 /* Hızlı tanımlama: ayarlar, kamera, sayaç ve zehirli benzerle kıyas */
 .hizli-giris .birincil { display: flex; align-items: center; justify-content: center; gap: 10px; }
 .ikincil.genis { width: 100%; }
-.hizli-ayarlar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0 4px; }
-.ayar-dugme { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 9px 11px; min-height: 56px; border-radius: 12px; border: 1px solid var(--cizgi); background: var(--yuzey); color: var(--soluk); font-size: 13px; text-align: left; line-height: 1.25; }
-.ayar-dugme strong { color: var(--yazi); font-size: 14px; }
-.ayar-aciklama { font-size: 11.5px; color: var(--soluk); line-height: 1.2; }
-.ayar-dugme.acik { border-color: var(--marka); background: var(--marka-acik); }
-.ayar-dugme.acik strong { color: var(--marka); }
+/* Ayarlar simgeleri (Metin, 2026-10-28): kamerada köşelerde, kamera kapalıyken üstte küçük sıra; her birinde (i). */
+.hizli-ayarlar { margin: 10px 0 4px; }
+.ayar-sira { display: flex; gap: 14px; }
+.ayar-kose { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.ayar-simge { width: 46px; height: 46px; padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid var(--cizgi); background: var(--yuzey); color: var(--soluk); }
+.ayar-simge svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ayar-simge.acik { background: var(--marka); border-color: var(--marka); color: #fff; }
+.ayar-simge.bekliyor { animation: ayar-nabiz 1.2s ease-in-out infinite; }
+@keyframes ayar-nabiz { 50% { opacity: 0.55; } }
+.ayar-bilgi { width: 22px; height: 22px; padding: 0; border-radius: 50%; border: 1px solid var(--cizgi); background: var(--yuzey); color: var(--soluk); font: italic 700 13px/1 Georgia, serif; }
+.ayar-aciklamasi { margin: 8px 0 0; padding: 10px 12px; border-radius: 12px; background: var(--marka-acik); border: 1px solid var(--marka); font-size: 13.5px; line-height: 1.35; }
+.ayar-aciklamasi strong { display: block; margin-bottom: 2px; }
+/* Kameranın üstünde: yarı saydam koyu daireler, köşelerde. */
+.kamera .ayar-kose { position: absolute; z-index: 2; }
+.kamera .ayar-ses { top: 10px; left: 10px; }
+.kamera .ayar-kiyas { bottom: 10px; left: 10px; flex-direction: column-reverse; }
+.kamera .ayar-otomatik { bottom: 10px; right: 10px; flex-direction: column-reverse; }
+.kamera .ayar-simge { border-color: rgb(255 255 255 / 0.7); background: rgb(0 0 0 / 0.5); color: #fff; }
+.kamera .ayar-simge.acik { background: #e8963f; border-color: #fff; }
+.kamera .ayar-bilgi { border-color: rgb(255 255 255 / 0.7); background: rgb(0 0 0 / 0.5); color: #fff; }
+.kamera .ayar-aciklamasi { position: absolute; z-index: 3; left: 66px; right: 66px; bottom: 12px; margin: 0; background: rgb(0 0 0 / 0.78); border-color: rgb(255 255 255 / 0.4); color: #fff; }
 .neden { font-size: 15px; font-weight: 650; color: var(--marka); background: var(--marka-acik); border-radius: 12px; padding: 8px 12px; }
 .kamera { position: relative; border-radius: var(--yaricap); overflow: hidden; background: #000; aspect-ratio: 4 / 3; }
 .kamera-goruntu { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -846,7 +861,6 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .kiyas-benzer .not { margin: 4px 0 0; }
 .kiyas-benzer-baslik { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
 @media (max-width: 380px) {
-  .hizli-ayarlar { grid-template-columns: 1fr 1fr; }
 }
 .kiyas-fark summary { cursor: pointer; font-weight: 700; color: var(--marka); font-size: 14px; }
 .kiyas-fark p { margin: 4px 0 0; }
@@ -981,17 +995,16 @@ figcaption, .not, .tur-govde p { overflow-wrap: anywhere; }
   left: 50%;
   top: 8px;
   transform: translateX(-50%);
-  max-width: calc(100% - 16px);
+  /* Sol üstteki ses simgesine değmesin (iki yanda 66 px). */
+  width: max-content;
+  max-width: calc(100% - 132px);
   padding: 5px 12px;
-  border-radius: 999px;
+  border-radius: 14px;
   background: rgb(0 0 0 / 0.6);
   color: #fff;
   font-size: 13.5px;
   font-weight: 700;
   text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   pointer-events: none;
 }
 

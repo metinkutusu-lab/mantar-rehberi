@@ -76,7 +76,7 @@ function ayarYaz(degisiklik) {
 }
 const sesAcik = () => ayar().sesliTanimlama === true;
 // Fotoğraf kıyası kendiliğinden açıktır (Metin'in isteği, 2026-10-26: "fotoğrafı çekince kendisi kıyaslayıp tahmin etsin");
-// kullanıcı kapatabilir. İlk kullanımda bir kez ~5 MB iner. Kıyas hiçbir türü elemez, sonucun rengini değiştirmez.
+// kullanıcı kapatabilir. İlk kullanımda bir kez ~6 MB iner. Kıyas hiçbir türü elemez, sonucun rengini değiştirmez.
 const kiyasAcik = () => ayar().fotoKiyasi !== false;
 const ellerSerbest = () => ayar().ellerSerbest === true;
 
@@ -219,56 +219,119 @@ function oneriKartiCiz() {
 }
 
 modelDurumunuDinle(() => {
-  if (kap?.isConnected && h.basladi) kap.querySelector('.hizli-ayarlar')?.replaceWith(ayarlarCiz());
+  if (kap?.isConnected && h.basladi) for (const d of kap.querySelectorAll('[data-ayar="kiyas"]')) d.replaceWith(ayarSimgesi('kiyas'));
 });
 
-// ---- Ayarlar satırı: ses, otomatik çekim (ayar adı ellerSerbest), fotoğraf kıyası ----
+// ---- Ayarlar: ses, otomatik çekim (ayar adı ellerSerbest), fotoğraf kıyası ----
+// Metin'in isteği (2026-10-28): ayrı ayar satırı yerine kameranın köşelerinde simgeler (ses sol üst, fotoğraf kıyası sol alt,
+// otomatik çekim sağ alt); her birinin yanında ne işe yaradığını anlatan küçük (i). Kamera kapalıyken aynı simgeler
+// sayfanın üstünde küçük bir sırada durur.
 
-function ayarDugmesi(metin, acik, onclick, aciklama = '') {
-  const d = el('button', { type: 'button', className: `ayar-dugme${acik ? ' acik' : ''}`, onclick },
-    el('span', { textContent: metin }),
-    aciklama ? el('small', { className: 'ayar-aciklama', textContent: aciklama }) : '',
-    el('strong', { textContent: acik ? 'Açık' : 'Kapalı' }));
-  d.setAttribute('aria-pressed', String(acik));
-  return d;
+const AYAR_SIMGELERI = {
+  ses: '<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/>',
+  sessiz: '<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="m17 9 5 5M22 9l-5 5"/>',
+  otomatik: '<circle cx="12" cy="13.5" r="7.5"/><path d="M10 2.5h4M12 2.5V6M18 6.5l1.5-1.5"/><path d="M12 9.5v4l2.5 1.5"/>',
+  kiyas: '<rect x="3" y="5" width="12" height="12" rx="2"/><path d="m3 14 3.5-3.5 3 3 2-2 3.5 3.5"/><circle cx="17" cy="15" r="4"/><path d="m20 18 2.5 2.5"/>',
+};
+
+const AYAR_BILGISI = {
+  ses: {
+    ad: 'Sesli yönlendirme',
+    acikla: () => (sesAcik()
+      ? 'Açık: uygulama ne çekeceğini ve sıradaki kontrolü telefonun sesiyle söyler. Kapatmak için hoparlöre dokun.'
+      : 'Kapalı: hoparlöre dokunursan uygulama ne çekeceğini ve sıradaki kontrolü sesle söyler.'),
+  },
+  otomatik: {
+    ad: 'Otomatik çekim',
+    acikla: () => `${ellerSerbest() ? 'Açık' : 'Kapalı'}: açıkken kamera 5'ten geri sayar ve fotoğrafı kendisi çeker. Bir elin mantardayken ya da eldivenliyken işe yarar.`,
+  },
+  kiyas: {
+    ad: 'Fotoğraf kıyası',
+    acikla: () => {
+      const durum = { yukleniyor: ' Şu an indiriliyor.', hata: ' İnternet gerekli (bir kez, yaklaşık 6 MB).' }[modelDurumu()] ?? '';
+      return `${kiyasAcik() ? 'Açık' : 'Kapalı'}: fotoğrafı bildiği türlerle kıyaslar, en çok benzeyenleri gösterir ve soruları ona göre sıralar. Hiçbir türü elemez; fotoğraf telefondan çıkmaz.${durum}`;
+    },
+  },
+};
+
+const kameraAcikMi = () => Boolean(h.cekim && !h.kameraYok);
+const ayarAcikMi = (ad) => ({ ses: sesAcik, otomatik: ellerSerbest, kiyas: kiyasAcik }[ad]());
+
+function ayarDegistir(ad) {
+  if (ad === 'ses') {
+    ayarYaz({ sesliTanimlama: !sesAcik() });
+    if (!sesAcik()) {
+      sesiKes();
+      dinlemeyiDurdur();
+    }
+  } else if (ad === 'otomatik') {
+    ayarYaz({ ellerSerbest: !ellerSerbest() });
+    // Kamera açıkken açılırsa sayım hemen başlar, kapatılırsa süren sayım durur.
+    if (kameraAcikMi()) {
+      if (ellerSerbest()) geriSayimBaslat(h.cekim);
+      else {
+        clearInterval(h.geriSayim);
+        h.geriSayim = null;
+        const yazi = kap.querySelector('.geri-sayim');
+        if (yazi) yazi.textContent = '';
+      }
+    }
+  } else {
+    ayarYaz({ fotoKiyasi: !kiyasAcik() });
+    if (kiyasAcik()) kiyasiHazirla();
+    else h.benzerlikler = {};
+  }
+  h.ayarBilgisi = ad; // değişince ne olduğu kısa bir süre yazılır
+  clearTimeout(h.ayarBilgisiSuresi);
+  h.ayarBilgisiSuresi = setTimeout(() => { if (h.ayarBilgisi === ad) { h.ayarBilgisi = null; ayarBilgisiniCiz(); } }, 4000);
+  ayarlariYenile();
+  if (ad === 'ses') {
+    siradakiniSoyle();
+    dinlemeyiAyarla();
+  }
+  // Fotoğraf kıyası açılıp kapanınca tahmin ve sıralama değişir; kamera açıksa yeniden açılmasın diye yalnızca o zaman çizilir.
+  if (ad === 'kiyas' && !h.cekim) ciz();
 }
 
+// Tek bir ayarın simgesi ve yanındaki (i).
+function ayarSimgesi(ad) {
+  const acik = ayarAcikMi(ad);
+  const bilgi = AYAR_BILGISI[ad];
+  const dugme = el('button', { type: 'button', className: `ayar-simge${acik ? ' acik' : ''}`, onclick: () => ayarDegistir(ad) });
+  dugme.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true">${AYAR_SIMGELERI[ad === 'ses' && !acik ? 'sessiz' : ad]}</svg>`;
+  dugme.setAttribute('aria-label', `${bilgi.ad}: ${acik ? 'açık' : 'kapalı'}`);
+  dugme.setAttribute('aria-pressed', String(acik));
+  if (ad === 'kiyas' && acik && modelDurumu() === 'yukleniyor') dugme.classList.add('bekliyor');
+  const i = el('button', { type: 'button', className: 'ayar-bilgi', textContent: 'i', onclick: () => {
+    h.ayarBilgisi = h.ayarBilgisi === ad ? null : ad;
+    clearTimeout(h.ayarBilgisiSuresi);
+    ayarBilgisiniCiz();
+  } });
+  i.setAttribute('aria-label', `${bilgi.ad} nedir?`);
+  return el('div', { className: `ayar-kose ayar-${ad}`, 'data-ayar': ad }, dugme, i);
+}
+
+// Açık (i) ya da az önce değiştirilen ayarın açıklaması: kamerada kameranın ortasında, değilse simgelerin altında.
+function ayarBilgisiniCiz() {
+  for (const kutu of kap?.querySelectorAll('.ayar-aciklamasi') ?? []) {
+    const ad = h.ayarBilgisi;
+    kutu.hidden = !ad;
+    kutu.replaceChildren(...(ad ? [el('strong', { textContent: AYAR_BILGISI[ad].ad }), el('span', { textContent: AYAR_BILGISI[ad].acikla() })] : []));
+  }
+}
+
+function ayarlariYenile() {
+  for (const d of kap?.querySelectorAll('[data-ayar]') ?? []) d.replaceWith(ayarSimgesi(d.dataset.ayar));
+  ayarBilgisiniCiz();
+}
+
+const ayarAciklamasi = () => el('div', { className: 'ayar-aciklamasi', hidden: true, 'aria-live': 'polite', onclick: () => { h.ayarBilgisi = null; ayarBilgisiniCiz(); } });
+
+// Kamera kapalıyken sayfanın üstündeki küçük sıra.
 function ayarlarCiz() {
-  const kiyasMetni = {
-    yok: kiyasAcik() ? 'Hazırlanıyor…' : 'Kapalı',
-    yukleniyor: 'İndiriliyor…',
-    hazir: 'Açık',
-    hata: 'İnternet gerekli',
-  }[modelDurumu()];
-  const kiyas = el('button', {
-    type: 'button',
-    className: `ayar-dugme${kiyasAcik() ? ' acik' : ''}`,
-    onclick: () => {
-      ayarYaz({ fotoKiyasi: !kiyasAcik() });
-      if (kiyasAcik()) kiyasiHazirla();
-      else h.benzerlikler = {};
-      ciz();
-    },
-  }, el('span', { textContent: 'Fotoğraf kıyası' }), el('strong', { textContent: kiyasMetni }));
-  kiyas.setAttribute('aria-pressed', String(kiyasAcik()));
   return el('div', { className: 'hizli-ayarlar' },
-    ayarDugmesi('Sesli yönlendirme', sesAcik(), () => {
-      ayarYaz({ sesliTanimlama: !sesAcik() });
-      if (!sesAcik()) {
-        sesiKes();
-        dinlemeyiDurdur();
-      }
-      ciz();
-      siradakiniSoyle();
-      dinlemeyiAyarla();
-    }),
-    // Adı "Otomatik çekim" (Metin, 2026-10-27: "Eller serbest" yanlış anlaşılıyordu; telefon yine elde).
-    ayarDugmesi('Otomatik çekim', ellerSerbest(), () => {
-      ayarYaz({ ellerSerbest: !ellerSerbest() });
-      ciz();
-    }, "5'ten sayar, kendisi çeker"),
-    kiyas,
-  );
+    el('div', { className: 'ayar-sira' }, ayarSimgesi('ses'), ayarSimgesi('kiyas'), ayarSimgesi('otomatik')),
+    ayarAciklamasi());
 }
 
 function ayarNotlari() {
@@ -277,10 +340,10 @@ function ayarNotlari() {
     notlar.push('Bu telefonda Türkçe yerel ses bulunamadı. Telefonun ayarlarından "Metin okuma" (yazıdan konuşmaya) Türkçe sesi indirilebilir.');
   }
   if (kiyasAcik() && modelDurumu() === 'hata') {
-    notlar.push('Fotoğraf kıyası için bir kez internet gerekir (yaklaşık 5 MB). İnternet yokken tanımlama kontrollerle devam eder.');
+    notlar.push('Fotoğraf kıyası için bir kez internet gerekir (yaklaşık 6 MB). İnternet yokken tanımlama kontrollerle devam eder.');
   }
   if (!kiyasAcik()) {
-    notlar.push('Fotoğraf kıyası kapalıyken de tanımlama çalışır. Açarsan bir kez yaklaşık 5 MB iner; sonra internetsiz çalışır ve fotoğrafın hiçbir yere gitmez.');
+    notlar.push('Fotoğraf kıyası kapalıyken de tanımlama çalışır. Açarsan bir kez yaklaşık 6 MB iner; sonra internetsiz çalışır ve fotoğrafın hiçbir yere gitmez.');
   }
   return notlar.map((n) => el('p', { className: 'not', textContent: n }));
 }
@@ -567,10 +630,12 @@ function rehberCiz(tur) {
 function kameraCiz(tur) {
   video = el('video', { className: 'kamera-goruntu', autoplay: true, muted: true });
   const kutu = el('div', { className: 'kamera-kutusu' },
-    el('div', { className: 'kamera' }, video, ...rehberCiz(tur), el('span', { className: 'geri-sayim', 'aria-live': 'polite' })),
+    el('div', { className: 'kamera' }, video, ...rehberCiz(tur), el('span', { className: 'geri-sayim', 'aria-live': 'polite' }),
+      // Ayarlar kameranın köşelerinde (Metin, 2026-10-28): ses sol üst, fotoğraf kıyası sol alt, otomatik çekim sağ alt.
+      ayarSimgesi('ses'), ayarSimgesi('kiyas'), ayarSimgesi('otomatik'), ayarAciklamasi()),
+    // "5 sn sonra" düğmesi kaldırıldı: aynı işi sağ alttaki otomatik çekim yapıyor (Metin: "Çek en altta kalsın").
     el('div', { className: 'kamera-dugmeler' },
       el('button', { type: 'button', className: 'birincil', onclick: () => fotografCek(tur) }, ikon('kamera'), el('span', { textContent: 'Çek' })),
-      el('button', { type: 'button', className: 'ikincil', textContent: '5 sn sonra', onclick: () => geriSayimBaslat(tur) }),
     ),
   );
   kameraAc(video).then((acildi) => {
@@ -808,8 +873,8 @@ function sayfaCiz() {
       el('p', { className: 'ust-etiket', textContent: 'Fotoğrafla tanımla' }),
       el('button', { type: 'button', className: 'ikincil kucuk-dugme', textContent: 'Vazgeç', onclick: vazgec }),
     ),
-    ayarlarCiz(),
-    ...ayarNotlari(),
+    // Kamera açıkken ayarlar kameranın köşelerinde; üstte ayrıca gösterilmez.
+    ...(kameraAcikMi() ? [] : [ayarlarCiz(), ...ayarNotlari()]),
     fotograflarCiz(),
   );
   // Fotoğraf gelince tahmin ve kontroller görünür (fotoğrafa bakarak cevaplanır).

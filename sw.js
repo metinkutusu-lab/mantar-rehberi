@@ -1,6 +1,6 @@
 // Çevrimdışı çalışma: uygulamanın bütün dosyaları ilk açılışta cihaza kaydedilir.
 // Yeni dosya eklenince DOSYALAR listesine ekle ve SURUM'u artır.
-const SURUM = 'v70';
+const SURUM = 'v71';
 // GitHub Pages'te aynı adreste başka uygulamalar da olabilir: önbellek adı bu uygulamaya ve adresine özeldir,
 // yalnızca kendi eski sürümlerini siler.
 const ONEK = `mantar-rehberi:${self.registration.scope}:`;
@@ -15,7 +15,7 @@ const AZAMI_HARITA_PARCASI = 6000;
 const MODEL_ONBELLEGI = ONEK + 'model';
 // Telefondaki model ve ayırıcıları: js/modelAyari.js'teki klasörle aynı olmalı (test denetler). Model değişince eski
 // klasörün dosyaları model önbelleğinden silinir (eski modelle yeni ayırıcı karışmasın, yer kaplamasın).
-const AKTIF_MODEL_KLASORU = 'vendor/mobilenet/';
+const AKTIF_MODEL_KLASORU = 'vendor/mantar-modeli-1/';
 const MODEL_YOLLARI = ['vendor/tf.min.js', 'vendor/mobilenet/', 'vendor/mantar-modeli'];
 const DOSYALAR = [
   './',

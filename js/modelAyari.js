@@ -4,6 +4,6 @@
 // cikis: modelden okunacak katmanın adı (null: modelin kendi çıkışı).
 // Eğitim ve ölçüm betikleri, denedikleri aday modeli globalThis.MANTAR_MODEL ile verir; uygulama bunu hiç kullanmaz.
 export const MODEL = globalThis.MANTAR_MODEL ?? {
-  klasor: './vendor/mobilenet/',
-  cikis: 'module_apply_default/MobilenetV2/Logits/AvgPool',
+  klasor: './vendor/mantar-modeli-1/',
+  cikis: null,
 };
