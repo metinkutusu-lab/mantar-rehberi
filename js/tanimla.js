@@ -113,7 +113,7 @@ function girisCiz() {
         el('span', { className: 'acilir-ust' },
           el('strong', { className: 'acilir-baslik', textContent: 'Yanına al' }),
           el('span', { className: 'yanina-al-ikonlar' }, ...gerekenler.map(([ad]) => ikon(ad))),
-          el('span', { className: 'acilir-ok', textContent: '›' }),
+          el('span', { className: 'acilir-ok', 'aria-hidden': 'true' }),
         ),
       ),
       el('ul', { className: 'liste-ikonlu acilir-govde' },

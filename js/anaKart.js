@@ -37,6 +37,7 @@ const yerlerim = el('details', { className: 'yerlerim' },
       el('strong', { textContent: 'Yerlerim' }),
       el('span', { className: 'yagmur-ozet', textContent: 'Kayıtlı yerler, yer ara, konumum' }),
     ),
+    el('span', { className: 'acilir-ok', 'aria-hidden': 'true' }),
   ),
   el('div', { className: 'yerlerim-govde' }, yerlerimListesi(), konumBolumu(), aramaBolumu()),
 );
