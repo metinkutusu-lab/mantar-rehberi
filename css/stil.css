@@ -536,11 +536,12 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .ana-kart { margin: 16px 0 0; padding: 14px 16px 6px; }
 .ana-ust { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 0 10px; }
 .ana-baslik { font-size: 17px; font-weight: 750; margin: 0; }
-/* Başlığın yanında mevsimdeki mantarlar: küçük yuvarlak fotoğraflar, hafifçe üst üste (Metin, 2026-10-28). */
-.mevsim-fotolari { display: flex; margin-left: auto; padding-left: 4px; }
-.mevsim-foto { width: 38px; height: 38px; padding: 0; margin-left: -9px; border-radius: 50%; border: 2.5px solid var(--yuzey); background: var(--yuzey-2); overflow: hidden; box-shadow: 0 1px 4px rgb(0 0 0 / 0.18); }
-.mevsim-foto:first-child { margin-left: 0; }
-.mevsim-foto-resim { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Kartın en üstünde bu mevsimin mantarları: kaydırılabilir şerit (Metin, 2026-10-28). */
+.mevsim-fotolari { flex: 1; min-width: 0; display: flex; gap: 4px; overflow-x: auto; scroll-snap-type: x proximity; padding: 2px 2px 4px; margin: -2px 0 -4px -2px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.mevsim-fotolari::-webkit-scrollbar { display: none; }
+.mevsim-foto { flex: 0 0 auto; width: 70px; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 0; border: none; background: none; color: var(--yazi); scroll-snap-align: start; }
+.mevsim-foto-resim { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; display: block; border: 2px solid var(--yuzey); box-shadow: 0 1px 4px rgb(0 0 0 / 0.2); }
+.mevsim-foto-ad { width: 100%; font-size: 11px; font-weight: 650; line-height: 1.15; text-align: center; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .bilgi-dugme {
   width: 34px;
   height: 34px;

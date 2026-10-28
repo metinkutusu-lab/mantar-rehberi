@@ -15,13 +15,12 @@ const tarih = (t) => t.toLocaleDateString('tr-TR', { day: 'numeric', month: 'lon
 const mevsimSatiri = el('div', { className: 'ana-satir' });
 const mevsimBilgisi = el('div', { className: 'bilgi-bolum' });
 
-// Başlığın yanında mevsimdeki birkaç mantarın küçük fotoğrafı (Metin, 2026-10-28: "biraz canlılık ve renk").
-// Yalnızca şu ay mevsimi olan (TASLAK `aylar`) toplanan türler; dokununca ansiklopedideki sayfası açılır.
-// Fotoğrafları çekenler ve lisansları (i) panelinde yazar.
-const MEVSIM_FOTO_SAYISI = 4;
-// Toprak altında yetişen yumrular (trüf, keme) kahverengi topak gibi görünür, renk katmaz; şeritte gösterilmez.
+// Kartın en üstünde bu mevsimin bütün mantarları: kaydırılabilir şerit, fotoğraf ve ad (Metin, 2026-10-28: "Mantar zamanı"
+// başlığı kalktı, altındaki "Sonbahar mantar mevsimi" satırı aynı şeyi söylüyordu). Yalnızca şu ay mevsimi olan (TASLAK
+// `aylar`) toplanan türler, aranma sırasıyla; dokununca ansiklopedideki sayfası açılır. Toprak altında yetişen yumrular
+// (trüf, keme) renk katmadığı için sona. Fotoğrafları çekenler ve lisansları (i) panelinde yazar.
 const YUMRULAR = new Set(['beyaz-truf', 'kara-truf', 'keme']);
-const mevsimFotolari = el('div', { className: 'mevsim-fotolari' });
+const mevsimFotolari = el('div', { className: 'mevsim-fotolari', role: 'list', 'aria-label': 'Bu mevsimin mantarları' });
 const fotoKaynaklari = el('p', { className: 'not' });
 
 const bilgiPaneli = el('div', { className: 'bilgi-paneli', hidden: true },
@@ -34,16 +33,17 @@ const bilgiPaneli = el('div', { className: 'bilgi-paneli', hidden: true },
 async function mevsimFotolariniCiz() {
   const ay = new Date().getMonth() + 1;
   const secilen = aranmaSirasinaGore((await turleriYukle())
-    .filter((t) => t.zehirlilik === 'yenen' && !YUMRULAR.has(t.id) && t.aylar?.length && mevsimdeMi(t, ay) && t.fotograf?.dosya))
-    .slice(0, MEVSIM_FOTO_SAYISI);
+    .filter((t) => t.zehirlilik === 'yenen' && t.aylar?.length && mevsimdeMi(t, ay) && t.fotograf?.dosya))
+    .sort((x, y) => YUMRULAR.has(x.id) - YUMRULAR.has(y.id));
   mevsimFotolari.replaceChildren(...secilen.map((t) => {
     const d = el('button', { type: 'button', className: 'mevsim-foto', onclick: () => document.dispatchEvent(new CustomEvent('ansiklopedide-ac', { detail: t.id })) },
-      kucukFotograf(t, 'mevsim-foto-resim'));
+      kucukFotograf(t, 'mevsim-foto-resim'), el('span', { className: 'mevsim-foto-ad', textContent: t.ad.replace(/\s*\(.*\)$/, '') }));
+    d.setAttribute('role', 'listitem');
     d.setAttribute('aria-label', `${t.ad.replace(/\s*\(.*\)$/, '')}: ansiklopedide aç`);
     return d;
   }));
   fotoKaynaklari.textContent = secilen.length
-    ? `Başlıktaki fotoğraflar (bu mevsimin mantarları): ${secilen.map((t) => `${t.ad.replace(/\s*\(.*\)$/, '')}: ${t.fotograf.cekan ?? t.fotograf.ceken ?? ''}, ${t.fotograf.lisans}`).join('; ')}.`
+    ? `Üstteki fotoğraflar (bu mevsimin mantarları): ${secilen.map((t) => `${t.ad.replace(/\s*\(.*\)$/, '')}: ${t.fotograf.cekan ?? t.fotograf.ceken ?? ''}, ${t.fotograf.lisans}`).join('; ')}.`
     : '';
 }
 
@@ -78,7 +78,6 @@ document.addEventListener('yerlerimi-ac', () => {
 
 const kart = el('section', { className: 'kart ana-kart' },
   el('div', { className: 'ana-ust' },
-    el('h2', { className: 'ana-baslik', textContent: 'Mantar zamanı' }),
     mevsimFotolari,
     bilgiDugmesi,
   ),
