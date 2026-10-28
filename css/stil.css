@@ -733,7 +733,7 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 
 /* Mantar ara */
 .ara-baglanti { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 48px; margin: 12px 0 2px; padding: 10px 14px; text-decoration: none; font-size: 15.5px; }
-.ara-baglanti .ikon { width: 20px; height: 20px; }
+.ara-baglanti .ikon { width: 26px; height: 26px; }
 .geri-baglanti { color: var(--marka); font-weight: 650; text-decoration: none; padding: 8px 0; }
 .ara-ekrani h1 { margin-top: 4px; }
 .ara-tur-etiket { display: flex; flex-direction: column; gap: 6px; font-weight: 700; font-size: 15px; margin: 6px 0 8px; }

@@ -27,6 +27,8 @@ const IKONLAR = {
   sepet:'<path d="M3 10h18l-1.6 8.4a2 2 0 0 1-2 1.6H6.6a2 2 0 0 1-2-1.6z"/><path d="M7.5 10 11 4"/><path d="M16.5 10 13 4"/><path d="M9 13.5v3"/><path d="M12 13.5v3"/><path d="M15 13.5v3"/>',
   ses:'<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/>',
   yenile:'<path d="M20 12a8 8 0 0 1-14.3 4.9"/><path d="M4 12a8 8 0 0 1 14.3-4.9"/><path d="M18.5 3v4.5H14"/><path d="M5.5 21v-4.5H10"/>',
+  // Katlanmış harita ve üstünde büyüteç (Mantar ara düğmesi).
+  haritaAra: '<path d="M3 6.5 8.5 4l6 2.5L20 4v8.5"/><path d="M3 6.5V20l5.5-2.5 4 1.7"/><path d="M8.5 4v13.5"/><circle cx="17" cy="16.5" r="3.3"/><path d="m19.4 18.9 2.3 2.3"/>',
   paylas:'<path d="M4 13v6a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-6"/><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/>',
 };
 

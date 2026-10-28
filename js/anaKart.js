@@ -55,7 +55,8 @@ const kart = el('section', { className: 'kart ana-kart' },
   ),
   mevsimSatiri,
   takipSatiri(),
-  el('a', { className: 'birincil ara-baglanti', href: '#mantar-ara' }, ikon('konum'), el('span', { textContent: 'Mantar ara: haritada uygun yerler' })),
+  // Kısa ad ve harita+büyüteç simgesi (Metin, 2026-10-28: uzun yazı göze hoş gelmiyordu; açıklama Mantar ara'nın (i)'sinde).
+  el('a', { className: 'birincil ara-baglanti', href: '#mantar-ara', 'aria-label': 'Mantar ara: haritada uygun yerler' }, ikon('haritaAra'), el('span', { textContent: 'Mantar ara' })),
   bilgiPaneli,
   yerlerim,
 );
