@@ -641,7 +641,7 @@ function kameraCiz(tur) {
     el('div', { className: 'kamera' }, video, ...rehberCiz(tur), el('span', { className: 'geri-sayim', 'aria-live': 'polite' }),
       // Ayarlar kameranın köşelerinde (Metin, 2026-10-28): ses sol üst, fotoğraf kıyası sol alt, otomatik çekim sağ alt.
       ayarSimgesi('ses'), ayarSimgesi('kiyas'), ayarSimgesi('otomatik'), ayarAciklamasi(),
-      // Fotoğraf makinesi gibi büyük yuvarlak "Çek" düğmesi, alttaki iki simgenin arasında (Metin, 2026-10-28).
+      // Büyük, geniş dikdörtgen "Çek" düğmesi, alttaki iki simgenin arasında (Metin, 2026-10-28).
       cekDugmesi(tur)),
   );
   kameraAc(video).then((acildi) => {

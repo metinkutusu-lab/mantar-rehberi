@@ -839,16 +839,16 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .kamera .ayar-simge { border-color: rgb(255 255 255 / 0.7); background: rgb(0 0 0 / 0.5); color: #fff; }
 .kamera .ayar-simge.acik { background: #e8963f; border-color: #fff; }
 .kamera .ayar-bilgi { border-color: rgb(255 255 255 / 0.7); background: rgb(0 0 0 / 0.5); color: #fff; }
-.kamera .ayar-aciklamasi { position: absolute; z-index: 3; left: 12px; right: 12px; bottom: 112px; margin: 0; background: rgb(0 0 0 / 0.78); border-color: rgb(255 255 255 / 0.4); color: #fff; }
+.kamera .ayar-aciklamasi { position: absolute; z-index: 3; left: 12px; right: 12px; bottom: 84px; margin: 0; background: rgb(0 0 0 / 0.78); border-color: rgb(255 255 255 / 0.4); color: #fff; }
 .neden { font-size: 15px; font-weight: 650; color: var(--marka); background: var(--marka-acik); border-radius: 12px; padding: 8px 12px; }
 .kamera { position: relative; border-radius: var(--yaricap); overflow: hidden; background: #000; aspect-ratio: 4 / 3; }
 .kamera-goruntu { width: 100%; height: 100%; object-fit: cover; display: block; }
 .geri-sayim { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 88px; font-weight: 850; color: #fff; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6); pointer-events: none; }
-/* Fotoğraf makinesi gibi büyük yuvarlak "Çek" (Metin, 2026-10-28): kameranın altında ortada, iki simgenin arasında. */
-.deklansor { position: absolute; z-index: 2; left: 50%; bottom: 12px; transform: translateX(-50%); width: 88px; height: 88px; padding: 5px; border-radius: 50%; border: 4px solid #fff; background: rgb(0 0 0 / 0.25); box-shadow: 0 2px 10px rgb(0 0 0 / 0.4); }
-.deklansor-ic { width: 100%; height: 100%; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; background: var(--marka); color: #fff; font-size: 14px; font-weight: 800; }
+/* Büyük, geniş dikdörtgen "Çek" (Metin, 2026-10-28): kameranın altında, iki simgenin arasında; rehber dairesine değmez. */
+.deklansor { position: absolute; z-index: 2; left: 68px; right: 68px; bottom: 12px; height: 58px; padding: 0; border-radius: 14px; border: 3px solid #fff; background: var(--marka); color: #fff; box-shadow: 0 2px 10px rgb(0 0 0 / 0.4); }
+.deklansor-ic { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 19px; font-weight: 800; }
 .deklansor-ic .ikon { width: 26px; height: 26px; }
-.deklansor:active .deklansor-ic { transform: scale(0.92); }
+.deklansor:active { transform: scale(0.97); }
 .sayac { margin: 14px 0 0; padding: 14px; border-radius: 14px; border: 1px solid var(--cizgi); background: var(--yuzey-2); text-align: center; }
 .sayac p { margin: 0 0 6px; }
 .sayac-sure { display: block; font-size: 40px; font-weight: 850; letter-spacing: -0.02em; margin: 2px 0 10px; font-variant-numeric: tabular-nums; }
