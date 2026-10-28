@@ -20,7 +20,8 @@ const egit = (argumanlar, ortam = {}) =>
   execFileSync(process.execPath, [path.join(KOK, 'scripts', 'tur-ayirici-egit.js'), ...argumanlar], { stdio: 'inherit', env: { ...process.env, ...ortam } });
 function olc(ortam) {
   const dosya = path.join(tmpdir(), `mantar-olcum-${Math.random().toString(36).slice(2)}.json`);
-  egit(['--olc'], { ...ortam, MANTAR_OLCUM_OZETI: dosya });
+  // Kıyas hızlı olsun diye ek fotoğraflar tek biçimde (aynalanmadan); iki model aynı koşulda ölçülür.
+  egit(['--olc'], { ...ortam, MANTAR_OLCUM_OZETI: dosya, MANTAR_TEK_BICIM: '1' });
   return JSON.parse(readFileSync(dosya, 'utf8'));
 }
 const yuzde = (x) => `%${(x * 100).toFixed(1)}`;

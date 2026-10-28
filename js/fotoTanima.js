@@ -66,16 +66,17 @@ export function modeliHazirla() {
 export function izCoz(metin) {
   const ikili = typeof atob === 'function' ? atob(metin) : Buffer.from(metin, 'base64').toString('binary');
   const iz = new Float32Array(ikili.length);
-  for (let i = 0; i < ikili.length; i++) iz[i] = ikili.charCodeAt(i);
+  for (let i = 0; i < ikili.length; i++) iz[i] = (ikili.charCodeAt(i) / 255) ** 2;
   return birimYap(iz);
 }
 
-// Parmak izini 8 bite sıkıştırır (yalnızca yön önemli; uzunluk atılır).
+// Parmak izini 8 bite sıkıştırır (yalnızca yön önemli; uzunluk atılır). Karekökle sıkıştırılır: ince ayarlı modelde
+// birkaç büyük değer öne çıkar, küçük değerler düz 8 bitte sıfıra yuvarlanırdı (2026-10-28).
 export function izKodla(iz) {
   let enCok = 0;
   for (const d of iz) enCok = Math.max(enCok, d);
   let ikili = '';
-  for (const d of iz) ikili += String.fromCharCode(enCok > 0 ? Math.round((Math.max(0, d) / enCok) * 255) : 0);
+  for (const d of iz) ikili += String.fromCharCode(enCok > 0 ? Math.round(Math.sqrt(Math.max(0, d) / enCok) * 255) : 0);
   return typeof btoa === 'function' ? btoa(ikili) : Buffer.from(ikili, 'binary').toString('base64');
 }
 

@@ -44,14 +44,21 @@ jobs:
           node scripts/egitim-listesi.js
 
       - name: Ince ayar
-        run: python scripts/ince-ayar.py /tmp/ince-ayar-model
+        run: python scripts/ince-ayar.py /tmp/ince-ayar-model /tmp/kontrol-izleri.json
 
-      - name: Telefon bicimine cevir (8 bit)
+      # 2026-10-28: 8 bit yerine 16 bit (1. denemede 8 bit sıkıştırma ince ayarlı modeli bozdu; dosya ~5 MB, bir kez iner).
+      - name: Telefon bicimine cevir (16 bit)
         run: |
           tensorflowjs_converter --input_format=tf_saved_model --output_format=tfjs_graph_model \
-            --signature_name=serving_default --saved_model_tags=serve --quantize_uint8 '*' \
+            --signature_name=serving_default --saved_model_tags=serve --quantize_float16 '*' \
             /tmp/ince-ayar-model "${{ env.KLASOR }}"
           ls -la "${{ env.KLASOR }}"
+
+      # Telefon biçimindeki model eğitilenle aynı izi vermiyorsa burada durur (saatlerce boşuna kıyaslama olmasın).
+      - name: Kontrol (Python ile tarayici ayni sonucu veriyor mu)
+        run: node scripts/ince-ayar-kontrol.js "${{ env.KLASOR }}" /tmp/kontrol-izleri.json
+        env:
+          MANTAR_TARAYICI: /usr/bin/google-chrome
 
       - uses: actions/upload-artifact@v4
         with:

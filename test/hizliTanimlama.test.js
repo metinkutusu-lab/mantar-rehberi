@@ -171,6 +171,9 @@ test('fotoğraf kıyası: parmak izi 8 bite sıkıştırılıp açılınca yön�
   const iz = birimYap(Float32Array.from({ length: 1280 }, (_, i) => Math.abs(Math.sin(i * 1.7))));
   const geri = izCoz(izKodla(iz));
   assert.ok(kosinus(iz, geri) > 0.999);
+  // Birkaç büyük değerin öne çıktığı iz (ince ayarlı model) de yönünü korur.
+  const seyrek = birimYap(Float32Array.from({ length: 1280 }, (_, i) => (i % 97 === 0 ? 6 : 0.02 * Math.abs(Math.sin(i)))));
+  assert.ok(kosinus(seyrek, izCoz(izKodla(seyrek))) > 0.99);
 });
 
 test('fotoğraf kıyası: ayırıcı fotoğrafa uyan türü öne koyar, puanların toplamı 1; yüzde olarak yazılmaz (kural 1, 5)', () => {

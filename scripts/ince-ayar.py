@@ -2,7 +2,8 @@
 # Genel amaçlı MobileNet V2 (ImageNet, Apache 2.0) mantar türlerini ayırmayı öğrensin diye eğitim fotoğraflarıyla yeniden
 # eğitilir; telefona yalnızca "parmak izi" çıkaran kısmı gider (çıkış 1280 sayı, eski modelle aynı biçim). Tür, şapka rengi
 # ve şapka altı ayırıcıları bu yeni izlerle ayrıca öğrenilir (scripts/tur-ayirici-egit.js).
-# Girdi: fotograflar/egitim-listesi.json (scripts/egitim-listesi.js). Çıktı: SavedModel klasörü (ilk argüman).
+# Girdi: fotograflar/egitim-listesi.json (scripts/egitim-listesi.js). Çıktı: SavedModel klasörü (ilk argüman) ve isteğe bağlı
+# kontrol izleri (ikinci argüman, scripts/ince-ayar-kontrol.js).
 # Yalnızca GitHub'da (scripts/ince-ayar-dene.js) çalışır; Metin'in bilgisayarına hiçbir şey kurulmaz.
 import json
 import math
@@ -48,7 +49,8 @@ def oku(dosya, sinif, egitimde):
         resim = tf.clip_by_value(resim, 0.0, 1.0)
     else:
         resim = tf.image.resize_with_crop_or_pad(resim, kisa, kisa)  # telefondaki gibi ortadan kare
-    resim = tf.image.resize(resim, [BOYUT, BOYUT])
+    # antialias: tarayıcının tuvali de küçültürken yumuşatır (iki taraf aynı resmi görsün).
+    resim = tf.image.resize(resim, [BOYUT, BOYUT], antialias=True)
     return resim, sinif
 
 
@@ -98,3 +100,15 @@ def hizmet(resim):
 
 tf.saved_model.save(iz_modeli, CIKTI, signatures={'serving_default': hizmet})
 print('İnce ayar bitti:', CIKTI)
+
+# Kontrol için (scripts/ince-ayar-kontrol.js): deneme setinden birkaç fotoğrafın izi. Telefon biçimine çevrilen model aynı
+# fotoğraflara aynı izi vermeli; 1. denemede (2026-10-27) çevirme sonrası doğruluk %70'ten %28'e düşmüştü.
+if len(sys.argv) > 2:
+    kontrol = []
+    for kok, _, dosyalar in sorted(os.walk('fotograflar/deneme')):
+        kontrol += [os.path.join(kok, d).replace(os.sep, '/') for d in sorted(dosyalar) if d.lower().endswith(('.jpg', '.jpeg'))][:1]
+    kontrol = kontrol[:30]
+    resimler = tf.stack([oku(d, 0, False)[0] for d in kontrol])
+    izler = iz_modeli(resimler, training=False).numpy().tolist()
+    json.dump({'dosyalar': kontrol, 'izler': izler}, open(sys.argv[2], 'w', encoding='utf-8'))
+    print('Kontrol izleri:', len(kontrol), 'fotoğraf')

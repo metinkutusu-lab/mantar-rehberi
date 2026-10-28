@@ -85,7 +85,8 @@ const isler = ALT
   }));
 // Her fotoğraf birkaç biçimde öğretilir (mantar fotoğrafta farklı büyüklükte ve yönde olabilir).
 const ANA_BICIMLER = { t: {}, a: { cevir: true }, y: { yakinlik: 0.7 }, z: { yakinlik: 0.5 } };
-const EK_BICIMLER = { t: {}, a: { cevir: true } };
+// MANTAR_TEK_BICIM=1: ek fotoğraflar yalnızca olduğu gibi (ince ayar kıyası iki kat hızlı; iki model de aynı koşulda).
+const EK_BICIMLER = process.env.MANTAR_TEK_BICIM === '1' ? { t: {} } : { t: {}, a: { cevir: true } };
 // Bir işin fotoğrafları ve biçimleri (şapka altı fotoğrafları az olduğu için onlar da dört biçimde öğretilir).
 const dosyalari = (is) => [...(is.ana ? [[is.ana, ANA_BICIMLER]] : []), ...is.ekler.map((d) => [d, ALT ? ANA_BICIMLER : EK_BICIMLER])];
 // Hangi modelin izleriyle eğitilecek: uygulamanınki (js/modelAyari.js) ya da denenen aday model (MANTAR_MODEL_KLASORU,
@@ -99,7 +100,8 @@ const CIKTI = `${MODEL.klasor.replace(/^\.\//, '')}${ALT ? 'alt-yapi.json' : REN
 // ---- 1. İzler (önbellekte olmayanlar tarayıcıda hesaplanır) ----
 // Önbellek anahtarı dosyanın değiştirilme zamanını da içerir: aynı adla yeni fotoğraf inerse eski iz kullanılmaz.
 const onbellek = existsSync(ONBELLEK) ? JSON.parse(readFileSync(ONBELLEK, 'utf8')) : {};
-const anahtar = (dosya, ad) => `${MODEL.klasor}|${dosya}@${Math.round(statSync(path.join(KOK, dosya)).mtimeMs)}#${ad}`;
+// "k2": izler karekökle sıkıştırılıyor (js/fotoTanima.js izKodla, 2026-10-28); eski biçimdeki izler kullanılmaz.
+const anahtar = (dosya, ad) => `k2|${MODEL.klasor}|${dosya}@${Math.round(statSync(path.join(KOK, dosya)).mtimeMs)}#${ad}`;
 const gereken = [];
 const istenen = new Set();
 for (const is of isler) {

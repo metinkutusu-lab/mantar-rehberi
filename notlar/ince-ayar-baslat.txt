@@ -1,1 +1,2 @@
 İnce ayarı başlatmak için bu dosya değiştirilir (.github/workflows/ince-ayar.yml). 2026-10-27 15:46 (v56 düzeltmesiyle yeniden)
+2026-10-28: 2. deneme (16 bit çevirme, Python/tarayıcı kontrolü, karekök iz sıkıştırma, hızlı kıyas)
