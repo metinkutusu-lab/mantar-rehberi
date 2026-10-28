@@ -628,16 +628,21 @@ function rehberCiz(tur) {
   return [el('span', { className: 'kamera-pus' }), cizim, el('span', { className: 'kamera-rehber-yazi', textContent: rehber.yazi })];
 }
 
+function cekDugmesi(tur) {
+  const d = el('button', { type: 'button', className: 'deklansor', onclick: () => fotografCek(tur) },
+    el('span', { className: 'deklansor-ic' }, ikon('kamera'), el('span', { textContent: 'Çek' })));
+  d.setAttribute('aria-label', 'Fotoğrafı çek');
+  return d;
+}
+
 function kameraCiz(tur) {
   video = el('video', { className: 'kamera-goruntu', autoplay: true, muted: true });
   const kutu = el('div', { className: 'kamera-kutusu' },
     el('div', { className: 'kamera' }, video, ...rehberCiz(tur), el('span', { className: 'geri-sayim', 'aria-live': 'polite' }),
       // Ayarlar kameranın köşelerinde (Metin, 2026-10-28): ses sol üst, fotoğraf kıyası sol alt, otomatik çekim sağ alt.
-      ayarSimgesi('ses'), ayarSimgesi('kiyas'), ayarSimgesi('otomatik'), ayarAciklamasi()),
-    // "5 sn sonra" düğmesi kaldırıldı: aynı işi sağ alttaki otomatik çekim yapıyor (Metin: "Çek en altta kalsın").
-    el('div', { className: 'kamera-dugmeler' },
-      el('button', { type: 'button', className: 'birincil', onclick: () => fotografCek(tur) }, ikon('kamera'), el('span', { textContent: 'Çek' })),
-    ),
+      ayarSimgesi('ses'), ayarSimgesi('kiyas'), ayarSimgesi('otomatik'), ayarAciklamasi(),
+      // Fotoğraf makinesi gibi büyük yuvarlak "Çek" düğmesi, alttaki iki simgenin arasında (Metin, 2026-10-28).
+      cekDugmesi(tur)),
   );
   kameraAc(video).then((acildi) => {
     if (!acildi) {
