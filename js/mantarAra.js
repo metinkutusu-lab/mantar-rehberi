@@ -78,6 +78,55 @@ const indirKap = el('div', { className: 'ara-indir' });
 const konumDugmesi = el('button', { type: 'button', className: 'konum-dugme', onclick: konumuAc });
 const sesDugmesi = el('button', { type: 'button', className: 'ikincil ses-dugme', onclick: sesiDegistir });
 const bakDugmesi = el('button', { type: 'button', className: 'ikincil ara-bak', textContent: 'Haritanın ortasına bak', onclick: () => bolgeyeBak(haritaMerkezi()) });
+// Tam ekranda haritanın üstündeki düğmeler (Metin, 2026-10-28: tanımlama kamerasındaki gibi simgeler ve (i)):
+// sol alt "Konumumu göster", ortada "Buraya bak" (haritanın ortasına bak), sağ alt "Sesli yönlendirme".
+// Normal görünümde aynı işleri haritanın altındaki düğmeler yapar; bu katman yalnızca tam ekranda görünür (CSS).
+const haritaKatmani = el('div', { className: 'harita-katman' });
+const KATMAN_SIMGELERI = {
+  konum: '<circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>',
+  ses: '<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/>',
+  sessiz: '<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="m17 9 5 5M22 9l-5 5"/>',
+  bak: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/>',
+};
+const KATMAN_BILGISI = {
+  konum: { ad: 'Konumumu göster', acikla: () => 'Haritada mavi noktayla nerede olduğunu gösterir ve seni izler; yürüdükçe harita ve öneriler yenilenir. Konumun hiçbir yere gönderilmez. Açıkken dokunursan harita konumuna döner.' },
+  bak: { ad: 'Buraya bak', acikla: () => 'Haritanın ortasındaki artı işaretinin çevresini (yaklaşık 2,5 km) hesaplar: mantar çıkmaya uygun yerleri renklendirir. Haritayı parmağınla bakmak istediğin yere kaydırıp dokun.' },
+  ses: { ad: 'Sesli yönlendirme', acikla: () => `${sesAcik() ? 'Açık' : 'Kapalı'}: hedefe ne kadar kaldığını ve hangi yönde olduğunu telefonun sesiyle söyler; bulunduğun yer değişince haber verir. İnternetsiz çalışır.` },
+};
+let katmanBilgisi = null;
+let katmanBilgisiSuresi = null;
+
+function katmanSimgesi(ad, acik, onclick, genis = false) {
+  const dugme = el('button', { type: 'button', className: `ayar-simge${acik ? ' acik' : ''}${genis ? ' katman-genis' : ''}`, onclick });
+  dugme.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true">${KATMAN_SIMGELERI[ad === 'ses' && !acik ? 'sessiz' : ad]}</svg>${genis ? '<span>Buraya bak</span>' : ''}`;
+  dugme.setAttribute('aria-label', KATMAN_BILGISI[ad].ad + (ad === 'bak' ? '' : `: ${acik ? 'açık' : 'kapalı'}`));
+  const i = el('button', { type: 'button', className: 'ayar-bilgi', textContent: 'i', onclick: () => {
+    katmanBilgisi = katmanBilgisi === ad ? null : ad;
+    clearTimeout(katmanBilgisiSuresi);
+    haritaKatmaniCiz();
+  } });
+  i.setAttribute('aria-label', `${KATMAN_BILGISI[ad].ad} nedir?`);
+  return el('div', { className: `ayar-kose katman-${ad}` }, dugme, i);
+}
+
+// Bir düğmeye basılınca ne olduğu birkaç saniye yazılır.
+function katmanBilgisiGoster(ad) {
+  katmanBilgisi = ad;
+  clearTimeout(katmanBilgisiSuresi);
+  katmanBilgisiSuresi = setTimeout(() => { if (katmanBilgisi === ad) { katmanBilgisi = null; haritaKatmaniCiz(); } }, 4000);
+}
+
+function haritaKatmaniCiz() {
+  const konumAcik = Boolean(ara.izlemeyiDurdur && ara.konum?.enlem != null);
+  haritaKatmani.replaceChildren(
+    katmanSimgesi('konum', konumAcik, () => { konumuAc(); katmanBilgisiGoster('konum'); haritaKatmaniCiz(); }),
+    katmanSimgesi('bak', false, () => bolgeyeBak(haritaMerkezi()), true),
+    katmanSimgesi('ses', sesAcik(), () => { sesiDegistir(); katmanBilgisiGoster('ses'); haritaKatmaniCiz(); }),
+    el('div', { className: 'ayar-aciklamasi', hidden: !katmanBilgisi, onclick: () => { katmanBilgisi = null; haritaKatmaniCiz(); } },
+      ...(katmanBilgisi ? [el('strong', { textContent: KATMAN_BILGISI[katmanBilgisi].ad }), el('span', { textContent: KATMAN_BILGISI[katmanBilgisi].acikla() })] : [])),
+  );
+}
+
 const isaretler = new Map(); // gizli yer id → harita işareti
 let konumIsareti = null;
 
@@ -112,7 +161,7 @@ kok.append(
   el('h1', { textContent: 'Mantar ara' }),
   // Açıklama (i) panelinin ilk paragrafında (Metin, 2026-10-27: "ekranda boşuna yer kaplamasın, harita yukarı çıksın").
   bilgiPaneli,
-  el('div', { className: 'ara-harita-kap' }, haritaKap, el('div', { className: 'ara-nisan' })),
+  el('div', { className: 'ara-harita-kap' }, haritaKap, el('div', { className: 'ara-nisan' }), haritaKatmani),
   lejant,
   // Tür şeridi "Haritanın ortasına bak"ın hemen altında (Metin, 2026-10-27: bölgeye bakıp "burada" olanları
   // görmek için yukarı aşağı gezilmesin, harita da yukarı çıksın).
@@ -458,6 +507,7 @@ function sesDugmesiCiz() {
   sesDugmesi.setAttribute('aria-pressed', String(sesAcik()));
   sesDugmesi.classList.toggle('acik', sesAcik());
   sesDugmesi.title = sesUyarisi;
+  haritaKatmaniCiz();
 }
 
 function sesiDegistir() {
@@ -605,6 +655,7 @@ function canliIpucuCiz() {
 function konumDugmesiCiz(yazi) {
   const acik = ara.izlemeyiDurdur && ara.konum?.enlem != null;
   konumDugmesi.replaceChildren(ikon('konum'), el('span', { textContent: yazi ?? (acik ? 'Konumuma dön' : 'Konumumu göster') }));
+  haritaKatmaniCiz();
 }
 
 export function mantarAraKapat() {

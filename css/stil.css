@@ -1067,5 +1067,17 @@ figcaption, .not, .tur-govde p { overflow-wrap: anywhere; }
 .ara-harita-kap.tam-ekran { position: fixed; left: 0; right: 0; top: var(--ust-bar-yuksekligi, 56px); bottom: 0; margin: 0; z-index: 30; background: var(--yuzey-2); }
 .ara-harita-kap.tam-ekran .ara-harita { height: 100%; min-height: 0; }
 body.harita-tam-ekran { overflow: hidden; }
+/* Tam ekranda harita üstü düğmeler (Metin, 2026-10-28): sol alt konum, ortada "Buraya bak", sağ alt ses; her birinde (i). */
+.harita-katman { display: none; }
+.tam-ekran .harita-katman { display: block; }
+.harita-katman .ayar-kose { position: absolute; z-index: 5; bottom: 44px; flex-direction: column-reverse; }
+.harita-katman .katman-konum { left: 12px; }
+.harita-katman .katman-ses { right: 12px; }
+.harita-katman .katman-bak { left: 50%; transform: translateX(-50%); }
+.harita-katman .ayar-simge { border-color: #fff; background: rgb(255 255 255 / 0.95); color: #1d1a17; box-shadow: 0 2px 10px rgb(0 0 0 / 0.3); }
+.harita-katman .ayar-simge.acik { background: #1f6fe5; border-color: #fff; color: #fff; }
+.harita-katman .ayar-simge.katman-genis { width: auto; padding: 0 20px; gap: 8px; border-radius: 18px; background: #fffaf2; color: var(--marka); font-size: 16px; font-weight: 800; }
+.harita-katman .ayar-bilgi { border-color: rgb(0 0 0 / 0.2); background: rgb(255 255 255 / 0.95); color: #1d1a17; }
+.harita-katman .ayar-aciklamasi { position: absolute; z-index: 6; left: 12px; right: 12px; bottom: 140px; margin: 0; background: rgb(0 0 0 / 0.8); border-color: rgb(255 255 255 / 0.4); color: #fff; }
 .maplibregl-ctrl-group button.harita-tam-ekran-dugme { display: flex; align-items: center; justify-content: center; }
 .harita-tam-ekran-dugme svg { width: 26px; height: 26px; fill: none; stroke: #1d1a17; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
