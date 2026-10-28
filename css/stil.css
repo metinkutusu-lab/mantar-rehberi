@@ -823,12 +823,12 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .hizli-ayarlar { margin: 10px 0 4px; }
 .ayar-sira { display: flex; gap: 14px; }
 .ayar-kose { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-.ayar-simge { width: 46px; height: 46px; padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid var(--cizgi); background: var(--yuzey); color: var(--soluk); }
-.ayar-simge svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ayar-simge { width: 54px; height: 54px; padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid var(--cizgi); background: var(--yuzey); color: var(--soluk); }
+.ayar-simge svg { width: 29px; height: 29px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .ayar-simge.acik { background: var(--marka); border-color: var(--marka); color: #fff; }
 .ayar-simge.bekliyor { animation: ayar-nabiz 1.2s ease-in-out infinite; }
 @keyframes ayar-nabiz { 50% { opacity: 0.55; } }
-.ayar-bilgi { width: 22px; height: 22px; padding: 0; border-radius: 50%; border: 1px solid var(--cizgi); background: var(--yuzey); color: var(--soluk); font: italic 700 13px/1 Georgia, serif; }
+.ayar-bilgi { width: 28px; height: 28px; padding: 0; border-radius: 50%; border: 1px solid var(--cizgi); background: var(--yuzey); color: var(--soluk); font: italic 700 15px/1 Georgia, serif; }
 .ayar-aciklamasi { margin: 8px 0 0; padding: 10px 12px; border-radius: 12px; background: var(--marka-acik); border: 1px solid var(--marka); font-size: 13.5px; line-height: 1.35; }
 .ayar-aciklamasi strong { display: block; margin-bottom: 2px; }
 /* Kameranın üstünde: yarı saydam koyu daireler, köşelerde. */
@@ -839,13 +839,13 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .kamera .ayar-simge { border-color: rgb(255 255 255 / 0.7); background: rgb(0 0 0 / 0.5); color: #fff; }
 .kamera .ayar-simge.acik { background: #e8963f; border-color: #fff; }
 .kamera .ayar-bilgi { border-color: rgb(255 255 255 / 0.7); background: rgb(0 0 0 / 0.5); color: #fff; }
-.kamera .ayar-aciklamasi { position: absolute; z-index: 3; left: 12px; right: 12px; bottom: 84px; margin: 0; background: rgb(0 0 0 / 0.78); border-color: rgb(255 255 255 / 0.4); color: #fff; }
+.kamera .ayar-aciklamasi { position: absolute; z-index: 3; left: 12px; right: 12px; bottom: 104px; margin: 0; background: rgb(0 0 0 / 0.78); border-color: rgb(255 255 255 / 0.4); color: #fff; }
 .neden { font-size: 15px; font-weight: 650; color: var(--marka); background: var(--marka-acik); border-radius: 12px; padding: 8px 12px; }
 .kamera { position: relative; border-radius: var(--yaricap); overflow: hidden; background: #000; aspect-ratio: 4 / 3; }
 .kamera-goruntu { width: 100%; height: 100%; object-fit: cover; display: block; }
 .geri-sayim { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 88px; font-weight: 850; color: #fff; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6); pointer-events: none; }
 /* Büyük, geniş dikdörtgen "Çek" (Metin, 2026-10-28): kameranın altında, iki simgenin arasında; rehber dairesine değmez. */
-.deklansor { position: absolute; z-index: 2; left: 50%; transform: translateX(-50%); width: min(160px, calc(100% - 136px)); bottom: 12px; height: 58px; padding: 0; border-radius: 14px; border: 3px solid #fff; background: var(--marka); color: #fff; box-shadow: 0 2px 10px rgb(0 0 0 / 0.4); }
+.deklansor { position: absolute; z-index: 2; left: 50%; transform: translateX(-50%); width: min(160px, calc(100% - 152px)); bottom: 12px; height: 58px; padding: 0; border-radius: 14px; border: 3px solid #fff; background: var(--marka); color: #fff; box-shadow: 0 2px 10px rgb(0 0 0 / 0.4); }
 .deklansor-ic { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 19px; font-weight: 800; }
 .deklansor-ic .ikon { width: 40px; height: 40px; stroke-width: 1.8; }
 .deklansor:active { transform: translateX(-50%) scale(0.97); }
