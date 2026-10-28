@@ -658,6 +658,9 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 /* Ansiklopediye ana sayfadaki mantar şeridinden gelince: menünün hemen üstünde "Ana sayfaya dön" (Metin, 2026-10-28). */
 .ana-sayfaya-don { position: fixed; z-index: 11; left: 50%; transform: translateX(-50%); bottom: calc(var(--menu) + env(safe-area-inset-bottom) + 10px); padding: 12px 20px; border-radius: 999px; background: var(--marka); color: var(--marka-yazi); font-weight: 750; font-size: 15px; text-decoration: none; box-shadow: 0 4px 14px rgb(0 0 0 / 0.3); white-space: nowrap; }
 .ana-sayfaya-don[hidden] { display: none; }
+/* Kalın, çizilmiş sola ok ("‹" karakteri çok küçük görünüyordu). */
+.ana-sayfaya-don { display: flex; align-items: center; gap: 10px; padding-left: 18px; }
+.geri-ok { width: 14px; height: 14px; margin-left: 4px; border-left: 3.2px solid currentColor; border-bottom: 3.2px solid currentColor; border-radius: 1px; transform: rotate(45deg); }
 .alt-menu {
   position: fixed;
   left: 0;

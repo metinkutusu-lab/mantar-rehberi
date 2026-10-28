@@ -316,7 +316,8 @@ window.addEventListener('hashchange', ekraniGoster);
 // Ana karttaki mevsim fotoğrafına dokununca: ansiklopedi açılır, o türün kartı açılıp ekrana getirilir.
 // Ansiklopediye ana sayfadan gelindiyse altta "Ana sayfaya dön" düğmesi durur (Metin, 2026-10-28: "çıkmak için buton yok");
 // başka bir ekrana geçince kaybolur.
-const anaSayfayaDon = el('a', { className: 'ana-sayfaya-don', href: '#tanimla', hidden: true }, '‹ Ana sayfaya dön');
+const anaSayfayaDon = el('a', { className: 'ana-sayfaya-don', href: '#tanimla', hidden: true },
+  el('span', { className: 'geri-ok', 'aria-hidden': 'true' }), 'Ana sayfaya dön');
 document.body.append(anaSayfayaDon);
 window.addEventListener('hashchange', () => { if (location.hash !== '#ansiklopedi') anaSayfayaDon.hidden = true; });
 document.addEventListener('ansiklopedide-ac', ({ detail: id }) => {
