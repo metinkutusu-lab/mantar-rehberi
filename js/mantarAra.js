@@ -16,6 +16,7 @@ import {
   yukseklikIzgarasi,
 } from './harita.js';
 import { CIG_UYARISI, turleriYukle } from './turler.js';
+import { KENDI_NOTUN, bulduguKaydet, bulduguSil, bulduklarim, isaretOgesi, kayitAdi, turSecici } from './bulduklarim.js';
 import {
   SINIF_ADLARI,
   ayAraligi,
@@ -62,7 +63,10 @@ const ara = {
   hata: null,
   hedef: null, // { ad, enlem, boylam }
   indirme: null, // { tamam, toplam } | { bitti, toplam } | { hata }
-  isaretAdi: '',
+  kayitTurId: null, // "Bulduğum mantarı kaydet"te seçilen tür
+  kayitNotu: '',
+  tumTurler: [], // bütün türler (işaretlerin fotoğrafları ve tür seçici için)
+  odak: null, // Yerlerim'den "Haritada göster": açılınca bu kayda gidilir
   bolgeAdi: '',
 };
 
@@ -656,6 +660,9 @@ function konumDugmesiCiz(yazi) {
   const acik = ara.izlemeyiDurdur && ara.konum?.enlem != null;
   konumDugmesi.replaceChildren(ikon('konum'), el('span', { textContent: yazi ?? (acik ? 'Konumuma dön' : 'Konumumu göster') }));
   haritaKatmaniCiz();
+  // Konum gelince/gidince "Bulunduğum yere kaydet" açılır/kapanır (form her konumda yeniden çizilmez).
+  const kaydet = isaretKap.querySelector('.kayit-dugme');
+  if (kaydet && kaydet.disabled === Boolean(acik)) isaretCiz();
 }
 
 export function mantarAraKapat() {
@@ -920,58 +927,104 @@ function hedefCiz() {
   hedefKap.replaceChildren(el('div', { className: 'tek-seferlik ara-hedef-kutu' }, ...parcalar));
 }
 
+// Bulduğum mantarlar haritada türün fotoğrafıyla görünür; dokununca türü, tarihi, notu ve "Oraya git" açılır.
 function isaretleriCiz() {
-  const liste = gizliYerler();
+  const liste = bulduklarim();
   for (const [id, isaret] of isaretler) {
-    if (!liste.some((y) => y.id === id)) { isaret.remove(); isaretler.delete(id); }
+    const kayit = liste.find((y) => y.id === id);
+    // Silinen ya da türü sonradan yüklenen kayıtların işareti yeniden çizilir.
+    if (!kayit || isaret.turCizildi !== ara.tumTurler.length) { isaret.remove(); isaretler.delete(id); }
   }
-  for (const yer of liste) {
-    if (isaretler.has(yer.id)) continue;
-    const ogesi = el('button', { type: 'button', className: 'isaret-pin', title: yer.ad, onclick: () => hedefSec({ ad: yer.ad, enlem: yer.enlem, boylam: yer.boylam }) });
-    ogesi.setAttribute('aria-label', `${yer.ad}: hedef olarak seç`);
-    isaretler.set(yer.id, new window.maplibregl.Marker({ element: ogesi, anchor: 'bottom' }).setLngLat([yer.boylam, yer.enlem]).addTo(ara.harita));
+  for (const kayit of liste) {
+    if (isaretler.has(kayit.id)) continue;
+    const ogesi = el('button', { type: 'button', className: 'isaret-dugme', onclick: (o) => { o.stopPropagation(); kayitPenceresiniAc(kayit); } }, isaretOgesi(kayit, ara.tumTurler));
+    ogesi.setAttribute('aria-label', `${kayitAdi(kayit, ara.tumTurler)}: ayrıntı`);
+    const isaret = new window.maplibregl.Marker({ element: ogesi, anchor: 'bottom' }).setLngLat([kayit.boylam, kayit.enlem]).addTo(ara.harita);
+    isaret.turCizildi = ara.tumTurler.length;
+    isaretler.set(kayit.id, isaret);
   }
+  odagaGit();
 }
 
-function isaretKaydet(olay) {
-  olay.preventDefault();
-  const m = haritaMerkezi();
-  const liste = gizliYerler();
-  const yer = {
-    id: `${Date.now()}`,
-    ad: ara.isaretAdi.trim() || `Gizli yer ${liste.length + 1}`,
-    not: '',
-    // Yeri tekrar bulabilmek için tam konum saklanır; yalnızca bu cihazda kalır.
-    enlem: Math.round(m.enlem * 1e5) / 1e5,
-    boylam: Math.round(m.boylam * 1e5) / 1e5,
-    tarih: new Date().toISOString(),
-  };
-  kalici({ gizliYerler: [yer, ...liste].slice(0, 50) });
-  ara.isaretAdi = '';
+let acikPencere = null;
+
+function kayitPenceresiniAc(kayit) {
+  acikPencere?.remove();
+  const tarih = new Date(kayit.tarih).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
+  const icerik = el('div', { className: 'kayit-penceresi' },
+    el('strong', { textContent: kayitAdi(kayit, ara.tumTurler) }),
+    el('span', { className: 'not', textContent: `Bulduğun gün: ${tarih}` }),
+    kayit.not ? el('p', { textContent: kayit.not }) : '',
+    el('p', { className: 'not', textContent: KENDI_NOTUN }),
+    el('div', { className: 'kayit-penceresi-dugmeler' },
+      el('button', { type: 'button', className: 'ikincil', textContent: 'Oraya git', onclick: () => {
+        acikPencere?.remove();
+        hedefSec({ ad: kayitAdi(kayit, ara.tumTurler), enlem: kayit.enlem, boylam: kayit.boylam });
+      } }),
+      el('button', { type: 'button', className: 'metin-dugme soluk', textContent: 'Sil', onclick: () => {
+        if (!confirm(`"${kayitAdi(kayit, ara.tumTurler)}" kaydı silinsin mi? Bu geri alınamaz.`)) return;
+        acikPencere?.remove();
+        bulduguSil(kayit.id);
+      } }),
+    ),
+  );
+  acikPencere = new window.maplibregl.Popup({ offset: 46, maxWidth: '260px', closeButton: true })
+    .setLngLat([kayit.boylam, kayit.enlem]).setDOMContent(icerik).addTo(ara.harita);
+}
+
+// Yerlerim'deki "Haritada göster": harita o kayda gider ve penceresi açılır.
+function odagaGit() {
+  const kayit = ara.odak && bulduklarim().find((k) => k.id === ara.odak);
+  if (!kayit || !ara.harita?.loaded()) return;
+  ara.odak = null;
+  ara.harita.jumpTo({ center: [kayit.boylam, kayit.enlem], zoom: Math.max(ara.harita.getZoom(), 15) });
+  kayitPenceresiniAc(kayit);
+}
+
+document.addEventListener('haritada-goster', ({ detail: id }) => {
+  ara.odak = id;
+  location.hash = 'mantar-ara';
+  setTimeout(odagaGit, 300);
+});
+
+function kayitYap(nokta) {
+  const kayit = bulduguKaydet({ ...nokta, turId: ara.kayitTurId, not: ara.kayitNotu, turler: ara.tumTurler });
+  Object.assign(ara, { kayitTurId: null, kayitNotu: '' });
   isaretleriCiz();
-  isaretCiz('Kaydedildi. Yerlerim listesinde ve haritada görünür.');
-  document.dispatchEvent(new Event('yerler-degisti'));
+  isaretCiz(`Kaydedildi: ${kayitAdi(kayit, ara.tumTurler)}. Haritada fotoğrafıyla ve Yerlerim'de "Bulduğum mantarlar"da görünür.`);
 }
 
+// "Bulduğum mantarı kaydet" (Metin, 2026-10-28): hangi mantar, not; bulunduğun yere ya da haritanın ortasına.
 function isaretCiz(mesaj = '') {
-  const girdi = el('input', {
+  const notGirdisi = el('input', {
     type: 'text',
     className: 'yagmur-girdi',
-    placeholder: 'Yerin adı: ör. dere kenarı çamlık',
-    value: ara.isaretAdi,
-    maxLength: 60,
-    oninput: (o) => { ara.isaretAdi = o.target.value; },
+    placeholder: 'Not (isteğe bağlı): ör. çam dibinde 6 tane',
+    value: ara.kayitNotu,
+    maxLength: 140,
+    oninput: (o) => { ara.kayitNotu = o.target.value; },
   });
-  girdi.setAttribute('aria-label', 'İşaretlenecek yerin adı');
+  notGirdisi.setAttribute('aria-label', 'Not');
+  const konumVar = ara.konum?.enlem != null;
   isaretKap.replaceChildren(
-    el('h3', { className: 'yerlerim-baslik', textContent: 'Yer işaretle' }),
-    el('p', { className: 'not', textContent: 'Haritayı kaydırıp artı işaretini gideceğin yere getir. İşaret yalnızca bu cihazda kalır. Haritadaki bir işarete dokununca oraya yön gösterilir.' }),
-    el('form', { className: 'gizli-yer-formu', onsubmit: isaretKaydet },
-      girdi,
-      el('button', { type: 'submit', className: 'ikincil', textContent: 'Ortadaki noktayı kaydet' }),
+    el('h3', { className: 'yerlerim-baslik kayit-baslik' }, ikon('mantar'), el('span', { textContent: 'Bulduğum mantarı kaydet' })),
+    el('p', { className: 'not', textContent: 'Her mantarı ayrı kaydet: hangi mantar, tam nokta, tarih. Haritada türün fotoğrafıyla görünür. Yalnızca bu cihazda kalır.' }),
+    el('p', { className: 'yagmur-etiket', textContent: 'Hangi mantar?' }),
+    turSecici(ara.tumTurler, ara.kayitTurId, (id) => { ara.kayitTurId = id; isaretCiz(); }),
+    notGirdisi,
+    el('div', { className: 'kayit-dugmeleri' },
+      el('button', { type: 'button', className: 'birincil kayit-dugme', disabled: !konumVar, onclick: () => kayitYap({ enlem: ara.konum.enlem, boylam: ara.konum.boylam }) },
+        ikon('mantar'), el('span', { textContent: 'Bulunduğum yere kaydet' })),
+      el('button', { type: 'button', className: 'ikincil kayit-dugme', onclick: () => kayitYap(haritaMerkezi()) },
+        ikon('mantar'), el('span', { textContent: 'Haritanın ortasına kaydet' })),
     ),
-    mesaj ? el('p', { className: 'not', textContent: mesaj }) : '',
+    konumVar ? '' : el('p', { className: 'not', textContent: 'Bulunduğun yere kaydetmek için önce "Konumumu göster"e dokun. Haritanın ortasına kaydetmek için haritayı kaydırıp artı işaretini mantarın yerine getir.' }),
+    el('p', { className: 'not', textContent: KENDI_NOTUN }),
+    mesaj ? el('p', { className: 'not kayit-mesaj', textContent: mesaj }) : '',
   );
+  // Seçili tür görünür kalsın.
+  const secili = isaretKap.querySelector('.tur-secici .secili');
+  if (secili) requestAnimationFrame(() => { const s = secili.parentElement; s.scrollLeft = secili.offsetLeft - s.offsetLeft - 8; });
 }
 
 async function indir(olay) {
@@ -1062,7 +1115,10 @@ async function kur() {
   turleriYukle().then((turler) => {
     // Aranacak türler: toplanan (yenen) türler. Zehirli benzerleri her seçimde gösterilir (kural 8).
     ara.turler = aranmaSirasinaGore(turler.filter((t) => t.zehirlilik === 'yenen'));
+    ara.tumTurler = turler;
     turCiz();
+    isaretCiz();
+    if (ara.harita?.loaded()) isaretleriCiz();
   });
   try {
     await kutuphaneyiYukle();

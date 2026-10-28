@@ -1081,3 +1081,23 @@ body.harita-tam-ekran { overflow: hidden; }
 .harita-katman .ayar-aciklamasi { position: absolute; z-index: 6; left: 12px; right: 12px; bottom: 140px; margin: 0; background: rgb(0 0 0 / 0.8); border-color: rgb(255 255 255 / 0.4); color: #fff; }
 .maplibregl-ctrl-group button.harita-tam-ekran-dugme { display: flex; align-items: center; justify-content: center; }
 .harita-tam-ekran-dugme svg { width: 26px; height: 26px; fill: none; stroke: #1d1a17; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Bulduğum mantarlar (Metin, 2026-10-28): haritada türün fotoğrafıyla işaret, kaydetme formu, Yerlerim listesi. */
+.isaret-dugme { padding: 0; border: none; background: none; }
+.buldugum-isaret { position: relative; display: block; width: 42px; height: 42px; border-radius: 50%; border: 3px solid #fff; background: var(--marka); box-shadow: 0 2px 8px rgb(0 0 0 / 0.4); overflow: hidden; }
+.buldugum-isaret::after { content: ""; position: absolute; left: 50%; bottom: -9px; width: 0; height: 0; margin-left: -6px; border: 6px solid transparent; border-top-color: #fff; }
+.buldugum-isaret.tehlikeli { border-color: var(--kirmizi); }
+.buldugum-isaret-resim { width: 100%; height: 100%; object-fit: cover; display: block; }
+.buldugum-isaret-bos { display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 18px; }
+.kayit-penceresi { display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: #1d1a17; }
+.kayit-penceresi p { margin: 0; }
+.kayit-penceresi-dugmeler { display: flex; gap: 10px; align-items: center; margin-top: 4px; }
+.kayit-baslik { display: flex; align-items: center; gap: 8px; }
+.kayit-baslik .ikon { width: 22px; height: 22px; color: var(--marka); }
+.kayit-dugmeleri { display: flex; flex-direction: column; gap: 8px; margin: 8px 0 4px; }
+.kayit-dugme { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; }
+.kayit-dugme .ikon { width: 24px; height: 24px; }
+.tur-secenek.tehlikeli .tur-secenek-ad { color: var(--kirmizi); }
+.buldugum-resim { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 10px; }
+.buldugum-resim-bos { display: flex; align-items: center; justify-content: center; background: var(--marka-acik); color: var(--marka); }
+.buldugum-resim-bos .ikon { width: 22px; height: 22px; }
