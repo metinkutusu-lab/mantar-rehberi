@@ -570,7 +570,8 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
   font-size: 15.5px;
 }
 .yerlerim > summary::-webkit-details-marker { display: none; }
-.yerlerim > summary::after { content: "›"; font-size: 22px; color: var(--soluk); transition: transform 0.2s ease; }
+/* Ok büyük, yuvarlak bir düğme gibi (Metin, 2026-10-28: "çok küçük, belli olmuyor"); satırın tamamına dokununca da açılır. */
+.yerlerim > summary::after { content: "›"; flex: 0 0 auto; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; padding-bottom: 4px; box-sizing: border-box; background: var(--marka-acik); border: 1.5px solid var(--marka); color: var(--marka); font-size: 34px; font-weight: 700; line-height: 1; transition: transform 0.2s ease; }
 .yerlerim[open] > summary::after { transform: rotate(90deg); }
 .yerlerim-govde { padding: 0 16px 10px; }
 .yerlerim-baslik { font-size: 15.5px; font-weight: 750; margin: 14px 0 6px; }
@@ -610,7 +611,8 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .acilir-ust { display: flex; align-items: center; gap: 10px; font-size: 15.5px; }
 .acilir-baslik { flex: 1; min-width: 0; }
 .acilir-alt { display: block; font-size: 13.5px; font-weight: 600; color: var(--soluk); }
-.acilir-ok { font-size: 22px; line-height: 1; color: var(--soluk); transition: transform 0.2s ease; }
+/* Yerlerim'deki okla aynı: büyük, yuvarlak (Metin, 2026-10-28). */
+.acilir-ok { flex: 0 0 auto; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; padding-bottom: 4px; box-sizing: border-box; background: var(--marka-acik); border: 1.5px solid var(--marka); color: var(--marka); font-size: 34px; font-weight: 700; line-height: 1; transition: transform 0.2s ease; }
 .acilir[open] .acilir-ok { transform: rotate(90deg); }
 .acilir .mevsim-cubugu { margin-bottom: 0; }
 .acilir-govde { padding-top: 10px; }
