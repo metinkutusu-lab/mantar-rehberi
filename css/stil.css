@@ -845,10 +845,10 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .kamera-goruntu { width: 100%; height: 100%; object-fit: cover; display: block; }
 .geri-sayim { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 88px; font-weight: 850; color: #fff; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6); pointer-events: none; }
 /* Büyük, geniş dikdörtgen "Çek" (Metin, 2026-10-28): kameranın altında, iki simgenin arasında; rehber dairesine değmez. */
-.deklansor { position: absolute; z-index: 2; left: 68px; right: 68px; bottom: 12px; height: 58px; padding: 0; border-radius: 14px; border: 3px solid #fff; background: var(--marka); color: #fff; box-shadow: 0 2px 10px rgb(0 0 0 / 0.4); }
+.deklansor { position: absolute; z-index: 2; left: 50%; transform: translateX(-50%); width: min(160px, calc(100% - 136px)); bottom: 12px; height: 58px; padding: 0; border-radius: 14px; border: 3px solid #fff; background: var(--marka); color: #fff; box-shadow: 0 2px 10px rgb(0 0 0 / 0.4); }
 .deklansor-ic { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 19px; font-weight: 800; }
-.deklansor-ic .ikon { width: 26px; height: 26px; }
-.deklansor:active { transform: scale(0.97); }
+.deklansor-ic .ikon { width: 40px; height: 40px; stroke-width: 1.8; }
+.deklansor:active { transform: translateX(-50%) scale(0.97); }
 .sayac { margin: 14px 0 0; padding: 14px; border-radius: 14px; border: 1px solid var(--cizgi); background: var(--yuzey-2); text-align: center; }
 .sayac p { margin: 0 0 6px; }
 .sayac-sure { display: block; font-size: 40px; font-weight: 850; letter-spacing: -0.02em; margin: 2px 0 10px; font-variant-numeric: tabular-nums; }
