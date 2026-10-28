@@ -244,7 +244,7 @@ function turKartiCiz(tur, adlaTur) {
   }
   govde.append(el('p', { className: 'not', textContent: `Kaynak: ${tur.kaynak ?? 'belirtilmedi'}` }));
 
-  return el('details', { className: `kart tur-karti tur-${tur.zehirlilik}` },
+  return el('details', { className: `kart tur-karti tur-${tur.zehirlilik}`, id: `tur-${tur.id}` },
     el('summary', {},
       kucukFotograf(tur),
       el('span', { className: 'tur-baslik' },
@@ -313,6 +313,18 @@ function ekraniGoster() {
 }
 
 window.addEventListener('hashchange', ekraniGoster);
+// Ana karttaki mevsim fotoğrafına dokununca: ansiklopedi açılır, o türün kartı açılıp ekrana getirilir.
+document.addEventListener('ansiklopedide-ac', ({ detail: id }) => {
+  location.hash = 'ansiklopedi';
+  const ac = (deneme = 0) => {
+    const kart = document.getElementById(`tur-${id}`);
+    if (!kart) { if (deneme < 20) setTimeout(() => ac(deneme + 1), 100); return; }
+    kart.open = true;
+    kart.scrollIntoView({ block: 'start' });
+    window.scrollBy(0, -70);
+  };
+  setTimeout(ac, 50);
+});
 // Uygulama günlerce açık kalabilir; öne gelince mevsim çubuğu ve takip edilen yerin yağmuru güncellenir.
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') {

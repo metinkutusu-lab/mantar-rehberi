@@ -536,6 +536,11 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .ana-kart { margin: 16px 0 0; padding: 14px 16px 6px; }
 .ana-ust { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 0 10px; }
 .ana-baslik { font-size: 17px; font-weight: 750; margin: 0; }
+/* Başlığın yanında mevsimdeki mantarlar: küçük yuvarlak fotoğraflar, hafifçe üst üste (Metin, 2026-10-28). */
+.mevsim-fotolari { display: flex; margin-left: auto; padding-left: 4px; }
+.mevsim-foto { width: 38px; height: 38px; padding: 0; margin-left: -9px; border-radius: 50%; border: 2.5px solid var(--yuzey); background: var(--yuzey-2); overflow: hidden; box-shadow: 0 1px 4px rgb(0 0 0 / 0.18); }
+.mevsim-foto:first-child { margin-left: 0; }
+.mevsim-foto-resim { width: 100%; height: 100%; object-fit: cover; display: block; }
 .bilgi-dugme {
   width: 34px;
   height: 34px;

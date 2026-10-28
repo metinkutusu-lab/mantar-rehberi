@@ -2,8 +2,10 @@
 // - Üstte mantar mevsimi ve takip edilen yerin çubukları; altında Şimdi güncelle / Takibi bırak.
 // - (i) düğmesi bütün açıklamaları tek yerde açar: mevsim tarihleri, nereye bakmalı, yerin yağmur ayrıntıları.
 // - "Yerlerim": kayıtlı ve gizli yerlerin tek listesi, yer arama, konum ve elle yağmur tarihi.
-import { cubukCiz, el, ikon } from './dom.js';
+import { cubukCiz, el, ikon, kucukFotograf } from './dom.js';
 import { MEVSIM_NOTU, SICAKLIK_IPUCU, mevsimDurumu } from './mevsim.js';
+import { turleriYukle } from './turler.js';
+import { aranmaSirasinaGore, mevsimdeMi } from './uygunluk.js';
 import { KAYNAK_NOTU, YAGMUR_NOTU } from './yagmur.js';
 import { aramaBolumu, takipBilgisi, takipSatiri } from './yagmurKarti.js';
 import { konumBolumu, yerlerimAcildi, yerlerimListesi } from './yerlerim.js';
@@ -13,11 +15,37 @@ const tarih = (t) => t.toLocaleDateString('tr-TR', { day: 'numeric', month: 'lon
 const mevsimSatiri = el('div', { className: 'ana-satir' });
 const mevsimBilgisi = el('div', { className: 'bilgi-bolum' });
 
+// Başlığın yanında mevsimdeki birkaç mantarın küçük fotoğrafı (Metin, 2026-10-28: "biraz canlılık ve renk").
+// Yalnızca şu ay mevsimi olan (TASLAK `aylar`) toplanan türler; dokununca ansiklopedideki sayfası açılır.
+// Fotoğrafları çekenler ve lisansları (i) panelinde yazar.
+const MEVSIM_FOTO_SAYISI = 4;
+// Toprak altında yetişen yumrular (trüf, keme) kahverengi topak gibi görünür, renk katmaz; şeritte gösterilmez.
+const YUMRULAR = new Set(['beyaz-truf', 'kara-truf', 'keme']);
+const mevsimFotolari = el('div', { className: 'mevsim-fotolari' });
+const fotoKaynaklari = el('p', { className: 'not' });
+
 const bilgiPaneli = el('div', { className: 'bilgi-paneli', hidden: true },
   mevsimBilgisi,
   takipBilgisi(),
   el('p', { className: 'not', textContent: `${YAGMUR_NOTU} ${KAYNAK_NOTU}` }),
+  fotoKaynaklari,
 );
+
+async function mevsimFotolariniCiz() {
+  const ay = new Date().getMonth() + 1;
+  const secilen = aranmaSirasinaGore((await turleriYukle())
+    .filter((t) => t.zehirlilik === 'yenen' && !YUMRULAR.has(t.id) && t.aylar?.length && mevsimdeMi(t, ay) && t.fotograf?.dosya))
+    .slice(0, MEVSIM_FOTO_SAYISI);
+  mevsimFotolari.replaceChildren(...secilen.map((t) => {
+    const d = el('button', { type: 'button', className: 'mevsim-foto', onclick: () => document.dispatchEvent(new CustomEvent('ansiklopedide-ac', { detail: t.id })) },
+      kucukFotograf(t, 'mevsim-foto-resim'));
+    d.setAttribute('aria-label', `${t.ad.replace(/\s*\(.*\)$/, '')}: ansiklopedide aç`);
+    return d;
+  }));
+  fotoKaynaklari.textContent = secilen.length
+    ? `Başlıktaki fotoğraflar (bu mevsimin mantarları): ${secilen.map((t) => `${t.ad.replace(/\s*\(.*\)$/, '')}: ${t.fotograf.cekan ?? t.fotograf.ceken ?? ''}, ${t.fotograf.lisans}`).join('; ')}.`
+    : '';
+}
 
 const bilgiDugmesi = el('button', {
   type: 'button',
@@ -51,6 +79,7 @@ document.addEventListener('yerlerimi-ac', () => {
 const kart = el('section', { className: 'kart ana-kart' },
   el('div', { className: 'ana-ust' },
     el('h2', { className: 'ana-baslik', textContent: 'Mantar zamanı' }),
+    mevsimFotolari,
     bilgiDugmesi,
   ),
   mevsimSatiri,
@@ -63,6 +92,7 @@ const kart = el('section', { className: 'kart ana-kart' },
 
 // Mevsim satırı ve açıklaması; gün değişince yeniden çizilir.
 export function mevsimiYenile() {
+  mevsimFotolariniCiz();
   const d = mevsimDurumu();
   mevsimSatiri.className = `ana-satir${d.icinde ? '' : ' mevsim-disi'}`;
   mevsimSatiri.replaceChildren(
