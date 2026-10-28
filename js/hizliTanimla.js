@@ -243,7 +243,7 @@ const AYAR_BILGISI = {
   },
   otomatik: {
     ad: 'Otomatik çekim',
-    acikla: () => `${ellerSerbest() ? 'Açık' : 'Kapalı'}: açıkken kamera 5'ten geri sayar ve fotoğrafı kendisi çeker. Bir elin mantardayken ya da eldivenliyken işe yarar.`,
+    acikla: () => `${ellerSerbest() ? 'Açık' : 'Kapalı'}: açıkken kamera 10'dan geri sayar ve fotoğrafı kendisi çeker. Bir elin mantardayken ya da eldivenliyken işe yarar.`,
   },
   kiyas: {
     ad: 'Fotoğraf kıyası',
@@ -558,7 +558,8 @@ function fotografCek(tur) {
   });
 }
 
-function geriSayimBaslat(tur, saniye = 5) {
+// 10 saniye (Metin, 2026-10-28: 5 saniye mantarı çevirmeye yetmiyordu).
+function geriSayimBaslat(tur, saniye = 10) {
   clearInterval(h.geriSayim);
   let kalan = saniye;
   const yazi = kap.querySelector('.geri-sayim');
