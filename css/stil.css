@@ -1174,3 +1174,7 @@ body.harita-tam-ekran { overflow: hidden; }
 .harita-katman .katman-ust .ara-lejant span { gap: 3px; }
 .harita-katman .katman-ust .ara-lejant i { width: 11px; height: 11px; border-radius: 3px; }
 .harita-katman .katman-uyari { font-size: 11.5px; padding: 4px 9px; }
+/* Mantar ara doğrudan tam ekran (2026-11-01): genel açıklama ve uyarı "Bu alan" panelinde. */
+.ara-genel-bilgi { margin: 12px 0 8px; font-size: 13.5px; }
+.ara-genel-bilgi summary { font-weight: 700; cursor: pointer; }
+.ara-genel-bilgi p { margin: 6px 0; }

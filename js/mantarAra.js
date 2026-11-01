@@ -115,9 +115,13 @@ const KATMAN_BILGISI = {
   indir: { ad: 'İnternetsiz harita', acikla: () => 'Gitmeden önce, internet varken bölgeyi telefona indir; dağda internet yokken harita ve son yağmur bilgisi telefondan gelir. İndirdiğin bölgeler haritada kesik çizgili çemberle görünür.' },
 };
 
+// Sayfanın üstündeki genel açıklama ve en alttaki uyarı "Bu alan" panelinin altında (eski sayfa görünmüyor).
+const genelBilgi = el('details', { className: 'ara-genel-bilgi' }, el('summary', { textContent: 'Harita nasıl hesaplanıyor?' }));
+const genelUyari = el('div', { className: 'ara-genel-uyari' });
+
 const PANEL_KAPLARI = {
   mantar: () => [turKap, turBilgiKap],
-  alan: () => [durumKap, ipucuKap],
+  alan: () => [durumKap, ipucuKap, genelBilgi, genelUyari],
   kaydet: () => [isaretKap],
   indir: () => [indirKap],
 };
@@ -273,6 +277,8 @@ kok.append(
   indirKap,
   bildirim('uyari', el('p', { textContent: 'Bulduğun her mantarı Tanımla ile incele. Zehirli mantarlar da aynı yerlerde çıkar. Dik yamaçlarda dikkatli ol; birine nereye gittiğini söyle.' })),
 );
+genelBilgi.append(...[...bilgiPaneli.children].map((c) => c.cloneNode(true)));
+genelUyari.append(kok.lastElementChild.cloneNode(true));
 
 // --- Yardımcılar ---
 
@@ -517,14 +523,6 @@ function tamEkraniDegistir(ac = !tamEkrandaMi()) {
   kapsayici.classList.toggle('tam-ekran', ac);
   document.body.classList.toggle('harita-tam-ekran', ac);
   katmanUstunuKur(ac);
-  if (tamEkranDugmesi) {
-    tamEkranDugmesi.innerHTML = ac
-      ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>'
-      : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
-    const etiket = ac ? 'Tam ekrandan çık' : 'Haritayı tam ekran yap';
-    tamEkranDugmesi.title = etiket;
-    tamEkranDugmesi.setAttribute('aria-label', etiket);
-  }
   haritaKap.style.height = '';
   setTimeout(() => {
     if (ac) ara.harita?.resize();
@@ -532,11 +530,15 @@ function tamEkraniDegistir(ac = !tamEkrandaMi()) {
   }, 30);
 }
 
+// Mantar ara doğrudan tam ekran harita olarak açılır (Metin, 2026-11-01: "her şey büyük haritada, eski sayfaya gerek yok");
+// sol üstteki düğme ana sayfaya döner. Telefonun "geri" tuşu da aynı işi yapar (adres #mantar-ara → #tanimla).
 class TamEkranDenetimi {
   onAdd() {
-    tamEkranDugmesi = el('button', { type: 'button', className: 'harita-tam-ekran-dugme', onclick: () => tamEkraniDegistir() });
+    tamEkranDugmesi = el('button', { type: 'button', className: 'harita-tam-ekran-dugme harita-geri-dugme', onclick: () => { location.hash = 'tanimla'; } });
+    tamEkranDugmesi.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
+    tamEkranDugmesi.title = 'Ana sayfa';
+    tamEkranDugmesi.setAttribute('aria-label', 'Ana sayfaya dön');
     this.kap = el('div', { className: 'maplibregl-ctrl maplibregl-ctrl-group' }, tamEkranDugmesi);
-    tamEkraniDegistir(false);
     return this.kap;
   }
 
@@ -548,7 +550,8 @@ class TamEkranDenetimi {
 
 window.addEventListener('resize', () => haritaBoyunuAyarla());
 document.addEventListener('keydown', (olay) => {
-  if (olay.key === 'Escape' && tamEkrandaMi()) tamEkraniDegistir(false);
+  if (olay.key === 'Escape' && tamEkrandaMi() && !ara.panel) location.hash = 'tanimla';
+  else if (olay.key === 'Escape' && ara.panel) paneliKapat();
 });
 
 // Pusula yokken: GPS'in gidiş yönü ya da son iki konum arasındaki yön.
@@ -1305,7 +1308,6 @@ export function mantarAraAc() {
   const kap = document.getElementById('mantar-ara-icerik');
   if (!kap.contains(kok)) kap.replaceChildren(kok);
   if (!ara.kuruldu) kur();
-  else ara.harita?.resize();
-  // Sayfa yerleştikten sonra harita kalan ekranı doldurur.
-  setTimeout(haritaBoyunuAyarla, 60);
+  // Doğrudan tam ekran harita (eski uzun sayfa görünmez; bölümleri paneller açar).
+  tamEkraniDegistir(true);
 }
