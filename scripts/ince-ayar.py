@@ -66,8 +66,19 @@ egitim_verisi = veri(egitim, True)
 dogrulama_verisi = veri(dogrulama, False)
 
 girdi = tf.keras.Input([BOYUT, BOYUT, 3])
-olcekli = tf.keras.layers.Rescaling(2.0, offset=-1.0)(girdi)  # MobileNet V2 -1…1 bekler; telefon 0–1 verir
-taban = tf.keras.applications.MobileNetV2(include_top=False, weights='imagenet', input_shape=[BOYUT, BOYUT, 3], pooling='avg')
+# Taban model (Metin, 2026-11-01: önce MobileNetV3, sonra EfficientNetV2 ile karşılaştır). Hepsi ImageNet ağırlıklı, Apache 2.0.
+# Telefon resmi 0–1 verir; her taban kendi beklediği aralığa çevrilir (V3 ve EfficientNetV2 0–255 bekler, içinde ölçekler).
+TABAN = os.environ.get('TABAN', 'mobilenet_v2')
+if TABAN == 'mobilenet_v3_large':
+    olcekli = tf.keras.layers.Rescaling(255.0)(girdi)
+    taban = tf.keras.applications.MobileNetV3Large(include_top=False, weights='imagenet', input_shape=[BOYUT, BOYUT, 3], pooling='avg', include_preprocessing=True)
+elif TABAN == 'efficientnet_v2_b0':
+    olcekli = tf.keras.layers.Rescaling(255.0)(girdi)
+    taban = tf.keras.applications.EfficientNetV2B0(include_top=False, weights='imagenet', input_shape=[BOYUT, BOYUT, 3], pooling='avg', include_preprocessing=True)
+else:
+    olcekli = tf.keras.layers.Rescaling(2.0, offset=-1.0)(girdi)  # MobileNet V2 -1…1 bekler
+    taban = tf.keras.applications.MobileNetV2(include_top=False, weights='imagenet', input_shape=[BOYUT, BOYUT, 3], pooling='avg')
+print('Taban:', TABAN, len(taban.layers), 'katman')
 iz = taban(olcekli)
 cikis = tf.keras.layers.Dense(len(siniflar), activation='softmax')(tf.keras.layers.Dropout(0.3)(iz))
 model = tf.keras.Model(girdi, cikis)
@@ -79,7 +90,8 @@ model.fit(egitim_verisi, validation_data=dogrulama_verisi, epochs=int(os.environ
 
 # 2. Sonra tabanın son katmanları da (küçük öğrenme hızıyla; genel bilgi bozulmasın).
 taban.trainable = True
-for katman in taban.layers[: int(os.environ.get('DONUK_KATMAN', 100))]:
+# İlk ~%65 katman donuk kalır (MobileNetV2'de 100 katman, önceki denemelerle aynı).
+for katman in taban.layers[: int(len(taban.layers) * float(os.environ.get('DONUK_ORAN', 0.65)))]:
     katman.trainable = False
 for katman in taban.layers:
     if isinstance(katman, tf.keras.layers.BatchNormalization):

@@ -175,7 +175,8 @@ const sonuc = await sayfa.evaluate(async ({ ornekler, denemeler, K, OLCEK, AYAR 
   const sayi = new Array(K).fill(0);
   for (const o of ornekler) sayi[o.y]++;
   const A = tf.tensor1d(ornekler.map((o) => ornekler.length / (K * sayi[o.y])));
-  const W = tf.variable(tf.zeros([1280, K]));
+  // İz uzunluğu modele göre değişir (MobileNetV2/EfficientNetV2 1280, MobileNetV3 960).
+  const W = tf.variable(tf.zeros([X.shape[1], K]));
   const b = tf.variable(tf.zeros([K]));
   const eniyilestirici = tf.train.adam(0.01);
   for (let devir = 0; devir < AYAR.devir; devir++) {

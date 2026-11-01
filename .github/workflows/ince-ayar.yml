@@ -12,7 +12,9 @@ on:
     paths: ['notlar/ince-ayar-baslat.txt']
 
 env:
-  KLASOR: vendor/mantar-modeli-1
+  # 2026-11-01 (Metin): 2. aday MobileNetV3 (Large); sonra EfficientNetV2-B0 ile karşılaştırılacak.
+  KLASOR: vendor/mantar-modeli-2
+  TABAN: mobilenet_v3_large
 
 permissions:
   contents: write
