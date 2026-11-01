@@ -1212,3 +1212,5 @@ body.harita-tam-ekran { overflow: hidden; }
   .harita-katman .katman-alt .ayar-aciklamasi { bottom: 62px; right: 12px; }
   .harita-katman .katman-yan .ayar-kose { gap: 0; }
 }
+/* GEÇİCİ boyut ölçümü denemesi (js/boyutDenemesi.js). */
+.boyut-denemesi { position: absolute; z-index: 3; left: 50%; top: 44px; transform: translateX(-50%); max-width: calc(100% - 140px); padding: 3px 8px; border-radius: 8px; background: rgb(255 210 0 / 0.92); color: #1d1a17; font-size: 12px; font-weight: 700; text-align: center; pointer-events: none; }
