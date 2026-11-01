@@ -140,6 +140,10 @@ Listede olmayan bir mantarın sonucu her zaman turuncudur.
 
 GBIF ve iNaturalist (gözlem ve fotoğraflar, lisansı kontrol et), Index Fungorum / MycoBank (bilimsel adlar), Türkiye makromantar kontrol listeleri (yerel türler ve adlar), UZEM ve hastane yayınları (zehirlenme öncelikleri), mikolog/dernek iş birliği (etiket doğrulama). Lisans koşulları geliştirme başlamadan kontrol edilmeli.
 
+## Yapılacaklar (ileride)
+
+- **Uydu haritası gelince "Haritanın ortasına kaydet"i aç (Metin'in kararı, 2026-11-01):** Bizim haritada orman içinde tam nokta görünmediği için Mantar ara'daki "Haritanın ortasına kaydet" kodda kalır ama pasif (gizli) durur; yalnızca "Bulunduğum yere kaydet" kullanılır. Uydu haritası (Esri World Imagery, Metin'in hesap açması gerekir) eklenince yeniden etkinleştirilecek.
+
 ## Açık sorular
 
 - İlk sürüm hangi bölgeye odaklanacak (Karadeniz, Ege, tüm Türkiye)?
