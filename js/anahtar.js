@@ -3,7 +3,7 @@
 // Böylece emin olunmayan durumda tehlikeli türler aday olarak kalır (kural 3).
 // Çoklu seçimli sorularda (ör. çevrede neler var) tür, seçilenlerden herhangi birine uyuyorsa elenmez.
 import { BILMIYORUM } from './kurallar.js';
-import { cokluDegerler } from './sorular.js';
+import { cevapKarsiliklari, cokluDegerler } from './sorular.js';
 
 // Bu cevaplar hiçbir türü elemez.
 const ELEMEYEN_CEVAPLAR = new Set([BILMIYORUM, 'diger', 'yapilmadi']);
@@ -18,7 +18,7 @@ export function adaylariBul(turler, cevaplar) {
         return cokluDegerler(soru, cevap).some((d) => ELEMEYEN_CEVAPLAR.has(d) || izinli.includes(d));
       }
       if (ELEMEYEN_CEVAPLAR.has(cevap)) return true;
-      return izinli.includes(cevap);
+      return cevapKarsiliklari(soru, cevap).some((d) => izinli.includes(d));
     }),
   );
 }

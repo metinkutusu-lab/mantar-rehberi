@@ -235,6 +235,16 @@ test('Kural 3: köygöçüren, halka ve volva "hayır" dense bile beyaz solunga�
   assert.equal(degerlendir({ fotograflar: [...GEREKLI_FOTOGRAFLAR], cevaplar, adaylar }).renk, 'kirmizi');
 });
 
+test('zemin: "yerde" toprakta ve çayırda yetişen türlerin hiçbirini elemez, yalnızca odunda yetişenleri eler', () => {
+  const yerde = adaylariBul(turVerisi.turler, { zemin: 'yerde' }).map((t) => t.id);
+  for (const tur of turVerisi.turler) {
+    const z = tur.ozellikler?.zemin ?? [];
+    if (z.includes('toprak') || z.includes('cayir')) assert.ok(yerde.includes(tur.id), tur.ad);
+    else assert.ok(!yerde.includes(tur.id), tur.ad);
+  }
+  assert.ok(yerde.includes('kanlica') && yerde.includes('cayir') && !yerde.includes('istiridye'));
+});
+
 test('Kural 2 ve 5: onaysız taslak türler hiçbir cevapta sarı sonuç vermez', () => {
   for (const tur of turVerisi.turler.filter((t) => t.zehirlilik === 'yenen' && !t.mikologOnayi)) {
     const cevaplar = turunCevaplari(tur);
@@ -299,7 +309,8 @@ test('Mantar ara: toplanan türlerin ayları ve arama ipucu var, taslak olarak i
 
 test('tür verisi: her kayıt geçerli ve kural 8\'e uygun', () => {
   assert.ok(Array.isArray(turVerisi.turler));
-  const gecerliDegerler = Object.fromEntries(ADIMLAR.map((a) => [a.soru, new Set(a.secenekler.map(([d]) => d))]));
+  // Verideki değer ya bir seçenektir ya da bir seçeneğin karşılığıdır (ör. zemin "yerde" → toprak, çayır).
+  const gecerliDegerler = Object.fromEntries(ADIMLAR.map((a) => [a.soru, new Set([...a.secenekler.map(([d]) => d), ...Object.values(a.karsilik ?? {}).flat()])]));
   for (const tur of turVerisi.turler) {
     assert.ok(tur.ad, 'ad zorunlu');
     assert.ok(['olumcul', 'zehirli', 'yenen'].includes(tur.zehirlilik), `${tur.ad}: zehirlilik`);

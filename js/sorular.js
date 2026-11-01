@@ -200,15 +200,18 @@ export const ADIMLAR = [
     ],
   },
   {
+    // Yerde mi, odunda mı (Metin, 2026-11-01: "çayırdaki de toprakta; toprak/çayır ayrımı ayırt edici değil").
+    // Alan rehberlerinin ilk ayrımı da budur: odunda (ağaç, kütük, dal) yetişenler ile yerde yetişenler.
+    // "Yerde" cevabı verideki toprak ve çayır türlerinin hepsine uyar; yalnızca odunda yetişenleri eler.
     soru: 'zemin',
-    baslik: 'Nerede büyüyordu?',
-    yonerge: [],
-    soruMetni: 'Mantar neyin üstünde büyüyordu?',
+    baslik: 'Yerde mi, odunda mı?',
+    yonerge: ['Ağaç köküne yakın da olsa yerden çıkıyorsa "yerde"dir. Gömülü bir dalın üstünden çıkabilir; emin değilsen "Bilmiyorum" de.'],
+    soruMetni: 'Mantar yerden mi çıkıyor, yoksa odunun (ağaç, kütük, dal) üstünde mi?',
     secenekler: [
-      ['toprak', 'Toprakta'],
-      ['odun', 'Ağaç gövdesinde, kütükte veya dalda'],
-      ['cayir', 'Çayırda, çimenlikte'],
+      ['yerde', 'Yerde (toprak, çimen, yaprak ya da iğne yaprak arasında)'],
+      ['odun', 'Odunda (ağaç gövdesi, kütük, dal)'],
     ],
+    karsilik: { yerde: ['toprak', 'cayir'] },
   },
   {
     // Çoklu seçim (Metin'in isteği, 2026-10-26): bir yerde hem tarla, hem çamlık, hem meşelik olabilir.
@@ -275,6 +278,11 @@ export function sonCevaplar(cevaplar) {
 }
 
 // Çoklu cevabın anahtarda karşılaştırılacak değerleri (adımın "genislet" kuralıyla).
+// Tek seçimli bir cevabın verideki karşılıkları (ör. zemin "yerde" → toprak ya da çayır).
+export function cevapKarsiliklari(soru, cevap) {
+  return ADIMLAR.find((a) => a.soru === soru)?.karsilik?.[cevap] ?? [cevap];
+}
+
 export function cokluDegerler(soru, secilenler) {
   const adim = ADIMLAR.find((a) => a.soru === soru);
   return adim?.genislet ? adim.genislet(secilenler) : secilenler;
