@@ -85,18 +85,110 @@ const bakDugmesi = el('button', { type: 'button', className: 'ikincil ara-bak', 
 // Tam ekranda haritanın üstündeki düğmeler (Metin, 2026-10-28: tanımlama kamerasındaki gibi simgeler ve (i)):
 // sol alt "Konumumu göster", ortada "Buraya bak" (haritanın ortasına bak), sağ alt "Sesli yönlendirme".
 // Normal görünümde aynı işleri haritanın altındaki düğmeler yapar; bu katman yalnızca tam ekranda görünür (CSS).
-const haritaKatmani = el('div', { className: 'harita-katman' });
+// 2026-11-01 (Metin: "hepsi el altında olsun"): tam ekranda sağ kenarda dört düğme daha (Mantar seç, Bu alan, Bulduğum
+// mantarı kaydet, İnternetsiz harita); her biri alttan yarım ekran panel açar. Paneller sayfadaki aynı bölümleri
+// (turKap, durumKap, isaretKap, indirKap…) geçici olarak içine alır, kapanınca yerlerine geri koyar; normal görünüm aynı kalır.
+// Üstte hep görünür: renk açıklaması, hedefin mesafe/yön kutusu ve seçilen mantarın zehirli benzeri uyarısı (kural 8).
+const katmanUst = el('div', { className: 'katman-ust' });
+const katmanUyari = el('div', { className: 'katman-uyari' });
+const katmanYan = el('div', { className: 'katman-yan' });
+const katmanAlt = el('div', { className: 'katman-alt' });
+const katmanPaneli = el('div', { className: 'katman-panel', hidden: true });
+const haritaKatmani = el('div', { className: 'harita-katman' }, katmanUst, katmanYan, katmanAlt, katmanPaneli);
 const KATMAN_SIMGELERI = {
   konum: '<circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>',
   ses: '<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/>',
   sessiz: '<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="m17 9 5 5M22 9l-5 5"/>',
   bak: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/>',
+  mantar: '<path d="M3 12.5C3 7.8 7 4 12 4s9 3.8 9 8.5z"/><path d="M9.5 12.5V18a2.5 2.5 0 0 0 5 0v-5.5"/>',
+  alan: '<path d="M12 3 2 8l10 5 10-5z"/><path d="m2 13 10 5 10-5"/><path d="m2 18 10 5 10-5"/>',
+  kaydet: '<path d="M2.5 11.5C2.5 7.4 6 4 10.5 4s8 3.4 8 7.5z"/><path d="M8.3 11.5v5a2.2 2.2 0 0 0 4.4 0v-5"/><path d="M19 15v7M15.5 18.5h7"/>',
+  indir: '<path d="M7 17.5a4.5 4.5 0 0 1-.6-9A6 6 0 0 1 18 8a4 4 0 0 1-.5 9.5"/><path d="M12 11v10m-3.5-3.5L12 21l3.5-3.5"/>',
 };
 const KATMAN_BILGISI = {
   konum: { ad: 'Konumumu göster', acikla: () => 'Haritada mavi noktayla nerede olduğunu gösterir ve seni izler; yürüdükçe harita ve öneriler yenilenir. Konumun hiçbir yere gönderilmez. Açıkken dokunursan harita konumuna döner.' },
   bak: { ad: 'Buraya bak', acikla: () => 'Haritanın ortasındaki artı işaretinin çevresini (yaklaşık 2,5 km) hesaplar: mantar çıkmaya uygun yerleri renklendirir. Haritayı parmağınla bakmak istediğin yere kaydırıp dokun.' },
   ses: { ad: 'Sesli yönlendirme', acikla: () => `${sesAcik() ? 'Açık' : 'Kapalı'}: hedefe ne kadar kaldığını ve hangi yönde olduğunu telefonun sesiyle söyler; bulunduğun yer değişince haber verir. İnternetsiz çalışır.` },
+  mantar: { ad: 'Mantar seç', acikla: () => 'Aradığın mantarı seç: harita o mantarın sevdiği yerlere göre boyanır. "burada" yazanlar bakılan alanda bu mevsimde aranabilecekler. Seçtiğin mantarın zehirli benzerleri her zaman gösterilir.' },
+  alan: { ad: 'Bu alan', acikla: () => 'Bakılan alanın mantar zamanı, öne çıkan yamaçlar, ne kadarının uygun olduğu ve en yakın çok uygun yer ("Oraya git"). Konumun açıksa bulunduğun yerin bilgisi de burada.' },
+  kaydet: { ad: 'Bulduğum mantarı kaydet', acikla: () => 'Bulduğun mantarı türüyle, durduğun noktaya kaydet. Haritada türün fotoğrafıyla görünür; yalnızca bu cihazda kalır.' },
+  indir: { ad: 'İnternetsiz harita', acikla: () => 'Gitmeden önce, internet varken bölgeyi telefona indir; dağda internet yokken harita ve son yağmur bilgisi telefondan gelir. İndirdiğin bölgeler haritada kesik çizgili çemberle görünür.' },
 };
+
+const PANEL_KAPLARI = {
+  mantar: () => [turKap, turBilgiKap],
+  alan: () => [durumKap, ipucuKap],
+  kaydet: () => [isaretKap],
+  indir: () => [indirKap],
+};
+const yerTutucular = new Map(); // geçici olarak taşınan bölüm → sayfadaki yeri
+
+function tasi(kap, hedef) {
+  if (!yerTutucular.has(kap)) {
+    const yer = document.createComment('yer');
+    kap.before(yer);
+    yerTutucular.set(kap, yer);
+  }
+  hedef.append(kap);
+}
+
+function geriKoy(kaplar) {
+  for (const kap of kaplar) {
+    const yer = yerTutucular.get(kap);
+    if (!yer) continue;
+    yer.replaceWith(kap);
+    yerTutucular.delete(kap);
+  }
+}
+
+function paneliAc(ad) {
+  if (ara.panel === ad) { paneliKapat(); return; }
+  paneliKapat();
+  ara.panel = ad;
+  const govde = el('div', { className: 'katman-panel-govde' });
+  for (const kap of PANEL_KAPLARI[ad]()) tasi(kap, govde);
+  katmanPaneli.replaceChildren(
+    el('div', { className: 'katman-panel-ust' },
+      el('strong', { textContent: KATMAN_BILGISI[ad].ad }),
+      el('button', { type: 'button', className: 'ikincil katman-panel-kapat', textContent: 'Kapat', onclick: paneliKapat })),
+    govde,
+  );
+  katmanPaneli.hidden = false;
+  haritaKatmani.classList.add('panel-acik');
+  haritaKatmaniCiz();
+}
+
+function paneliKapat() {
+  if (!ara.panel) return;
+  geriKoy(Object.values(PANEL_KAPLARI).flatMap((f) => f()));
+  ara.panel = null;
+  katmanPaneli.hidden = true;
+  katmanPaneli.replaceChildren();
+  haritaKatmani.classList.remove('panel-acik');
+  haritaKatmaniCiz();
+}
+
+// Tam ekrana girince renk açıklaması ve hedef kutusu haritanın üstüne taşınır; çıkınca yerlerine döner.
+function katmanUstunuKur(ac) {
+  if (ac) {
+    tasi(lejant, katmanUst);
+    tasi(hedefKap, katmanUst);
+    katmanUst.append(katmanUyari);
+  } else {
+    paneliKapat();
+    geriKoy([lejant, hedefKap]);
+  }
+}
+
+// Seçilen mantarın zehirli benzeri ve çiğ uyarısı tam ekranda tek satır (kural 8; panel açıkken panelde zaten var).
+function katmanUyarisiniCiz() {
+  const tur = seciliTur();
+  const parca = [];
+  if (tur?.zehirliBenzerler?.length) parca.push(`Zehirli benzeri: ${tur.zehirliBenzerler[0].ad.replace(/\s*\(.*\)$/, '')}${tur.zehirliBenzerler.length > 1 ? ` +${tur.zehirliBenzerler.length - 1}` : ''}`);
+  if (tur?.cigkenZehirli) parca.push('Çiğken zehirlidir');
+  katmanUyari.hidden = !parca.length || ara.panel === 'mantar';
+  katmanUyari.replaceChildren(...(parca.length ? [ikon('uyari'), el('span', { textContent: parca.join(' · ') })] : []));
+}
 let katmanBilgisi = null;
 let katmanBilgisiSuresi = null;
 
@@ -122,13 +214,15 @@ function katmanBilgisiGoster(ad) {
 
 function haritaKatmaniCiz() {
   const konumAcik = Boolean(ara.izlemeyiDurdur && ara.konum?.enlem != null);
-  haritaKatmani.replaceChildren(
+  katmanAlt.replaceChildren(
     katmanSimgesi('konum', konumAcik, () => { konumuAc(); katmanBilgisiGoster('konum'); haritaKatmaniCiz(); }),
     katmanSimgesi('bak', false, () => bolgeyeBak(haritaMerkezi()), true),
     katmanSimgesi('ses', sesAcik(), () => { sesiDegistir(); katmanBilgisiGoster('ses'); haritaKatmaniCiz(); }),
     el('div', { className: 'ayar-aciklamasi', hidden: !katmanBilgisi, onclick: () => { katmanBilgisi = null; haritaKatmaniCiz(); } },
       ...(katmanBilgisi ? [el('strong', { textContent: KATMAN_BILGISI[katmanBilgisi].ad }), el('span', { textContent: KATMAN_BILGISI[katmanBilgisi].acikla() })] : [])),
   );
+  katmanYan.replaceChildren(...['mantar', 'alan', 'kaydet', 'indir'].map((ad) => katmanSimgesi(ad, ara.panel === ad, () => paneliAc(ad))));
+  katmanUyarisiniCiz();
 }
 
 const isaretler = new Map(); // gizli yer id → harita işareti
@@ -248,7 +342,9 @@ function ilkSembolKatmani() {
 
 function turSec(id) {
   ara.turId = id;
+  if (ara.panel === 'mantar') paneliKapat();
   turCiz();
+  katmanUyarisiniCiz();
   canliIpucuCiz();
   if (ara.sonuc) bolgeyeBak(ara.sonuc.merkez, { canli: ara.sonuc.canli });
 }
@@ -420,6 +516,7 @@ function tamEkraniDegistir(ac = !tamEkrandaMi()) {
   document.documentElement.style.setProperty('--ust-bar-yuksekligi', `${document.querySelector('.ust-bar')?.offsetHeight ?? 56}px`);
   kapsayici.classList.toggle('tam-ekran', ac);
   document.body.classList.toggle('harita-tam-ekran', ac);
+  katmanUstunuKur(ac);
   if (tamEkranDugmesi) {
     tamEkranDugmesi.innerHTML = ac
       ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>'
@@ -573,6 +670,7 @@ function konumGeldi(k) {
   }
   hareketYonu(k);
   haritayiYoneCevir();
+  kesinlikYaz();
   const yer = [k.boylam, k.enlem];
   if (!konumIsareti) {
     const nokta = el('div', { className: 'konum-isareti' }, el('div', { className: 'yon-burnu', hidden: true }), el('div', { className: 'konum-noktasi' }));
@@ -894,6 +992,7 @@ function durumCiz() {
 
 function hedefSec(hedef) {
   ara.hedef = hedef;
+  paneliKapat();
   ara.sesHedef = null;
   if (sesAcik() && ara.konum?.enlem != null) {
     const { mesafe, yon } = mesafeVeYon(ara.konum, hedef);
@@ -989,12 +1088,29 @@ document.addEventListener('haritada-goster', ({ detail: id }) => {
 
 function kayitYap(nokta) {
   const kayit = bulduguKaydet({ ...nokta, turId: ara.kayitTurId, not: ara.kayitNotu, turler: ara.tumTurler });
+  if (ara.panel === 'kaydet') paneliKapat();
   Object.assign(ara, { kayitTurId: null, kayitNotu: '' });
   isaretleriCiz();
   isaretCiz(`Kaydedildi: ${kayitAdi(kayit, ara.tumTurler)}. Haritada fotoğrafıyla ve Yerlerim'de "Bulduğum mantarlar"da görünür.`);
 }
 
-// "Bulduğum mantarı kaydet" (Metin, 2026-10-28): hangi mantar, not; bulunduğun yere ya da haritanın ortasına.
+// "Haritanın ortasına kaydet" şimdilik kapalı (uydu haritası gelince true; CLAUDE.md "Yapılacaklar").
+const HARITA_ORTASINA_KAYIT = false;
+// Konumun ne kadar kesin olduğu kaydetmeden önce yazılır (orman ve vadide 20–50 m sapabilir).
+const KESIN_KONUM = 30; // metre
+
+function kesinlikYaz() {
+  const yazi = isaretKap.querySelector('.konum-kesinlik');
+  const d = ara.konum?.dogruluk;
+  if (!yazi || d == null) return;
+  const m = Math.max(1, Math.round(d));
+  yazi.classList.toggle('konum-sapik', m > KESIN_KONUM);
+  yazi.textContent = m > KESIN_KONUM
+    ? `Konum yaklaşık ${m} m sapabilir. Birkaç saniye açık bir yerde bekle; netleşince kaydet.`
+    : `Konum kesinliği: yaklaşık ${m} m.`;
+}
+
+// "Bulduğum mantarı kaydet" (Metin, 2026-10-28): hangi mantar, not; durduğun noktaya.
 function isaretCiz(mesaj = '') {
   const notGirdisi = el('input', {
     type: 'text',
@@ -1015,13 +1131,18 @@ function isaretCiz(mesaj = '') {
     el('div', { className: 'kayit-dugmeleri' },
       el('button', { type: 'button', className: 'birincil kayit-dugme', disabled: !konumVar, onclick: () => kayitYap({ enlem: ara.konum.enlem, boylam: ara.konum.boylam }) },
         ikon('mantar'), el('span', { textContent: 'Bulunduğum yere kaydet' })),
-      el('button', { type: 'button', className: 'ikincil kayit-dugme', onclick: () => kayitYap(haritaMerkezi()) },
-        ikon('mantar'), el('span', { textContent: 'Haritanın ortasına kaydet' })),
+      // Pasif (Metin, 2026-11-01): bizim haritada orman içinde tam nokta seçilemiyor; uydu haritası gelince açılacak
+      // (CLAUDE.md "Yapılacaklar").
+      HARITA_ORTASINA_KAYIT ? el('button', { type: 'button', className: 'ikincil kayit-dugme', onclick: () => kayitYap(haritaMerkezi()) },
+        ikon('mantar'), el('span', { textContent: 'Haritanın ortasına kaydet' })) : '',
     ),
-    konumVar ? '' : el('p', { className: 'not', textContent: 'Bulunduğun yere kaydetmek için önce "Konumumu göster"e dokun. Haritanın ortasına kaydetmek için haritayı kaydırıp artı işaretini mantarın yerine getir.' }),
+    konumVar
+      ? el('p', { className: 'not konum-kesinlik' })
+      : el('p', { className: 'not', textContent: 'Kaydetmek için önce "Konumumu göster"e dokun ve mantarın yanında dur. Konum internetsiz de çalışır.' }),
     el('p', { className: 'not', textContent: KENDI_NOTUN }),
     mesaj ? el('p', { className: 'not kayit-mesaj', textContent: mesaj }) : '',
   );
+  kesinlikYaz();
   // Seçili tür görünür kalsın.
   const secili = isaretKap.querySelector('.tur-secici .secili');
   if (secili) requestAnimationFrame(() => { const s = secili.parentElement; s.scrollLeft = secili.offsetLeft - s.offsetLeft - 8; });
@@ -1061,7 +1182,28 @@ function bolgeyiSil(b) {
   indirCiz();
 }
 
+// İndirilen bölgeler haritada kesik çizgili çemberle görünür (Metin, 2026-11-01).
+function bolgeCemberleriniCiz() {
+  if (!ara.harita?.isStyleLoaded()) return;
+  const cember = (b) => {
+    const noktalar = [];
+    for (let i = 0; i <= 64; i++) {
+      const a = (i / 64) * 2 * Math.PI;
+      const dEnlem = (YARICAP / 111320) * Math.cos(a);
+      const dBoylam = (YARICAP / (111320 * Math.cos((b.enlem * Math.PI) / 180))) * Math.sin(a);
+      noktalar.push([b.boylam + dBoylam, b.enlem + dEnlem]);
+    }
+    return { type: 'Feature', properties: {}, geometry: { type: 'LineString', coordinates: noktalar } };
+  };
+  const veri = { type: 'FeatureCollection', features: (durumuOku().haritaBolgeleri ?? []).map(cember) };
+  const kaynak = ara.harita.getSource('indirilenler');
+  if (kaynak) { kaynak.setData(veri); return; }
+  ara.harita.addSource('indirilenler', { type: 'geojson', data: veri });
+  ara.harita.addLayer({ id: 'indirilenler', type: 'line', source: 'indirilenler', paint: { 'line-color': '#1f6fe5', 'line-width': 2, 'line-dasharray': [2, 2], 'line-opacity': 0.8 } });
+}
+
 function indirCiz() {
+  bolgeCemberleriniCiz();
   const d = ara.indirme;
   const adGirdisi = el('input', {
     type: 'text',
@@ -1152,6 +1294,7 @@ async function kur() {
     ara.harita.addSource('yukseklik', { type: 'raster-dem', tiles: [YUKSEKLIK_PARCALARI], tileSize: 256, encoding: 'terrarium', maxzoom: YUKSEKLIK_YAKINLIGI });
     ara.harita.addLayer({ id: 'golge', type: 'hillshade', source: 'yukseklik', paint: { 'hillshade-exaggeration': 0.45 } }, ilkSembolKatmani());
     isaretleriCiz();
+    bolgeCemberleriniCiz();
   });
 }
 

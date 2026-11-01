@@ -1145,3 +1145,32 @@ body.harita-tam-ekran { overflow: hidden; }
   .kamera .ayar-otomatik { top: 8px; bottom: auto; right: 8px; flex-direction: row-reverse; }
   .kamera .ayar-aciklamasi { bottom: 8px; left: 64px; right: 90px; }
 }
+
+/* Tam ekran haritada sağ kenar düğmeleri, alttan açılan panel ve üstte hep görünenler (Metin, 2026-11-01). */
+.harita-katman .katman-yan { position: absolute; z-index: 5; right: 10px; bottom: 132px; display: flex; flex-direction: column; gap: 10px; }
+.harita-katman .katman-yan .ayar-kose { position: static; transform: none; flex-direction: row-reverse; gap: 6px; }
+.harita-katman .katman-yan .ayar-simge { width: 50px; height: 50px; }
+.harita-katman .katman-yan .ayar-simge svg { width: 27px; height: 27px; }
+.harita-katman .katman-ust { position: absolute; z-index: 5; top: 10px; left: 62px; right: 62px; display: flex; flex-direction: column; align-items: center; gap: 6px; pointer-events: none; }
+.harita-katman .katman-ust > * { pointer-events: auto; max-width: 100%; }
+.harita-katman .katman-ust .ara-lejant { margin: 0; padding: 4px 10px; border-radius: 999px; background: rgb(255 255 255 / 0.92); box-shadow: 0 1px 6px rgb(0 0 0 / 0.2); font-size: 12px; color: #1d1a17; flex-wrap: nowrap; white-space: nowrap; }
+.harita-katman .katman-ust .ara-hedef:empty { display: none; }
+.harita-katman .katman-ust .ara-hedef-kutu { margin: 0; padding: 6px 10px; border-radius: 14px; background: rgb(255 255 255 / 0.95); box-shadow: 0 2px 8px rgb(0 0 0 / 0.25); font-size: 13px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.harita-katman .katman-ust .ara-hedef-kutu .hedef-mesafe { margin: 0; font-size: 18px; }
+.harita-katman .katman-ust .ara-hedef-kutu .yon-notu { display: none; }
+.harita-katman .katman-ust .ara-hedef-kutu svg { width: 34px; height: 34px; }
+.katman-uyari { display: flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: var(--kirmizi-zemin); border: 1px solid var(--kirmizi-cizgi); color: var(--kirmizi); font-size: 12.5px; font-weight: 700; }
+.katman-uyari[hidden] { display: none; }
+.katman-uyari .ikon { width: 16px; height: 16px; }
+.katman-panel { position: absolute; z-index: 8; left: 0; right: 0; bottom: 0; max-height: 58%; overflow-y: auto; padding: 0 14px 18px; border-radius: 18px 18px 0 0; background: var(--zemin); box-shadow: 0 -4px 18px rgb(0 0 0 / 0.3); }
+.katman-panel[hidden] { display: none; }
+.katman-panel-ust { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 0 8px; background: var(--zemin); font-size: 16.5px; }
+.katman-panel-kapat { width: auto; padding: 8px 16px; }
+.harita-katman.panel-acik .katman-yan, .harita-katman.panel-acik .katman-alt { display: none; }
+.konum-kesinlik.konum-sapik { color: var(--turuncu); font-weight: 650; }
+/* Üstteki renk açıklaması ve uyarı sağdaki artı/eksi/yön düğmelerine taşmasın. */
+.harita-katman .katman-ust { left: 60px; right: 66px; }
+.harita-katman .katman-ust .ara-lejant { gap: 8px; padding: 3px 8px; font-size: 10.5px; }
+.harita-katman .katman-ust .ara-lejant span { gap: 3px; }
+.harita-katman .katman-ust .ara-lejant i { width: 11px; height: 11px; border-radius: 3px; }
+.harita-katman .katman-uyari { font-size: 11.5px; padding: 4px 9px; }
