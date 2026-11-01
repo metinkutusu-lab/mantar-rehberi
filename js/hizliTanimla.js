@@ -43,8 +43,11 @@ const EK_YUVALAR = [
   { tur: 'kesit-sonra', ad: 'Kesitin rengi', soru: 'kesinceRenk', yonerge: 'Kestikten 5 dakika sonra kesilen yüzü çek.' },
 ];
 const yuvaBul = (tur) => YUVALAR.find((y) => y.tur === tur) ?? EK_YUVALAR.find((y) => y.tur === tur);
-// Fotoğraf kıyasında kullanılan fotoğraflar (tür fotoğrafları çoğunlukla mantarın bütününü gösterir).
-const KIYAS_FOTOGRAFLARI = ['ust', 'yan'];
+// Fotoğraf kıyası üç fotoğraf (üstten, alttan, yandan) tamamlanınca bir kez, üçü birlikte yapılır (Metin, 2026-11-01:
+// "üç fotoğrafı çekince değerlendirsin, her fotoğrafta değil"). Ölçüm (scripts/coklu-olc.js; eğitime girmemiş 125
+// gözlem): tek fotoğraf 1. sırada %71 / ilk 3'te %88, üç fotoğraf birlikte %82 / %96; "muhtemelen" denince %98 doğru.
+const KIYAS_FOTOGRAFLARI = ['ust', 'alt', 'yan'];
+const ucFotografTamam = () => KIYAS_FOTOGRAFLARI.every((t) => h.fotograflar[t]);
 const ADIM_DIZINI = new Map(ADIMLAR.map((a) => [a.soru, a]));
 const SONUC_SOZLERI = { kirmizi: 'Zehirli veya ölümcül olabilir', turuncu: 'Tanımlanamadı', sari: 'Muhtemelen yenen bir tür, uzmana göster' };
 
@@ -139,7 +142,13 @@ async function izleriHesapla() {
   const ayirici = await ayiriciyiYukle();
   const izler = [];
   const izi = {};
-  for (const tur of ['ust', 'yan', 'alt']) {
+  // Üç fotoğraf tamamlanmadan tahmin yapılmaz (bir fotoğraf silinirse eski tahmin de silinir).
+  if (!ucFotografTamam()) {
+    Object.assign(h, { izler: [], benzerlikler: {}, oneriler: {} });
+    if (kap?.isConnected && !h.cekim) ciz();
+    return;
+  }
+  for (const tur of KIYAS_FOTOGRAFLARI) {
     const url = h.fotograflar[tur];
     if (!url) continue;
     const resim = new Image();
@@ -419,11 +428,13 @@ function adaylarCiz() {
   const sayi = el('p', { className: 'not', textContent: liste.length ? `Cevaplarınla çelişmeyen ${liste.length} tür var.` : 'Cevapların uygulamadaki türlerin hiçbiriyle uyuşmadı.' });
   // Tahmin yokken uzun liste gösterilmez; 5 ve altına inince gösterilir.
   if (!benzerlikVar && liste.length > 5) {
-    const bekliyor = kiyasAcik() && KIYAS_FOTOGRAFLARI.some((t) => h.fotograflar[t]) && ['yok', 'yukleniyor'].includes(modelDurumu());
+    const bekliyor = kiyasAcik() && ucFotografTamam() && ['yok', 'yukleniyor'].includes(modelDurumu());
+    const eksik = kiyasAcik() && !ucFotografTamam();
     return el('div', { className: 'kart kiyas' },
       el('h3', { className: 'kart-baslik', textContent: 'Olası türler' }),
       sayi,
-      bekliyor ? el('p', { className: 'not', textContent: 'Fotoğraf kıyaslanıyor…' }) : '',
+      bekliyor ? el('p', { className: 'not', textContent: 'Fotoğraflar kıyaslanıyor…' }) : '',
+      eksik ? el('p', { className: 'not', textContent: 'Üç fotoğraf (üstten, alttan, yandan) tamamlanınca üçüne birlikte bakılıp en çok benzeyenler gösterilir.' }) : '',
     );
   }
   return el('div', { className: 'kart kiyas' },
