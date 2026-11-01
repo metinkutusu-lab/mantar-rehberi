@@ -295,8 +295,11 @@ test('fotoğraftan öneri: tür güçlü tahmin edilince türün rengi ve şapka
   // Zayıf tahminde türün rengi önerilmez; ama olası türlerin hepsi solungaçlıysa şapka altı yine önerilir.
   assert.deepEqual(turdenOner({ kanlica: TUR_ESIGI - 0.01, 'tuylu-sut': 0.4 }, turler), { altYapi: 'solungac' });
   assert.deepEqual(turdenOner({ kanlica: 0.45, 'ayi-mantari': 0.45 }, turler), {});
-  // Şapka altı ayırıcısının cevabı türünkinden önce gelir.
-  assert.equal(onerileriBirlestir({ alt: 'gozenek', tur }).altYapi, 'gozenek');
+  // Şapka altında türlerin bilgisi önce gelir; ayırıcı çelişirse hiç önerilmez (kanlıcaya "diken" denmesin, 2026-11-01).
+  assert.equal(onerileriBirlestir({ alt: 'solungac', tur }).altYapi, 'solungac');
+  assert.equal(onerileriBirlestir({ alt: 'diken', tur }).altYapi, undefined);
+  // Türlerden bilgi yoksa ayırıcının cevabı kullanılır.
+  assert.equal(onerileriBirlestir({ alt: 'gozenek', tur: {} }).altYapi, 'gozenek');
 });
 
 test('mevsim ağırlığı: hiçbir türü elemez, toplam 1 kalır; mevsimi olmayan tür geri itilir ama sıfırlanmaz (kural 3)', async () => {

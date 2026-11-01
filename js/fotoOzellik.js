@@ -36,19 +36,22 @@ export function turdenOner(benzerlikler, turler) {
   return oneri;
 }
 
-// Önerileri birleştirir: tür tahmini güçlüyse şapka rengi türün rengidir (renk ayırıcısının o türde de olan rengi eklenir);
-// şapkanın altında önce şapka altı ayırıcısı, yoksa türün bilgisi.
+// Önerileri birleştirir: tür tahmini güçlüyse şapka rengi türün rengidir (renk ayırıcısının o türde de olan rengi eklenir).
+// Şapkanın altı (Metin, 2026-11-01: kanlıcada "küçük dikenler" önerdi): önce türlerin bilgisi (üç fotoğraftan, daha
+// güvenilir); yalnızca o yoksa şapka altı ayırıcısı. İkisi çelişirse hiç önerilmez (kullanıcı kendisi seçer).
 export function onerileriBirlestir({ renkler = [], alt = null, tur = {}, turRenkleri = [] }) {
   const oneri = {};
   if (tur.sapkaRengi) oneri.sapkaRengi = [...tur.sapkaRengi, ...renkler.filter((r) => turRenkleri.includes(r) && !tur.sapkaRengi.includes(r))].slice(0, 2);
   else if (renkler.length) oneri.sapkaRengi = renkler;
-  if (alt ?? tur.altYapi) oneri.altYapi = alt ?? tur.altYapi;
+  if (tur.altYapi && alt && alt !== tur.altYapi) return oneri;
+  if (tur.altYapi ?? alt) oneri.altYapi = tur.altYapi ?? alt;
   return oneri;
 }
 
-// Şapkanın altı: ayırıcı (vendor/mobilenet/alt-yapi.json; gözle seçilmiş 77 fotoğraf) emin olduğunda (≥ 0,8).
-// Ölçüm (görmediği 20 fotoğraf): genelde %65 doğru, 0,8'i geçenlerin (11) hepsi doğru. Örnek az; eşik bu yüzden yüksek.
-export const ALT_YAPI_ESIGI = 0.8;
+// Şapkanın altı: ayırıcı (modelin klasöründe alt-yapi.json; gözle seçilmiş 77 fotoğraf) çok emin olduğunda (≥ 0,9).
+// Ölçüm (ince ayarlı model, görmediği 20 fotoğraf, 2026-11-01): genelde %75; ≥0,8'de %88 (16), ≥0,9'da %100 (13).
+// Örnek az; eşik bu yüzden yüksek ve tür bilgisi varsa o öncelikli (onerileriBirlestir).
+export const ALT_YAPI_ESIGI = 0.9;
 export function altYapiyiOner(iz, ayirici) {
   const [enIyi] = Object.entries(benzerlikleriHesapla([iz], ayirici)).sort((a, b) => b[1] - a[1]);
   return enIyi && enIyi[1] >= ALT_YAPI_ESIGI ? enIyi[0] : null;
