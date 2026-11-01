@@ -675,6 +675,9 @@ function rehberCiz(tur) {
   return [el('span', { className: 'kamera-pus' }), cizim, el('span', { className: 'kamera-rehber-yazi', textContent: rehber.yazi })];
 }
 
+// Telefon döndürülünce üst çubuğun yüksekliği yeniden ölçülür (yatay kamera onun altından başlar).
+window.addEventListener('resize', () => document.documentElement.style.setProperty('--ust-bar-yuksekligi', `${document.querySelector('.ust-bar')?.offsetHeight ?? 56}px`));
+
 function cekDugmesi(tur) {
   const d = el('button', { type: 'button', className: 'deklansor', onclick: () => fotografCek(tur) },
     el('span', { className: 'deklansor-ic' }, ikon('kamera'), el('span', { textContent: 'Çek' })));
@@ -683,6 +686,8 @@ function cekDugmesi(tur) {
 }
 
 function kameraCiz(tur) {
+  // Yatayda kamera üst çubuğun altından açılır (css: orientation landscape); çubuğun yüksekliği burada ölçülür.
+  document.documentElement.style.setProperty('--ust-bar-yuksekligi', `${document.querySelector('.ust-bar')?.offsetHeight ?? 56}px`);
   video = el('video', { className: 'kamera-goruntu', autoplay: true, muted: true });
   const kutu = el('div', { className: 'kamera-kutusu' },
     el('div', { className: 'kamera' }, video, ...rehberCiz(tur), el('span', { className: 'geri-sayim', 'aria-live': 'polite' }),

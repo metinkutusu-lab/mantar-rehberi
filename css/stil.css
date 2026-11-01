@@ -1119,7 +1119,8 @@ body.harita-tam-ekran { overflow: hidden; }
 /* Telefon yan çevrilince (Metin, 2026-11-01: "görüntü sıkışıyor"): kamera yatay (4:3) ve ekranın kalan yüksekliğine sığar;
    köşe düğmeleri, (i) ve Çek biraz küçülür, yazı tek satırda kalır. */
 @media (orientation: landscape) and (max-height: 600px) {
-  .tek-sayfa .kamera { aspect-ratio: 4 / 3; height: calc(100dvh - var(--ust-bar-yuksekligi, 56px) - var(--menu, 64px) - 24px); max-height: none; width: auto; max-width: 100%; }
+  /* Kamera üst çubuğun (ACİL) altından ekranın dibine, kenardan kenara açılır (kutu içinde çok küçük kalıyordu). */
+  .tek-sayfa .kamera { position: fixed; z-index: 25; left: 0; right: 0; top: var(--ust-bar-yuksekligi, 56px); bottom: 0; aspect-ratio: auto; width: auto; height: auto; max-height: none; max-width: none; margin: 0; border-radius: 0; }
   .kamera .ayar-simge { width: 42px; height: 42px; }
   .kamera .ayar-simge svg { width: 23px; height: 23px; }
   .kamera .ayar-bilgi { width: 22px; height: 22px; font-size: 12px; }
