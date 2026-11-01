@@ -1178,3 +1178,24 @@ body.harita-tam-ekran { overflow: hidden; }
 .ara-genel-bilgi { margin: 12px 0 8px; font-size: 13.5px; }
 .ara-genel-bilgi summary { font-weight: 700; cursor: pointer; }
 .ara-genel-bilgi p { margin: 6px 0; }
+
+/* Telefon yan çevrilince (Metin, 2026-11-01: "sağdaki simgeler yukarı taşıyor; logo ve üst çubuk çok yer kaplıyor"):
+   üst çubuk incelir (ACİL görünür ve dokunulabilir kalır); haritada bütün düğmeler tek alt sırada; panel sağ yarıda açılır. */
+@media (orientation: landscape) and (max-height: 600px) {
+  .ust-bar { padding: calc(4px + env(safe-area-inset-top)) 16px 4px; }
+  .logo-ikon { width: 28px; height: 28px; }
+  .logo { font-size: 16px; gap: 8px; }
+  .acil-buton { padding-top: 6px; padding-bottom: 6px; }
+  .harita-katman .katman-alt .ayar-kose, .harita-katman .katman-yan .ayar-kose { bottom: 8px; }
+  .harita-katman .katman-alt .ayar-simge, .harita-katman .katman-yan .ayar-simge { width: 44px; height: 44px; }
+  .harita-katman .katman-alt .ayar-simge svg, .harita-katman .katman-yan .ayar-simge svg { width: 24px; height: 24px; }
+  .harita-katman .katman-alt .ayar-simge.katman-genis { width: auto; padding: 0 14px; font-size: 14px; }
+  .harita-katman .ayar-bilgi { width: 24px; height: 24px; font-size: 12px; }
+  .harita-katman .katman-ses { right: 10px; }
+  .harita-katman .katman-konum { left: 10px; }
+  .harita-katman .katman-yan { right: 66px; bottom: 8px; flex-direction: row; gap: 8px; }
+  .harita-katman .katman-yan .ayar-kose { flex-direction: column-reverse; gap: 4px; }
+  .harita-katman .katman-bak { left: 38%; }
+  .harita-katman .ayar-aciklamasi { bottom: 86px; left: 10px; right: 10px; }
+  .katman-panel { left: auto; top: 0; width: min(440px, 56%); max-height: none; border-radius: 18px 0 0 18px; box-shadow: -4px 0 18px rgb(0 0 0 / 0.3); }
+}
