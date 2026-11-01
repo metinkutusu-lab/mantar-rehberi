@@ -1135,16 +1135,17 @@ body.harita-tam-ekran { overflow: hidden; }
   .deklansor-ic .ikon { width: 30px; height: 30px; }
   .kamera-rehber-yazi { font-size: 12px; padding: 3px 10px; max-width: calc(100% - 180px); }
   .kamera .ayar-aciklamasi { bottom: 62px; left: 8px; right: 8px; font-size: 12.5px; }
-  /* Rehber dairesi Çek düğmesinin üstündeki bölgenin ortasında (Metin, 2026-11-01: "Çek dairenin üstüne biniyor").
-     Alttaki 64 px'lik şerit (düğmeler) tümüyle buzlu kalır. */
-  .tek-sayfa .kamera .kamera-rehber { bottom: 64px; }
+  /* Rehber dairesi üstteki yazı ile alttaki Çek düğmesinin arasındaki bölgenin ortasında (Metin, 2026-11-01: önce Çek,
+     sonra yazı dairenin üstüne biniyordu). Üstteki 40 px ve alttaki 64 px'lik şeritler tümüyle buzlu kalır. */
+  .tek-sayfa .kamera .kamera-rehber { top: 40px; bottom: 64px; }
+  .tek-sayfa .kamera .kamera-rehber-yazi { top: 7px; }
   .tek-sayfa .kamera .kamera-pus {
-    -webkit-mask-image: radial-gradient(circle closest-side at 50% 50%, transparent 79%, #000 81%), linear-gradient(#000, #000);
-    mask-image: radial-gradient(circle closest-side at 50% 50%, transparent 79%, #000 81%), linear-gradient(#000, #000);
-    -webkit-mask-size: 100% calc(100% - 64px), 100% 64px;
-    mask-size: 100% calc(100% - 64px), 100% 64px;
-    -webkit-mask-position: top, bottom;
-    mask-position: top, bottom;
+    -webkit-mask-image: linear-gradient(#000, #000), radial-gradient(circle closest-side at 50% 50%, transparent 79%, #000 81%), linear-gradient(#000, #000);
+    mask-image: linear-gradient(#000, #000), radial-gradient(circle closest-side at 50% 50%, transparent 79%, #000 81%), linear-gradient(#000, #000);
+    -webkit-mask-size: 100% 40px, 100% calc(100% - 104px), 100% 64px;
+    mask-size: 100% 40px, 100% calc(100% - 104px), 100% 64px;
+    -webkit-mask-position: top, center 40px, bottom;
+    mask-position: top, center 40px, bottom;
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
   }
