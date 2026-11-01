@@ -143,7 +143,7 @@ GBIF ve iNaturalist (gözlem ve fotoğraflar, lisansı kontrol et), Index Fungor
 
 ## Yapılacaklar (ileride)
 
-- **Boyut ölçümü denemesi (2026-11-01, GEÇİCİ):** `js/boyutDenemesi.js` tanımlama kamerasında üstten fotoğrafta sarı bir yazıyla telefonun odak uzaklığından ve rehber dairesinden yaklaşık şapka genişliğini gösterir (sonuca hiçbir etkisi yok). Metin telefonunda boyu bilinen bir şeyle deneyecek. Doğruysa: boyut yalnızca sıralamayı etkileyen otomatik ipucu olur (hiçbir türü elemez; türlere TASLAK şapka genişliği aralığı eklenir, zehirlilerde geniş). Çalışmazsa dosya ve sarı yazı silinir; soru olarak eklenmez (Metin: "soru sıkıcı").
+- **Boyut ölçümü denemesi (2026-11-01, GEÇİCİ):** `js/boyutDenemesi.js` tanımlama kamerasında üstten fotoğrafta sarı bir yazıyla telefonun odak uzaklığından ve rehber dairesinden yaklaşık şapka genişliğini gösterir (sonuca hiçbir etkisi yok). Metin'in telefonu uzaklığı söylemiyor ama ayarlamaya izin veriyor (odak: continuous, destek: var) → "Ölç (odağı tara)" düğmesi odağı 5–120 cm arasında 14 adımda tarar, en net uzaklığı bulur (v106). Metin telefonunda boyu bilinen bir şeyle deneyecek. Doğruysa: boyut yalnızca sıralamayı etkileyen otomatik ipucu olur (hiçbir türü elemez; türlere TASLAK şapka genişliği aralığı eklenir, zehirlilerde geniş). Çalışmazsa dosya ve sarı yazı silinir; soru olarak eklenmez (Metin: "soru sıkıcı").
 
 - **Uydu haritası gelince "Haritanın ortasına kaydet"i aç (Metin'in kararı, 2026-11-01):** Bizim haritada orman içinde tam nokta görünmediği için Mantar ara'daki "Haritanın ortasına kaydet" kodda kalır ama pasif (gizli) durur; yalnızca "Bulunduğum yere kaydet" kullanılır. Uydu haritası (Esri World Imagery, Metin'in hesap açması gerekir) eklenince yeniden etkinleştirilecek.
 
