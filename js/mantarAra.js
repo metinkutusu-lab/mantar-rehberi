@@ -100,7 +100,8 @@ const KATMAN_SIMGELERI = {
   ses: '<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/>',
   sessiz: '<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="m17 9 5 5M22 9l-5 5"/>',
   bak: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/>',
-  mantar: '<path d="M3 12.5C3 7.8 7 4 12 4s9 3.8 9 8.5z"/><path d="M9.5 12.5V18a2.5 2.5 0 0 0 5 0v-5.5"/>',
+  // Mantar ve köşesinde büyüteç: "bu mantarı ara" (Metin, 2026-11-01: kaydet düğmesindeki artı gibi anlaşılsın).
+  mantar: '<path d="M2.5 11.5C2.5 7.4 6 4 10.5 4s8 3.4 8 7.5z"/><path d="M8.3 11.5v5a2.2 2.2 0 0 0 4.4 0v-5"/><circle cx="18" cy="17.3" r="3.3"/><path d="m20.4 19.7 2.3 2.3"/>',
   alan: '<path d="M12 3 2 8l10 5 10-5z"/><path d="m2 13 10 5 10-5"/><path d="m2 18 10 5 10-5"/>',
   kaydet: '<path d="M2.5 11.5C2.5 7.4 6 4 10.5 4s8 3.4 8 7.5z"/><path d="M8.3 11.5v5a2.2 2.2 0 0 0 4.4 0v-5"/><path d="M19 15v7M15.5 18.5h7"/>',
   indir: '<path d="M7 17.5a4.5 4.5 0 0 1-.6-9A6 6 0 0 1 18 8a4 4 0 0 1-.5 9.5"/><path d="M12 11v10m-3.5-3.5L12 21l3.5-3.5"/>',
@@ -109,7 +110,7 @@ const KATMAN_BILGISI = {
   konum: { ad: 'Konumumu göster', acikla: () => 'Haritada mavi noktayla nerede olduğunu gösterir ve seni izler; yürüdükçe harita ve öneriler yenilenir. Konumun hiçbir yere gönderilmez. Açıkken dokunursan harita konumuna döner.' },
   bak: { ad: 'Buraya bak', acikla: () => 'Haritanın ortasındaki artı işaretinin çevresini (yaklaşık 2,5 km) hesaplar: mantar çıkmaya uygun yerleri renklendirir. Haritayı parmağınla bakmak istediğin yere kaydırıp dokun.' },
   ses: { ad: 'Sesli yönlendirme', acikla: () => `${sesAcik() ? 'Açık' : 'Kapalı'}: hedefe ne kadar kaldığını ve hangi yönde olduğunu telefonun sesiyle söyler; bulunduğun yer değişince haber verir. İnternetsiz çalışır.` },
-  mantar: { ad: 'Mantar seç', acikla: () => 'Aradığın mantarı seç: harita o mantarın sevdiği yerlere göre boyanır. "burada" yazanlar bakılan alanda bu mevsimde aranabilecekler. Seçtiğin mantarın zehirli benzerleri her zaman gösterilir.' },
+  mantar: { ad: 'Mantar ara', acikla: () => 'Hangi mantarı aradığını seç: harita o mantarın sevdiği yerlere göre boyanır. "burada" yazanlar bakılan alanda bu mevsimde aranabilecekler. Seçtiğin mantarın zehirli benzerleri her zaman gösterilir.' },
   alan: { ad: 'Bu alan', acikla: () => 'Bakılan alanın mantar zamanı, öne çıkan yamaçlar, ne kadarının uygun olduğu ve en yakın çok uygun yer ("Oraya git"). Konumun açıksa bulunduğun yerin bilgisi de burada.' },
   kaydet: { ad: 'Bulduğum mantarı kaydet', acikla: () => 'Bulduğun mantarı türüyle, durduğun noktaya kaydet. Haritada türün fotoğrafıyla görünür; yalnızca bu cihazda kalır.' },
   indir: { ad: 'İnternetsiz harita', acikla: () => 'Gitmeden önce, internet varken bölgeyi telefona indir; dağda internet yokken harita ve son yağmur bilgisi telefondan gelir. İndirdiğin bölgeler haritada kesik çizgili çemberle görünür.' },
