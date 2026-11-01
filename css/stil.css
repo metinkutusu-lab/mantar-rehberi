@@ -1205,3 +1205,10 @@ body.harita-tam-ekran { overflow: hidden; }
 .tur-secici:not(.kucuk) .tur-secenek-karisik { width: 56px; height: 56px; }
 .ara-bos-alan { margin: 4px 0 10px; font-size: 14px; }
 .ara-bos-bak { width: 100%; margin-bottom: 6px; }
+.katman-panel-aciklama { margin: 0 0 10px; font-size: 13px; }
+/* (i)'ler kalkınca (2026-11-01): açıklama kutusu sağdaki düğme sütununa binmesin, alttaki düğmelerin hemen üstünde. */
+.harita-katman .katman-alt .ayar-aciklamasi { bottom: 108px; left: 12px; right: 72px; }
+@media (orientation: landscape) and (max-height: 600px) {
+  .harita-katman .katman-alt .ayar-aciklamasi { bottom: 62px; right: 12px; }
+  .harita-katman .katman-yan .ayar-kose { gap: 0; }
+}

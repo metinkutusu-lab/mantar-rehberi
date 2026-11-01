@@ -158,6 +158,7 @@ function paneliAc(ad) {
     el('div', { className: 'katman-panel-ust' },
       el('strong', { textContent: KATMAN_BILGISI[ad].ad }),
       el('button', { type: 'button', className: 'ikincil katman-panel-kapat', textContent: 'Kapat', onclick: paneliKapat })),
+    el('p', { className: 'not katman-panel-aciklama', textContent: KATMAN_BILGISI[ad].acikla() }),
     govde,
   );
   katmanPaneli.hidden = false;
@@ -203,13 +204,9 @@ function katmanSimgesi(ad, acik, onclick, genis = false) {
   const dugme = el('button', { type: 'button', className: `ayar-simge${acik ? ' acik' : ''}${genis ? ' katman-genis' : ''}`, onclick });
   dugme.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true">${KATMAN_SIMGELERI[ad === 'ses' && !acik ? 'sessiz' : ad]}</svg>${genis ? '<span>Buraya bak</span>' : ''}`;
   dugme.setAttribute('aria-label', KATMAN_BILGISI[ad].ad + (ad === 'bak' ? '' : `: ${acik ? 'açık' : 'kapalı'}`));
-  const i = el('button', { type: 'button', className: 'ayar-bilgi', textContent: 'i', onclick: () => {
-    katmanBilgisi = katmanBilgisi === ad ? null : ad;
-    clearTimeout(katmanBilgisiSuresi);
-    haritaKatmaniCiz();
-  } });
-  i.setAttribute('aria-label', `${KATMAN_BILGISI[ad].ad} nedir?`);
-  return el('div', { className: `ayar-kose katman-${ad}` }, dugme, i);
+  // Ayrı (i) düğmesi yok (Metin, 2026-11-01: "boşta yer kaplıyor"): basınca ne olduğu yazar (konum, ses, Buraya bak)
+  // ya da panel açılır ve başlığının altında ne işe yaradığı yazar.
+  return el('div', { className: `ayar-kose katman-${ad}` }, dugme);
 }
 
 // Bir düğmeye basılınca ne olduğu birkaç saniye yazılır.
@@ -223,7 +220,7 @@ function haritaKatmaniCiz() {
   const konumAcik = Boolean(ara.izlemeyiDurdur && ara.konum?.enlem != null);
   katmanAlt.replaceChildren(
     katmanSimgesi('konum', konumAcik, () => { konumuAc(); katmanBilgisiGoster('konum'); haritaKatmaniCiz(); }),
-    katmanSimgesi('bak', false, () => bolgeyeBak(haritaMerkezi()), true),
+    katmanSimgesi('bak', false, () => { bolgeyeBak(haritaMerkezi()); katmanBilgisiGoster('bak'); haritaKatmaniCiz(); }, true),
     katmanSimgesi('ses', sesAcik(), () => { sesiDegistir(); katmanBilgisiGoster('ses'); haritaKatmaniCiz(); }),
     el('div', { className: 'ayar-aciklamasi', hidden: !katmanBilgisi, onclick: () => { katmanBilgisi = null; haritaKatmaniCiz(); } },
       ...(katmanBilgisi ? [el('strong', { textContent: KATMAN_BILGISI[katmanBilgisi].ad }), el('span', { textContent: KATMAN_BILGISI[katmanBilgisi].acikla() })] : [])),
