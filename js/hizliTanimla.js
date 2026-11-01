@@ -391,12 +391,45 @@ function rozet(tur) {
   );
 }
 
+// Fotoğraflar büyük gösterilir (Metin, 2026-11-01: "benzerlerin fotoğrafları çok küçük, kıyaslama yapamıyoruz"):
+// kıyas kartındaki fotoğrafa dokununca tür ve karıştırıldığı türler alt alta, ekranı dolduracak büyüklükte açılır.
+// Üst çubuk (ACİL) görünür kalır (kural 9); çeken ve lisans her fotoğrafın altında yazar.
+function kiyasFotografiAc(turler) {
+  const kapat = () => { kutu.remove(); document.removeEventListener('keydown', tus); };
+  const tus = (o) => { if (o.key === 'Escape') kapat(); };
+  const kutu = el('div', { className: 'foto-kiyas', role: 'dialog', 'aria-label': 'Fotoğrafları kıyasla' },
+    el('div', { className: 'foto-kiyas-ust' },
+      el('strong', { textContent: 'Fotoğrafları kıyasla' }),
+      el('button', { type: 'button', className: 'ikincil foto-kiyas-kapat', textContent: 'Kapat', onclick: kapat })),
+    ...turler.filter((t) => t?.fotograf).map((t) => el('figure', { className: `foto-kiyas-oge${t.zehirlilik === 'yenen' ? '' : ' tehlikeli'}` },
+      el('img', { src: t.fotograf.dosya, alt: t.ad }),
+      el('figcaption', {},
+        el('strong', { textContent: t.ad }), ' ', rozet(t),
+        el('span', { className: 'not', textContent: `Fotoğraf: ${t.fotograf.cekan ?? t.fotograf.ceken ?? ''}, ${t.fotograf.lisans}` })),
+    )),
+    el('p', { className: 'not', textContent: 'Fotoğraflar türün genel görünüşünü gösterir; mantarlar yaşına ve yerine göre farklı görünebilir. Ayıran kontrolleri yap.' }),
+  );
+  document.addEventListener('keydown', tus);
+  document.documentElement.style.setProperty('--ust-bar-yuksekligi', `${document.querySelector('.ust-bar')?.offsetHeight ?? 56}px`);
+  document.body.append(kutu);
+}
+
+// Kıyas kartındaki fotoğraf: dokununca büyük kıyaslama açılır.
+function buyutulebilirFoto(tur, sinif, turler) {
+  if (!tur?.fotograf) return '';
+  const d = el('button', { type: 'button', className: 'foto-buyut', onclick: () => kiyasFotografiAc(turler) }, kucukFotograf(tur, sinif));
+  d.setAttribute('aria-label', `${tur.ad}: fotoğrafı büyüt ve benzeriyle kıyasla`);
+  return d;
+}
+
 // Olası tür ve karıştırıldığı tür yan yana; fark dokununca açılır, ayıran kontrol her zaman görünür.
 function kiyasKartiCiz(tur, ilk) {
+  const benzerler = karistirilanlar(tur).slice(0, ilk ? 2 : 1);
+  const kiyaslanacak = [tur, ...benzerler.map((b) => b.tur)];
   const benzerlik = h.benzerlikler[tur.id];
   const kart = el('div', { className: 'kiyas-karti' },
     el('div', { className: 'kiyas-ust' },
-      kucukFotograf(tur),
+      buyutulebilirFoto(tur, 'tur-kucuk', kiyaslanacak),
       el('div', {},
         el('strong', { textContent: tur.ad }),
         el('div', { className: 'aday-ust' }, rozet(tur)),
@@ -404,11 +437,11 @@ function kiyasKartiCiz(tur, ilk) {
       ),
     ),
   );
-  for (const b of karistirilanlar(tur).slice(0, ilk ? 2 : 1)) {
+  for (const b of benzerler) {
     const ayiranlar = b.tur ? ayiranAdimlar(tur, b.tur).map(kisaAd) : [];
     const fark = el('details', { className: 'kiyas-fark' }, el('summary', { textContent: 'Farkı' }), el('p', { textContent: b.fark }));
     kart.append(el('div', { className: `kiyas-benzer ${tur.zehirlilik === 'yenen' ? 'kiyas-zehirli' : ''}` },
-      kucukFotograf(b.tur, 'benzer-kucuk'),
+      buyutulebilirFoto(b.tur, 'benzer-kucuk', kiyaslanacak),
       el('div', {},
         el('p', { className: 'kiyas-benzer-baslik' },
           el('strong', { textContent: tur.zehirlilik === 'yenen' ? `Zehirli benzeri: ${b.ad}` : `Karıştırılan: ${b.ad}` }),
@@ -418,6 +451,9 @@ function kiyasKartiCiz(tur, ilk) {
         fark,
       ),
     ));
+  }
+  if (kiyaslanacak.filter((t) => t?.fotograf).length > 1) {
+    kart.append(el('button', { type: 'button', className: 'metin-dugme foto-kiyas-ac', textContent: 'Fotoğrafları büyük kıyasla', onclick: () => kiyasFotografiAc(kiyaslanacak) }));
   }
   return kart;
 }
