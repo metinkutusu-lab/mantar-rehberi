@@ -16,6 +16,7 @@ import {
   yukseklikIzgarasi,
 } from './harita.js';
 import { CIG_UYARISI, turleriYukle } from './turler.js';
+import { ekraniAcikTut } from './ekranAcik.js';
 import { KENDI_NOTUN, bulduguKaydet, bulduguSil, bulduklarim, isaretOgesi, kayitAdi, turSecici } from './bulduklarim.js';
 import {
   SINIF_ADLARI,
@@ -768,6 +769,7 @@ function konumDugmesiCiz(yazi) {
 
 export function mantarAraKapat() {
   ara.izlemeyiDurdur?.();
+  ekraniAcikTut('harita', false);
   if (tamEkrandaMi()) tamEkraniDegistir(false);
   ara.izlemeyiDurdur = null;
   ara.pusulayiDurdur?.();
@@ -1318,4 +1320,6 @@ export function mantarAraAc() {
   if (!ara.kuruldu) kur();
   // Doğrudan tam ekran harita (eski uzun sayfa görünmez; bölümleri paneller açar).
   tamEkraniDegistir(true);
+  // Harita açıkken ekran kararmaz (js/ekranAcik.js).
+  ekraniAcikTut('harita', true);
 }

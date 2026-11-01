@@ -1,6 +1,6 @@
 // Çevrimdışı çalışma: uygulamanın bütün dosyaları ilk açılışta cihaza kaydedilir.
 // Yeni dosya eklenince DOSYALAR listesine ekle ve SURUM'u artır.
-const SURUM = 'v103';
+const SURUM = 'v104';
 // GitHub Pages'te aynı adreste başka uygulamalar da olabilir: önbellek adı bu uygulamaya ve adresine özeldir,
 // yalnızca kendi eski sürümlerini siler.
 const ONEK = `mantar-rehberi:${self.registration.scope}:`;
@@ -40,6 +40,7 @@ const DOSYALAR = [
   './js/yagmurKarti.js',
   './js/yerlerim.js',
   './js/bulduklarim.js',
+  './js/ekranAcik.js',
   './js/anaKart.js',
   './js/harita.js',
   './js/mantarAra.js',

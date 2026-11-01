@@ -22,6 +22,7 @@ import { durumuOku, durumuYaz } from './durum.js';
 import { sesHazirMi, sesiKes, soyle } from './ses.js';
 import { kameraAc, kameraKapat, kameraVarMi, kareAl, resimAdresi } from './kamera.js';
 import { altYapiAyiricisiniYukle, benzerlikSozu, benzerlikleriHesapla, modelDurumu, modelDurumunuDinle, modeliHazirla, parmakIzi, ayiriciyiYukle, sapkaRengiAyiricisiniYukle } from './fotoTanima.js';
+import { ekraniAcikTut } from './ekranAcik.js';
 import { dinlemeyiBaslat, dinlemeyiDurdur, dinliyorMu, komutuAnla, yerelTanimaDurumu, yerelTanimayiKur } from './sesliKomut.js';
 
 let turler = [];
@@ -86,6 +87,8 @@ const ellerSerbest = () => ayar().ellerSerbest === true;
 export function hizliBaslat() {
   hizliSifirla();
   h.basladi = true;
+  // Tanımlama sürerken ekran kararmaz (js/ekranAcik.js).
+  ekraniAcikTut('tanimlama', true);
   // Ekran açılınca doğrudan kamera: önce üstten fotoğraf.
   h.cekim = 'ust';
   if (kiyasAcik()) kiyasiHazirla();
@@ -95,6 +98,7 @@ export function hizliBaslat() {
 export const hizliSuruyor = () => h.basladi;
 
 export function hizliSifirla() {
+  ekraniAcikTut('tanimlama', false);
   for (const url of Object.values(h.fotograflar)) URL.revokeObjectURL(url);
   sayaclariDurdur();
   Object.assign(h, { basladi: false, cevaplar: {}, sorulanlar: [], fotograflar: {}, izler: [], benzerlikler: {}, oneriler: {}, reddedilen: new Set(), cekim: null, atlanan: new Set(), kameraYok: false, acik: null, sayaclar: {} });
@@ -102,6 +106,7 @@ export function hizliSifirla() {
 
 // Ekrandan çıkınca kamera, mikrofon ve ses kapanır.
 export function hizliKapat() {
+  ekraniAcikTut('tanimlama', false);
   kameraKapat();
   dinlemeyiDurdur();
   sayaclariDurdur();
