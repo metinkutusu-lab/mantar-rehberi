@@ -23,7 +23,6 @@ import { sesHazirMi, sesiKes, soyle } from './ses.js';
 import { kameraAc, kameraKapat, kameraVarMi, kareAl, resimAdresi } from './kamera.js';
 import { altYapiAyiricisiniYukle, benzerlikSozu, benzerlikleriHesapla, modelDurumu, modelDurumunuDinle, modeliHazirla, parmakIzi, ayiriciyiYukle, sapkaRengiAyiricisiniYukle } from './fotoTanima.js';
 import { ekraniAcikTut } from './ekranAcik.js';
-import { boyutDenemesiBaslat } from './boyutDenemesi.js';
 import { dinlemeyiBaslat, dinlemeyiDurdur, dinliyorMu, komutuAnla, yerelTanimaDurumu, yerelTanimayiKur } from './sesliKomut.js';
 
 let turler = [];
@@ -709,8 +708,6 @@ function kameraCiz(tur) {
       if (h.cekim === tur) kutu.replaceWith(telefonKamerasiCiz(yuvaBul(tur)));
       return;
     }
-    // GEÇİCİ: boyut ölçümü denemesi yalnızca üstten fotoğrafta gösterilir (js/boyutDenemesi.js; sonuca etkisi yok).
-    if (tur === 'ust') boyutDenemesiBaslat(video, kutu.querySelector('.kamera'));
     if (ellerSerbest()) {
       setTimeout(() => video?.isConnected && h.cekim === tur && geriSayimBaslat(tur), sesAcik() ? 4000 : 800);
     }
