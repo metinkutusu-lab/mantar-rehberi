@@ -38,7 +38,7 @@ export const ADIMLAR = [
     // Tür verisindeki değerler TASLAK; tehlikeli türlerde bilerek geniş tutuldu (yağmur benekleri silebilir).
     soru: 'sapkaYuzeyi',
     baslik: 'Şapkanın üstü',
-    yonerge: ['Şapkanın üstüne yakından bak. Beneklere parmağınla hafifçe dokun: kolayca kalkıyor mu?'],
+    yonerge: ['Şapkanın üstüne yakından bak. Beneklere parmağınla hafifçe dokun: kolayca kalkıyor mu? Ortası çukur ya da tümsekli olsa da yüzeyi pürüzsüzse "Düz" seç.'],
     soruMetni: 'Şapkanın üstü nasıl?',
     secenekler: [
       ['duz', 'Düz, pürüzsüz'],
@@ -47,6 +47,16 @@ export const ADIMLAR = [
       ['lifli', 'İnce lifli veya çizgili'],
       ['kirisik', 'Kıvrımlı, buruşuk veya petek gibi'],
     ],
+  },
+  {
+    // Şapka kenarı (Metin, 2026-11-01: "kanlıcanın en çok karıştırılanı tüylü olan; kenarında tüy var mı diye sormamış").
+    // Tüylü süt mantarlarının kenarı uzun, yünlü tüylü ve içe kıvrıktır; kanlıcanınki tüysüzdür. Veride yalnızca bu ayrımın
+    // bilindiği türlerde değer var; öteki türler bu soruyla hiç elenmez. Soru yalnızca ayırt ettiğinde sorulur.
+    soru: 'kenarTuylu',
+    baslik: 'Şapkanın kenarı',
+    yonerge: ['Şapkanın kenarına yandan yakından bak: uzun, yünlü tüyler (sakal gibi) var mı? Kısa, ince çizgiler tüy sayılmaz.'],
+    soruMetni: 'Şapkanın kenarı uzun, yünlü tüylerle kaplı mı?',
+    secenekler: EVET_HAYIR,
   },
   {
     soru: 'kucukKahverengi',

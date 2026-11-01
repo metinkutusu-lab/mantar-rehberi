@@ -140,7 +140,8 @@ function ikizAyiranAdim(turler, adaylar, bekleyenler, benzerlikler) {
     }).length;
     if (elenen > (enIyi?.elenen ?? 0)) enIyi = { adim, elenen };
   }
-  return enIyi?.adim ?? null;
+  // kesin: bu tek kontrol, tahmin doğruysa zehirli ikizlerin hepsini ayırıyor (kanlıcada süt rengi).
+  return enIyi ? { adim: enIyi.adim, kesin: enIyi.elenen === ikizler.length } : null;
 }
 
 /**
@@ -162,7 +163,7 @@ export function siradakiAdim(turler, cevaplar, sorulanlar, benzerlikler = {}) {
   // Uzman gibi (Metin'in isteği, 2026-10-27): fotoğraf bir yenen türü güçlü tahmin ediyorsa önce o türü zehirli
   // ikizlerinden en çok ayıran kontrol sorulur (kanlıcada süt rengi: turuncu-kırmızı ise beyaz sütlü benzerlerin hepsi düşer).
   const ikiz = ikizAyiranAdim(turler, adaylar, bekleyenler, benzerlikler);
-  if (ikiz) return { adim: ikiz, neden: 'ayirt' };
+  if (ikiz) return { adim: ikiz.adim, neden: 'ayirt', kesin: ikiz.kesin };
 
   // Güvenlik soruları yalnızca kalan adaylarda zehirli/ölümcül bir tür varken (ya da hiçbiriyle eşleşmediyken) sorulur
   // (Metin'in kararı, 2026-10-27: "hangi türe göre ne gerekiyorsa o çıksın"; js/kurallar.js degerlendir ile aynı ölçü).
@@ -199,8 +200,12 @@ export function kontrolListesi(turler, cevaplar, sorulanlar, benzerlikler = {}) 
   for (let i = 0; i < ADIMLAR.length; i++) {
     const sonraki = siradakiAdim(turler, cevaplar, atlanan, benzerlikler);
     if (!sonraki) break;
-    liste.push(sonraki);
     atlanan.push(sonraki.adim.soru);
+    // Tek kontrol tahmini zehirli ikizlerinin hepsinden ayırıyorsa (kanlıcada süt rengi), yanına yalnızca güvenlik
+    // kontrolleri gelir; "şapkanın üstü" gibi ayırt etmeyen sorular gelmez (Metin, 2026-11-01). Güvenlik kontrolleri
+    // (torba, halka, genç…) her zaman listede kalır (kural 3); cevap gelince liste yeniden hesaplanır.
+    if (liste[0]?.kesin && !zorunluMu(sonraki.adim)) continue;
+    liste.push(sonraki);
   }
   return liste;
 }

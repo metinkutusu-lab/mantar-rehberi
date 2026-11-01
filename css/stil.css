@@ -1212,3 +1212,6 @@ body.harita-tam-ekran { overflow: hidden; }
   .harita-katman .katman-alt .ayar-aciklamasi { bottom: 62px; right: 12px; }
   .harita-katman .katman-yan .ayar-kose { gap: 0; }
 }
+/* Püf noktası (TASLAK; 2026-11-01). */
+.puf-noktasi { margin: 8px 0; padding: 8px 10px; border-radius: 10px; background: var(--marka-acik); font-size: 14px; }
+.puf-zehir { margin: 0 0 8px; }

@@ -442,6 +442,9 @@ function kiyasKartiCiz(tur, ilk) {
       ),
     ),
   );
+  // İlk sıradaki yenen türün püf noktası ve zehirlenme nedeni (TASLAK; Metin, 2026-11-01).
+  if (ilk && tur.pufNoktasi) kart.append(el('p', { className: 'puf-noktasi' }, el('strong', { textContent: 'Püf noktası: ' }), tur.pufNoktasi));
+  if (ilk && tur.zehirlenmeNedeni) kart.append(el('p', { className: 'not puf-zehir' }, el('strong', { textContent: 'Neden zehirlenilir: ' }), tur.zehirlenmeNedeni));
   for (const b of benzerler) {
     const ayiranlar = b.tur ? ayiranAdimlar(tur, b.tur).map(kisaAd) : [];
     const fark = el('details', { className: 'kiyas-fark' }, el('summary', { textContent: 'Farkı' }), el('p', { textContent: b.fark }));

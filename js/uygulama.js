@@ -218,6 +218,9 @@ function turKartiCiz(tur, adlaTur) {
   if (tur.nerede) {
     govde.append(el('p', { className: 'tur-nerede' }, el('strong', { textContent: 'Nerede çıkar: ' }), tur.nerede));
   }
+  // Püf noktası ve neden zehirlenilir (Metin, 2026-11-01: "püf noktalar nedir, insanlar niye zehirlendi?"; TASLAK).
+  if (tur.pufNoktasi) govde.append(el('div', { className: 'puf-noktasi' }, el('strong', { textContent: 'Püf noktası (taslak): ' }), tur.pufNoktasi));
+  if (tur.zehirlenmeNedeni) govde.append(bildirim('uyari', el('p', {}, el('strong', { textContent: 'İnsanlar neden zehirleniyor: ' }), tur.zehirlenmeNedeni)));
   if (tur.zehirliBenzerler?.length) {
     govde.append(
       el('h4', { className: 'tur-alt-baslik', textContent: 'Karıştırılan zehirli türler' }),

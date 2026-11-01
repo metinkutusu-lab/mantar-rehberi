@@ -235,6 +235,17 @@ test('Kural 3: köygöçüren, halka ve volva "hayır" dense bile beyaz solunga�
   assert.equal(degerlendir({ fotograflar: [...GEREKLI_FOTOGRAFLAR], cevaplar, adaylar }).renk, 'kirmizi');
 });
 
+test('püf noktası ve zehirlenme nedeni: yasak ifade yok, tatma önerilmez (kural 1, 14)', () => {
+  const yenen = turVerisi.turler.filter((t) => t.zehirlilik === 'yenen');
+  assert.ok(yenen.every((t) => t.pufNoktasi && t.zehirlenmeNedeni), 'her yenen türün püf noktası ve zehirlenme nedeni var');
+  for (const t of yenen) {
+    for (const metin of [t.pufNoktasi, t.zehirlenmeNedeni]) {
+      assert.deepEqual(yasakIfadeler(metin), [], t.ad);
+      assert.ok(!/tad[ıi]na bak|tatt?[ıi]|dil(in)? ucu|çiğne/i.test(metin), `${t.ad}: tatma önerisi`);
+    }
+  }
+});
+
 test('zemin: "yerde" toprakta ve çayırda yetişen türlerin hiçbirini elemez, yalnızca odunda yetişenleri eler', () => {
   const yerde = adaylariBul(turVerisi.turler, { zemin: 'yerde' }).map((t) => t.id);
   for (const tur of turVerisi.turler) {

@@ -300,7 +300,9 @@
         9,
         10
       ],
-      "aramaIpucu": "Sıcak meşe ve kestane ormanlarında, güneş alan açıklıklarda yerde ara. Genç hali beyaz bir yumurta gibidir; bu evrede ölümcül köygöçürenle karışır."
+      "aramaIpucu": "Sıcak meşe ve kestane ormanlarında, güneş alan açıklıklarda yerde ara. Genç hali beyaz bir yumurta gibidir; bu evrede ölümcül köygöçürenle karışır.",
+      "pufNoktasi": "Şapkası parlak turuncu-kırmızıdır; solungaçları ve ayağı sarıdır. Ayak dibinde büyük, beyaz bir torba vardır. Genç yumurta halini ikiye kesince içteki taslak sarı-turuncudur.",
+      "zehirlenmeNedeni": "Sinek mantarı (kırmızı şapkada beyaz benekler, beyaz solungaç ve ayak) ile karıştırılır; yağmur benekleri silebilir. Solungaç ya da ayak beyazsa, ya da kesince içteki taslak beyazsa dokunma: köygöçüren olabilir."
     },
     {
       "id": "kucuk-semsiye",
@@ -424,7 +426,9 @@
         10,
         11
       ],
-      "aramaIpucu": "Orman kenarlarında, açıklıklarda, çayırda ve yol kenarlarında ara; boyu uzun olduğu için uzaktan görünür."
+      "aramaIpucu": "Orman kenarlarında, açıklıklarda, çayırda ve yol kenarlarında ara; boyu uzun olduğu için uzaktan görünür.",
+      "pufNoktasi": "Şapkası 10 cm'den büyük, ortası göbeklidir. Ayakta yılan derisi gibi kahverengi desen vardır. Halka kalın, çift katlıdır ve ayak üzerinde aşağı yukarı kaydırılabilir. Ayak dibinde torba yoktur.",
+      "zehirlenmeNedeni": "Şapkası 10 cm'den küçük şemsiye benzeri mantarlar (küçük şemsiyeler) ölümcül olabilir. Genç, açılmamış şemsiye mantarı köygöçürenin yumurtasıyla karıştırılabilir; ayak dibinde torba varsa dokunma."
     },
     {
       "id": "galerina",
@@ -692,7 +696,9 @@
         5
       ],
       "aramaIpucu": "İlkbaharda yerde ara: meyve bahçelerinde, dişbudak ve karaağaç diplerinde, devrilmiş ağaçların çevresinde, geçen yıl yanmış alanlarda. Rengi kuru yapraklarla karışır; yavaş yürü ve yere yakın bak.",
-      "cigkenZehirli": true
+      "cigkenZehirli": true,
+      "pufNoktasi": "Boyuna ikiye kesince şapka ve ayak tek parça, içi baştan sona boş bir odadır. Şapka petek gibi çukurludur ve ayağa dipten bağlıdır.",
+      "zehirlenmeNedeni": "Sahte kuzugöbeğinin içi pamuk gibi doludur ve şapkası beyin gibi kıvrımlıdır. Yüksük kuzugöbeğinin şapkası ayağın tepesine yüksük gibi oturur, alt kenarı serbesttir. Kuzugöbeği çiğken de zehirlidir; iyice pişmeden yenmez."
     },
     {
       "id": "sahte-kuzugobegi",
@@ -854,7 +860,9 @@
         10,
         11
       ],
-      "aramaIpucu": "Meşe, kayın ve çam altında, yosunlu ve nemli toprakta ara. Çoğu zaman gruplar halinde çıkar; birini görünce çevresine iyice bak."
+      "aramaIpucu": "Meşe, kayın ve çam altında, yosunlu ve nemli toprakta ara. Çoğu zaman gruplar halinde çıkar; birini görünce çevresine iyice bak.",
+      "pufNoktasi": "Altında gerçek solungaç yoktur: ayağa doğru inen kalın, kabarık, çatallanan damarlar vardır. Eti beyaz ve liflidir, kayısıya benzer hoş kokar.",
+      "zehirlenmeNedeni": "Sahte horozmantarı (ince, sık, gerçek solungaçlı, daha turuncu) ve odunda demet demet çıkan zeytin mantarı ile karıştırılır."
     },
     {
       "id": "zeytin",
@@ -1004,6 +1012,9 @@
         "sporIzi": [
           "krem",
           "beyaz"
+        ],
+        "kenarTuylu": [
+          "hayir"
         ]
       },
       "zehirliBenzerler": [
@@ -1036,7 +1047,9 @@
         10,
         11
       ],
-      "aramaIpucu": "Çam ağaçlarının altında, iğne yaprak ve yosun arasında ara; genç çamlıklarda ve orman kenarında sık çıkar. Çoğu zaman yarısı iğne yaprakların altında kalır."
+      "aramaIpucu": "Çam ağaçlarının altında, iğne yaprak ve yosun arasında ara; genç çamlıklarda ve orman kenarında sık çıkar. Çoğu zaman yarısı iğne yaprakların altında kalır.",
+      "pufNoktasi": "Solungaçları bıçakla çiz ya da sapı kes: çıkan süt turuncu ya da şarap kırmızısıdır. Ezilen yerler ve yaşlı mantar zamanla yeşil lekelenir. Şapka kenarı tüysüzdür.",
+      "zehirlenmeNedeni": "Turuncu, halka halka şapkasına bakılıp sütüne bakılmadan toplanan beyaz sütlü süt mantarları (tüylü süt, kuşaklı süt, sütü sararan) şiddetli kusma ve ishal yapar. Sütü beyaz olan bir mantar kanlıca değildir."
     },
     {
       "id": "tuylu-sut",
@@ -1079,6 +1092,9 @@
         "sporIzi": [
           "krem",
           "beyaz"
+        ],
+        "kenarTuylu": [
+          "evet"
         ]
       },
       "fotograf": {
@@ -1135,6 +1151,9 @@
         "sporIzi": [
           "krem",
           "beyaz"
+        ],
+        "kenarTuylu": [
+          "evet"
         ]
       },
       "fotograf": {
@@ -1319,7 +1338,9 @@
         10,
         11
       ],
-      "aramaIpucu": "Çam, ladin, kayın ve meşe ağaçlarının birkaç metre çevresinde yerde ara; yosun ve iğne yaprak arasından, orman kenarlarında ve açıklıklarda çıkar. Ağacın kökleriyle ortak yaşar, kütük üzerinde çıkmaz."
+      "aramaIpucu": "Çam, ladin, kayın ve meşe ağaçlarının birkaç metre çevresinde yerde ara; yosun ve iğne yaprak arasından, orman kenarlarında ve açıklıklarda çıkar. Ağacın kökleriyle ortak yaşar, kütük üzerinde çıkmaz.",
+      "pufNoktasi": "Şapkanın altı sünger gibidir (gözenekli); gözenekler beyaz, sarı ya da zeytin yeşili olur, asla kırmızı değildir. Ayağın üstünde beyaz ağ deseni vardır. Kesince eti beyaz kalır, maviye dönmez.",
+      "zehirlenmeNedeni": "Gözenekleri kırmızı-turuncu olan ve kesince maviye dönen şeytan mantarı ile, ayağı kırmızımsı olup kesince maviye dönen acı ayaklı çörek ile karıştırılır."
     },
     {
       "id": "seytan",
@@ -1512,7 +1533,9 @@
         10,
         11
       ],
-      "aramaIpucu": "Ağaçsız çayırlarda ve otlaklarda, özellikle hayvan otlatılan yerlerde ara; yağmurdan sonra çimenin arasında beyaz başlar görünür. Ağaç altında aranmaz."
+      "aramaIpucu": "Ağaçsız çayırlarda ve otlaklarda, özellikle hayvan otlatılan yerlerde ara; yağmurdan sonra çimenin arasında beyaz başlar görünür. Ağaç altında aranmaz.",
+      "pufNoktasi": "Çayırda, açık arazide çıkar. Solungaçları gençken pembe, sonra çikolata kahverengidir; asla beyaz kalmaz. Kesince ya da ezince ayak dibi sararmaz, hoş mantar kokar.",
+      "zehirlenmeNedeni": "Sarıya boyanan mantar (ayak dibi ezince ya da kesince parlak sarıya döner, mürekkep gibi kokar) ve solungaçları hep beyaz kalan, torbalı ölümcül beyaz köygöçüren ile karıştırılır."
     },
     {
       "id": "sariya-boyanan",
@@ -1696,7 +1719,9 @@
         3,
         4
       ],
-      "aramaIpucu": "Yerde değil, ağacın üstünde ara: ölü ya da zayıf düşmüş kayın, kavak ve söğüt gövdelerinde ve kütüklerde raf gibi üst üste çıkar. Serin aylarda çıkar."
+      "aramaIpucu": "Yerde değil, ağacın üstünde ara: ölü ya da zayıf düşmüş kayın, kavak ve söğüt gövdelerinde ve kütüklerde raf gibi üst üste çıkar. Serin aylarda çıkar.",
+      "pufNoktasi": "Odunun, kütüğün üstünde kat kat, raf gibi çıkar. Solungaçları ayağa doğru iner; ayak kısa ve yandadır ya da hiç yoktur.",
+      "zehirlenmeNedeni": "Odunda çıkan başka yelpaze biçimli mantarlarla karışabilir; yerden çıkıyorsa istiridye mantarı değildir."
     },
     {
       "id": "kukurt-basli",
@@ -1803,7 +1828,9 @@
         10
       ],
       "aramaIpucu": "Yerde değil, ağacın gövdesinde ara: meşe, kestane, söğüt ve kiraz gövdelerinde sarı-turuncu raflar halinde çıkar, uzaktan dikkat çeker.",
-      "cigkenZehirli": true
+      "cigkenZehirli": true,
+      "pufNoktasi": "Ağaç gövdesinde sarı-turuncu, kat kat raf gibi çıkar. Altında solungaç yoktur, küçük delikler vardır. Eti gençken yumuşak ve suludur.",
+      "zehirlenmeNedeni": "Çiğken ve az pişmişken mide rahatsızlığı yapar; porsuk gibi zehirli ağaçlarda çıkanlar daha sık rahatsızlık yapar. İyice pişmeden yenmez."
     },
     {
       "id": "puf",
@@ -1871,7 +1898,9 @@
         10,
         11
       ],
-      "aramaIpucu": "Orman tabanında yaprak ve iğne arasında, çayırda ve yol kenarlarında ara; yuvarlak, beyaz bir top gibidir."
+      "aramaIpucu": "Orman tabanında yaprak ve iğne arasında, çayırda ve yol kenarlarında ara; yuvarlak, beyaz bir top gibidir.",
+      "pufNoktasi": "Boyuna ikiye kesince içi baştan sona beyaz ve düzgündür; içinde şapka ya da ayak taslağı yoktur.",
+      "zehirlenmeNedeni": "İçi koyu, mor-siyah olan sahte puf mantarı ve kesince içinde mantar taslağı görülen köygöçüren yumurtası ile karıştırılır."
     },
     {
       "id": "sahte-puf",
@@ -1973,7 +2002,9 @@
         11,
         12
       ],
-      "aramaIpucu": "Yerin altında ara: nemli vadilerde ve dere kenarlarında kavak, söğüt, meşe ve ıhlamur köklerinin çevresinde. Üstten görünmez; neredeyse her zaman eğitimli köpekle bulunur. Türkiye'de çok nadirdir."
+      "aramaIpucu": "Yerin altında ara: nemli vadilerde ve dere kenarlarında kavak, söğüt, meşe ve ıhlamur köklerinin çevresinde. Üstten görünmez; neredeyse her zaman eğitimli köpekle bulunur. Türkiye'de çok nadirdir.",
+      "pufNoktasi": "Toprağın altında yumru olarak çıkar. Kesince içi krem-kahverengi, ince beyaz damarlı mermer gibidir; çok güçlü, keskin kokar.",
+      "zehirlenmeNedeni": "Damarlı sahte trüf ile karıştırılır: onun kabuğu kalın ve sert, içi gençken beyaz, sonra mor-siyahtır."
     },
     {
       "id": "kara-truf",
@@ -2032,7 +2063,9 @@
         11,
         12
       ],
-      "aramaIpucu": "Yerin altında, 5–20 cm derinde ara: kireçli toprakta meşe, fındık, kayın ve ıhlamur köklerinin çevresinde. Ağacın çevresinde otun seyrek, yanmış gibi göründüğü halkaya dikkat et. Üstten görünmez; çoğu zaman eğitimli köpekle aranır. Toprağı dikkatle açıp sonra geri kapat."
+      "aramaIpucu": "Yerin altında, 5–20 cm derinde ara: kireçli toprakta meşe, fındık, kayın ve ıhlamur köklerinin çevresinde. Ağacın çevresinde otun seyrek, yanmış gibi göründüğü halkaya dikkat et. Üstten görünmez; çoğu zaman eğitimli köpekle aranır. Toprağı dikkatle açıp sonra geri kapat.",
+      "pufNoktasi": "Dışı siyah ve küçük piramit gibi çıkıntılıdır. Kesince içi koyu kahve-siyah ve beyaz damarlıdır.",
+      "zehirlenmeNedeni": "Damarlı sahte trüf ile karıştırılır: onun dışı sarımsı-kahve ve pürüzlü, içi mor-siyah ve damarsızdır."
     },
     {
       "id": "keme",
@@ -2089,7 +2122,9 @@
         4,
         5
       ],
-      "aramaIpucu": "İlkbaharda, kışı yağmurlu geçen yıllarda bozkırda ara: güneşçik denen küçük sarı çiçekli bitkinin yakınında, toprağın hafifçe kabarıp çatladığı yerlerin altında olur. Çatlağı dikkatle açıp bak, sonra toprağı geri kapat."
+      "aramaIpucu": "İlkbaharda, kışı yağmurlu geçen yıllarda bozkırda ara: güneşçik denen küçük sarı çiçekli bitkinin yakınında, toprağın hafifçe kabarıp çatladığı yerlerin altında olur. Çatlağı dikkatle açıp bak, sonra toprağı geri kapat.",
+      "pufNoktasi": "Bozkırda, kumlu toprakta, ilkbaharda toprağın altında çıkar. Dışı açık kahve, içi beyaz-kremdir.",
+      "zehirlenmeNedeni": "Toprak altında çıkan başka yumrularla, özellikle içi koyulaşan sahte trüflerle karıştırılabilir."
     },
     {
       "id": "casir",
@@ -2165,7 +2200,9 @@
         5,
         6
       ],
-      "aramaIpucu": "Ağaçsız bozkır ve yaylalarda ara: geçen yıldan kalmış kuru, iri çaşır (çakşır) bitkilerinin dibine bak; mantar bitkinin kökünden, topraktan çıkar. İlkbaharda yağmurdan sonra, özellikle mayıs ve haziranda çıkar."
+      "aramaIpucu": "Ağaçsız bozkır ve yaylalarda ara: geçen yıldan kalmış kuru, iri çaşır (çakşır) bitkilerinin dibine bak; mantar bitkinin kökünden, topraktan çıkar. İlkbaharda yağmurdan sonra, özellikle mayıs ve haziranda çıkar.",
+      "pufNoktasi": "Çaşır otu (yabani şemsiyegiller) köklerinin üstünde, çayırda çıkar. Solungaçları ayağa doğru iner; şapkası kahverengi-gridir.",
+      "zehirlenmeNedeni": "Çayırda çıkan beyaz terleme mantarları ile karıştırılır."
     },
     {
       "id": "mayis",
@@ -2243,7 +2280,9 @@
         5,
         6
       ],
-      "aramaIpucu": "İlkbaharda çayırda, orman kenarında, alıç ve yaban eriği çalılarının dibinde ara; çoğu zaman halka ya da yay şeklinde dizilir. Taze un gibi kokar."
+      "aramaIpucu": "İlkbaharda çayırda, orman kenarında, alıç ve yaban eriği çalılarının dibinde ara; çoğu zaman halka ya da yay şeklinde dizilir. Taze un gibi kokar.",
+      "pufNoktasi": "İlkbaharda (nisan-mayıs) çıkar. Kuvvetli, taze un gibi kokar. Solungaçları sık, beyaz-kremdir; ayak dibinde torba ve ayakta halka yoktur.",
+      "zehirlenmeNedeni": "Beyaz terleme mantarları (aşırı terleme, salya akması yapar) ve ölümcül beyaz köygöçüren ile karıştırılır. Ayak dibini toprağı açarak kontrol et; torba varsa dokunma."
     },
     {
       "id": "mor-kadife",
@@ -2311,7 +2350,9 @@
         12
       ],
       "aramaIpucu": "Sonbaharın sonunda, ilk soğuklardan sonra çürümüş yaprak ve iğne yığınlarında, orman kenarında ve çürük bitki yığınlarında ara; çoğu zaman halka şeklinde dizilir.",
-      "cigkenZehirli": true
+      "cigkenZehirli": true,
+      "pufNoktasi": "Şapkası ve solungaçları leylak-mor, ayağı da morumsudur. Meyve gibi hoş kokar. Spor izi pembemsi-krem renktedir, pas kahverengi değildir.",
+      "zehirlenmeNedeni": "Mor tonlu ağ perdeli mantarlarla karıştırılır: onların gençken solungaçları örümcek ağı gibi bir perdeyle örtülüdür ve spor izi pas kahverengidir. Mor kadife çiğken zehirlidir; iyice pişmeden yenmez."
     },
     {
       "id": "sahte-truf",
@@ -2428,7 +2469,9 @@
         11
       ],
       "aramaIpucu": "Yerde değil, ağaçta ara: kütüklerin, ölü ya da hastalıklı ağaçların gövde diplerinde ve köklerinde büyük kümeler halinde çıkar. Ölümcül galerina da kütüklerde çıkar; bu ikisi karışır.",
-      "cigkenZehirli": true
+      "cigkenZehirli": true,
+      "pufNoktasi": "Kütükte ya da ağaç dibinde demet demet çıkar. Ayakta halka vardır, şapkada küçük kahve pullar olur. Spor izi beyazdır.",
+      "zehirlenmeNedeni": "Ölümcül galerina da kütükte demet halinde ve halkalı çıkar; onun spor izi pas kahverengidir. Ballıca çiğken zehirlidir; iyice pişmeden yenmez."
     }
   ]
 }
