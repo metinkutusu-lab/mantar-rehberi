@@ -45,7 +45,7 @@ export function bulduguSil(id) {
   document.dispatchEvent(new Event('yerler-degisti'));
 }
 
-// Tür seçici: "Bilmiyorum" önce, sonra toplanan türler (aranma sırasıyla), sonra zehirli türler (zehirli bir mantarın
+// Tür seçici: "Başka bir mantar" önce, sonra toplanan türler (aranma sırasıyla), sonra zehirli türler (zehirli bir mantarın
 // yerini de işaretleyip kaçınmak isteyebilir). Fotoğraflı, yana kaydırılır.
 export function turSecici(turler, seciliId, sec) {
   const yenen = aranmaSirasinaGore(turler.filter((t) => t.zehirlilik === 'yenen'));
@@ -56,9 +56,13 @@ export function turSecici(turler, seciliId, sec) {
     d.setAttribute('aria-pressed', String(seciliId === id));
     return d;
   };
-  const bilinmeyen = el('span', { className: 'tur-secenek-hepsi', textContent: '?' });
+  // "Başka bir mantar" (Metin, 2026-11-01: "?" ve "Bilmiyorum" çirkin duruyordu): dört farklı mantarın küçük
+  // fotoğraflarından karışık bir kare. Türü belirtilmemiş kayıt olur.
+  const karisik = el('span', { className: 'tur-secenek-karisik' },
+    ...turler.filter((t) => t.fotograf?.dosya).filter((_, i, a) => i % Math.max(1, Math.floor(a.length / 4)) === 0).slice(0, 4)
+      .map((t) => kucukFotograf(t, 'tur-secenek-karisik-resim')));
   const secici = el('div', { className: 'tur-secici kucuk' },
-    secenek(null, 'Bilmiyorum', bilinmeyen),
+    secenek(null, 'Başka bir mantar', karisik),
     ...yenen.map((t) => secenek(t.id, kisaAd(t), kucukFotograf(t, 'tur-secenek-resim'))),
     ...diger.map((t) => secenek(t.id, kisaAd(t), kucukFotograf(t, 'tur-secenek-resim'), true)),
   );
