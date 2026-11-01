@@ -101,7 +101,8 @@ const KATMAN_SIMGELERI = {
   sessiz: '<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="m17 9 5 5M22 9l-5 5"/>',
   bak: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/>',
   // Mantar ve köşesinde büyüteç: "bu mantarı ara" (Metin, 2026-11-01: kaydet düğmesindeki artı gibi anlaşılsın).
-  mantar: '<path d="M2.5 11.5C2.5 7.4 6 4 10.5 4s8 3.4 8 7.5z"/><path d="M8.3 11.5v5a2.2 2.2 0 0 0 4.4 0v-5"/><circle cx="18" cy="17.3" r="3.3"/><path d="m20.4 19.7 2.3 2.3"/>',
+  // Büyüteç mantardan ayrık, daha büyük ve aşağıda (Metin, 2026-11-01: "çok bitişik").
+  mantar: '<path d="M1.5 9.5C1.5 5.9 4.6 3 8.5 3s7 2.9 7 6.5z"/><path d="M6.5 9.5v4a2 2 0 0 0 4 0v-4"/><circle cx="15.5" cy="17" r="4"/><path d="m18.4 19.9 3.1 3.1"/>',
   alan: '<path d="M12 3 2 8l10 5 10-5z"/><path d="m2 13 10 5 10-5"/><path d="m2 18 10 5 10-5"/>',
   kaydet: '<path d="M2.5 11.5C2.5 7.4 6 4 10.5 4s8 3.4 8 7.5z"/><path d="M8.3 11.5v5a2.2 2.2 0 0 0 4.4 0v-5"/><path d="M19 15v7M15.5 18.5h7"/>',
   indir: '<path d="M7 17.5a4.5 4.5 0 0 1-.6-9A6 6 0 0 1 18 8a4 4 0 0 1-.5 9.5"/><path d="M12 11v10m-3.5-3.5L12 21l3.5-3.5"/>',
