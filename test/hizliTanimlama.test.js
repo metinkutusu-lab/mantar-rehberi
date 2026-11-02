@@ -8,7 +8,7 @@ import { GEREKLI_FOTOGRAFLAR, ZORUNLU_SORULAR, degerlendir, yasakIfadeler } from
 import { ADIMLAR, aktifAdimlar, sonCevaplar } from '../js/sorular.js';
 import { adaylariBul } from '../js/anahtar.js';
 import { HIZLI_AKISTA_YOK, adimFaydasi, agirliklar, ayiranAdimlar, kontrolListesi, renkDegistirebilirMi, siradakiAdim } from '../js/siradaki.js';
-import { ayiriciyiCoz, benzerlikSozu, benzerlikleriHesapla, birimYap, izCoz, izKodla, kosinus, mantarGorunmeyenler, MODEL_DOSYALARI, satirCoz } from '../js/fotoTanima.js';
+import { ayiriciyiCoz, benzerlikSozu, benzerlikleriHesapla, birimYap, izCoz, izKodla, kosinus, listedeBenzemiyor, mantarGorunmeyenler, MODEL_DOSYALARI, satirCoz } from '../js/fotoTanima.js';
 import { komutuAnla, sadele } from '../js/sesliKomut.js';
 
 const KOK = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -345,4 +345,16 @@ test('mantar var mı: mantar görünmeyen fotoğrafta tahmin yapılmaz; ayırıc
   const kod = oku('js/hizliTanimla.js');
   assert.match(kod, /h\.mantarYok = h\.mantarOnay \? \[\] : mantarGorunmeyenler/);
   assert.doesNotMatch(oku('js/kurallar.js'), /mantarYok|mantarGorunmeyenler/);
+});
+
+test('listede mi: türlere belirgin benzemeyen mantarda tür adı öne çıkarılmaz; benzerlik yoksa uyarı da yok', () => {
+  assert.equal(listedeBenzemiyor({ kanlica: 0.3, 'tuylu-sut': 0.25, sinek: 0.45 }), true);
+  assert.equal(listedeBenzemiyor({ kanlica: 0.8, 'tuylu-sut': 0.2 }), false);
+  assert.equal(listedeBenzemiyor({}), false);
+  // Yalnızca kartı değiştirir: sonucun rengini veren kurallar buna bakmaz; kartta "yenir" anlamına gelen söz yok.
+  const kod = oku('js/hizliTanimla.js');
+  assert.match(kod, /if \(listedeBenzemiyor\(h\.benzerlikler\) && !h\.enYakiniGoster\)/);
+  assert.doesNotMatch(oku('js/kurallar.js'), /listedeYok|listedeBenzemiyor/);
+  const kart = kod.slice(kod.indexOf('Listemizdeki türlere belirgin benzemiyor'), kod.indexOf('Yine de en yakın türleri göster'));
+  assert.deepEqual(yasakIfadeler(kart), []);
 });

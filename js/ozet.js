@@ -96,6 +96,7 @@ function duzen(ctx, ciz, veri, resimler) {
   // Cevaplar
   y = yaz(ctx, ciz, 'Cevaplar', { y, boyut: 36, kalinlik: 800 });
   y += 8;
+  if (!veri.satirlar.length) y = yaz(ctx, ciz, 'Hiçbir kontrol cevaplanmadı.', { y, boyut: 28, renk: '#6b635b' }) + 14;
   for (const satir of veri.satirlar) {
     y = yaz(ctx, ciz, satir.soru, { y, boyut: 24, renk: '#6b635b' });
     y = yaz(ctx, ciz, satir.cevap, { y, boyut: 30, kalinlik: 700 });
@@ -167,21 +168,32 @@ export async function ozetResmiOlustur({ sonuc, satirlar, fotograflar }) {
   return new Promise((coz) => tuval.toBlob(coz, 'image/jpeg', 0.88));
 }
 
-// Telefonun paylaşma menüsünü açar (WhatsApp vb.). Desteklenmiyorsa resmi indirir.
-export async function ozetiPaylas(resim, sonuc) {
-  const dosya = new File([resim], `mantar-ozeti-${Date.now()}.jpg`, { type: 'image/jpeg' });
+// Acil ekranından gönderilirken (doktora, yakına) eklenen yazı.
+export const ACIL_PAYLASIM_METNI = 'Mantar zehirlenmesi şüphesi. Yenen mantarın fotoğrafları, özellikleri ve MushKey uygulamasının sonucu ekteki resimde. Acil: 114 (UZEM) / 112.';
+
+const ozetDosyaAdi = () => `mantar-ozeti-${new Date().toISOString().slice(0, 16).replace(/[T:]/g, '-')}.jpg`;
+
+// Özet resmini telefona indirir (İndirilenler / galeri).
+export function ozetiIndir(resim) {
+  const baglanti = document.createElement('a');
+  baglanti.href = URL.createObjectURL(resim);
+  baglanti.download = ozetDosyaAdi();
+  baglanti.click();
+  setTimeout(() => URL.revokeObjectURL(baglanti.href), 1000);
+  return 'indirildi';
+}
+
+// Telefonun paylaşma menüsünü açar (WhatsApp, e-posta vb.). Desteklenmiyorsa resmi indirir.
+// metin verilmezse uzmana soran yazı eklenir.
+export async function ozetiPaylas(resim, sonuc, metin = paylasimMetni(sonuc)) {
+  const dosya = new File([resim], ozetDosyaAdi(), { type: 'image/jpeg' });
   if (navigator.canShare?.({ files: [dosya] })) {
     try {
-      await navigator.share({ files: [dosya], text: paylasimMetni(sonuc) });
+      await navigator.share({ files: [dosya], text: metin });
       return 'paylasildi';
     } catch (hata) {
       if (hata.name === 'AbortError') return 'vazgecildi';
     }
   }
-  const baglanti = document.createElement('a');
-  baglanti.href = URL.createObjectURL(resim);
-  baglanti.download = dosya.name;
-  baglanti.click();
-  setTimeout(() => URL.revokeObjectURL(baglanti.href), 1000);
-  return 'indirildi';
+  return ozetiIndir(resim);
 }

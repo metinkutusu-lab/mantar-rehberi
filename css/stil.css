@@ -841,7 +841,6 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .ayar-simge.acik { background: var(--marka); border-color: var(--marka); color: #fff; }
 .ayar-simge.bekliyor { animation: ayar-nabiz 1.2s ease-in-out infinite; }
 @keyframes ayar-nabiz { 50% { opacity: 0.55; } }
-.ayar-bilgi { width: 28px; height: 28px; padding: 0; border-radius: 50%; border: 1px solid var(--cizgi); background: var(--yuzey); color: var(--soluk); font: italic 700 15px/1 Georgia, serif; }
 .ayar-aciklamasi { margin: 8px 0 0; padding: 10px 12px; border-radius: 12px; background: var(--marka-acik); border: 1px solid var(--marka); font-size: 13.5px; line-height: 1.35; }
 .ayar-aciklamasi strong { display: block; margin-bottom: 2px; }
 /* Kameranın üstünde: yarı saydam koyu daireler, köşelerde. */
@@ -851,7 +850,6 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .kamera .ayar-otomatik { bottom: 10px; right: 10px; flex-direction: column-reverse; }
 .kamera .ayar-simge { border-color: rgb(255 255 255 / 0.7); background: rgb(0 0 0 / 0.5); color: #fff; }
 .kamera .ayar-simge.acik { background: #e8963f; border-color: #fff; }
-.kamera .ayar-bilgi { border-color: rgb(255 255 255 / 0.7); background: rgb(0 0 0 / 0.5); color: #fff; }
 .kamera .ayar-aciklamasi { position: absolute; z-index: 3; left: 12px; right: 12px; bottom: 104px; margin: 0; background: rgb(0 0 0 / 0.78); border-color: rgb(255 255 255 / 0.4); color: #fff; }
 .neden { font-size: 15px; font-weight: 650; color: var(--marka); background: var(--marka-acik); border-radius: 12px; padding: 8px 12px; }
 .kamera { position: relative; border-radius: var(--yaricap); overflow: hidden; background: #000; aspect-ratio: 4 / 3; }
@@ -1077,7 +1075,6 @@ body.harita-tam-ekran { overflow: hidden; }
 .harita-katman .ayar-simge { border-color: #fff; background: rgb(255 255 255 / 0.95); color: #1d1a17; box-shadow: 0 2px 10px rgb(0 0 0 / 0.3); }
 .harita-katman .ayar-simge.acik { background: #1f6fe5; border-color: #fff; color: #fff; }
 .harita-katman .ayar-simge.katman-genis { width: auto; padding: 0 20px; gap: 8px; border-radius: 18px; background: #fffaf2; color: var(--marka); font-size: 16px; font-weight: 800; }
-.harita-katman .ayar-bilgi { border-color: rgb(0 0 0 / 0.2); background: rgb(255 255 255 / 0.95); color: #1d1a17; }
 .harita-katman .ayar-aciklamasi { position: absolute; z-index: 6; left: 12px; right: 12px; bottom: 140px; margin: 0; background: rgb(0 0 0 / 0.8); border-color: rgb(255 255 255 / 0.4); color: #fff; }
 .maplibregl-ctrl-group button.harita-tam-ekran-dugme { display: flex; align-items: center; justify-content: center; }
 .harita-tam-ekran-dugme svg { width: 26px; height: 26px; fill: none; stroke: #1d1a17; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
@@ -1123,7 +1120,6 @@ body.harita-tam-ekran { overflow: hidden; }
   .tek-sayfa .kamera { position: fixed; z-index: 25; left: 0; right: 0; top: var(--ust-bar-yuksekligi, 56px); bottom: 0; aspect-ratio: auto; width: auto; height: auto; max-height: none; max-width: none; margin: 0; border-radius: 0; }
   .kamera .ayar-simge { width: 42px; height: 42px; }
   .kamera .ayar-simge svg { width: 23px; height: 23px; }
-  .kamera .ayar-bilgi { width: 22px; height: 22px; font-size: 12px; }
   .kamera .ayar-kose { flex-direction: row; gap: 6px; }
   .kamera .ayar-kiyas, .kamera .ayar-otomatik { flex-direction: row; }
   .kamera .ayar-otomatik { flex-direction: row-reverse; }
@@ -1190,7 +1186,6 @@ body.harita-tam-ekran { overflow: hidden; }
   .harita-katman .katman-alt .ayar-simge, .harita-katman .katman-yan .ayar-simge { width: 44px; height: 44px; }
   .harita-katman .katman-alt .ayar-simge svg, .harita-katman .katman-yan .ayar-simge svg { width: 24px; height: 24px; }
   .harita-katman .katman-alt .ayar-simge.katman-genis { width: auto; padding: 0 14px; font-size: 14px; }
-  .harita-katman .ayar-bilgi { width: 24px; height: 24px; font-size: 12px; }
   .harita-katman .katman-ses { right: 10px; }
   .harita-katman .katman-konum { left: 10px; }
   .harita-katman .katman-yan { right: 66px; bottom: 8px; flex-direction: row; gap: 8px; }
@@ -1222,3 +1217,7 @@ body.harita-tam-ekran { overflow: hidden; }
   border: 1px solid var(--turuncu-cizgi);
 }
 .kiyas.mantar-yok .kart-baslik { color: var(--turuncu); }
+
+/* Acil: son tanımlamanın özetini gönder / kaydet (2026-11-02) */
+.son-ozet-dugmeler { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.son-ozet-dugmeler button { flex: 1 1 200px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; }

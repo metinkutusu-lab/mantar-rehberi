@@ -171,12 +171,12 @@ test('sözlük: temel terimleri içerir', () => {
   for (const t of ['Şapka', 'Solungaç', 'Halka', 'Volva', 'Genç', 'Spor izi']) assert.match(terimler, new RegExp(t), t);
 });
 
-test('özet: sorular okunur metne çevrilir, cevapsız ve bilinmeyen belirtilir', () => {
+test('özet: sorular okunur metne çevrilir, bilinmeyen belirtilir, sorulmayan yazılmaz', () => {
   const satirlar = ozetSatirlari({ sapkaRengi: ['beyaz', 'kahverengi'], genc: 'hayir', halka: BILMIYORUM });
   assert.match(satirlar[0].soru, /^Şapkada hangi renkler var\?/);
   assert.equal(satirlar[0].cevap, 'Beyaz, Kahverengi');
   assert.equal(satirlar.find((s) => s.soru.startsWith('Ayakta')).cevap, 'Bilmiyorum / göremedim');
-  assert.equal(satirlar.find((s) => s.soru.startsWith('Mantar küçük')).cevap, 'Cevaplanmadı');
+  assert.ok(!satirlar.some((s) => s.soru.startsWith('Mantar küçük')), 'cevaplanmayan soru özette yok');
   assert.ok(!satirlar.some((s) => s.soru.startsWith('İçeride')), 'genç değilse kesit sorusu özette yok');
 });
 

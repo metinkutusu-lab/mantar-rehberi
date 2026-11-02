@@ -32,6 +32,8 @@ const IKONLAR = {
   // Katlanmış harita ve üstünde büyüteç (Mantar ara düğmesi).
   haritaAra: '<path d="M3 6.5 8.5 4l6 2.5L20 4v8.5"/><path d="M3 6.5V20l5.5-2.5 4 1.7"/><path d="M8.5 4v13.5"/><circle cx="17" cy="16.5" r="3.3"/><path d="m19.4 18.9 2.3 2.3"/>',
   paylas:'<path d="M4 13v6a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-6"/><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/>',
+  // Aşağı ok ve tepsi (telefona kaydet).
+  indir:'<path d="M4 13v6a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-6"/><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/>',
 };
 
 // js/cizimler.js'teki şematik bir çizim.

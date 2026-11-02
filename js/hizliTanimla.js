@@ -21,7 +21,7 @@ import { zehirRozeti } from './zehir.js';
 import { durumuOku, durumuYaz } from './durum.js';
 import { sesHazirMi, sesiKes, soyle } from './ses.js';
 import { kameraAc, kameraKapat, kameraVarMi, kareAl, resimAdresi } from './kamera.js';
-import { altYapiAyiricisiniYukle, benzerlikSozu, benzerlikleriHesapla, mantarGorunmeyenler, mantarMiAyiricisiniYukle, modelDurumu, modelDurumunuDinle, modeliHazirla, parmakIzi, ayiriciyiYukle, sapkaRengiAyiricisiniYukle } from './fotoTanima.js';
+import { altYapiAyiricisiniYukle, benzerlikSozu, benzerlikleriHesapla, listedeBenzemiyor, mantarGorunmeyenler, mantarMiAyiricisiniYukle, modelDurumu, modelDurumunuDinle, modeliHazirla, parmakIzi, ayiriciyiYukle, sapkaRengiAyiricisiniYukle } from './fotoTanima.js';
 import { ekraniAcikTut } from './ekranAcik.js';
 import { dinlemeyiBaslat, dinlemeyiDurdur, dinliyorMu, komutuAnla, yerelTanimaDurumu, yerelTanimayiKur } from './sesliKomut.js';
 
@@ -63,6 +63,7 @@ const h = {
   oneriler: {}, // fotoğraftan bulunan, henüz onaylanmamış cevaplar { soru: değer }
   mantarYok: [], // mantar görünmeyen fotoğraflar (ör. ['ust']); doluysa tahmin yapılmaz
   mantarOnay: false, // kullanıcı "Fotoğrafta mantar var" dedi: mantar denetimi atlanır
+  enYakiniGoster: false, // kullanıcı listede yokken de en yakın türleri görmek istedi
   reddedilen: new Set(), // kullanıcının "Değiştir" dediği öneriler (bir daha önerilmez)
   cekim: null, // sıradaki/çekilen fotoğraf ('ust' | 'alt' | 'yan' | 'dip'); null = fotoğraflar tamam
   atlanan: new Set(), // atlanan isteğe bağlı fotoğraflar (ayak dibi)
@@ -103,7 +104,7 @@ export function hizliSifirla() {
   ekraniAcikTut('tanimlama', false);
   for (const url of Object.values(h.fotograflar)) URL.revokeObjectURL(url);
   sayaclariDurdur();
-  Object.assign(h, { basladi: false, cevaplar: {}, sorulanlar: [], fotograflar: {}, izler: [], benzerlikler: {}, oneriler: {}, mantarYok: [], mantarOnay: false, reddedilen: new Set(), cekim: null, atlanan: new Set(), kameraYok: false, acik: null, sayaclar: {} });
+  Object.assign(h, { basladi: false, cevaplar: {}, sorulanlar: [], fotograflar: {}, izler: [], benzerlikler: {}, oneriler: {}, mantarYok: [], mantarOnay: false, enYakiniGoster: false, reddedilen: new Set(), cekim: null, atlanan: new Set(), kameraYok: false, acik: null, sayaclar: {} });
 }
 
 // Ekrandan çıkınca kamera, mikrofon ve ses kapanır.
@@ -314,7 +315,8 @@ function ayarDegistir(ad) {
   if (ad === 'kiyas' && !h.cekim) ciz();
 }
 
-// Tek bir ayarın simgesi ve yanındaki (i).
+// Tek bir ayarın simgesi. Dokununca açılıp kapanır ve ne işe yaradığı yazar; ayrı (i) düğmesi yok (Metin, 2026-11-02:
+// "basınca yazı zaten çıkıyor, boşuna yer kaplıyor").
 function ayarSimgesi(ad) {
   const acik = ayarAcikMi(ad);
   const bilgi = AYAR_BILGISI[ad];
@@ -323,13 +325,7 @@ function ayarSimgesi(ad) {
   dugme.setAttribute('aria-label', `${bilgi.ad}: ${acik ? 'açık' : 'kapalı'}`);
   dugme.setAttribute('aria-pressed', String(acik));
   if (ad === 'kiyas' && acik && modelDurumu() === 'yukleniyor') dugme.classList.add('bekliyor');
-  const i = el('button', { type: 'button', className: 'ayar-bilgi', textContent: 'i', onclick: () => {
-    h.ayarBilgisi = h.ayarBilgisi === ad ? null : ad;
-    clearTimeout(h.ayarBilgisiSuresi);
-    ayarBilgisiniCiz();
-  } });
-  i.setAttribute('aria-label', `${bilgi.ad} nedir?`);
-  return el('div', { className: `ayar-kose ayar-${ad}`, 'data-ayar': ad }, dugme, i);
+  return el('div', { className: `ayar-kose ayar-${ad}`, 'data-ayar': ad }, dugme);
 }
 
 // Açık (i) ya da az önce değiştirilen ayarın açıklaması: kamerada kameranın ortasında, değilse simgelerin altında.
@@ -490,6 +486,19 @@ function adaylarCiz() {
       sayi,
     );
   }
+  // Listedeki türlere belirgin benzemiyor (Metin, 2026-11-02: "listede yoksa bu mantar yok desin"): başka bir türün adı öne
+  // çıkarılmaz; kullanıcı isterse en yakın türler yine gösterilir. Sıralama ve sonucun rengi değişmez.
+  if (listedeBenzemiyor(h.benzerlikler) && !h.enYakiniGoster) {
+    return el('div', { className: 'kart kiyas mantar-yok' },
+      el('h3', { className: 'kart-baslik', textContent: 'Listemizdeki türlere belirgin benzemiyor' }),
+      el('p', { textContent: `Uygulama ${turler.length} türü tanır; fotoğraflar bunların hiçbirine belirgin benzemiyor. Listede olmayan bir tür olabilir, bu yüzden bir tür adı vermiyoruz. Bu mantarı yeme; bir uzmana göster.` }),
+      el('p', { className: 'not', textContent: 'Aşağıdaki kontroller yine zehirli türleri ayırır.' }),
+      el('button', { type: 'button', className: 'metin-dugme', textContent: 'Yine de en yakın türleri göster', onclick: () => {
+        h.enYakiniGoster = true;
+        ciz();
+      } }),
+    );
+  }
   // Tahmin yokken uzun liste gösterilmez; 5 ve altına inince gösterilir.
   if (!benzerlikVar && liste.length > 5) {
     const bekliyor = kiyasAcik() && ucFotografTamam() && ['yok', 'yukleniyor'].includes(modelDurumu());
@@ -518,7 +527,7 @@ function fotografKoy(tur, url) {
   if (h.fotograflar[tur]) URL.revokeObjectURL(h.fotograflar[tur]);
   h.fotograflar[tur] = url;
   h.atlanan.delete(tur);
-  if (KIYAS_FOTOGRAFLARI.includes(tur)) h.mantarOnay = false;
+  if (KIYAS_FOTOGRAFLARI.includes(tur)) Object.assign(h, { mantarOnay: false, enYakiniGoster: false });
   if (kiyasAcik() && KIYAS_FOTOGRAFLARI.includes(tur)) izleriHesapla();
 }
 

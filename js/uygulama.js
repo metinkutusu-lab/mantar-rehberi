@@ -1,13 +1,14 @@
 import { ETIKETLER, egitimTamamlanabilirMi, tanimlamaAcilabilirMi } from './kurallar.js';
 import { DERSLER, FERAGAT_MADDELERI, FERAGAT_TASLAK_NOTU, SORULAR } from './egitim.js';
 import { durumuOku, durumuYaz } from './durum.js';
-import { bildirim, cizim, el, ilerlemeCiz, kucukFotograf } from './dom.js';
+import { bildirim, cizim, el, ikon, ilerlemeCiz, kucukFotograf } from './dom.js';
 import { tanimlamaCiz, tanimlamaKapat } from './tanimla.js';
 import { hizliSuruyor } from './hizliTanimla.js';
 import { guncellemeyiDenetle, kayitAta, surumSatiri } from './surumSatiri.js';
 import { SOZLUK, SOZLUK_FOTOGRAFLARI } from './sozluk.js';
 import { sozlukFotografi } from './isaretliFoto.js';
 import { oku } from './depo.js';
+import { ACIL_PAYLASIM_METNI, ozetiIndir, ozetiPaylas } from './ozet.js';
 import { CIG_UYARISI, FOTOGRAF_UYARISI, ZEHIRLILIK_ADLARI, fotografAtfi, ozellikSatirlari, tehlikeyeGoreSirala, turleriYukle } from './turler.js';
 import { takibiYenile } from './yagmurKarti.js';
 import { anaKart, mevsimiYenile } from './anaKart.js';
@@ -288,11 +289,27 @@ async function sonOzetiGoster() {
   if (sonOzetAdresi) URL.revokeObjectURL(sonOzetAdresi);
   sonOzetAdresi = URL.createObjectURL(kayit.resim);
   const tarih = new Date(kayit.tarih).toLocaleString('tr-TR', { dateStyle: 'long', timeStyle: 'short' });
+  // Gönder ve kaydet (Metin, 2026-11-02: "zehirlendiyse indirebilmeli, WhatsApp'la ya da e-postayla gönderebilmeli").
+  const durumMetni = el('p', { className: 'not', 'aria-live': 'polite' });
+  const bildir = (sonucu) => {
+    durumMetni.textContent = {
+      paylasildi: 'Özet gönderildi.',
+      vazgecildi: '',
+      indirildi: 'Özet resmi telefona kaydedildi (İndirilenler ya da galeri).',
+    }[sonucu];
+  };
   document.getElementById('son-ozet').replaceChildren(
     el('div', { className: 'kart' },
       el('h2', { className: 'kart-baslik', textContent: 'Son tanımlaman' }),
-      el('p', { textContent: `${tarih}. Mantar yediysen bu resmi doktora göster: fotoğraflar ve cevapların içinde.` }),
+      el('p', { textContent: `${tarih}. Mantar yediysen bu resmi doktora göster ya da gönder: fotoğraflar ve cevapların içinde.` }),
       el('img', { className: 'son-ozet-resmi', src: sonOzetAdresi, alt: 'Son tanımlamanın özeti' }),
+      el('div', { className: 'son-ozet-dugmeler' },
+        el('button', { type: 'button', className: 'birincil', onclick: async () => bildir(await ozetiPaylas(kayit.resim, null, ACIL_PAYLASIM_METNI)) },
+          ikon('paylas'), el('span', { textContent: 'Gönder (WhatsApp, e-posta…)' })),
+        el('button', { type: 'button', className: 'ikincil', onclick: () => bildir(ozetiIndir(kayit.resim)) },
+          ikon('indir'), el('span', { textContent: 'Telefona kaydet' })),
+      ),
+      durumMetni,
     ),
   );
 }
@@ -323,6 +340,23 @@ const anaSayfayaDon = el('a', { className: 'ana-sayfaya-don', href: '#tanimla', 
   el('span', { className: 'geri-ok', 'aria-hidden': 'true' }), 'Ana sayfaya dön');
 document.body.append(anaSayfayaDon);
 window.addEventListener('hashchange', () => { if (location.hash !== '#ansiklopedi') anaSayfayaDon.hidden = true; });
+
+// Acil ekranından geldiğin yere dönüş (Metin, 2026-11-02: "acile basınca ana sayfaya dönmek için buton göremedim").
+// Yarım kalan tanımlama kaybolmaz; düğme onu söyler.
+const DONUS_ADLARI = { 'mantar-ara': 'Haritaya dön', ansiklopedi: 'Ansiklopediye dön', tarifler: 'Tariflere dön' };
+let oncekiEkran = 'tanimla';
+const aciltenDon = el('a', { className: 'ana-sayfaya-don', href: '#tanimla', hidden: true });
+document.body.append(aciltenDon);
+window.addEventListener('hashchange', ({ oldURL }) => {
+  const onceki = new URL(oldURL).hash.slice(1) || 'tanimla';
+  if (location.hash === '#acil') {
+    if (onceki !== 'acil') oncekiEkran = EKRANLAR.includes(onceki) ? onceki : 'tanimla';
+    const ad = DONUS_ADLARI[oncekiEkran] ?? (hizliSuruyor() ? 'Tanımlamaya dön' : 'Ana sayfaya dön');
+    aciltenDon.href = `#${oncekiEkran}`;
+    aciltenDon.replaceChildren(el('span', { className: 'geri-ok', 'aria-hidden': 'true' }), ad);
+    aciltenDon.hidden = false;
+  } else aciltenDon.hidden = true;
+});
 document.addEventListener('ansiklopedide-ac', ({ detail: id }) => {
   location.hash = 'ansiklopedi';
   anaSayfayaDon.hidden = false;

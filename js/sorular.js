@@ -298,12 +298,13 @@ export function cokluDegerler(soru, secilenler) {
   return adim?.genislet ? adim.genislet(secilenler) : secilenler;
 }
 
-// Uzmana gönderilecek özet için soru ve cevapların okunur hali.
+// Uzmana/doktora gönderilecek özet için soru ve cevapların okunur hali. Yalnızca cevaplanan sorular ("Bilmiyorum" dahil);
+// sorulmayan sorular yazılmaz (Metin, 2026-11-02: "türe göre zaten sormuyor, çoğu cevaplanmamış, boşuna").
 export function ozetSatirlari(cevaplar) {
-  return aktifAdimlar(cevaplar).map((adim) => {
+  return aktifAdimlar(cevaplar).flatMap((adim) => {
     const cevap = cevaplar[adim.soru];
     const secenekler = adimSecenekleri(adim);
     const metinler = [].concat(cevap ?? []).map((d) => secenekler.find((s) => s.deger === d)?.metin).filter(Boolean);
-    return { soru: adim.soruMetni, cevap: metinler.length ? metinler.join(', ') : 'Cevaplanmadı' };
+    return metinler.length ? [{ soru: adim.soruMetni, cevap: metinler.join(', ') }] : [];
   });
 }

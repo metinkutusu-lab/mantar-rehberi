@@ -196,6 +196,17 @@ export function mantarOlasiligi(iz, ayirici) {
   return p.mantar ?? 1;
 }
 
+// Mantar listedeki türlere belirgin benziyor mu (Metin, 2026-11-02: "listede yoksa bu mantar yok desin"). Üç fotoğrafın
+// birlikte en çok benzediği türün puanı bunun altındaysa tür adı öne çıkarılmaz. Ölçüm (eğitime girmemiş gözlemler, üç
+// fotoğraf): listede olmayan 15 türün 90 gözleminin 47'si yakalandı; listedeki 125 gözlemin 14'ü de bu uyarıyı aldı (6'sında
+// tahmin doğruydu). Ayrı bir "listede mi" ayırıcısı (220 başka tür) denendi, daha iyi değildi. Fotoğraf "listede yok"u kesin
+// söyleyemez; asıl çözüm sık görülen türleri listeye eklemek. Yalnızca tahmini susturur; sonucun rengini değiştirmez.
+export const LISTEDE_ESIGI = 0.5;
+export function listedeBenzemiyor(benzerlikler) {
+  const degerler = Object.values(benzerlikler);
+  return degerler.length > 0 && Math.max(...degerler) < LISTEDE_ESIGI;
+}
+
 // Mantar görünmeyen fotoğrafların adları (ör. ['ust']). Boşsa tahmin yapılır.
 export function mantarGorunmeyenler(izi, ayirici, esik = MANTAR_ESIGI) {
   return Object.entries(izi).filter(([, iz]) => iz && mantarOlasiligi(iz, ayirici) < esik).map(([tur]) => tur);
