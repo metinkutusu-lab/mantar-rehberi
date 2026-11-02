@@ -2,3 +2,4 @@
 2026-10-28: 2. deneme (16 bit çevirme, Python/tarayıcı kontrolü, karekök iz sıkıştırma, hızlı kıyas)
 
 2026-11-01: MobileNetV3 (Large) denemesi (Metin: önce V3, sonra EfficientNetV2 ile karşılaştır)
+2026-11-02: EfficientNetV2-B0 denemesi (yayındaki MobileNetV3 ile kıyas)

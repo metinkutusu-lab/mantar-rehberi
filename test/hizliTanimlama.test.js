@@ -198,7 +198,10 @@ test('fotoğraf kıyası: ayırıcı dosyası 8 bitten doğru açılır', () => 
 
 test('fotoğraf kıyası: her tür ayırıcıda var; model uygulamayla birlikte indirilmez (az veri)', () => {
   const ayirici = ayiriciyiCoz(JSON.parse(oku(MODEL_DOSYALARI[2])));
-  for (const tur of turler.filter((t) => t.fotograf)) assert.equal(ayirici.turler[tur.id]?.agirlik.length, 1280, tur.id);
+  // İz uzunluğu modele göre değişir (MobileNetV2 1280, MobileNetV3 960); her türde var ve hepsi aynı uzunlukta olmalı.
+  const uzunluk = Object.values(ayirici.turler)[0]?.agirlik.length;
+  assert.ok(uzunluk >= 512, 'ayırıcı ağırlıkları eksik');
+  for (const tur of turler.filter((t) => t.fotograf)) assert.equal(ayirici.turler[tur.id]?.agirlik.length, uzunluk, tur.id);
   const sw = oku('sw.js');
   for (const dosya of MODEL_DOSYALARI) assert.ok(!sw.includes(`'${dosya}'`), `${dosya} uygulamayla indirilmemeli`);
   assert.match(sw, /MODEL_ONBELLEGI/);

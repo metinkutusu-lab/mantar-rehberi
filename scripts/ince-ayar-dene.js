@@ -50,7 +50,8 @@ const degistir = (dosya, eskiMetin, yeniMetin) => {
   if (!eskiMetin.test(icerik)) throw new Error(`${dosya}: değiştirilecek yer bulunamadı`);
   writeFileSync(tam, icerik.replace(eskiMetin, yeniMetin));
 };
-degistir('js/modelAyari.js', /klasor: '[^']*',\n {2}cikis: [^\n]*,/, `klasor: './${ADAY}',\n  cikis: null,`);
+// Satır sonu \r\n de olabilir (Windows'ta düzenlenen dosya; 2026-11-01'de bu yüzden geçiş durdu).
+degistir('js/modelAyari.js', /klasor: '[^']*',(\r?\n) {2}cikis: [^\r\n]*,/, `klasor: './${ADAY}',$1  cikis: null,`);
 degistir('sw.js', /const AKTIF_MODEL_KLASORU = '[^']*';/, `const AKTIF_MODEL_KLASORU = '${ADAY}';`);
 const surum = Number(/const SURUM = 'v(\d+)';/.exec(readFileSync(path.join(KOK, 'sw.js'), 'utf8'))[1]) + 1;
 degistir('sw.js', /const SURUM = 'v\d+';/, `const SURUM = 'v${surum}';`);

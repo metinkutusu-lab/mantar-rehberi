@@ -1,0 +1,36 @@
+{
+ "_aciklama": "İnce ayarlı MobileNetV3 (Large) modelinin ölçümü (GitHub run 41332671391; ayırıcılar bilgisayarda yeniden öğrenildi, 2026-11-02).",
+ "tarih": "2026-11-02",
+ "taban": "mobilenet_v3_large",
+ "github_deneme_seti": {
+  "fotograf": 416,
+  "yeni": {
+   "ilk1": 0.796,
+   "ilk3": 0.928
+  },
+  "eski_mantar_modeli_1": {
+   "ilk1": 0.651,
+   "ilk3": 0.875
+  }
+ },
+ "yerel_tum_bicimler": {
+  "fotograf": 457,
+  "ilk1": 0.79,
+  "ilk3": 0.92,
+  "esik09_dogru": 0.98
+ },
+ "uc_fotograf": {
+  "gozlem": 125,
+  "ilk1": 0.9,
+  "ilk3": 0.99,
+  "esik09_dogru": 1.0,
+  "onceki_model": {
+   "ilk1": 0.82,
+   "ilk3": 0.96
+  }
+ },
+ "alt_yapi": {
+  "fotograf": 20,
+  "ilk1": 0.95
+ }
+}
