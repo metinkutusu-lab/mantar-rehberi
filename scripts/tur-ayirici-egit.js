@@ -29,6 +29,10 @@ const ALT_SINIFLARI = ['solungac', 'gozenek', 'duz', 'diken'];
 // --renk: şapka rengi ayırıcısı. Her fotoğraf, türünün verideki ilk (baskın) şapka rengiyle öğretilir. Çıktı vendor/mobilenet/sapka-rengi.json.
 const RENK = process.argv.includes('--renk');
 const RENKLER = ['beyaz', 'krem-sari', 'kahverengi', 'kirmizi-turuncu', 'yesil-zeytin', 'gri-siyah'];
+// --mantar-mi: fotoğrafta mantar var mı (Metin, 2026-11-02: "yorganı, bacağı çekince de şu mantar olabilir diyor").
+// "mantar": türlerin eğitim fotoğrafları ve şapka altı fotoğrafları; "degil": fotograflar/mantar-degil/<grup>/
+// (scripts/mantar-degil-getir.js). Ölçümde her grubun her 5. fotoğrafı ve bütün deneme fotoğrafları saklanır. Çıktı mantar-mi.json.
+const MANTAR_MI = process.argv.includes('--mantar-mi');
 // Hesaplanan izler burada saklanır (yeniden eğitim hızlı olsun; depoya girmez).
 const ONBELLEK = path.join(KOK, 'fotograflar', '.iz-onbellek.json');
 // İz birim uzunluktadır; ayırıcıya bu katsayıyla büyütülüp verilir (öğrenme hızlı olsun). Telefon da aynısını yapar.
@@ -67,11 +71,27 @@ for (const t of turler) LISANSLAR.set(t.fotograf.dosya, t.fotograf.lisans);
 for (const [id, liste] of Object.entries(jsonOku('fotograflar/referans-kaynaklar.json'))) for (const k of liste) LISANSLAR.set(`fotograflar/referans/${id}/${k.dosya}`, k.lisans);
 for (const [id, liste] of Object.entries(jsonOku('fotograflar/inat-kaynaklar.json'))) for (const k of liste) LISANSLAR.set(`fotograflar/inat/${id}/${k.dosya}`, k.lisans);
 for (const [sinif, liste] of Object.entries(jsonOku('fotograflar/alt-yapi-kaynaklar.json'))) for (const k of liste) LISANSLAR.set(`fotograflar/alt-yapi/${sinif}/${k.dosya}`, k.lisans);
+const DEGIL_KAYNAKLARI = jsonOku('fotograflar/mantar-degil-kaynaklar.json');
+for (const [grup, liste] of Object.entries(DEGIL_KAYNAKLARI)) for (const k of liste) LISANSLAR.set(`fotograflar/mantar-degil/${grup}/${k.dosya}`, k.lisans);
 // MANTAR_DENEY_TUM_LISANSLAR=1 yalnızca karşılaştırma ölçümü içindir (lisans süzgecinin etkisini görmek); yayına çıkan
 // dosya hiçbir zaman bununla üretilmez (scripts/haftalik-guncelle.js kullanmaz).
 const egitimeUygun = (dosya) => (process.env.MANTAR_DENEY_TUM_LISANSLAR === '1' && OLC ? LISANSLAR.has(dosya) : egitimeUygunLisans(LISANSLAR.get(dosya)));
 const turunFotograflari = (t) => [t.fotograf.dosya, ...klasorDosyalari(`fotograflar/referans/${t.id}`), ...klasorDosyalari(`fotograflar/inat/${t.id}`)].filter(egitimeUygun);
-const isler = ALT
+const degilDosyalari = () => Object.keys(DEGIL_KAYNAKLARI).flatMap((g) => klasorDosyalari(`fotograflar/mantar-degil/${g}`)).filter(egitimeUygun);
+const cokluDenemeDosyalari = () => (existsSync(path.join(KOK, 'fotograflar/coklu-deneme'))
+  ? readdirSync(path.join(KOK, 'fotograflar/coklu-deneme'), { recursive: true }).map((d) => d.replaceAll(path.sep, '/')).filter((d) => /\.jpe?g$/i.test(d)).map((d) => `fotograflar/coklu-deneme/${d}`)
+  : []);
+const isler = MANTAR_MI
+  ? [
+    {
+      id: 'mantar', tehlikeli: false, ana: null,
+      ekler: [...turler.flatMap(turunFotograflari), ...ALT_SINIFLARI.flatMap((s) => klasorDosyalari(`fotograflar/alt-yapi/${s}`)).filter(egitimeUygun)],
+      // Ölçüm: sabit deneme seti ve çok fotoğraflı deneme gözlemlerinin bütün fotoğrafları (alttan, yandan dahil).
+      deneme: [...turler.flatMap((t) => klasorDosyalari(`fotograflar/deneme/${t.id}`)), ...cokluDenemeDosyalari()],
+    },
+    { id: 'degil', tehlikeli: false, ana: null, ekler: degilDosyalari() },
+  ]
+  : ALT
   ? ALT_SINIFLARI.map((id) => ({ id, tehlikeli: false, ana: null, ekler: klasorDosyalari(`fotograflar/alt-yapi/${id}`) }))
   : RENK
   ? RENKLER.map((id) => ({ id, tehlikeli: false, ana: null, ekler: turler.filter((t) => t.ozellikler?.sapkaRengi?.[0] === id).flatMap(turunFotograflari) }))
@@ -88,14 +108,14 @@ const ANA_BICIMLER = { t: {}, a: { cevir: true }, y: { yakinlik: 0.7 }, z: { yak
 // MANTAR_TEK_BICIM=1: ek fotoğraflar yalnızca olduğu gibi (ince ayar kıyası iki kat hızlı; iki model de aynı koşulda).
 const EK_BICIMLER = process.env.MANTAR_TEK_BICIM === '1' ? { t: {} } : { t: {}, a: { cevir: true } };
 // Bir işin fotoğrafları ve biçimleri (şapka altı fotoğrafları az olduğu için onlar da dört biçimde öğretilir).
-const dosyalari = (is) => [...(is.ana ? [[is.ana, ANA_BICIMLER]] : []), ...is.ekler.map((d) => [d, ALT ? ANA_BICIMLER : EK_BICIMLER])];
+const dosyalari = (is) => [...(is.ana ? [[is.ana, ANA_BICIMLER]] : []), ...is.ekler.map((d) => [d, ALT || (MANTAR_MI && is.id === 'degil') ? ANA_BICIMLER : EK_BICIMLER])];
 // Hangi modelin izleriyle eğitilecek: uygulamanınki (js/modelAyari.js) ya da denenen aday model (MANTAR_MODEL_KLASORU,
 // MANTAR_MODEL_CIKIS; scripts/ince-ayar-dene.js). Ayırıcılar modelin klasörüne yazılır.
 const { MODEL: UYGULAMA_MODELI } = await import('../js/modelAyari.js');
 const MODEL = process.env.MANTAR_MODEL_KLASORU
   ? { klasor: `./${process.env.MANTAR_MODEL_KLASORU.replace(/^\.?\/*/, '').replace(/\/?$/, '/')}`, cikis: process.env.MANTAR_MODEL_CIKIS || null }
   : UYGULAMA_MODELI;
-const CIKTI = `${MODEL.klasor.replace(/^\.\//, '')}${ALT ? 'alt-yapi.json' : RENK ? 'sapka-rengi.json' : 'tur-ayirici.json'}`;
+const CIKTI = `${MODEL.klasor.replace(/^\.\//, '')}${MANTAR_MI ? 'mantar-mi.json' : ALT ? 'alt-yapi.json' : RENK ? 'sapka-rengi.json' : 'tur-ayirici.json'}`;
 
 // ---- 1. İzler (önbellekte olmayanlar tarayıcıda hesaplanır) ----
 // Önbellek anahtarı dosyanın değiştirilme zamanını da içerir: aynı adla yeni fotoğraf inerse eski iz kullanılmaz.
@@ -150,7 +170,9 @@ const ids = isler.map((i) => i.id);
 // Ölçüm: tür ayırıcısında sabit deneme seti (fotograflar/deneme/; eğitime hiç girmez). Şapka altı ve renk ayırıcılarında
 // her sınıfın ek fotoğraflarının bir kısmı saklanır; saklanan hiçbir biçimiyle eğitime girmez.
 const saklanan = new Set();
-if (OLC && (ALT || RENK)) {
+if (OLC && MANTAR_MI) {
+  for (const d of isler[1].ekler.filter((_, i) => i % 5 === Number(process.env.MANTAR_KAT ?? 2))) saklanan.add(d);
+} else if (OLC && (ALT || RENK)) {
   for (const is of isler) {
     const secilen = is.ekler.filter((_, i) => i % (ALT ? 4 : 7) === (ALT ? 1 : 3));
     for (const d of secilen.length >= 2 ? secilen : is.ekler.slice(-2)) saklanan.add(d);
@@ -209,6 +231,19 @@ if (OLC) {
   const o = sonuc.olcum;
   const yuzde = (a, b) => `%${Math.round((a / Math.max(1, b)) * 100)}`;
   console.log(`Eğitim: ${ornekler.length} örnek. Saklanan ${o.n} fotoğraf: doğru tür 1. sırada ${yuzde(o.ilk1, o.n)}, ilk 3'te ${yuzde(o.ilk3, o.n)}; zehirli/şüpheli türlerde ilk 3'te ${yuzde(o.tehlikeliIlk3, o.tehlikeliN)}`);
+  if (MANTAR_MI) {
+    // Eşik: "mantar" olasılığı bunun altındaysa "mantar göremedim". Mantar fotoğraflarından kaçı yanlışlıkla reddedilir,
+    // mantar olmayanlardan kaçı yine de mantar sanılır.
+    const p = o.puanlar.map((d) => ({ y: d.y, pm: d.olas[0], dosya: d.dosya }));
+    const mantarlar = p.filter((d) => d.y === 0);
+    const degiller = p.filter((d) => d.y === 1);
+    for (const e of [0.05, 0.1, 0.2, 0.3, 0.4, 0.5]) {
+      const red = mantarlar.filter((d) => d.pm < e);
+      console.log(`  eşik ${e}: mantar fotoğrafı reddedilen ${red.length}/${mantarlar.length} (${yuzde(red.length, mantarlar.length)}), mantar değil yakalanan ${degiller.filter((d) => d.pm < e).length}/${degiller.length} (${yuzde(degiller.filter((d) => d.pm < e).length, degiller.length)})`);
+    }
+    console.log('  en düşük puanlı mantar fotoğrafları:', mantarlar.sort((a, b) => a.pm - b.pm).slice(0, 12).map((d) => `${d.dosya} ${d.pm.toFixed(3)}`).join(' | '));
+    console.log('  en yüksek puanlı mantar olmayanlar:', degiller.sort((a, b) => b.pm - a.pm).slice(0, 8).map((d) => `${d.dosya} ${d.pm.toFixed(3)}`).join(' | '));
+  }
   for (const [e, s] of Object.entries(o.esikler)) console.log(`  en üstteki ≥ ${e}: ${s.gecen} fotoğraf, ${yuzde(s.dogru, s.gecen)} doğru`);
   // İstenirse saklanan fotoğrafların puanları yazılır (ör. mevsim ağırlığının etkisini ölçmek için).
   const puanDosyasi = process.env.MANTAR_OLCUM_DOSYASI;
@@ -224,7 +259,9 @@ if (OLC) {
     return { olcek: Number(olcek.toPrecision(6)), agirlik: bayt.toString('base64') };
   });
   writeFileSync(path.join(KOK, CIKTI), `${JSON.stringify({
-    _aciklama: RENK
+    _aciklama: MANTAR_MI
+      ? 'Fotoğrafta mantar var mı ayırıcısı (model izi → mantar/degil). scripts/tur-ayirici-egit.js --mantar-mi üretir; elle düzenleme. Yalnızca tahmini susturur; hiçbir kontrolü atlatmaz, sonucun rengini değiştirmez.'
+      : RENK
       ? 'Şapka rengi ayırıcısı (MobileNet V2 izi → baskın şapka rengi). scripts/tur-ayirici-egit.js --renk üretir; elle düzenleme. Yalnızca öneri içindir; kullanıcı onaylamadan cevap sayılmaz.'
       : ALT
       ? 'Şapka altı ayırıcısı (MobileNet V2 izi → solungaç/gözenek/düz/diken). scripts/tur-ayirici-egit.js --alt-yapi üretir; elle düzenleme. Yalnızca öneri içindir; kullanıcı onaylamadan cevap sayılmaz.'

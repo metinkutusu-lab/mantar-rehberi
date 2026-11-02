@@ -1215,3 +1215,10 @@ body.harita-tam-ekran { overflow: hidden; }
 /* Püf noktası (TASLAK; 2026-11-01). */
 .puf-noktasi { margin: 8px 0; padding: 8px 10px; border-radius: 10px; background: var(--marka-acik); font-size: 14px; }
 .puf-zehir { margin: 0 0 8px; }
+
+/* Fotoğrafta mantar göremedim (yorgan, bacak…; 2026-11-02) */
+.kiyas.mantar-yok {
+  background: var(--turuncu-zemin);
+  border: 1px solid var(--turuncu-cizgi);
+}
+.kiyas.mantar-yok .kart-baslik { color: var(--turuncu); }

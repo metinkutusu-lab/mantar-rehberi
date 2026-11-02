@@ -172,6 +172,35 @@ export function sapkaRengiAyiricisiniYukle() {
   return sapkaRengiSozu;
 }
 
+// Fotoğrafta mantar var mı (Metin, 2026-11-02: "yorganı, bacağı çekince de şu mantar olabilir diyor"). Aynı biçimde iki
+// sınıf: mantar, degil (scripts/tur-ayirici-egit.js --mantar-mi). Yalnızca tahmini susturur; hiçbir kontrolü atlatmaz.
+export const MANTAR_MI_DOSYASI = `${MODEL.klasor}mantar-mi.json`;
+let mantarMiSozu = null;
+export function mantarMiAyiricisiniYukle() {
+  mantarMiSozu ??= fetch(MANTAR_MI_DOSYASI)
+    .then((y) => y.json())
+    .then(ayiriciyiCoz)
+    .catch(() => {
+      mantarMiSozu = null;
+      return { turler: {} };
+    });
+  return mantarMiSozu;
+}
+
+// Eşik ölçümle seçildi (scripts/tur-ayirici-egit.js --mantar-mi --olc). Altındaysa "bu fotoğrafta mantar göremedim".
+export const MANTAR_ESIGI = 0.2;
+
+// Bir fotoğrafın "mantar" olasılığı (0–1). Ayırıcı yoksa (eski model, indirilemedi) 1: hiçbir fotoğraf reddedilmez.
+export function mantarOlasiligi(iz, ayirici) {
+  const p = benzerlikleriHesapla([iz], ayirici);
+  return p.mantar ?? 1;
+}
+
+// Mantar görünmeyen fotoğrafların adları (ör. ['ust']). Boşsa tahmin yapılır.
+export function mantarGorunmeyenler(izi, ayirici, esik = MANTAR_ESIGI) {
+  return Object.entries(izi).filter(([, iz]) => iz && mantarOlasiligi(iz, ayirici) < esik).map(([tur]) => tur);
+}
+
 export function ayiriciyiYukle() {
   ayiriciSozu ??= fetch(MODEL_DOSYALARI[2])
     .then((y) => y.json())

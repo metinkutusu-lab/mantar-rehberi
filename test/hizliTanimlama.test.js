@@ -8,7 +8,7 @@ import { GEREKLI_FOTOGRAFLAR, ZORUNLU_SORULAR, degerlendir, yasakIfadeler } from
 import { ADIMLAR, aktifAdimlar, sonCevaplar } from '../js/sorular.js';
 import { adaylariBul } from '../js/anahtar.js';
 import { HIZLI_AKISTA_YOK, adimFaydasi, agirliklar, ayiranAdimlar, kontrolListesi, renkDegistirebilirMi, siradakiAdim } from '../js/siradaki.js';
-import { ayiriciyiCoz, benzerlikSozu, benzerlikleriHesapla, birimYap, izCoz, izKodla, kosinus, MODEL_DOSYALARI, satirCoz } from '../js/fotoTanima.js';
+import { ayiriciyiCoz, benzerlikSozu, benzerlikleriHesapla, birimYap, izCoz, izKodla, kosinus, mantarGorunmeyenler, MODEL_DOSYALARI, satirCoz } from '../js/fotoTanima.js';
 import { komutuAnla, sadele } from '../js/sesliKomut.js';
 
 const KOK = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -331,5 +331,18 @@ test('fotoğraf modeli: uygulamanın modeli ile sw.js içindeki model klasörü 
   const { MODEL } = await import('../js/modelAyari.js');
   const sw = oku('sw.js');
   assert.equal(`./${/const AKTIF_MODEL_KLASORU = '([^']+)'/.exec(sw)[1]}`, MODEL.klasor);
-  for (const dosya of ['model.json', 'tur-ayirici.json', 'sapka-rengi.json', 'alt-yapi.json']) assert.ok(existsSync(path.join(KOK, MODEL.klasor, dosya)), dosya);
+  for (const dosya of ['model.json', 'tur-ayirici.json', 'sapka-rengi.json', 'alt-yapi.json', 'mantar-mi.json']) assert.ok(existsSync(path.join(KOK, MODEL.klasor, dosya)), dosya);
+});
+
+test('mantar var mı: mantar görünmeyen fotoğrafta tahmin yapılmaz; ayırıcı yoksa hiçbir fotoğraf reddedilmez', () => {
+  const ayirici = { girdiOlcegi: 10, turler: { mantar: { agirlik: birimYap([1, 0, 0]), sapma: 0 }, degil: { agirlik: birimYap([0, 1, 0]), sapma: 0 } } };
+  const mantarli = birimYap([1, 0.1, 0]);
+  const yorgan = birimYap([0.1, 1, 0]);
+  assert.deepEqual(mantarGorunmeyenler({ ust: mantarli, alt: mantarli, yan: mantarli }, ayirici), []);
+  assert.deepEqual(mantarGorunmeyenler({ ust: yorgan, alt: mantarli, yan: yorgan }, ayirici), ['ust', 'yan']);
+  assert.deepEqual(mantarGorunmeyenler({ ust: yorgan }, { turler: {} }), []);
+  // Yalnızca tahmini susturur: sonucun rengini veren kural tablosu ve kontroller fotoğrafa bakmaz.
+  const kod = oku('js/hizliTanimla.js');
+  assert.match(kod, /h\.mantarYok = h\.mantarOnay \? \[\] : mantarGorunmeyenler/);
+  assert.doesNotMatch(oku('js/kurallar.js'), /mantarYok|mantarGorunmeyenler/);
 });

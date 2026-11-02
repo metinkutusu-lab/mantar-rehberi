@@ -43,6 +43,7 @@ if (!dahaIyi) {
 egit([], ADAY_ORTAMI);
 egit(['--renk'], ADAY_ORTAMI);
 egit(['--alt-yapi'], ADAY_ORTAMI);
+egit(['--mantar-mi'], ADAY_ORTAMI);
 
 const degistir = (dosya, eskiMetin, yeniMetin) => {
   const tam = path.join(KOK, dosya);

@@ -21,7 +21,7 @@ import { zehirRozeti } from './zehir.js';
 import { durumuOku, durumuYaz } from './durum.js';
 import { sesHazirMi, sesiKes, soyle } from './ses.js';
 import { kameraAc, kameraKapat, kameraVarMi, kareAl, resimAdresi } from './kamera.js';
-import { altYapiAyiricisiniYukle, benzerlikSozu, benzerlikleriHesapla, modelDurumu, modelDurumunuDinle, modeliHazirla, parmakIzi, ayiriciyiYukle, sapkaRengiAyiricisiniYukle } from './fotoTanima.js';
+import { altYapiAyiricisiniYukle, benzerlikSozu, benzerlikleriHesapla, mantarGorunmeyenler, mantarMiAyiricisiniYukle, modelDurumu, modelDurumunuDinle, modeliHazirla, parmakIzi, ayiriciyiYukle, sapkaRengiAyiricisiniYukle } from './fotoTanima.js';
 import { ekraniAcikTut } from './ekranAcik.js';
 import { dinlemeyiBaslat, dinlemeyiDurdur, dinliyorMu, komutuAnla, yerelTanimaDurumu, yerelTanimayiKur } from './sesliKomut.js';
 
@@ -61,6 +61,8 @@ const h = {
   izler: [],
   benzerlikler: {},
   oneriler: {}, // fotoğraftan bulunan, henüz onaylanmamış cevaplar { soru: değer }
+  mantarYok: [], // mantar görünmeyen fotoğraflar (ör. ['ust']); doluysa tahmin yapılmaz
+  mantarOnay: false, // kullanıcı "Fotoğrafta mantar var" dedi: mantar denetimi atlanır
   reddedilen: new Set(), // kullanıcının "Değiştir" dediği öneriler (bir daha önerilmez)
   cekim: null, // sıradaki/çekilen fotoğraf ('ust' | 'alt' | 'yan' | 'dip'); null = fotoğraflar tamam
   atlanan: new Set(), // atlanan isteğe bağlı fotoğraflar (ayak dibi)
@@ -101,7 +103,7 @@ export function hizliSifirla() {
   ekraniAcikTut('tanimlama', false);
   for (const url of Object.values(h.fotograflar)) URL.revokeObjectURL(url);
   sayaclariDurdur();
-  Object.assign(h, { basladi: false, cevaplar: {}, sorulanlar: [], fotograflar: {}, izler: [], benzerlikler: {}, oneriler: {}, reddedilen: new Set(), cekim: null, atlanan: new Set(), kameraYok: false, acik: null, sayaclar: {} });
+  Object.assign(h, { basladi: false, cevaplar: {}, sorulanlar: [], fotograflar: {}, izler: [], benzerlikler: {}, oneriler: {}, mantarYok: [], mantarOnay: false, reddedilen: new Set(), cekim: null, atlanan: new Set(), kameraYok: false, acik: null, sayaclar: {} });
 }
 
 // Ekrandan çıkınca kamera, mikrofon ve ses kapanır.
@@ -149,7 +151,7 @@ async function izleriHesapla() {
   const izi = {};
   // Üç fotoğraf tamamlanmadan tahmin yapılmaz (bir fotoğraf silinirse eski tahmin de silinir).
   if (!ucFotografTamam()) {
-    Object.assign(h, { izler: [], benzerlikler: {}, oneriler: {} });
+    Object.assign(h, { izler: [], benzerlikler: {}, oneriler: {}, mantarYok: [] });
     if (kap?.isConnected && !h.cekim) ciz();
     return;
   }
@@ -162,11 +164,16 @@ async function izleriHesapla() {
     izi[tur] = await parmakIzi(resim);
     if (KIYAS_FOTOGRAFLARI.includes(tur)) izler.push(izi[tur]);
   }
-  h.izler = izler;
-  // Fotoğraflar silindiyse eski tahmin de silinir.
-  // Mevsim bilgisi tahmini hafifçe ağırlıklar (js/mevsimAgirligi.js); hiçbir tür elenmez.
-  h.benzerlikler = izler.length ? mevsimeGoreAgirlikla(benzerlikleriHesapla(izler, ayirici), await mevsimiYukle(), new Date().getMonth()) : {};
-  await onerileriHesapla(izi);
+  // Fotoğrafta mantar görünmüyorsa (yorgan, bacak…) tahmin ve öneri yapılmaz (Metin, 2026-11-02); kontroller aynen sürer.
+  h.mantarYok = h.mantarOnay ? [] : mantarGorunmeyenler(izi, await mantarMiAyiricisiniYukle());
+  if (h.mantarYok.length) {
+    Object.assign(h, { izler: [], benzerlikler: {}, oneriler: {} });
+  } else {
+    h.izler = izler;
+    // Mevsim bilgisi tahmini hafifçe ağırlıklar (js/mevsimAgirligi.js); hiçbir tür elenmez.
+    h.benzerlikler = izler.length ? mevsimeGoreAgirlikla(benzerlikleriHesapla(izler, ayirici), await mevsimiYukle(), new Date().getMonth()) : {};
+    await onerileriHesapla(izi);
+  }
   // Tahmin kontrollerin sırasını etkiler; kamera açıksa yalnızca tahmin kartı yenilenir.
   if (!kap?.isConnected) return;
   if (h.cekim) {
@@ -470,6 +477,19 @@ function adaylarCiz() {
   const liste = siraliAdaylar();
   const benzerlikVar = Object.keys(h.benzerlikler).length > 0;
   const sayi = el('p', { className: 'not', textContent: liste.length ? `Cevaplarınla çelişmeyen ${liste.length} tür var.` : 'Cevapların uygulamadaki türlerin hiçbiriyle uyuşmadı.' });
+  // Fotoğrafta mantar görünmüyor: tür tahmini yerine yeniden çekmesi söylenir. Yanılırsa kullanıcı tahmini yine isteyebilir.
+  if (h.mantarYok.length) {
+    const adlar = YUVALAR.filter((y) => h.mantarYok.includes(y.tur)).map((y) => y.ad.toLocaleLowerCase('tr'));
+    return el('div', { className: 'kart kiyas mantar-yok' },
+      el('h3', { className: 'kart-baslik', textContent: 'Fotoğrafta mantar göremedim' }),
+      el('p', { textContent: `${adlar.join(' ve ').replace(/^./, (c) => c.toLocaleUpperCase('tr'))} çekilen ${adlar.length > 1 ? 'fotoğraflarda' : 'fotoğrafta'} mantar görünmüyor. Mantarı kameradaki dairenin içine alıp ${adlar.length > 1 ? 'onları' : 'onu'} yeniden çek; tahmin ondan sonra yapılır.` }),
+      el('button', { type: 'button', className: 'metin-dugme', textContent: 'Fotoğrafta mantar var, yine de kıyasla', onclick: () => {
+        h.mantarOnay = true;
+        izleriHesapla();
+      } }),
+      sayi,
+    );
+  }
   // Tahmin yokken uzun liste gösterilmez; 5 ve altına inince gösterilir.
   if (!benzerlikVar && liste.length > 5) {
     const bekliyor = kiyasAcik() && ucFotografTamam() && ['yok', 'yukleniyor'].includes(modelDurumu());
@@ -498,6 +518,7 @@ function fotografKoy(tur, url) {
   if (h.fotograflar[tur]) URL.revokeObjectURL(h.fotograflar[tur]);
   h.fotograflar[tur] = url;
   h.atlanan.delete(tur);
+  if (KIYAS_FOTOGRAFLARI.includes(tur)) h.mantarOnay = false;
   if (kiyasAcik() && KIYAS_FOTOGRAFLARI.includes(tur)) izleriHesapla();
 }
 

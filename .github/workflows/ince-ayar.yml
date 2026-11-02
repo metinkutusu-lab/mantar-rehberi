@@ -44,6 +44,7 @@ jobs:
           node scripts/kaynaklari-indir.js
           node scripts/inat-getir.js
           node scripts/egitim-listesi.js
+          node scripts/mantar-degil-getir.js
 
       - name: Ince ayar
         run: python scripts/ince-ayar.py /tmp/ince-ayar-model /tmp/kontrol-izleri.json
@@ -73,6 +74,7 @@ jobs:
             fotograflar/inat
             fotograflar/referans
             fotograflar/deneme
+            fotograflar/mantar-degil
             fotograflar/inat-kaynaklar.json
           key: ince-ayar-fotograflari-${{ github.run_id }}
 
@@ -92,6 +94,7 @@ jobs:
             fotograflar/inat
             fotograflar/referans
             fotograflar/deneme
+            fotograflar/mantar-degil
             fotograflar/inat-kaynaklar.json
           key: ince-ayar-fotograflari-${{ github.run_id }}
       - uses: actions/download-artifact@v4
