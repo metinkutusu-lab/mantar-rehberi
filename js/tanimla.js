@@ -67,7 +67,8 @@ export function tanimlamaKapat() {
 
 // Tek tanımlama yolu: fotoğrafla başlayan hızlı tanımlama (Metin'in kararı, 2026-10-26: eski 15 soruluk
 // adım adım akış kaldırıldı). Kurallar ve sonuç değerlendirmesi aynıdır.
-// Sade giriş (Metin'in isteği, 2026-10-26): büyük "Fotoğrafla tanımla" düğmesi ve (i); açıklama (i)'nin arkasında;
+// Sade giriş (Metin'in isteği, 2026-10-26): büyük "Fotoğrafla tanımla" düğmesi (2026-11-02: (i) kaldırıldı; kamera ne çekileceğini
+// gösteriyor, "Bilmiyorum seç, tahmin etme" uyarısı tanımlamada kontrollerin başında);
 // hemen altında "Yanına al" (sepet dahil).
 function girisCiz() {
   const gerekenler = [
@@ -77,21 +78,6 @@ function girisCiz() {
     ['firca', 'Fırça, mantarın üstündeki toprağı temizlemek için (şapkadaki benekleri silmemek için fotoğrafı çekip tanımladıktan sonra kullan)'],
     ['sepet', 'Sepet, mantarları toplamak için (naylon poşette mantar ezilip bozulur)'],
   ];
-  const bilgi = el('div', { className: 'bilgi-paneli', hidden: true },
-    el('p', { textContent: 'Üç fotoğraf ekle: üstten, alttan ve yandan (galeriden üçü birden seçilebilir). Uygulama fotoğrafa göre tahmin eder ve tek sayfada yalnızca o tahmini zehirli benzerlerinden ayıran kontrolleri gösterir; tehlikeli türleri ayıran kontrolleri hiçbir zaman atlamaz. Sonuç sen cevapladıkça aynı sayfada değişir. İstersen sesli okur.' }),
-    el('p', {}, el('strong', { textContent: 'Emin olmadığın her soruda "Bilmiyorum" seç. Tahmin etme.' })),
-  );
-  const bilgiDugmesi = el('button', {
-    type: 'button',
-    className: 'bilgi-dugme',
-    textContent: 'i',
-    onclick: () => {
-      bilgi.hidden = !bilgi.hidden;
-      bilgiDugmesi.setAttribute('aria-expanded', String(!bilgi.hidden));
-    },
-  });
-  bilgiDugmesi.setAttribute('aria-label', 'Tanımlama nasıl çalışır?');
-  bilgiDugmesi.setAttribute('aria-expanded', 'false');
   return el('div', { className: 'tanimla-giris' },
     // Fotoğrafla başlar, yalnızca olası türleri ayıran soruları sorar (güvenlik soruları her zaman), sesli yönlendirir.
     el('div', { className: 'tanimla-ust' },
@@ -104,9 +90,7 @@ function girisCiz() {
           git('hizli');
         },
       }, ikon('kamera'), el('span', { textContent: 'Fotoğrafla tanımla' })),
-      bilgiDugmesi,
     ),
-    bilgi,
     // Kapalıyken tek satır: başlık ve simgeler; dokununca açıklamalı liste açılır.
     el('details', { className: 'kart acilir yanina-al' },
       el('summary', {},

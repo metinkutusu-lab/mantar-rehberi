@@ -899,9 +899,10 @@ function kontrollerCiz() {
   return el('section', { className: 'kontroller-bolumu' },
     el('h2', { className: 'bolum-baslik', textContent: 'Kontroller' }),
     oneriKartiCiz(),
-    el('p', { className: 'not', textContent: liste.length
-      ? 'Fotoğrafına bakarak cevapla. Emin olmadığında "Bilmiyorum" seç; tahmin etme.'
-      : 'Gereken bütün kontroller yapıldı.' }),
+    // Güvenlik uyarısı kalın (2026-11-02: ana sayfadaki (i) kalktı; bu cümle yalnızca burada).
+    liste.length
+      ? el('p', { className: 'not' }, 'Fotoğrafına bakarak cevapla. ', el('strong', { textContent: 'Emin olmadığında "Bilmiyorum" seç; tahmin etme.' }))
+      : el('p', { className: 'not', textContent: 'Gereken bütün kontroller yapıldı.' }),
     ...yapilan,
     ...liste.slice(0, 3).map((k, i) => kontrolCiz(k, i)),
   );
