@@ -1,0 +1,533 @@
+{
+ "_aciklama": "Yağmurdan kaç gün sonra bulunuyor (ölçüm, yaklaşık). Kaynak: GBIF insan gözlemleri (Türkiye ve iklimce yakın ülkeler, 2015–2025) ve NASA POWER geçmiş hava verisi (MERRA-2, ~50 km, kamu malı). \"bulunan\": gözlem günü; \"rastgeleGun\": aynı yerde ±20 gün içinde rastgele bir gün (karşılaştırma). gun: son büyük yağmurdan (≥10 mm/gün) bu yana geçen gün; dilim: 0–3, 4–7, 8–14, 15–21, 22–45 gün; sicaklik: son 7 günün ortalaması. scripts/yagmur-gecikme.js üretir; elle düzenleme. TASLAK.",
+ "turler": {
+  "ayi-mantari": {
+   "bulunan": {
+    "n": 120,
+    "yagmursuz45": 7,
+    "gun": {
+     "p25": 2,
+     "medyan": 6,
+     "p75": 14
+    },
+    "dilim": [
+     38,
+     24,
+     24,
+     12,
+     15
+    ],
+    "sicaklik": {
+     "p25": 11.7,
+     "medyan": 14.7,
+     "p75": 17.9
+    }
+   },
+   "rastgeleGun": {
+    "n": 120,
+    "yagmursuz45": 11,
+    "gun": {
+     "p25": 2,
+     "medyan": 6,
+     "p75": 13
+    },
+    "dilim": [
+     36,
+     26,
+     25,
+     10,
+     12
+    ],
+    "sicaklik": {
+     "p25": 10.9,
+     "medyan": 14.6,
+     "p75": 18
+    }
+   }
+  },
+  "kanlica": {
+   "bulunan": {
+    "n": 120,
+    "yagmursuz45": 2,
+    "gun": {
+     "p25": 2,
+     "medyan": 8,
+     "p75": 17
+    },
+    "dilim": [
+     35,
+     22,
+     25,
+     14,
+     22
+    ],
+    "sicaklik": {
+     "p25": 8.4,
+     "medyan": 11.4,
+     "p75": 14.2
+    }
+   },
+   "rastgeleGun": {
+    "n": 120,
+    "yagmursuz45": 5,
+    "gun": {
+     "p25": 2,
+     "medyan": 8,
+     "p75": 20
+    },
+    "dilim": [
+     41,
+     15,
+     20,
+     16,
+     23
+    ],
+    "sicaklik": {
+     "p25": 8.5,
+     "medyan": 11.4,
+     "p75": 14.1
+    }
+   }
+  },
+  "horozmantari": {
+   "bulunan": {
+    "n": 120,
+    "yagmursuz45": 3,
+    "gun": {
+     "p25": 2,
+     "medyan": 6,
+     "p75": 13
+    },
+    "dilim": [
+     45,
+     27,
+     21,
+     10,
+     14
+    ],
+    "sicaklik": {
+     "p25": 11.7,
+     "medyan": 14.7,
+     "p75": 18.7
+    }
+   },
+   "rastgeleGun": {
+    "n": 120,
+    "yagmursuz45": 4,
+    "gun": {
+     "p25": 2,
+     "medyan": 5,
+     "p75": 17
+    },
+    "dilim": [
+     40,
+     27,
+     17,
+     14,
+     18
+    ],
+    "sicaklik": {
+     "p25": 12.3,
+     "medyan": 15.5,
+     "p75": 18.9
+    }
+   }
+  },
+  "kuzugobegi": {
+   "bulunan": {
+    "n": 120,
+    "yagmursuz45": 15,
+    "gun": {
+     "p25": 5,
+     "medyan": 9,
+     "p75": 17
+    },
+    "dilim": [
+     24,
+     18,
+     28,
+     18,
+     17
+    ],
+    "sicaklik": {
+     "p25": 9.1,
+     "medyan": 11.2,
+     "p75": 12.4
+    }
+   },
+   "rastgeleGun": {
+    "n": 120,
+    "yagmursuz45": 12,
+    "gun": {
+     "p25": 3,
+     "medyan": 11,
+     "p75": 21
+    },
+    "dilim": [
+     30,
+     12,
+     20,
+     24,
+     22
+    ],
+    "sicaklik": {
+     "p25": 8.4,
+     "medyan": 10.8,
+     "p75": 13.4
+    }
+   }
+  },
+  "mayis": {
+   "bulunan": {
+    "n": 120,
+    "yagmursuz45": 10,
+    "gun": {
+     "p25": 6,
+     "medyan": 12,
+     "p75": 21
+    },
+    "dilim": [
+     22,
+     15,
+     27,
+     19,
+     27
+    ],
+    "sicaklik": {
+     "p25": 10.7,
+     "medyan": 12.3,
+     "p75": 14.3
+    }
+   },
+   "rastgeleGun": {
+    "n": 120,
+    "yagmursuz45": 7,
+    "gun": {
+     "p25": 5,
+     "medyan": 10,
+     "p75": 22
+    },
+    "dilim": [
+     24,
+     22,
+     21,
+     15,
+     31
+    ],
+    "sicaklik": {
+     "p25": 9.5,
+     "medyan": 12,
+     "p75": 15.2
+    }
+   }
+  },
+  "mor-kadife": {
+   "bulunan": {
+    "n": 120,
+    "yagmursuz45": 3,
+    "gun": {
+     "p25": 4,
+     "medyan": 9,
+     "p75": 17
+    },
+    "dilim": [
+     27,
+     25,
+     29,
+     15,
+     21
+    ],
+    "sicaklik": {
+     "p25": 6.9,
+     "medyan": 9,
+     "p75": 11.5
+    }
+   },
+   "rastgeleGun": {
+    "n": 120,
+    "yagmursuz45": 6,
+    "gun": {
+     "p25": 3,
+     "medyan": 9,
+     "p75": 18
+    },
+    "dilim": [
+     29,
+     21,
+     25,
+     19,
+     20
+    ],
+    "sicaklik": {
+     "p25": 6.5,
+     "medyan": 8.9,
+     "p75": 12
+    }
+   }
+  },
+  "cayir": {
+   "bulunan": {
+    "n": 120,
+    "yagmursuz45": 5,
+    "gun": {
+     "p25": 3,
+     "medyan": 7,
+     "p75": 14
+    },
+    "dilim": [
+     31,
+     29,
+     29,
+     14,
+     12
+    ],
+    "sicaklik": {
+     "p25": 10,
+     "medyan": 13.4,
+     "p75": 15.7
+    }
+   },
+   "rastgeleGun": {
+    "n": 120,
+    "yagmursuz45": 6,
+    "gun": {
+     "p25": 2,
+     "medyan": 8,
+     "p75": 16
+    },
+    "dilim": [
+     32,
+     23,
+     24,
+     14,
+     21
+    ],
+    "sicaklik": {
+     "p25": 9.6,
+     "medyan": 12.9,
+     "p75": 16.3
+    }
+   }
+  },
+  "kircil-murekkep": {
+   "bulunan": {
+    "n": 120,
+    "yagmursuz45": 8,
+    "gun": {
+     "p25": 3,
+     "medyan": 8,
+     "p75": 18
+    },
+    "dilim": [
+     31,
+     24,
+     20,
+     18,
+     19
+    ],
+    "sicaklik": {
+     "p25": 10.6,
+     "medyan": 13.2,
+     "p75": 16
+    }
+   },
+   "rastgeleGun": {
+    "n": 120,
+    "yagmursuz45": 9,
+    "gun": {
+     "p25": 3,
+     "medyan": 7,
+     "p75": 14
+    },
+    "dilim": [
+     36,
+     23,
+     25,
+     13,
+     14
+    ],
+    "sicaklik": {
+     "p25": 9.6,
+     "medyan": 13,
+     "p75": 16
+    }
+   }
+  },
+  "istiridye": {
+   "bulunan": {
+    "n": 120,
+    "yagmursuz45": 11,
+    "gun": {
+     "p25": 3,
+     "medyan": 10,
+     "p75": 22
+    },
+    "dilim": [
+     31,
+     17,
+     16,
+     14,
+     31
+    ],
+    "sicaklik": {
+     "p25": 7.6,
+     "medyan": 11.2,
+     "p75": 14.1
+    }
+   },
+   "rastgeleGun": {
+    "n": 120,
+    "yagmursuz45": 16,
+    "gun": {
+     "p25": 3,
+     "medyan": 10,
+     "p75": 22
+    },
+    "dilim": [
+     34,
+     15,
+     20,
+     8,
+     27
+    ],
+    "sicaklik": {
+     "p25": 7.8,
+     "medyan": 11.2,
+     "p75": 14.5
+    }
+   }
+  },
+  "buyuk-semsiye": {
+   "bulunan": {
+    "n": 120,
+    "yagmursuz45": 7,
+    "gun": {
+     "p25": 2,
+     "medyan": 7,
+     "p75": 13
+    },
+    "dilim": [
+     39,
+     21,
+     29,
+     10,
+     14
+    ],
+    "sicaklik": {
+     "p25": 11.6,
+     "medyan": 14.2,
+     "p75": 17.7
+    }
+   },
+   "rastgeleGun": {
+    "n": 120,
+    "yagmursuz45": 10,
+    "gun": {
+     "p25": 2,
+     "medyan": 6,
+     "p75": 12
+    },
+    "dilim": [
+     47,
+     20,
+     17,
+     11,
+     15
+    ],
+    "sicaklik": {
+     "p25": 11.1,
+     "medyan": 14.5,
+     "p75": 18.1
+    }
+   }
+  },
+  "sumuklu-corek": {
+   "bulunan": {
+    "n": 120,
+    "yagmursuz45": 12,
+    "gun": {
+     "p25": 4,
+     "medyan": 11,
+     "p75": 19
+    },
+    "dilim": [
+     25,
+     22,
+     22,
+     17,
+     22
+    ],
+    "sicaklik": {
+     "p25": 8.2,
+     "medyan": 10.5,
+     "p75": 14.1
+    }
+   },
+   "rastgeleGun": {
+    "n": 120,
+    "yagmursuz45": 15,
+    "gun": {
+     "p25": 3,
+     "medyan": 9,
+     "p75": 18
+    },
+    "dilim": [
+     27,
+     19,
+     22,
+     20,
+     17
+    ],
+    "sicaklik": {
+     "p25": 7.6,
+     "medyan": 10.8,
+     "p75": 14.2
+    }
+   }
+  },
+  "ballica": {
+   "bulunan": {
+    "n": 120,
+    "yagmursuz45": 8,
+    "gun": {
+     "p25": 3,
+     "medyan": 8,
+     "p75": 18
+    },
+    "dilim": [
+     31,
+     24,
+     21,
+     20,
+     16
+    ],
+    "sicaklik": {
+     "p25": 11.1,
+     "medyan": 13.7,
+     "p75": 16.2
+    }
+   },
+   "rastgeleGun": {
+    "n": 120,
+    "yagmursuz45": 8,
+    "gun": {
+     "p25": 2,
+     "medyan": 8,
+     "p75": 14
+    },
+    "dilim": [
+     39,
+     15,
+     34,
+     9,
+     15
+    ],
+    "sicaklik": {
+     "p25": 10.7,
+     "medyan": 13.1,
+     "p75": 15.9
+    }
+   }
+  }
+ }
+}

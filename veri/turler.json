@@ -237,7 +237,7 @@
       "bilimselAd": "Amanita caesarea",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "Turuncu-kırmızı şapkalı, sarı solungaçlı ve sarı ayaklı bir Amanita türü. Topraktan beyaz, kalın bir yumurtanın içinden çıkar. Yumurta evresinde ölümcül köygöçürenle karıştırılır.",
       "ozellikler": {
         "sapkaRengi": [
@@ -306,7 +306,8 @@
       ],
       "aramaIpucu": "Sıcak meşe ve kestane ormanlarında, güneş alan açıklıklarda yerde ara. Genç hali beyaz bir yumurta gibidir; bu evrede ölümcül köygöçürenle karışır.",
       "pufNoktasi": "Şapkası parlak turuncu-kırmızıdır; solungaçları ve ayağı sarıdır. Ayak dibinde büyük, beyaz bir torba vardır. Genç yumurta halini ikiye kesince içteki taslak sarı-turuncudur.",
-      "zehirlenmeNedeni": "Sinek mantarı (kırmızı şapkada beyaz benekler, beyaz solungaç ve ayak) ile karıştırılır; yağmur benekleri silebilir. Solungaç ya da ayak beyazsa, ya da kesince içteki taslak beyazsa dokunma: köygöçüren olabilir."
+      "zehirlenmeNedeni": "Sinek mantarı (kırmızı şapkada beyaz benekler, beyaz solungaç ve ayak) ile karıştırılır; yağmur benekleri silebilir. Solungaç ya da ayak beyazsa, ya da kesince içteki taslak beyazsa dokunma: köygöçüren olabilir.",
+      "yagmurSonrasi": "yavas"
     },
     {
       "id": "kucuk-semsiye",
@@ -367,7 +368,7 @@
       "bilimselAd": "Macrolepiota procera",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "Çok iri (şapkası 10–30 cm), kahverengi pullu şapkalı, uzun ve yılan derisi desenli ayaklı mantar. Ayaktaki halka kalındır ve aşağı yukarı oynar. Beyaz solungaç ve halka taşıdığı için uygulama bu türde her zaman kırmızı sonuç verir.",
       "ozellikler": {
         "sapkaRengi": [
@@ -436,7 +437,8 @@
       ],
       "aramaIpucu": "Orman kenarlarında, açıklıklarda, çayırda ve yol kenarlarında ara; boyu uzun olduğu için uzaktan görünür.",
       "pufNoktasi": "Şapkası 10 cm'den büyük, ortası göbeklidir. Ayakta yılan derisi gibi kahverengi desen vardır. Halka kalın, çift katlıdır ve ayak üzerinde aşağı yukarı kaydırılabilir. Ayak dibinde torba yoktur.",
-      "zehirlenmeNedeni": "Şapkası 10 cm'den küçük şemsiye benzeri mantarlar (küçük şemsiyeler) ölümcül olabilir. Genç, açılmamış şemsiye mantarı köygöçürenin yumurtasıyla karıştırılabilir; ayak dibinde torba varsa dokunma."
+      "zehirlenmeNedeni": "Şapkası 10 cm'den küçük şemsiye benzeri mantarlar (küçük şemsiyeler) ölümcül olabilir. Genç, açılmamış şemsiye mantarı köygöçürenin yumurtasıyla karıştırılabilir; ayak dibinde torba varsa dokunma.",
+      "yagmurSonrasi": "orta"
     },
     {
       "id": "galerina",
@@ -650,7 +652,7 @@
       "bilimselAd": "Morchella türleri",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Zehirli benzerleri 2026-10-27'de genişletildi (TASLAK).",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Zehirli benzerleri 2026-10-27'de genişletildi (TASLAK). Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "İlkbaharda çıkar. Şapkası bal peteği gibi çukurlu ve süngerimsidir. Boyuna kesildiğinde şapka ile ayak tek parçadır ve baştan sona içi boştur. Çiğken zehirlidir; iyice pişirilmeden yenmez.",
       "ozellikler": {
         "sapkaRengi": [
@@ -706,7 +708,8 @@
       "aramaIpucu": "İlkbaharda yerde ara: meyve bahçelerinde, dişbudak ve karaağaç diplerinde, devrilmiş ağaçların çevresinde, geçen yıl yanmış alanlarda. Rengi kuru yapraklarla karışır; yavaş yürü ve yere yakın bak.",
       "cigkenZehirli": true,
       "pufNoktasi": "Boyuna ikiye kesince şapka ve ayak tek parça, içi baştan sona boş bir odadır. Şapka petek gibi çukurludur ve ayağa dipten bağlıdır.",
-      "zehirlenmeNedeni": "Sahte kuzugöbeğinin içi pamuk gibi doludur ve şapkası beyin gibi kıvrımlıdır. Yüksük kuzugöbeğinin şapkası ayağın tepesine yüksük gibi oturur, alt kenarı serbesttir. Kuzugöbeği çiğken de zehirlidir; iyice pişmeden yenmez."
+      "zehirlenmeNedeni": "Sahte kuzugöbeğinin içi pamuk gibi doludur ve şapkası beyin gibi kıvrımlıdır. Yüksük kuzugöbeğinin şapkası ayağın tepesine yüksük gibi oturur, alt kenarı serbesttir. Kuzugöbeği çiğken de zehirlidir; iyice pişmeden yenmez.",
+      "yagmurSonrasi": "orta"
     },
     {
       "id": "sahte-kuzugobegi",
@@ -803,7 +806,7 @@
       "bilimselAd": "Cantharellus cibarius",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Zehirli benzerleri 2026-10-27'de genişletildi (TASLAK).",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Zehirli benzerleri 2026-10-27'de genişletildi (TASLAK). Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "Sarı-turuncu, huni biçimli bir mantar. Şapkanın altında ince solungaçlar yerine kalın, kenarı küt, çatallanan ve ayağa doğru inen kırışıklar vardır. Topraktan tek tek çıkar.",
       "ozellikler": {
         "sapkaRengi": [
@@ -870,7 +873,8 @@
       ],
       "aramaIpucu": "Meşe, kayın ve çam altında, yosunlu ve nemli toprakta ara. Çoğu zaman gruplar halinde çıkar; birini görünce çevresine iyice bak.",
       "pufNoktasi": "Altında gerçek solungaç yoktur: ayağa doğru inen kalın, kabarık, çatallanan damarlar vardır. Eti beyaz ve liflidir, kayısıya benzer hoş kokar.",
-      "zehirlenmeNedeni": "Sahte horozmantarı (ince, sık, gerçek solungaçlı, daha turuncu) ve odunda demet demet çıkan zeytin mantarı ile karıştırılır."
+      "zehirlenmeNedeni": "Sahte horozmantarı (ince, sık, gerçek solungaçlı, daha turuncu) ve odunda demet demet çıkan zeytin mantarı ile karıştırılır.",
+      "yagmurSonrasi": "yavas"
     },
     {
       "id": "zeytin",
@@ -982,7 +986,7 @@
       "bilimselAd": "Lactarius deliciosus ve benzer Lactarius türleri",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Çam ağaçları altında yaşayan Lactarius türleri olduğu ve Türkiye'de 4-5 türe bu adın verildiği: uzman açıklaması (NTV haberi). Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Zehirli benzerlerine 2026-10-27'de beyaz sütlü üç süt mantarı eklendi (TASLAK).",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Çam ağaçları altında yaşayan Lactarius türleri olduğu ve Türkiye'de 4-5 türe bu adın verildiği: uzman açıklaması (NTV haberi). Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Zehirli benzerlerine 2026-10-27'de beyaz sütlü üç süt mantarı eklendi (TASLAK). Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "Çam ağaçlarının altında çıkan, turuncu şapkalı mantar. Kesilince turuncu-kırmızı bir süt akar. Yaralanan veya bekleyen yerleri zamanla yeşile döner.",
       "ozellikler": {
         "sapkaRengi": [
@@ -1057,7 +1061,8 @@
       ],
       "aramaIpucu": "Çam ağaçlarının altında, iğne yaprak ve yosun arasında ara; genç çamlıklarda ve orman kenarında sık çıkar. Çoğu zaman yarısı iğne yaprakların altında kalır.",
       "pufNoktasi": "Solungaçları bıçakla çiz ya da sapı kes: çıkan süt turuncu ya da şarap kırmızısıdır. Ezilen yerler ve yaşlı mantar zamanla yeşil lekelenir. Şapka kenarı tüysüzdür.",
-      "zehirlenmeNedeni": "Turuncu, halka halka şapkasına bakılıp sütüne bakılmadan toplanan beyaz sütlü süt mantarları (tüylü süt, kuşaklı süt, sütü sararan) şiddetli kusma ve ishal yapar. Sütü beyaz olan bir mantar kanlıca değildir."
+      "zehirlenmeNedeni": "Turuncu, halka halka şapkasına bakılıp sütüne bakılmadan toplanan beyaz sütlü süt mantarları (tüylü süt, kuşaklı süt, sütü sararan) şiddetli kusma ve ishal yapar. Sütü beyaz olan bir mantar kanlıca değildir.",
+      "yagmurSonrasi": "yavas"
     },
     {
       "id": "tuylu-sut",
@@ -1286,7 +1291,7 @@
       "bilimselAd": "Boletus edulis",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Zehirli benzerleri 2026-10-27'de genişletildi (TASLAK).",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Nerede çıkar bilgisi: başka bir yapay zeka sohbetinden derlendi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Zehirli benzerleri 2026-10-27'de genişletildi (TASLAK). Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "Kahverengi şapkalı, kalın ve şişkin ayaklı mantar. Şapkanın altında solungaç yerine sünger gibi gözenekler vardır; gözenekler beyazdan sarı-yeşile döner. Ayakta açık renkli ağ deseni olur. Kesince ve ezince rengi değişmez.",
       "ozellikler": {
         "sapkaRengi": [
@@ -1348,7 +1353,8 @@
       ],
       "aramaIpucu": "Çam, ladin, kayın ve meşe ağaçlarının birkaç metre çevresinde yerde ara; yosun ve iğne yaprak arasından, orman kenarlarında ve açıklıklarda çıkar. Ağacın kökleriyle ortak yaşar, kütük üzerinde çıkmaz.",
       "pufNoktasi": "Şapkanın altı sünger gibidir (gözenekli); gözenekler beyaz, sarı ya da zeytin yeşili olur, asla kırmızı değildir. Ayağın üstünde beyaz ağ deseni vardır. Kesince eti beyaz kalır, maviye dönmez.",
-      "zehirlenmeNedeni": "Gözenekleri kırmızı-turuncu olan ve kesince maviye dönen şeytan mantarı ile, ayağı kırmızımsı olup kesince maviye dönen acı ayaklı çörek ile karıştırılır."
+      "zehirlenmeNedeni": "Gözenekleri kırmızı-turuncu olan ve kesince maviye dönen şeytan mantarı ile, ayağı kırmızımsı olup kesince maviye dönen acı ayaklı çörek ile karıştırılır.",
+      "yagmurSonrasi": "yavas"
     },
     {
       "id": "seytan",
@@ -1463,7 +1469,7 @@
       "bilimselAd": "Agaricus campestris",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Zehirli benzerleri 2026-10-27'de genişletildi (TASLAK).",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Zehirli benzerleri 2026-10-27'de genişletildi (TASLAK). Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "Çayır ve meralarda çıkan beyaz şapkalı mantar. Solungaçları hiçbir zaman beyaz değildir: gençken pembe, sonra çikolata kahvesi olur. Ayakta ince bir halka bulunur, ayak dibinde torba yoktur.",
       "ozellikler": {
         "sapkaRengi": [
@@ -1551,7 +1557,8 @@
       ],
       "aramaIpucu": "Ağaçsız çayırlarda ve otlaklarda, özellikle hayvan otlatılan yerlerde ara; yağmurdan sonra çimenin arasında beyaz başlar görünür. Ağaç altında aranmaz.",
       "pufNoktasi": "Çayırda, açık arazide çıkar. Solungaçları gençken pembe, sonra çikolata kahverengidir; asla beyaz kalmaz. Kesince ya da ezince ayak dibi sararmaz, hoş mantar kokar.",
-      "zehirlenmeNedeni": "Sarıya boyanan mantar (ayak dibi ezince ya da kesince parlak sarıya döner, mürekkep gibi kokar) ve solungaçları hep beyaz kalan, torbalı ölümcül beyaz köygöçüren ile karıştırılır."
+      "zehirlenmeNedeni": "Sarıya boyanan mantar (ayak dibi ezince ya da kesince parlak sarıya döner, mürekkep gibi kokar) ve solungaçları hep beyaz kalan, torbalı ölümcül beyaz köygöçüren ile karıştırılır.",
+      "yagmurSonrasi": "hizli"
     },
     {
       "id": "sariya-boyanan",
@@ -1671,7 +1678,7 @@
       "bilimselAd": "Pleurotus ostreatus",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "Ağaç gövdesi ve kütükler üzerinde yandan, raf gibi kat kat çıkan gri-kahve veya krem renkli mantar. Ayağı çok kısadır veya yoktur; solungaçları beyaz-krem renklidir.",
       "ozellikler": {
         "sapkaRengi": [
@@ -1737,7 +1744,8 @@
       ],
       "aramaIpucu": "Yerde değil, ağacın üstünde ara: ölü ya da zayıf düşmüş kayın, kavak ve söğüt gövdelerinde ve kütüklerde raf gibi üst üste çıkar. Serin aylarda çıkar.",
       "pufNoktasi": "Odunun, kütüğün üstünde kat kat, raf gibi çıkar. Solungaçları ayağa doğru iner; ayak kısa ve yandadır ya da hiç yoktur.",
-      "zehirlenmeNedeni": "Odunda çıkan başka yelpaze biçimli mantarlarla karışabilir; yerden çıkıyorsa istiridye mantarı değildir."
+      "zehirlenmeNedeni": "Odunda çıkan başka yelpaze biçimli mantarlarla karışabilir; yerden çıkıyorsa istiridye mantarı değildir.",
+      "yagmurSonrasi": "orta"
     },
     {
       "id": "kukurt-basli",
@@ -1794,7 +1802,7 @@
       "bilimselAd": "Laetiporus sulphureus",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "Ağaç gövdelerinde kat kat raf gibi çıkan, üstü turuncu, altı kükürt sarısı mantar. Altında solungaç yerine küçük gözenekler vardır. Porsuk ve iğne yapraklı ağaçlarda çıkanlar bazı kişilerde rahatsızlık yapmıştır.",
       "ozellikler": {
         "sapkaRengi": [
@@ -1846,7 +1854,8 @@
       "aramaIpucu": "Yerde değil, ağacın gövdesinde ara: meşe, kestane, söğüt ve kiraz gövdelerinde sarı-turuncu raflar halinde çıkar, uzaktan dikkat çeker.",
       "cigkenZehirli": true,
       "pufNoktasi": "Ağaç gövdesinde sarı-turuncu, kat kat raf gibi çıkar. Altında solungaç yoktur, küçük delikler vardır. Eti gençken yumuşak ve suludur.",
-      "zehirlenmeNedeni": "Çiğken ve az pişmişken mide rahatsızlığı yapar; porsuk gibi zehirli ağaçlarda çıkanlar daha sık rahatsızlık yapar. İyice pişmeden yenmez."
+      "zehirlenmeNedeni": "Çiğken ve az pişmişken mide rahatsızlığı yapar; porsuk gibi zehirli ağaçlarda çıkanlar daha sık rahatsızlık yapar. İyice pişmeden yenmez.",
+      "yagmurSonrasi": "orta"
     },
     {
       "id": "puf",
@@ -1854,7 +1863,7 @@
       "bilimselAd": "Lycoperdon ve Calvatia türleri",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "Yuvarlak, şapkasız, beyaz mantar. Gençken ikiye kesildiğinde içi baştan sona beyaz ve düzdür; yaşlandıkça içi sararır ve toza dönüşür.",
       "ozellikler": {
         "sapkaRengi": [
@@ -1916,7 +1925,8 @@
       ],
       "aramaIpucu": "Orman tabanında yaprak ve iğne arasında, çayırda ve yol kenarlarında ara; yuvarlak, beyaz bir top gibidir.",
       "pufNoktasi": "Boyuna ikiye kesince içi baştan sona beyaz ve düzgündür; içinde şapka ya da ayak taslağı yoktur.",
-      "zehirlenmeNedeni": "İçi koyu, mor-siyah olan sahte puf mantarı ve kesince içinde mantar taslağı görülen köygöçüren yumurtası ile karıştırılır."
+      "zehirlenmeNedeni": "İçi koyu, mor-siyah olan sahte puf mantarı ve kesince içinde mantar taslağı görülen köygöçüren yumurtası ile karıştırılır.",
+      "yagmurSonrasi": "hizli"
     },
     {
       "id": "sahte-puf",
@@ -1966,7 +1976,7 @@
       "bilimselAd": "Tuber aestivum ve benzer kara trüfler",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Türkiye'deki trüf türleri: \"Truffle Checklist of Turkey\" yayınları. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Türkiye'deki trüf türleri: \"Truffle Checklist of Turkey\" yayınları. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "Toprağın altında, ağaç köklerinin yanında büyüyen, ceviz ile yumruk arası büyüklükte, dışı siyah ve sivri siğilli yumru mantar. Kesince içi kahverengi, beyaz damarlarla mermer gibidir; güçlü kokar.",
       "ozellikler": {
         "sapkaRengi": [
@@ -2023,7 +2033,8 @@
       ],
       "aramaIpucu": "Yerin altında, 5–20 cm derinde ara: kireçli toprakta meşe, fındık, kayın ve ıhlamur köklerinin çevresinde. Ağacın çevresinde otun seyrek, yanmış gibi göründüğü halkaya dikkat et. Üstten görünmez; çoğu zaman eğitimli köpekle aranır. Toprağı dikkatle açıp sonra geri kapat.",
       "pufNoktasi": "Dışı siyah ve küçük piramit gibi çıkıntılıdır. Kesince içi koyu kahve-siyah ve beyaz damarlıdır.",
-      "zehirlenmeNedeni": "Damarlı sahte trüf ile karıştırılır: onun dışı sarımsı-kahve ve pürüzlü, içi mor-siyah ve damarsızdır."
+      "zehirlenmeNedeni": "Damarlı sahte trüf ile karıştırılır: onun dışı sarımsı-kahve ve pürüzlü, içi mor-siyah ve damarsızdır.",
+      "yagmurSonrasi": "orta"
     },
     {
       "id": "keme",
@@ -2031,7 +2042,7 @@
       "bilimselAd": "Terfezia türleri (T. boudieri, T. claveryi)",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Türkiye'deki yayılış (İç, Güneydoğu, Doğu Anadolu) ve konukçu bitki güneşçik (Helianthemum): \"Türkiye'de Doğal Yayılış Gösteren Terfezia Türleri ve Ekolojileri\" (TR Dizin). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Türkiye'deki yayılış (İç, Güneydoğu, Doğu Anadolu) ve konukçu bitki güneşçik (Helianthemum): \"Türkiye'de Doğal Yayılış Gösteren Terfezia Türleri ve Ekolojileri\" (TR Dizin). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "İlkbaharda kurak bölgelerde toprağın altında büyüyen, patates gibi yuvarlak, dışı açık kahve-krem trüf. İçi açık renkli, yumuşak ve damarlıdır.",
       "ozellikler": {
         "sapkaRengi": [
@@ -2082,7 +2093,8 @@
       ],
       "aramaIpucu": "İlkbaharda, kışı yağmurlu geçen yıllarda bozkırda ara: güneşçik denen küçük sarı çiçekli bitkinin yakınında, toprağın hafifçe kabarıp çatladığı yerlerin altında olur. Çatlağı dikkatle açıp bak, sonra toprağı geri kapat.",
       "pufNoktasi": "Bozkırda, kumlu toprakta, ilkbaharda toprağın altında çıkar. Dışı açık kahve, içi beyaz-kremdir.",
-      "zehirlenmeNedeni": "Toprak altında çıkan başka yumrularla, özellikle içi koyulaşan sahte trüflerle karıştırılabilir."
+      "zehirlenmeNedeni": "Toprak altında çıkan başka yumrularla, özellikle içi koyulaşan sahte trüflerle karıştırılabilir.",
+      "yagmurSonrasi": "orta"
     },
     {
       "id": "casir",
@@ -2090,7 +2102,7 @@
       "bilimselAd": "Pleurotus eryngii var. ferulae",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Yetişme yeri (çaşır bitkisinin kök kalıntıları), iller ve aylar: OGM Doğu Akdeniz, \"Çakşır mantarının yetişme ortamı isteklerinin araştırılması\" (2018). Zehirli benzerler genel bilgiye göre yazıldı, uzman doğrulamalı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Zehirli benzerleri 2026-10-27'de genişletildi (TASLAK).",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Yetişme yeri (çaşır bitkisinin kök kalıntıları), iller ve aylar: OGM Doğu Akdeniz, \"Çakşır mantarının yetişme ortamı isteklerinin araştırılması\" (2018). Zehirli benzerler genel bilgiye göre yazıldı, uzman doğrulamalı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Zehirli benzerleri 2026-10-27'de genişletildi (TASLAK). Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "Bozkırda çaşır (çakşır, Ferula) bitkisinin ölü kökleri üzerinde büyüyen, kahverengi-gri şapkalı, beyaz solungaçlı, etli mantar. Solungaçları ayağa doğru iner, halkası yoktur. Doğu Anadolu'da çok aranır.",
       "ozellikler": {
         "sapkaRengi": [
@@ -2160,7 +2172,8 @@
       ],
       "aramaIpucu": "Ağaçsız bozkır ve yaylalarda ara: geçen yıldan kalmış kuru, iri çaşır (çakşır) bitkilerinin dibine bak; mantar bitkinin kökünden, topraktan çıkar. İlkbaharda yağmurdan sonra, özellikle mayıs ve haziranda çıkar.",
       "pufNoktasi": "Çaşır otu (yabani şemsiyegiller) köklerinin üstünde, çayırda çıkar. Solungaçları ayağa doğru iner; şapkası kahverengi-gridir.",
-      "zehirlenmeNedeni": "Çayırda çıkan beyaz terleme mantarları ile karıştırılır."
+      "zehirlenmeNedeni": "Çayırda çıkan beyaz terleme mantarları ile karıştırılır.",
+      "yagmurSonrasi": "orta"
     },
     {
       "id": "mayis",
@@ -2168,7 +2181,7 @@
       "bilimselAd": "Calocybe gambosa",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Zehirli benzerleri 2026-10-27'de genişletildi (TASLAK).",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Zehirli benzerleri 2026-10-27'de genişletildi (TASLAK). Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "İlkbaharda çıkan, beyaz-krem renkli, etli şapkalı mantar. Solungaçları beyaz ve sıktır; halkası ve torbası yoktur. Belirgin taze un kokusu vardır.",
       "ozellikler": {
         "sapkaRengi": [
@@ -2244,7 +2257,8 @@
       ],
       "aramaIpucu": "İlkbaharda çayırda, orman kenarında, alıç ve yaban eriği çalılarının dibinde ara; çoğu zaman halka ya da yay şeklinde dizilir. Taze un gibi kokar.",
       "pufNoktasi": "İlkbaharda (nisan-mayıs) çıkar. Kuvvetli, taze un gibi kokar. Solungaçları sık, beyaz-kremdir; ayak dibinde torba ve ayakta halka yoktur.",
-      "zehirlenmeNedeni": "Beyaz terleme mantarları (aşırı terleme, salya akması yapar) ve ölümcül beyaz köygöçüren ile karıştırılır. Ayak dibini toprağı açarak kontrol et; torba varsa dokunma."
+      "zehirlenmeNedeni": "Beyaz terleme mantarları (aşırı terleme, salya akması yapar) ve ölümcül beyaz köygöçüren ile karıştırılır. Ayak dibini toprağı açarak kontrol et; torba varsa dokunma.",
+      "yagmurSonrasi": "orta"
     },
     {
       "id": "mor-kadife",
@@ -2252,7 +2266,7 @@
       "bilimselAd": "Lepista nuda (Clitocybe nuda)",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "Sonbaharın sonunda çıkan, şapkası ve solungaçları leylak-mor renkli, etli mantar. Zamanla şapkası kahverengimsi solar. Halkası ve torbası yoktur; meyvemsi bir kokusu vardır.",
       "ozellikler": {
         "sapkaRengi": [
@@ -2322,7 +2336,8 @@
       "aramaIpucu": "Sonbaharın sonunda, ilk soğuklardan sonra çürümüş yaprak ve iğne yığınlarında, orman kenarında ve çürük bitki yığınlarında ara; çoğu zaman halka şeklinde dizilir.",
       "cigkenZehirli": true,
       "pufNoktasi": "Şapkası ve solungaçları leylak-mor, ayağı da morumsudur. Meyve gibi hoş kokar. Spor izi pembemsi-krem renktedir, pas kahverengi değildir.",
-      "zehirlenmeNedeni": "Mor tonlu ağ perdeli mantarlarla karıştırılır: onların gençken solungaçları örümcek ağı gibi bir perdeyle örtülüdür ve spor izi pas kahverengidir. Mor kadife çiğken zehirlidir; iyice pişmeden yenmez."
+      "zehirlenmeNedeni": "Mor tonlu ağ perdeli mantarlarla karıştırılır: onların gençken solungaçları örümcek ağı gibi bir perdeyle örtülüdür ve spor izi pas kahverengidir. Mor kadife çiğken zehirlidir; iyice pişmeden yenmez.",
+      "yagmurSonrasi": "orta"
     },
     {
       "id": "sahte-truf",
@@ -2374,7 +2389,7 @@
       "bilimselAd": "Armillaria mellea ve benzer Armillaria türleri",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Şapka yüzeyi: genel alan rehberi bilgisi (TASLAK), doğrulanmadı. Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "Sonbaharda kütüklerde ve ağaç köklerinde büyük kümeler halinde çıkan, bal renkli şapkalı mantar. Ayağında bir halka vardır. Çiğken zehirlidir; iyi pişse bile bazı kişilerde mide rahatsızlığı yapar.",
       "ozellikler": {
         "sapkaRengi": [
@@ -2449,7 +2464,8 @@
       "aramaIpucu": "Yerde değil, ağaçta ara: kütüklerin, ölü ya da hastalıklı ağaçların gövde diplerinde ve köklerinde büyük kümeler halinde çıkar. Ölümcül galerina da kütüklerde çıkar; bu ikisi karışır.",
       "cigkenZehirli": true,
       "pufNoktasi": "Kütükte ya da ağaç dibinde demet demet çıkar. Ayakta halka vardır, şapkada küçük kahve pullar olur. Spor izi beyazdır.",
-      "zehirlenmeNedeni": "Ölümcül galerina da kütükte demet halinde ve halkalı çıkar; onun spor izi pas kahverengidir. Ballıca çiğken zehirlidir; iyice pişmeden yenmez."
+      "zehirlenmeNedeni": "Ölümcül galerina da kütükte demet halinde ve halkalı çıkar; onun spor izi pas kahverengidir. Ballıca çiğken zehirlidir; iyice pişmeden yenmez.",
+      "yagmurSonrasi": "orta"
     },
     {
       "id": "saksagan-murekkep",
@@ -3303,7 +3319,7 @@
       "bilimselAd": "Coprinus comatus",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık toplanan yenenler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık toplanan yenenler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "Beyaz, uzun, silindir biçimli şapkası kalkık pullarla kaplı mantar; çayırda, yol kenarında ve bahçede kümeler halinde çıkar. Solungaçları beyazdan pembeye, sonra siyaha döner ve mürekkep gibi erir. Ayakta oynak, ince bir halka vardır.",
       "ozellikler": {
         "sapkaRengi": [
@@ -3371,7 +3387,8 @@
         "cekan": "Bigredwine1",
         "lisans": "CC BY-SA 4.0",
         "kaynak": "Wikimedia Commons, Coprinus comatus, the shaggy ink cap, lawyer's wig, or shaggy mane mushroom.jpg"
-      }
+      },
+      "yagmurSonrasi": "hizli"
     },
     {
       "id": "kavak",
@@ -3379,7 +3396,7 @@
       "bilimselAd": "Cyclocybe cylindracea",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık toplanan yenenler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık toplanan yenenler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "Kavak, söğüt ve diğer yaprak döken ağaçların gövdesinde ya da kütüğünde kümeler halinde çıkan, açık kahve-krem şapkalı, ayağında belirgin zar halka olan mantar. Şapkası yaşlanınca çatlar. Spor izi kahverengidir.",
       "ozellikler": {
         "sapkaRengi": [
@@ -3448,7 +3465,8 @@
         "cekan": "Ramiro Barreiro",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Agrocybe aegerita.jpg"
-      }
+      },
+      "yagmurSonrasi": "orta"
     },
     {
       "id": "sumuklu-corek",
@@ -3456,7 +3474,7 @@
       "bilimselAd": "Suillus luteus",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık toplanan yenenler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık toplanan yenenler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "Çam altında çıkan, şapkası kahverengi ve ıslakken sümüksü-yapışkan, altı sarı gözenekli (süngerimsi) mantarlar. Bazılarının ayağında mor-beyaz halka (Suillus luteus), bazılarında ayakta tanecikler (S. granulatus) vardır. Ezince mavileşmez.",
       "ozellikler": {
         "sapkaRengi": [
@@ -3525,7 +3543,8 @@
         "cekan": "walt sturgeon (Mycowalt)",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Suillus luteus 475376.jpg"
-      }
+      },
+      "yagmurSonrasi": "yavas"
     },
     {
       "id": "cayir-halka",
@@ -3533,7 +3552,7 @@
       "bilimselAd": "Marasmius oreades",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık toplanan yenenler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık toplanan yenenler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "Çayırda ve çimenlikte halka (peri halkası) biçiminde dizilen küçük-orta boy, açık kahve-krem şapkalı mantar. Solungaçları seyrek ve beyaz-kremdir, ayağı ince, sert ve bükülünce kopmaz; kuruyunca yeniden canlanır.",
       "ozellikler": {
         "sapkaRengi": [
@@ -3595,7 +3614,8 @@
         "cekan": "Alan Rockefeller",
         "lisans": "CC BY 4.0",
         "kaynak": "Wikimedia Commons, Michigan Marasmius oreades.jpg"
-      }
+      },
+      "yagmurSonrasi": "hizli"
     },
     {
       "id": "buyuk-huni",
@@ -3603,7 +3623,7 @@
       "bilimselAd": "Infundibulicybe geotropa",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık toplanan yenenler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık toplanan yenenler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "Ormanda ve orman kenarında, çoğu zaman halka halinde çıkan, iri, krem-ten renkli, ortası tepecikli huni biçimli şapkalı mantar. Solungaçları kremdir ve ayağa doğru iner; ayağı uzun ve kalındır.",
       "ozellikler": {
         "sapkaRengi": [
@@ -3667,7 +3687,8 @@
         "cekan": "Jean-Pol GRANDMONT",
         "lisans": "CC BY 3.0",
         "kaynak": "Wikimedia Commons, Clitocybe geotropa JPG1.jpg"
-      }
+      },
+      "yagmurSonrasi": "orta"
     },
     {
       "id": "yenen-kirmit",
@@ -3675,7 +3696,7 @@
       "bilimselAd": "Russula virescens",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık toplanan yenenler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık toplanan yenenler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "Yeşil şapkası küçük yamalara çatlayan (R. virescens) ya da mor-yeşil karışık şapkalı (R. cyanoxantha) kırmitler. Solungaçları beyaz, ayakları bembeyaz ve tebeşir gibi kırılgandır; halka ve torba yoktur.",
       "ozellikler": {
         "sapkaRengi": [
@@ -3746,7 +3767,8 @@
         "cekan": "Paffka",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Russula virescens3.JPG"
-      }
+      },
+      "yagmurSonrasi": "yavas"
     },
     {
       "id": "kumeli",
@@ -3754,7 +3776,7 @@
       "bilimselAd": "Lyophyllum decastes",
       "zehirlilik": "yenen",
       "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık toplanan yenenler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık toplanan yenenler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı. Yağmur sonrası dönem (hızlı/orta/yavaş): genel kaynaklardan kaba grup (TASLAK), ölçümle doğrulanamadı.",
       "aciklama": "Yol kenarında, çayırda ve orman kenarında, dipte birleşmiş sıkı kümeler halinde çıkan, gri-kahve şapkalı, beyaz solungaçlı mantar. Ayakları dipte kaynaşıktır.",
       "ozellikler": {
         "sapkaRengi": [
@@ -3819,7 +3841,8 @@
         "cekan": "Sui-setz",
         "lisans": "CC BY-SA 3.0",
         "kaynak": "Wikimedia Commons, Lyophyllum decastes 071012.jpg"
-      }
+      },
+      "yagmurSonrasi": "orta"
     }
   ]
 }

@@ -8,6 +8,7 @@ import { turleriYukle } from './turler.js';
 import { aranmaSirasinaGore, mevsimdeMi } from './uygunluk.js';
 import { KAYNAK_NOTU, YAGMUR_NOTU } from './yagmur.js';
 import { aramaBolumu, takipBilgisi, takipSatiri } from './yagmurKarti.js';
+import { takipMantarlari } from './takipMantarlari.js';
 import { konumBolumu, yerlerimAcildi, yerlerimListesi } from './yerlerim.js';
 
 const tarih = (t) => t.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' });
@@ -83,6 +84,7 @@ const kart = el('section', { className: 'kart ana-kart' },
   ),
   mevsimSatiri,
   takipSatiri(),
+  takipMantarlari(),
   // Kısa ad ve harita+büyüteç simgesi (Metin, 2026-10-28: uzun yazı göze hoş gelmiyordu; açıklama Mantar ara'nın (i)'sinde).
   el('a', { className: 'birincil ara-baglanti', href: '#mantar-ara', 'aria-label': 'Mantar ara: haritada uygun yerler' }, ikon('haritaAra'), el('span', { textContent: 'Mantar ara' })),
   bilgiPaneli,

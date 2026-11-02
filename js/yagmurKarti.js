@@ -286,6 +286,8 @@ function ciz() {
   satirKap.replaceChildren(...takipSatiriCiz());
   bilgiKap.replaceChildren(...takipBilgisiCiz());
   aramaKap.replaceChildren(...aramaCiz());
+  // Ana sayfadaki "Aradığın mantarlar" aynı yağmur bilgisiyle yeniden çizilir (js/takipMantarlari.js).
+  document.dispatchEvent(new Event('takip-guncellendi'));
 }
 
 export function takipSatiri() {

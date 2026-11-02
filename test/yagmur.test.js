@@ -3,6 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   BUYUK_YAGMUR_MM,
+  GECIKME_PROFILLERI,
   YAGMUR_NOTU,
   elleKayit,
   gunlukKayitlar,
@@ -28,6 +29,12 @@ function gunluk(yagislar, sicaklik = 15) {
 }
 // i. gün = 3 Ekim + i; bugün (24 Ekim) = 21.
 const gunNo = (gunAyi) => gunAyi - 3;
+function ham(gunler, sicaklik) {
+  const yagislar = Array(29).fill(0);
+  for (const [ekimGunu, mm] of gunler) yagislar[gunNo(ekimGunu)] = mm;
+  return gunluk(yagislar, sicaklik);
+}
+
 function yagisli(gunler, sicaklik) {
   const yagislar = Array(29).fill(0);
   for (const [ekimGunu, mm] of gunler) yagislar[gunNo(ekimGunu)] = mm;
@@ -132,4 +139,35 @@ test('çok soğuk ve çok sıcak havada not düşülür', () => {
 test('ipucu notu yaklaşık olduğunu ve mantarın yine incelenmesi gerektiğini söyler', () => {
   assert.match(YAGMUR_NOTU, /Yaklaşık/);
   assert.match(YAGMUR_NOTU, /Tanımla/);
+});
+
+test('türe göre dönem: hızlı türlerde erken, yavaş türlerde geç başlar; her yenen türün grubu geçerli', async () => {
+  // 24 Ekim; büyük yağmur 20 Ekim (4 gün önce).
+  const kayitlar = yagisli([[20, 25]]);
+  assert.equal(mantarPenceresi(kayitlar, BUGUN, 'hizli').durum, 'verimli');
+  assert.equal(mantarPenceresi(kayitlar, BUGUN, 'orta').durum, 'bekle');
+  assert.equal(mantarPenceresi(kayitlar, BUGUN, 'yavas').siradaki.kalanGun, 6);
+  assert.equal(mantarPenceresi(kayitlar, BUGUN, 'bilinmeyen').durum, mantarPenceresi(kayitlar, BUGUN).durum);
+  for (const p of Object.values(GECIKME_PROFILLERI)) assert.ok(p.bas < p.verimliBit && p.verimliBit < p.bitis);
+  const { readFileSync } = await import('node:fs');
+  const turler = JSON.parse(readFileSync(new URL('../veri/turler.json', import.meta.url), 'utf8')).turler;
+  for (const t of turler.filter((x) => x.zehirlilik === 'yenen')) assert.ok(t.yagmurSonrasi in GECIKME_PROFILLERI, t.ad);
+});
+
+test('aradığın mantarlar: mevsim dışı, en uygun dönem, bekleme ve yağmursuz durumlar; yazılarda yasak ifade yok', async () => {
+  const { turDurumu, TAKIP_NOTU } = await import('../js/takipMantarlari.js');
+  const { yasakIfadeler } = await import('../js/kurallar.js');
+  const kanlica = { ad: 'Kanlıca', aylar: [9, 10, 11], yagmurSonrasi: 'yavas' };
+  const kircil = { ad: 'Kırçıl', aylar: [10], yagmurSonrasi: 'hizli' };
+  const daily = ham([[8, 25]]); // 8 Ekim büyük yağmur; bugün 24 Ekim (16 gün sonra)
+  assert.equal(turDurumu({ ...kanlica, aylar: [4, 5] }, daily, BUGUN).durum, 'mevsimDisi');
+  assert.equal(turDurumu(kanlica, daily, BUGUN).durum, 'verimli');
+  assert.equal(turDurumu(kircil, daily, BUGUN).durum, 'yok');
+  const yeni = ham([[19, 25]]); // 5 gün önce
+  assert.equal(turDurumu(kanlica, yeni, BUGUN).durum, 'bekle');
+  assert.match(turDurumu(kanlica, yeni, BUGUN).yazi, /5 gün/);
+  assert.equal(turDurumu(kanlica, null, BUGUN).durum, 'bilgiYok');
+  for (const tur of [kanlica, kircil]) for (const d of [daily, yeni]) assert.deepEqual(yasakIfadeler(turDurumu(tur, d, BUGUN).yazi), []);
+  assert.deepEqual(yasakIfadeler(TAKIP_NOTU), []);
+  assert.match(TAKIP_NOTU, /Yaklaşık/);
 });

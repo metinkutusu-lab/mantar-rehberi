@@ -8,7 +8,8 @@
 export const HAVA_SERVISI = 'https://api.open-meteo.com/v1/forecast';
 export const YER_SERVISI = 'https://geocoding-api.open-meteo.com/v1/search';
 export const KAYNAK_NOTU = 'Hava verisi: Open-Meteo.com, yer adları: GeoNames.org (CC BY 4.0).';
-export const GECMIS_GUN = 21;
+// 2026-11-02: 21 → 35 (yavaş türlerin dönemi büyük yağmurdan 28 gün sonrasına kadar sürer).
+export const GECMIS_GUN = 35;
 export const TAHMIN_GUN = 8;
 
 // Yaklaşık değerler. Büyük yağmurdan sonra:
@@ -19,6 +20,18 @@ export const BUYUK_YAGMUR_MM = 10;
 export const VERIMLI_BASLANGIC_GUN = 7;
 export const VERIMLI_BITIS_GUN = 14;
 export const AZALMA_BITIS_GUN = 21;
+
+// Türe göre yaklaşık dönem (Metin, 2026-11-02: "kanlıca yağmurdan kaç gün sonra çıkıyor; türe göre tam toplama zamanı").
+// Kaynaklarda türe göre kesin gün sayısı yok; kendi ölçümümüz (scripts/yagmur-gecikme.js, notlar/yagmur-gecikme.json: GBIF
+// gözlem günleri ile aynı yerde rastgele günler, NASA POWER hava verisi) türler arasında fark gösteremedi. Bu yüzden üç kaba
+// grup, genel kaynaklardan (TASLAK): küçük, çabuk çürüyen türler (mürekkep, çayır mantarları) birkaç günde; ağaç kökleriyle
+// yaşayan iri türler (ayı mantarı 13–20 gün, horozmantarı 1–3 hafta, kanlıca) daha geç. Türün grubu veri/turler.json
+// "yagmurSonrasi" alanında; yoksa "orta" (eski genel kural).
+export const GECIKME_PROFILLERI = Object.freeze({
+  hizli: { bas: 2, verimliBit: 7, bitis: 12 },
+  orta: { bas: VERIMLI_BASLANGIC_GUN, verimliBit: VERIMLI_BITIS_GUN, bitis: AZALMA_BITIS_GUN },
+  yavas: { bas: 10, verimliBit: 20, bitis: 28 },
+});
 
 export const YAGMUR_NOTU =
   'Yaklaşık bir ipucudur; sıcaklığa, toprağa ve türe göre değişir. Bulduğun her mantarı yine Tanımla ile incele.';
@@ -77,12 +90,12 @@ export function elleKayit(tarih) {
 const buyukMu = (kayit) => kayit.yagis == null || kayit.yagis >= BUYUK_YAGMUR_MM;
 
 // Her büyük yağmur bir mantar penceresi açar; üst üste binen pencereler birleşir.
-function pencereler(yagmurlar) {
+function pencereler(yagmurlar, profil) {
   const liste = yagmurlar
     .map((y) => ({
-      bas: gunEkle(y.tarih, VERIMLI_BASLANGIC_GUN),
-      verimliBit: gunEkle(y.tarih, VERIMLI_BITIS_GUN),
-      bitis: gunEkle(y.tarih, AZALMA_BITIS_GUN),
+      bas: gunEkle(y.tarih, profil.bas),
+      verimliBit: gunEkle(y.tarih, profil.verimliBit),
+      bitis: gunEkle(y.tarih, profil.bitis),
     }))
     .sort((a, b) => a.bas - b.bas);
   const birlesik = [];
@@ -119,12 +132,13 @@ function sicaklikNotu(kayitlar) {
  * sonYagmur: son büyük yağmur { tarih, miktar } (miktar elle girilmişse null)
  * tahmin: önümüzdeki günlerde beklenen ilk büyük yağmur { tarih, miktar, mantarBas }
  */
-export function mantarPenceresi(kayitlar, bugun = new Date()) {
+export function mantarPenceresi(kayitlar, bugun = new Date(), profilAdi = 'orta') {
+  const profil = GECIKME_PROFILLERI[profilAdi] ?? GECIKME_PROFILLERI.orta;
   const gun = oglen(bugun);
   const gecmis = kayitlar.filter((k) => k.tarih <= gun);
   const gelecek = kayitlar.filter((k) => k.tarih > gun);
   const yagmurlar = gecmis.filter(buyukMu);
-  const tumu = pencereler(yagmurlar);
+  const tumu = pencereler(yagmurlar, profil);
 
   const icinde = tumu.find((p) => p.bas <= gun && gun <= p.bitis);
   const sonraki = tumu.find((p) => p.bas > gun);
@@ -152,7 +166,7 @@ export function mantarPenceresi(kayitlar, bugun = new Date()) {
     sonYagmur: son ? { tarih: son.tarih, miktar: son.yagis == null ? null : Math.round(son.yagis) } : null,
     toplamYagis: Math.round(gecmis.reduce((t, k) => t + (k.yagis ?? 0), 0)),
     tahmin: beklenen
-      ? { tarih: beklenen.tarih, miktar: Math.round(beklenen.yagis), mantarBas: gunEkle(beklenen.tarih, VERIMLI_BASLANGIC_GUN) }
+      ? { tarih: beklenen.tarih, miktar: Math.round(beklenen.yagis), mantarBas: gunEkle(beklenen.tarih, profil.bas) }
       : null,
     sicaklikNotu: sicaklikNotu(son ? gecmis.filter((k) => k.tarih >= son.tarih) : []),
   };
