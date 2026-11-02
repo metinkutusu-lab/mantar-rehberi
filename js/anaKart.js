@@ -19,7 +19,7 @@ const mevsimBilgisi = el('div', { className: 'bilgi-bolum' });
 // başlığı kalktı, altındaki "Sonbahar mantar mevsimi" satırı aynı şeyi söylüyordu). Yalnızca şu ay mevsimi olan (TASLAK
 // `aylar`) toplanan türler, aranma sırasıyla; dokununca ansiklopedideki sayfası açılır. Toprak altında yetişen yumrular
 // (trüf, keme) renk katmadığı için sona. Fotoğrafları çekenler ve lisansları (i) panelinde yazar.
-const YUMRULAR = new Set(['beyaz-truf', 'kara-truf', 'keme']);
+const YUMRULAR = new Set(['kara-truf', 'keme']);
 const mevsimFotolari = el('div', { className: 'mevsim-fotolari', role: 'list', 'aria-label': 'Bu mevsimin mantarları' });
 const fotoKaynaklari = el('p', { className: 'not' });
 

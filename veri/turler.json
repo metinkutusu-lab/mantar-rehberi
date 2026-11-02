@@ -1961,68 +1961,6 @@
       }
     },
     {
-      "id": "beyaz-truf",
-      "ad": "Beyaz trüf",
-      "bilimselAd": "Tuber magnatum",
-      "zehirlilik": "yenen",
-      "mikologOnayi": false,
-      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. Türkiye kaydı: \"Tuber magnatum Picco: a new record for the Turkish mycobiota\" (Trakya University Journal of Natural Sciences, 2024; Sakarya). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
-      "aciklama": "Toprağın altında büyüyen, düzensiz yumru şeklinde, dışı düz ve açık sarı-krem ya da açık kahve trüf. İçi krem-pembemsi, ince beyaz damarlıdır; çok güçlü kokar. Türkiye'de ilk kez 2024'te Sakarya'da kaydedildi; çok nadirdir.",
-      "ozellikler": {
-        "sapkaRengi": [
-          "krem-sari",
-          "kahverengi"
-        ],
-        "altYapi": [
-          "duz"
-        ],
-        "halka": [
-          "hayir"
-        ],
-        "volva": [
-          "hayir"
-        ],
-        "sut": [
-          "yok"
-        ],
-        "kesinceRenk": [
-          "degismedi"
-        ],
-        "zemin": [
-          "toprak"
-        ],
-        "agac": [
-          "yaprakli"
-        ]
-      },
-      "zehirliBenzerler": [
-        {
-          "ad": "Damarlı sahte trüf",
-          "fark": "Beyaz trüfe çok benzer ve beyaz trüf diye satıldığı bilinir; bazı ülkelerde mide-bağırsak zehirlenmesi yaptığı bildirilir. Kesin ayrım için mikroskop gerekir; kendi başına karar verme."
-        },
-        {
-          "ad": "Sahte puf mantarı",
-          "fark": "Sahte pufun içi tek düze olur, kısa sürede mor-siyaha döner ve serttir; trüfün içi açık ve koyu damarlarla mermer gibidir. Sahte puf çoğu zaman toprağın üstünde ya da yarı gömülü, sarımsı pullu kabukla çıkar. Sahte trüf diye satıldığı bilinir."
-        }
-      ],
-      "fotograf": {
-        "dosya": "fotograflar/beyaz-truf.jpg",
-        "cekan": "MatthiasKabel",
-        "lisans": "CC BY-SA 3.0",
-        "kaynak": "Wikimedia Commons, Truffle washed and cut.jpg"
-      },
-      "nerede": "Nemli vadilerde ve dere kenarlarında kavak, söğüt, meşe ve ıhlamur köklerinin yanında, toprağın altında.",
-      "aylar": [
-        9,
-        10,
-        11,
-        12
-      ],
-      "aramaIpucu": "Yerin altında ara: nemli vadilerde ve dere kenarlarında kavak, söğüt, meşe ve ıhlamur köklerinin çevresinde. Üstten görünmez; neredeyse her zaman eğitimli köpekle bulunur. Türkiye'de çok nadirdir.",
-      "pufNoktasi": "Toprağın altında yumru olarak çıkar. Kesince içi krem-kahverengi, ince beyaz damarlı mermer gibidir; çok güçlü, keskin kokar.",
-      "zehirlenmeNedeni": "Damarlı sahte trüf ile karıştırılır: onun kabuğu kalın ve sert, içi gençken beyaz, sonra mor-siyahtır."
-    },
-    {
       "id": "kara-truf",
       "ad": "Kara trüf (yaz trüfü)",
       "bilimselAd": "Tuber aestivum ve benzer kara trüfler",
@@ -2060,6 +1998,10 @@
         {
           "ad": "Sahte puf mantarı",
           "fark": "Sahte pufun içi tek düze olur, kısa sürede mor-siyaha döner ve serttir; trüfün içi açık ve koyu damarlarla mermer gibidir. Sahte puf çoğu zaman toprağın üstünde ya da yarı gömülü, sarımsı pullu kabukla çıkar. Sahte trüf diye satıldığı bilinir."
+        },
+        {
+          "ad": "Damarlı sahte trüf",
+          "fark": "Damarlı sahte trüfün dışı pürüzsüz ya da hafif buruşuk ve açık sarı-kahvedir; kara trüfün dışı siyah ve küçük piramit biçimli kabarcıklarla kaplıdır. İkisinin de içi damarlıdır; dışına bak."
         }
       ],
       "fotograf": {
@@ -3353,6 +3295,530 @@
         "cekan": "Alan Rockefeller",
         "lisans": "CC BY-SA 4.0",
         "kaynak": "Wikimedia Commons, Panaeolus foenisecii Cupertino.jpg"
+      }
+    },
+    {
+      "id": "kircil-murekkep",
+      "ad": "Kırçıl mürekkep mantarı",
+      "bilimselAd": "Coprinus comatus",
+      "zehirlilik": "yenen",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık toplanan yenenler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "aciklama": "Beyaz, uzun, silindir biçimli şapkası kalkık pullarla kaplı mantar; çayırda, yol kenarında ve bahçede kümeler halinde çıkar. Solungaçları beyazdan pembeye, sonra siyaha döner ve mürekkep gibi erir. Ayakta oynak, ince bir halka vardır.",
+      "ozellikler": {
+        "sapkaRengi": [
+          "beyaz",
+          "krem-sari",
+          "kahverengi"
+        ],
+        "sapkaYuzeyi": [
+          "pul",
+          "lifli"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "pembe",
+          "koyu"
+        ],
+        "halka": [
+          "evet",
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "cayir",
+          "toprak"
+        ],
+        "agac": [
+          "yok",
+          "yaprakli"
+        ],
+        "sporIzi": [
+          "koyu"
+        ]
+      },
+      "zehirliBenzerler": [
+        {
+          "ad": "Mürekkep mantarı",
+          "fark": "Mürekkep mantarının şapkası gri-kahve ve pürüzsüzdür, kalkık beyaz pulları yoktur; daha kısadır ve çan biçimlidir. Alkolle birlikte zehirler."
+        },
+        {
+          "ad": "Saksağan mürekkep mantarı",
+          "fark": "Saksağan mürekkep mantarının şapkası siyah-kahve zemin üzerinde beyaz yamalıdır ve ormanda çıkar; kırçıl mürekkebin şapkası baştan sona beyaz-kremdir."
+        }
+      ],
+      "aylar": [
+        4,
+        5,
+        6,
+        9,
+        10,
+        11
+      ],
+      "aramaIpucu": "Yağmurdan sonra çayırda, çimenlikte, yol ve tarla kenarında, gübrelenmiş toprakta ara; çoğu zaman kümeler halinde çıkar.",
+      "pufNoktasi": "Şapka uzun ve silindir biçimlidir, beyaz zemin üzerinde kalkık kahverengimsi pullar vardır. Yalnızca solungaçları hâlâ bembeyaz olan gençler işe yarar; pembeleşmeye ya da kararmaya başlayınca kısa sürede erir. Ayak içi boştur, ayakta ince oynak bir halka vardır.",
+      "zehirlenmeNedeni": "Gri-kahve, pulsuz mürekkep mantarıyla karıştırılırsa ve yanında ya da sonraki günlerde alkol içilirse çarpıntı, yüz kızarması, kusma görülür. Toplandıktan sonra birkaç saat içinde kararıp çürür; bekletilmiş örnekler mide bozabilir.",
+      "fotograf": {
+        "dosya": "fotograflar/kircil-murekkep.jpg",
+        "cekan": "Bigredwine1",
+        "lisans": "CC BY-SA 4.0",
+        "kaynak": "Wikimedia Commons, Coprinus comatus, the shaggy ink cap, lawyer's wig, or shaggy mane mushroom.jpg"
+      }
+    },
+    {
+      "id": "kavak",
+      "ad": "Kavak mantarı",
+      "bilimselAd": "Cyclocybe cylindracea",
+      "zehirlilik": "yenen",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık toplanan yenenler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "aciklama": "Kavak, söğüt ve diğer yaprak döken ağaçların gövdesinde ya da kütüğünde kümeler halinde çıkan, açık kahve-krem şapkalı, ayağında belirgin zar halka olan mantar. Şapkası yaşlanınca çatlar. Spor izi kahverengidir.",
+      "ozellikler": {
+        "sapkaRengi": [
+          "krem-sari",
+          "kahverengi",
+          "beyaz"
+        ],
+        "sapkaYuzeyi": [
+          "duz",
+          "kirisik"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "krem-sari",
+          "kahverengi"
+        ],
+        "halka": [
+          "evet"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "odun"
+        ],
+        "agac": [
+          "yaprakli",
+          "meyve"
+        ],
+        "sporIzi": [
+          "kahverengi"
+        ]
+      },
+      "zehirliBenzerler": [
+        {
+          "ad": "Tuğla başlı mantar",
+          "fark": "Tuğla başlı mantarın şapkası ortada tuğla kırmızısıdır, halkası yoktur, solungaçları grimsi sonra mor-siyahtır; spor izi mor-siyahtır."
+        },
+        {
+          "ad": "Görkemli alev mantarı",
+          "fark": "Alev mantarı altın-turuncu ve lifli şapkalıdır, çok iridir; spor izi pas kahverengidir. Kavak mantarı açık kahve-krem ve pürüzsüzdür."
+        },
+        {
+          "ad": "Ölümcül galerina",
+          "fark": "Ölümcül galerina küçüktür, şapkası bal kahverengidir ve kütükte çıkar; halkası incedir ve kolay kaybolur. Kütükte kümeler halinde çıkan küçük kahverengi mantarların hiçbirini toplama."
+        }
+      ],
+      "aylar": [
+        4,
+        5,
+        6,
+        9,
+        10,
+        11
+      ],
+      "aramaIpucu": "Kavak, söğüt ve akçaağaç gibi yaprak döken ağaçların gövdesinde, kütüğünde ve kesilmiş dallarında ara; aynı yerde her yıl tekrar çıkar.",
+      "pufNoktasi": "Ağaç gövdesinde ya da kütükte kümeler halinde çıkar. Şapka açık kahve-krem, ortası daha koyudur; yaşlanınca çatlar. Ayakta zar gibi belirgin bir halka vardır, spor izi kahverengidir.",
+      "zehirlenmeNedeni": "Kütükte kümeler halinde çıkan başka mantarlarla (ölümcül galerina, tuğla başlı, alev mantarı) karıştırılması. Özellikle ölümcül galerina karaciğeri yok eder; ondan küçük kahverengi mantarlar ayırt edilmeden toplanmamalıdır.",
+      "fotograf": {
+        "dosya": "fotograflar/kavak.jpg",
+        "cekan": "Ramiro Barreiro",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Agrocybe aegerita.jpg"
+      }
+    },
+    {
+      "id": "sumuklu-corek",
+      "ad": "Sümüklü çörek mantarları",
+      "bilimselAd": "Suillus luteus",
+      "zehirlilik": "yenen",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık toplanan yenenler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "aciklama": "Çam altında çıkan, şapkası kahverengi ve ıslakken sümüksü-yapışkan, altı sarı gözenekli (süngerimsi) mantarlar. Bazılarının ayağında mor-beyaz halka (Suillus luteus), bazılarında ayakta tanecikler (S. granulatus) vardır. Ezince mavileşmez.",
+      "ozellikler": {
+        "sapkaRengi": [
+          "kahverengi",
+          "krem-sari",
+          "kirmizi-turuncu"
+        ],
+        "sapkaYuzeyi": [
+          "duz"
+        ],
+        "altYapi": [
+          "gozenek"
+        ],
+        "halka": [
+          "evet",
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "kesinceRenk": [
+          "degismedi",
+          "sari"
+        ],
+        "ezince": [
+          "degismedi",
+          "sari",
+          "kirmizi-kahve"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "agac": [
+          "igne"
+        ],
+        "sporIzi": [
+          "kahverengi"
+        ]
+      },
+      "zehirliBenzerler": [
+        {
+          "ad": "Acı ayaklı çörek mantarı",
+          "fark": "Acı ayaklı çöreğin şapkası kuru ve gridir, ayağı kırmızı ağlıdır ve ezince mavileşir. Sümüklü çörekler yapışkan şapkalıdır, çam altında çıkar ve mavileşmez."
+        },
+        {
+          "ad": "Şeytan mantarı",
+          "fark": "Şeytan mantarının gözenekleri ve ayağı kırmızıdır, kesince mavileşir, şapkası beyazımsı-gridir. Sümüklü çöreklerin gözenekleri sarıdır."
+        }
+      ],
+      "aylar": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "aramaIpucu": "Çam ormanında, çam ağaçlarının altında, çimenli açıklıklarda ve orman yollarının kenarında ara; yağmurdan birkaç gün sonra bol çıkar.",
+      "pufNoktasi": "Yalnızca çam altında çıkar. Şapka ıslakken sümüksü-yapışkandır, altı sarı süngerimsi gözeneklidir; ezince mavileşmez. Şapka derisi kolayca soyulur.",
+      "zehirlenmeNedeni": "Bazı kişilerde, özellikle şapka derisi soyulmadan ve bol yenince ishal yapar. Kırmızı gözenekli ya da ezince mavileşen çörek mantarlarıyla karıştırılması.",
+      "fotograf": {
+        "dosya": "fotograflar/sumuklu-corek.jpg",
+        "cekan": "walt sturgeon (Mycowalt)",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Suillus luteus 475376.jpg"
+      }
+    },
+    {
+      "id": "cayir-halka",
+      "ad": "Çayır halka mantarı",
+      "bilimselAd": "Marasmius oreades",
+      "zehirlilik": "yenen",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık toplanan yenenler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "aciklama": "Çayırda ve çimenlikte halka (peri halkası) biçiminde dizilen küçük-orta boy, açık kahve-krem şapkalı mantar. Solungaçları seyrek ve beyaz-kremdir, ayağı ince, sert ve bükülünce kopmaz; kuruyunca yeniden canlanır.",
+      "ozellikler": {
+        "sapkaRengi": [
+          "krem-sari",
+          "kahverengi"
+        ],
+        "sapkaYuzeyi": [
+          "duz"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "cayir"
+        ],
+        "agac": [
+          "yok"
+        ],
+        "sporIzi": [
+          "beyaz"
+        ]
+      },
+      "zehirliBenzerler": [
+        {
+          "ad": "Terleme mantarı",
+          "fark": "Terleme mantarı beyaz-gri, beyaz unlu görünüşlüdür; solungaçları sık dizilir ve ayağa doğru iner. Çayır halka mantarının solungaçları seyrektir, ayağa doğru inmez."
+        },
+        {
+          "ad": "Çim mantarı",
+          "fark": "Çim mantarının solungaçları koyu kahve ve beneklidir, spor izi koyudur. Çayır halka mantarının solungaçları ve spor izi beyaz-kremdir."
+        }
+      ],
+      "aylar": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "aramaIpucu": "Yağmurdan sonra çayırda, çimenlikte, mera ve park çimlerinde ara; çimde daha koyu yeşil ya da sararmış halkalar boyunca dizilir.",
+      "pufNoktasi": "Çimde halka boyunca dizilir. Solungaçlar seyrek ve beyaz-kremdir; ayağa değil şapkaya bağlıdır. Ayak ince ve serttir, parmakla bükülünce kopmaz, lif lif bükülür.",
+      "zehirlenmeNedeni": "Aynı çimenlikte, aynı halkada bile çıkabilen terleme mantarıyla karıştırılması. Terleme mantarı terleme, salya ve kusma yapar; tek tek kontrol edilmeden toplanan çayır mantarlarında en sık hata budur.",
+      "fotograf": {
+        "dosya": "fotograflar/cayir-halka.jpg",
+        "cekan": "Alan Rockefeller",
+        "lisans": "CC BY 4.0",
+        "kaynak": "Wikimedia Commons, Michigan Marasmius oreades.jpg"
+      }
+    },
+    {
+      "id": "buyuk-huni",
+      "ad": "Büyük huni mantarı",
+      "bilimselAd": "Infundibulicybe geotropa",
+      "zehirlilik": "yenen",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık toplanan yenenler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "aciklama": "Ormanda ve orman kenarında, çoğu zaman halka halinde çıkan, iri, krem-ten renkli, ortası tepecikli huni biçimli şapkalı mantar. Solungaçları kremdir ve ayağa doğru iner; ayağı uzun ve kalındır.",
+      "ozellikler": {
+        "sapkaRengi": [
+          "krem-sari",
+          "beyaz",
+          "kahverengi"
+        ],
+        "sapkaYuzeyi": [
+          "duz"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "toprak",
+          "cayir"
+        ],
+        "agac": [
+          "yaprakli",
+          "igne",
+          "yok"
+        ],
+        "sporIzi": [
+          "beyaz"
+        ]
+      },
+      "zehirliBenzerler": [
+        {
+          "ad": "Bulut huni mantarı",
+          "fark": "Bulut huni mantarı gridir, ortası tepecikli değildir ve ağır, tatlımsı kokar. Büyük huni mantarı krem-ten renkli, huni biçimli ve ortası tepeciklidir."
+        },
+        {
+          "ad": "Terleme mantarı",
+          "fark": "Terleme mantarı çok daha küçüktür (şapka 2–5 cm), beyaz unlu görünüşlüdür ve çayırda çıkar."
+        }
+      ],
+      "aylar": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "aramaIpucu": "Sonbaharda yaprak döken ormanların kenarında, açıklıklarda ve çalılık çayırlarda ara; çoğu zaman büyük halkalar halinde dizilir.",
+      "pufNoktasi": "Şapka iri (10–20 cm), huni biçimli ve ortasında küçük bir tepecik vardır. Solungaçlar krem renkli ve ayağa doğru iner; ayak uzun ve kalındır.",
+      "zehirlenmeNedeni": "Gri renkli bulut huni mantarıyla ve küçük beyaz huni mantarlarıyla (terleme mantarı) karıştırılması. Benzer görünüşlü beyaz huni mantarlarının çoğu zehirlidir.",
+      "fotograf": {
+        "dosya": "fotograflar/buyuk-huni.jpg",
+        "cekan": "Jean-Pol GRANDMONT",
+        "lisans": "CC BY 3.0",
+        "kaynak": "Wikimedia Commons, Clitocybe geotropa JPG1.jpg"
+      }
+    },
+    {
+      "id": "yenen-kirmit",
+      "ad": "Yeşil ve mor kırmitler",
+      "bilimselAd": "Russula virescens",
+      "zehirlilik": "yenen",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık toplanan yenenler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "aciklama": "Yeşil şapkası küçük yamalara çatlayan (R. virescens) ya da mor-yeşil karışık şapkalı (R. cyanoxantha) kırmitler. Solungaçları beyaz, ayakları bembeyaz ve tebeşir gibi kırılgandır; halka ve torba yoktur.",
+      "ozellikler": {
+        "sapkaRengi": [
+          "yesil-zeytin",
+          "diger",
+          "gri-siyah"
+        ],
+        "sapkaYuzeyi": [
+          "duz",
+          "kirisik"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "kesinceRenk": [
+          "degismedi"
+        ],
+        "ezince": [
+          "degismedi"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "agac": [
+          "yaprakli",
+          "igne"
+        ],
+        "sporIzi": [
+          "beyaz",
+          "krem"
+        ]
+      },
+      "zehirliBenzerler": [
+        {
+          "ad": "Köygöçüren",
+          "fark": "Köygöçürenin ayağında etek gibi bir halka ve dibinde torba (volva) vardır; şapkası pürüzsüzdür, çatlamaz. Kırmitlerin halkası ve torbası yoktur, ayakları tebeşir gibi kırılır. Ayak dibini bıçakla toprağı açarak mutlaka kontrol et."
+        },
+        {
+          "ad": "Kırmızı kırmitler",
+          "fark": "Kırmızı kırmitlerin şapkası parlak kırmızı-pembedir. Yeşil ve mor kırmitlerde kırmızı ton yoktur."
+        }
+      ],
+      "aylar": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "aramaIpucu": "Yaz ve sonbaharda meşe, kayın ve kestane ormanlarında, bazen çam altında, toprakta ara.",
+      "pufNoktasi": "Ayak bembeyaz ve tebeşir gibi kırılır; halka ve torba yoktur. Yeşil kırmitin şapkası küçük yamalara çatlar. Ayağın dibi toprak açılarak kontrol edilmeden toplanmaz.",
+      "zehirlenmeNedeni": "Yeşil şapkalı ölümcül köygöçürenle karıştırılması. Köygöçüren yalnızca ayaktaki halka ve ayak dibindeki torbayla ayırt edilir; koparılarak toplanan mantarda torba toprakta kalır ve görülmez.",
+      "fotograf": {
+        "dosya": "fotograflar/yenen-kirmit.jpg",
+        "cekan": "Paffka",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Russula virescens3.JPG"
+      }
+    },
+    {
+      "id": "kumeli",
+      "ad": "Kümeli mantar",
+      "bilimselAd": "Lyophyllum decastes",
+      "zehirlilik": "yenen",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık toplanan yenenler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md). Aylar ve arama ipucu: genel alan rehberi bilgisinden derlendi (TASLAK), doğrulanmadı.",
+      "aciklama": "Yol kenarında, çayırda ve orman kenarında, dipte birleşmiş sıkı kümeler halinde çıkan, gri-kahve şapkalı, beyaz solungaçlı mantar. Ayakları dipte kaynaşıktır.",
+      "ozellikler": {
+        "sapkaRengi": [
+          "gri-siyah",
+          "kahverengi",
+          "krem-sari"
+        ],
+        "sapkaYuzeyi": [
+          "duz"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "toprak",
+          "cayir"
+        ],
+        "agac": [
+          "yaprakli",
+          "yok"
+        ],
+        "sporIzi": [
+          "beyaz"
+        ]
+      },
+      "zehirliBenzerler": [
+        {
+          "ad": "Kurşuni entoloma",
+          "fark": "Kurşuni entoloma tek tek çıkar, kümelenmez; solungaçları sarımsı, sonra pembedir, spor izi pembedir. Kümeli mantarın solungaçları ve spor izi beyazdır."
+        },
+        {
+          "ad": "Bulut huni mantarı",
+          "fark": "Bulut huni mantarının solungaçları ayağa doğru iner ve ağır, tatlımsı kokar; dipte kaynaşık kümeler yapmaz."
+        }
+      ],
+      "aylar": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "aramaIpucu": "Yol ve orman kenarlarında, çayırda, bahçe ve park kenarlarında, gömülü odunun üzerindeki toprakta ara; sıkı kümeler halinde çıkar.",
+      "pufNoktasi": "Ayakları dipte kaynaşmış sıkı kümeler halinde çıkar. Şapka gri-kahve, solungaçlar beyazdır; spor izi beyazdır.",
+      "zehirlenmeNedeni": "Tek tek çıkan kurşuni entoloma ve bulut huni mantarıyla karıştırılması; ikisi de kusma ve ishal yapar. Spor izi pembe çıkarsa entolomadır.",
+      "fotograf": {
+        "dosya": "fotograflar/kumeli.jpg",
+        "cekan": "Sui-setz",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Lyophyllum decastes 071012.jpg"
       }
     }
   ]

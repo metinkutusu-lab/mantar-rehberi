@@ -40,7 +40,7 @@ const MADDELER = {
   'sahte-puf': 'Scleroderma citrinum',
   // 2026-10-26: Mantar ara için eklenen gözde türler (TASLAK)
   'kara-truf': 'Tuber aestivum',
-  'beyaz-truf': 'Tuber magnatum',
+  // 2026-11-02: beyaz trüf kaldırıldı (Metin: "ayırt etmek için örnek yok"; dünyada birkaç lisanslı fotoğraf, Türkiye'de tek kayıt).
   keme: 'Desert truffle',
   casir: 'Pleurotus eryngii',
   mayis: 'Calocybe gambosa',
@@ -73,6 +73,14 @@ const MADDELER = {
   'ipeksi-entoloma': 'Entoloma sericeum',
   'saksi-mantari': 'Leucocoprinus birnbaumii',
   'cim-mantari': 'Panaeolina foenisecii',
+  // 2026-11-02: sık toplanan yenenler (TASLAK)
+  'kircil-murekkep': 'Coprinus comatus',
+  'kavak': 'Cyclocybe cylindracea',
+  'sumuklu-corek': 'Suillus luteus',
+  'cayir-halka': 'Marasmius oreades',
+  'buyuk-huni': 'Infundibulicybe geotropa',
+  'yenen-kirmit': 'Russula virescens',
+  'kumeli': 'Lyophyllum decastes',
 };
 
 // Commons'ta makine tarafından okunamayan çeken adları, dosya sayfalarından elle okundu (26 Ekim 2026).

@@ -69,8 +69,10 @@ export function zeminAgirliklari(tur) {
 // (Metin'in isteği, 2026-10-26: "dünya gastronomisinde en lezzetliden geriye"; TASLAK sıra, genel bilgiye göre).
 // Ekranda "lezzetli" yazılmaz (kural 1'in ruhu: yemeye özendirme yok); listede olmayan türler sona, ada göre.
 export const ARANMA_SIRASI = [
-  'beyaz-truf', 'kara-truf', 'ayi-mantari', 'kuzugobegi', 'yumurta', 'horozmantari', 'mayis', 'kanlica',
+  'kara-truf', 'ayi-mantari', 'kuzugobegi', 'yumurta', 'horozmantari', 'mayis', 'kanlica',
   'keme', 'casir', 'mor-kadife', 'buyuk-semsiye', 'istiridye', 'tavuk', 'ballica', 'cayir', 'puf',
+  // 2026-11-02: sık toplanan yenenler (TASLAK sıra)
+  'yenen-kirmit', 'kircil-murekkep', 'kavak', 'cayir-halka', 'buyuk-huni', 'sumuklu-corek', 'kumeli',
 ];
 
 export function aranmaSirasinaGore(turler) {

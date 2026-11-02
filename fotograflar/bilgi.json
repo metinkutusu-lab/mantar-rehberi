@@ -161,12 +161,6 @@
     "lisans": "Public domain",
     "cekan": "Rippitippi"
   },
-  "beyaz-truf": {
-    "madde": "Tuber magnatum",
-    "dosya": "Truffle_washed_and_cut.jpg",
-    "lisans": "CC BY-SA 3.0",
-    "cekan": "MatthiasKabel"
-  },
   "casir": {
     "madde": "Pleurotus eryngii",
     "dosya": "Seta_de_cardo_(Pleurotus_eryngii),_2012-10-03,_DD_01.JPG",
@@ -334,5 +328,47 @@
     "dosya": "DSC00821 (50545455397).jpg",
     "lisans": "CC BY-SA 2.0",
     "cekan": "Dr. Hans-Günter Wagner"
+  },
+  "kircil-murekkep": {
+    "madde": "Coprinus comatus",
+    "dosya": "Coprinus_comatus,_the_shaggy_ink_cap,_lawyer's_wig,_or_shaggy_mane_mushroom.jpg",
+    "lisans": "CC BY-SA 4.0",
+    "cekan": "Bigredwine1"
+  },
+  "kavak": {
+    "madde": "Cyclocybe cylindracea",
+    "dosya": "Agrocybe_aegerita.jpg",
+    "lisans": "CC BY-SA 3.0",
+    "cekan": "Ramiro Barreiro"
+  },
+  "sumuklu-corek": {
+    "madde": "Suillus luteus",
+    "dosya": "Suillus_luteus_475376.jpg",
+    "lisans": "CC BY-SA 3.0",
+    "cekan": "walt sturgeon (Mycowalt)"
+  },
+  "cayir-halka": {
+    "madde": "Marasmius oreades",
+    "dosya": "Michigan_Marasmius_oreades.jpg",
+    "lisans": "CC BY 4.0",
+    "cekan": "Alan Rockefeller"
+  },
+  "buyuk-huni": {
+    "madde": "Infundibulicybe geotropa",
+    "dosya": "Clitocybe_geotropa_JPG1.jpg",
+    "lisans": "CC BY 3.0",
+    "cekan": "Jean-Pol GRANDMONT"
+  },
+  "yenen-kirmit": {
+    "madde": "Russula virescens",
+    "dosya": "Russula_virescens3.JPG",
+    "lisans": "CC BY-SA 3.0",
+    "cekan": "Paffka"
+  },
+  "kumeli": {
+    "madde": "Lyophyllum decastes",
+    "dosya": "Lyophyllum_decastes_071012.jpg",
+    "lisans": "CC BY-SA 3.0",
+    "cekan": "I, Sui-setz"
   }
 }

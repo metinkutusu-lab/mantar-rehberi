@@ -33,6 +33,8 @@ Ağaç gövdesindeki raf mantarları, jelimsi mantarlar ve kuş yuvası mantarla
 
 ## 2. öncelik: sık toplanan yenenler (zehirli benzeriyle birlikte, kural 8)
 
+**Eklendi (v116, 2026-11-02, Metin: "yenenleri ekle"):** kırçıl mürekkep, kavak mantarı, sümüklü çörekler, çayır halka mantarı, büyük huni, yeşil ve mor kırmitler, kümeli mantar (62 tür). Bilerek eklenmedi: kızaran amanita ve torbalı pluteus (yenen ama ölümcül amanitalara çok benzer; Mantar ara'da "aranacak" diye görünmesinler), kırmızı ayaklı çörek (kırmızı gözenekli, mavileşen çörekleri yeni başlayana önermemek için), memeli şemsiye (büyük şemsiye kaydının içinde sayılabilir), borazan ve kirpi mantarı (kaynakla gösterilebilen zehirli benzeri yok, kural 8). Ölçüm (üç fotoğraflı gözlemler): kırçıl mürekkep 6'da 5, sümüklü çörek 6'da 6, mor-yeşil kırmit 6'da 4 doğru; eski türlerde 125'te 112 (önce 113), "muhtemelen" 61'de 61 doğru. Aynı gün beyaz trüf listeden çıkarıldı (Metin: "ayırt etmek için örnek yok"); damarlı sahte trüf kara trüfün zehirli benzeri oldu.
+
 | Tür | Önerilen Türkçe ad | TR | Zehirli benzeri |
 | --- | --- | --- | --- |
 | Coprinus comatus | Kırçıl mürekkep (çayır mürekkep) | 140 | mürekkep mantarı, saksağan mürekkep |

@@ -27,7 +27,6 @@ export const KATEGORILER = {
   tavuk: ['Laetiporus sulphureus'],
   puf: ['Lycoperdon perlatum', 'Calvatia gigantea'],
   'sahte-puf': ['Scleroderma citrinum'],
-  'beyaz-truf': ['Tuber magnatum'],
   'kara-truf': ['Tuber aestivum', 'Tuber melanosporum'],
   keme: ['Terfezia', 'Terfezia boudieri', 'Terfezia claveryi'],
   casir: ['Pleurotus eryngii'],
@@ -58,4 +57,12 @@ export const KATEGORILER = {
   'ipeksi-entoloma': ['Entoloma sericeum'],
   'saksi-mantari': ['Leucocoprinus birnbaumii'],
   'cim-mantari': ['Panaeolina foenisecii'],
+  // 2026-11-02: sık toplanan yenenler (TASLAK; her biri zehirli benzeriyle)
+  'kircil-murekkep': ['Coprinus comatus'],
+  'kavak': ['Cyclocybe cylindracea', 'Agrocybe aegerita'],
+  'sumuklu-corek': ['Suillus luteus', 'Suillus granulatus', 'Suillus collinitus', 'Suillus bellinii'],
+  'cayir-halka': ['Marasmius oreades'],
+  'buyuk-huni': ['Infundibulicybe geotropa', 'Clitocybe geotropa'],
+  'yenen-kirmit': ['Russula virescens', 'Russula cyanoxantha'],
+  'kumeli': ['Lyophyllum decastes'],
 };
