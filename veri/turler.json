@@ -286,6 +286,10 @@
         {
           "ad": "Köygöçüren",
           "fark": "Yumurta evresinde dışarıdan ayırt edilemez. Bu evrede uygulama her zaman kırmızı sonuç verir; uzman görmeden yeme."
+        },
+        {
+          "ad": "Sarı panter mantarı",
+          "fark": "Sarı panterin solungaçları ve ayağı beyazdır; yumurta mantarının solungaçları ve ayağı sarıdır, torbası kalın ve beyazdır."
         }
       ],
       "fotograf": {
@@ -411,6 +415,10 @@
         {
           "ad": "Panter mantarı",
           "fark": "Panter mantarının ayak dibinde torba veya yumru vardır ve şapkasındaki benekler beyazdır. Büyük şemsiye mantarının ayak dibi şişkindir ama torbası yoktur."
+        },
+        {
+          "ad": "Kızaran şemsiye mantarı",
+          "fark": "Kızaran şemsiyenin ayağı düz ve açık renklidir, yılan derisi deseni yoktur; dibi kenarlı bir yumru gibi şişkindir. Kesince ya da ezince eti turuncu-kırmızıya döner. Büyük şemsiyenin ayağında kahverengi yılan derisi deseni vardır."
         }
       ],
       "fotograf": {
@@ -1517,6 +1525,14 @@
         {
           "ad": "Terleme mantarı",
           "fark": "Terleme mantarının solungaçları beyazımsıdır ve hiç pembeleşmez, ayağa doğru iner; halkası yoktur. Çayır mantarının solungaçları pembeden çikolata rengine döner ve ayağında halka vardır."
+        },
+        {
+          "ad": "İpeksi entoloma",
+          "fark": "İpeksi entolomanın solungaçları ve spor izi pembe; çayır mantarının olgun solungaçları çikolata kahvesi, spor izi koyu kahvedir. İpeksi entolomanın halkası yoktur."
+        },
+        {
+          "ad": "Çim mantarı",
+          "fark": "Çim mantarı çok küçüktür, ayağı ince ve kırılgandır, halkası yoktur. Çayır mantarının ayağında halka vardır ve eti etlidir."
         }
       ],
       "fotograf": {
@@ -2266,6 +2282,10 @@
         {
           "ad": "Terleme mantarı",
           "fark": "Terleme mantarı küçüktür (2–5 cm), ince etlidir, şapkası beyaz-pudralıdır ve solungaçları ayağa doğru iner; çayırda halka biçiminde çıkar. Mayıs mantarı etli ve kalındır (5–15 cm), solungaçları sık ve ayağa inmez, belirgin un kokar."
+        },
+        {
+          "ad": "Bulut huni mantarı",
+          "fark": "Bulut huni mantarı sonbaharda çıkar, gri renklidir ve solungaçları ayağa doğru iner; mayıs mantarı ilkbaharda çıkar, beyaz-kremdir ve taze un kokar."
         }
       ],
       "fotograf": {
@@ -2335,6 +2355,14 @@
         {
           "ad": "Ağ perdeli mantarlar",
           "fark": "Ağ perdeli mantarların genç solungaçlarını örümcek ağı gibi ince bir zar örter; ayağında bu zarın pas renkli izi kalır ve spor izi pas-kahverengidir. Mor kadifenin perdesi yoktur, spor izi soluk pembedir."
+        },
+        {
+          "ad": "Bulut huni mantarı",
+          "fark": "Bulut huni mantarı gridir, mor tonu yoktur; solungaçları kremdir ve ayağa doğru iner, kokusu ağır ve tatlımsıdır."
+        },
+        {
+          "ad": "Turp kokulu mycena",
+          "fark": "Turp kokulu mycena daha küçük ve ince etlidir, ayağı ince ve içi boştur; belirgin turp kokusu vardır."
         }
       ],
       "fotograf": {
@@ -2454,6 +2482,14 @@
         {
           "ad": "Kükürt başlı mantar",
           "fark": "Kükürt başlı mantarın solungaçları kükürt sarısından yeşilimsiye, sonra mor-kahveye döner ve ayağında belirgin halka yoktur; ballıcanın solungaçları beyaz-krem kalır."
+        },
+        {
+          "ad": "Görkemli alev mantarı",
+          "fark": "Alev mantarının şapkası altın-turuncu ve liflidir, spor izi pas kahverengidir; ballıcanın spor izi beyazdır."
+        },
+        {
+          "ad": "Tuğla başlı mantar",
+          "fark": "Tuğla başlı mantarın halkası yoktur, solungaçları grimsi sonra mor-siyahtır; spor izi mor-siyahtır. Ballıcanın halkası ve beyaz spor izi vardır."
         }
       ],
       "fotograf": {
@@ -2472,6 +2508,852 @@
       "cigkenZehirli": true,
       "pufNoktasi": "Kütükte ya da ağaç dibinde demet demet çıkar. Ayakta halka vardır, şapkada küçük kahve pullar olur. Spor izi beyazdır.",
       "zehirlenmeNedeni": "Ölümcül galerina da kütükte demet halinde ve halkalı çıkar; onun spor izi pas kahverengidir. Ballıca çiğken zehirlidir; iyice pişmeden yenmez."
+    },
+    {
+      "id": "saksagan-murekkep",
+      "ad": "Saksağan mürekkep mantarı",
+      "bilimselAd": "Coprinopsis picacea",
+      "zehirlilik": "zehirli",
+      "zehirTipi": "mide",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık görülen zehirliler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md).",
+      "aciklama": "Siyah-kahve şapkası üzerinde beyaz yamalar olan, saksağanı andıran uzun boylu mantar. Yaşlanınca solungaçları siyah mürekkep gibi erir. Yaprak döken ormanda yerde çıkar. Mide-bağırsak zehirlenmesi yapar.",
+      "karistirilanlar": [
+        "Kırçıl mürekkep mantarı"
+      ],
+      "ozellikler": {
+        "sapkaRengi": [
+          "gri-siyah",
+          "kahverengi",
+          "beyaz"
+        ],
+        "sapkaYuzeyi": [
+          "benek",
+          "pul",
+          "duz"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "pembe",
+          "kahverengi",
+          "koyu"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "toprak",
+          "cayir"
+        ],
+        "sporIzi": [
+          "koyu"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/saksagan-murekkep.jpg",
+        "cekan": "George Chernilevsky",
+        "lisans": "CC BY 4.0",
+        "kaynak": "Wikimedia Commons, Coprinopsis picacea 2024 G1.jpg"
+      }
+    },
+    {
+      "id": "kizaran-semsiye",
+      "ad": "Kızaran şemsiye mantarı",
+      "bilimselAd": "Chlorophyllum rhacodes",
+      "zehirlilik": "zehirli",
+      "zehirTipi": "mide",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık görülen zehirliler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md).",
+      "aciklama": "Büyük şemsiye mantarına çok benzeyen, iri, kahverengi pullu şapkalı mantar. Kesince ya da ezince eti turuncu-kırmızıya döner; ayağı düzdür, yılan derisi deseni yoktur, dibi yumru gibi şişkindir. Bazı kişilerde ağır mide-bağırsak zehirlenmesi yapar; yakın türleri (Chlorophyllum brunneum, C. molybdites) daha zehirlidir.",
+      "karistirilanlar": [
+        "Büyük şemsiye mantarı"
+      ],
+      "ozellikler": {
+        "sapkaRengi": [
+          "kahverengi",
+          "krem-sari",
+          "beyaz"
+        ],
+        "sapkaYuzeyi": [
+          "pul"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "halka": [
+          "evet"
+        ],
+        "volva": [
+          "hayir",
+          "evet"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "kesinceRenk": [
+          "kirmizi-pembe",
+          "sari",
+          "degismedi"
+        ],
+        "ezince": [
+          "kirmizi-kahve",
+          "degismedi"
+        ],
+        "zemin": [
+          "toprak",
+          "cayir"
+        ],
+        "sporIzi": [
+          "beyaz",
+          "krem"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/kizaran-semsiye.jpg",
+        "cekan": "Jörg Hempel",
+        "lisans": "CC BY-SA 2.0 de",
+        "kaynak": "Wikimedia Commons, Chlorophyllum rhacodes LC0093.jpg"
+      }
+    },
+    {
+      "id": "bulut-huni",
+      "ad": "Bulut huni mantarı",
+      "bilimselAd": "Clitocybe nebularis",
+      "zehirlilik": "zehirli",
+      "zehirTipi": "mide",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık görülen zehirliler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md).",
+      "aciklama": "Gri ya da gri-kahve, iri, etli şapkalı mantar; solungaçları krem renklidir ve ayağa doğru iner. Güçlü, tatlımsı ve ağır bir kokusu vardır. Sonbaharda ormanda halkalar halinde çıkar. Birçok kişide kusma ve ishal yapar.",
+      "karistirilanlar": [
+        "Mor kadife mantarı",
+        "Mayıs mantarı"
+      ],
+      "ozellikler": {
+        "sapkaRengi": [
+          "gri-siyah",
+          "kahverengi",
+          "krem-sari",
+          "beyaz"
+        ],
+        "sapkaYuzeyi": [
+          "duz"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "koku": [
+          "kotu",
+          "diger",
+          "un"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "sporIzi": [
+          "krem",
+          "beyaz"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/bulut-huni.jpg",
+        "cekan": "Dominicus Johannes Bergsma",
+        "lisans": "CC BY-SA 4.0",
+        "kaynak": "Wikimedia Commons, Nevelzwam (nebularis) tussen afgevallen beukenblad (d.j.b.) 01.jpg"
+      }
+    },
+    {
+      "id": "limoni-amanita",
+      "ad": "Limoni amanita",
+      "bilimselAd": "Amanita citrina",
+      "zehirlilik": "zehirli",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık görülen zehirliler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md).",
+      "aciklama": "Soluk limon sarısı ya da beyaz şapkalı, üzerinde krem yamalar olan amanita. Ayakta halka, dibinde kenarlı bir yumru (torba) vardır; çiğ patates gibi kokar. Ölümcül köygöçürenle çok kolay karışır; bu yüzden asla toplanmamalıdır.",
+      "karistirilanlar": [
+        "Köygöçüren",
+        "Ak köygöçürenler"
+      ],
+      "ozellikler": {
+        "sapkaRengi": [
+          "krem-sari",
+          "beyaz",
+          "yesil-zeytin"
+        ],
+        "sapkaYuzeyi": [
+          "benek",
+          "duz"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "halka": [
+          "evet"
+        ],
+        "volva": [
+          "evet"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "koku": [
+          "diger",
+          "turp",
+          "kokusuz"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "sporIzi": [
+          "beyaz"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/limoni-amanita.jpg",
+        "cekan": "Jason Hollinger",
+        "lisans": "CC BY 2.0",
+        "kaynak": "Wikimedia Commons, Amanita citrina (4503847751).jpg"
+      }
+    },
+    {
+      "id": "sari-panter",
+      "ad": "Sarı panter mantarı",
+      "bilimselAd": "Amanita gemmata",
+      "zehirlilik": "zehirli",
+      "zehirTipi": "sinir",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık görülen zehirliler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md).",
+      "aciklama": "Krem-sarı şapkasında beyaz benekler olan amanita. Ayak dibinde torba vardır; halka çabuk kaybolabilir. Panter mantarının zehirlerini taşır: sersemlik, sanrı, havale yapabilir. Yumurta mantarıyla karışabilir.",
+      "karistirilanlar": [
+        "Panter mantarı",
+        "Yumurta mantarı"
+      ],
+      "ozellikler": {
+        "sapkaRengi": [
+          "krem-sari",
+          "beyaz",
+          "kirmizi-turuncu"
+        ],
+        "sapkaYuzeyi": [
+          "benek",
+          "duz"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "halka": [
+          "evet",
+          "hayir"
+        ],
+        "volva": [
+          "evet"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "sporIzi": [
+          "beyaz"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/sari-panter.jpg",
+        "cekan": "Hans-Martin Scheibner",
+        "lisans": "CC BY 3.0",
+        "kaynak": "Wikimedia Commons, Amanita gemmata von hms.jpg"
+      }
+    },
+    {
+      "id": "turp-mycena",
+      "ad": "Turp kokulu mycena",
+      "bilimselAd": "Mycena pura",
+      "zehirlilik": "zehirli",
+      "zehirTipi": "ter",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık görülen zehirliler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md).",
+      "aciklama": "Pembe-leylak, ince etli, küçük-orta boy mantar; belirgin turp kokusu vardır. Ormanda yaprak çöpü üzerinde çıkar. Terleme ve salya artışı yapan zehir (muskarin) taşır. Mor kadife mantarıyla karışabilir.",
+      "karistirilanlar": [
+        "Mor kadife mantarı"
+      ],
+      "ozellikler": {
+        "sapkaRengi": [
+          "diger",
+          "kirmizi-turuncu",
+          "beyaz",
+          "gri-siyah"
+        ],
+        "sapkaYuzeyi": [
+          "duz"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "pembe",
+          "diger"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "koku": [
+          "turp"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "sporIzi": [
+          "beyaz"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/turp-mycena.jpg",
+        "cekan": "Thomas Pruß",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Rettichhelmling002.JPG"
+      }
+    },
+    {
+      "id": "murekkep",
+      "ad": "Mürekkep mantarı",
+      "bilimselAd": "Coprinopsis atramentaria",
+      "zehirlilik": "zehirli",
+      "zehirTipi": "mide",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık görülen zehirliler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md).",
+      "aciklama": "Gri-kahve, çan biçimli şapkalı, kümeler halinde çıkan mantar; yaşlanınca siyah mürekkep gibi erir. Alkolle birlikte yenirse (yemekten önceki ve sonraki birkaç gün içinde) yüz kızarması, çarpıntı, bulantı ve kusma yapar. Kırçıl mürekkep mantarıyla karışır.",
+      "karistirilanlar": [
+        "Kırçıl mürekkep mantarı"
+      ],
+      "ozellikler": {
+        "sapkaRengi": [
+          "gri-siyah",
+          "kahverengi",
+          "beyaz"
+        ],
+        "sapkaYuzeyi": [
+          "duz",
+          "lifli"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "pembe",
+          "kahverengi",
+          "koyu"
+        ],
+        "halka": [
+          "hayir",
+          "evet"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "toprak",
+          "cayir",
+          "odun"
+        ],
+        "sporIzi": [
+          "koyu"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/murekkep.jpg",
+        "cekan": "James Lindsey at Ecology of Commanster",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Coprinopsis atramentaria 3 - Lindsey.jpg"
+      }
+    },
+    {
+      "id": "kivrik-kenar",
+      "ad": "Kıvrık kenarlı mantar",
+      "bilimselAd": "Paxillus involutus",
+      "zehirlilik": "olumcul",
+      "zehirTipi": "olumcul",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık görülen zehirliler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md).",
+      "aciklama": "Kahverengi, kenarı içe doğru kıvrık şapkalı, çok yaygın orman mantarı. Solungaçları ayağa doğru iner, kolayca ayrılır ve ezilince kahverengileşir. Eskiden yenirdi; tekrar tekrar yiyenlerde kan hücrelerini yıkan ağır, ölümcül olabilen bir tepki yapar. Çiğken de zehirlidir.",
+      "karistirilanlar": [
+        "Kanlıca (çıntar)"
+      ],
+      "ozellikler": {
+        "sapkaRengi": [
+          "kahverengi",
+          "krem-sari",
+          "kirmizi-turuncu"
+        ],
+        "sapkaYuzeyi": [
+          "duz",
+          "lifli"
+        ],
+        "kenarTuylu": [
+          "evet",
+          "hayir"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "krem-sari",
+          "kahverengi"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "ezince": [
+          "kirmizi-kahve",
+          "degismedi"
+        ],
+        "zemin": [
+          "toprak",
+          "odun"
+        ],
+        "sporIzi": [
+          "kahverengi"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/kivrik-kenar.jpg",
+        "cekan": "Petar Milošević",
+        "lisans": "CC BY-SA 4.0",
+        "kaynak": "Wikimedia Commons, Navadne podvihanke (Paxillus involutus).jpg"
+      }
+    },
+    {
+      "id": "kirmizi-kirmit",
+      "ad": "Kırmızı kırmitler",
+      "bilimselAd": "Russula emetica",
+      "zehirlilik": "zehirli",
+      "zehirTipi": "mide",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık görülen zehirliler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md).",
+      "aciklama": "Parlak kırmızı ya da pembe-kırmızı şapkalı, beyaz-krem solungaçlı, bembeyaz ayaklı, halkası ve torbası olmayan kırmit (Russula) türleri. Eti kolayca tebeşir gibi kırılır, süt akıtmaz. Kusma ve ishal yapar. Kırmızı şapkası yüzünden sinek mantarıyla karışabilir; yağmur sinek mantarının beneklerini silebilir, ayak dibindeki torbaya bak.",
+      "karistirilanlar": [
+        "Sinek mantarı"
+      ],
+      "ozellikler": {
+        "sapkaRengi": [
+          "kirmizi-turuncu",
+          "diger",
+          "beyaz"
+        ],
+        "sapkaYuzeyi": [
+          "duz"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "kesinceRenk": [
+          "degismedi"
+        ],
+        "ezince": [
+          "degismedi"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "sporIzi": [
+          "beyaz",
+          "krem"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/kirmizi-kirmit.jpg",
+        "cekan": "MichalPL",
+        "lisans": "CC BY-SA 4.0",
+        "kaynak": "Wikimedia Commons, Russula emetica in Poland.jpg"
+      }
+    },
+    {
+      "id": "alev-mantari",
+      "ad": "Görkemli alev mantarı",
+      "bilimselAd": "Gymnopilus junonius",
+      "zehirlilik": "zehirli",
+      "zehirTipi": "sinir",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık görülen zehirliler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md).",
+      "aciklama": "Altın-turuncu, iri, lifli şapkalı, kütük ve ağaç dibinde kümeler halinde çıkan mantar. Ayakta halka vardır, spor izi pas kahverengidir; çok acıdır. Bazı bölgelerde sanrı yapan maddeler taşır. Ballıca ile karışabilir.",
+      "karistirilanlar": [
+        "Ballıca mantarı",
+        "Kükürt başlı mantar"
+      ],
+      "ozellikler": {
+        "sapkaRengi": [
+          "kirmizi-turuncu",
+          "krem-sari",
+          "kahverengi"
+        ],
+        "sapkaYuzeyi": [
+          "lifli",
+          "pul",
+          "duz"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "krem-sari",
+          "kahverengi"
+        ],
+        "halka": [
+          "evet",
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "odun",
+          "toprak"
+        ],
+        "sporIzi": [
+          "kahverengi"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/alev-mantari.jpg",
+        "cekan": "Tony Wills",
+        "lisans": "CC BY 2.5",
+        "kaynak": "Wikimedia Commons, Gymnopilus junonius-02.jpg"
+      }
+    },
+    {
+      "id": "tugla-basli",
+      "ad": "Tuğla başlı mantar",
+      "bilimselAd": "Hypholoma lateritium",
+      "zehirlilik": "zehirli",
+      "zehirTipi": "mide",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık görülen zehirliler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md).",
+      "aciklama": "Tuğla kırmızısı ortalı, kenarı açık renkli şapkalı, yaprak döken ağaçların kütüklerinde kümeler halinde çıkan mantar. Kükürt başlı mantarın akrabasıdır; solungaçları grimsi, sonra mor-siyahtır. Acıdır; mide-bağırsak zehirlenmesi yapabilir. Ballıca ile karışabilir.",
+      "karistirilanlar": [
+        "Ballıca mantarı",
+        "Kükürt başlı mantar"
+      ],
+      "ozellikler": {
+        "sapkaRengi": [
+          "kirmizi-turuncu",
+          "kahverengi",
+          "krem-sari"
+        ],
+        "sapkaYuzeyi": [
+          "duz",
+          "lifli"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "krem-sari",
+          "koyu",
+          "kahverengi"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "odun"
+        ],
+        "sporIzi": [
+          "koyu"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/tugla-basli.jpg",
+        "cekan": "Archenzo",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, HypholomaSublateritium.jpg"
+      }
+    },
+    {
+      "id": "kul-tricholoma",
+      "ad": "Kül rengi tricholoma",
+      "bilimselAd": "Tricholoma terreum",
+      "zehirlilik": "zehirli",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık görülen zehirliler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md).",
+      "aciklama": "Gri, keçemsi-lifli şapkalı, beyaz-gri solungaçlı, çam altında bol çıkan mantar. Eskiden yenirdi; yakın akrabası olan sarı tricholoma (T. equestre) çok yenince kas yıkımı yaptığı için bu tür de şüphelidir. Zehirli benzerleri vardır (ör. kaplan tricholoma).",
+      "karistirilanlar": [],
+      "ozellikler": {
+        "sapkaRengi": [
+          "gri-siyah",
+          "kahverengi",
+          "beyaz"
+        ],
+        "sapkaYuzeyi": [
+          "lifli",
+          "pul",
+          "duz"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "beyaz",
+          "krem-sari"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "koku": [
+          "kokusuz",
+          "un"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "sporIzi": [
+          "beyaz"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/kul-tricholoma.jpg",
+        "cekan": "User:Strobilomyces",
+        "lisans": "CC BY-SA 3.0",
+        "kaynak": "Wikimedia Commons, Tricholoma terreum 20061105wa.jpg"
+      }
+    },
+    {
+      "id": "ipeksi-entoloma",
+      "ad": "İpeksi entoloma",
+      "bilimselAd": "Entoloma sericeum",
+      "zehirlilik": "zehirli",
+      "zehirTipi": "mide",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık görülen zehirliler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md).",
+      "aciklama": "Çayır ve çimenlikte çıkan küçük-orta boy, koyu kahve, ipek gibi parlak şapkalı mantar. Solungaçları gri-krem, sonra pembemsidir; spor izi pembedir; un kokar. Mide-bağırsak zehirlenmesi yapar. Çayır mantarı toplarken karışabilir.",
+      "karistirilanlar": [
+        "Çayır mantarı"
+      ],
+      "ozellikler": {
+        "sapkaRengi": [
+          "kahverengi",
+          "gri-siyah"
+        ],
+        "sapkaYuzeyi": [
+          "duz"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "krem-sari",
+          "pembe",
+          "kahverengi",
+          "beyaz"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "koku": [
+          "un",
+          "kokusuz"
+        ],
+        "zemin": [
+          "toprak",
+          "cayir"
+        ],
+        "sporIzi": [
+          "pembe"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/ipeksi-entoloma.jpg",
+        "cekan": "Dr. Hans-Günter Wagner",
+        "lisans": "CC BY-SA 2.0",
+        "kaynak": "Wikimedia Commons, DSC00821 (50545455397).jpg"
+      }
+    },
+    {
+      "id": "saksi-mantari",
+      "ad": "Saksı mantarı",
+      "bilimselAd": "Leucocoprinus birnbaumii",
+      "zehirlilik": "zehirli",
+      "zehirTipi": "mide",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık görülen zehirliler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md).",
+      "aciklama": "Saksı topraklarında, serada ve bahçede çıkan, parlak limon sarısı, ince etli, küçük şemsiye biçimli mantar. Ayakta halka vardır. Zehirli sayılır; çocuklar ve evcil hayvanlar için tehlikelidir.",
+      "karistirilanlar": [],
+      "ozellikler": {
+        "sapkaRengi": [
+          "krem-sari"
+        ],
+        "sapkaYuzeyi": [
+          "pul",
+          "duz"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "krem-sari",
+          "beyaz"
+        ],
+        "halka": [
+          "evet",
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "toprak"
+        ],
+        "sporIzi": [
+          "beyaz"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/saksi-mantari.jpg",
+        "cekan": "Impudicuss",
+        "lisans": "CC0",
+        "kaynak": "Wikimedia Commons, Leucocoprinus birnbaumii growing on potting mix.jpg"
+      }
+    },
+    {
+      "id": "cim-mantari",
+      "ad": "Çim mantarı",
+      "bilimselAd": "Panaeolina foenisecii",
+      "zehirlilik": "zehirli",
+      "zehirTipi": "sinir",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı. 2026-11-02 sık görülen zehirliler arasında eklendi (GBIF gözlem sıklığı; notlar/eklenecek-turler.md).",
+      "aciklama": "Çimenlikte ve çayırda çok sık çıkan küçük, kahverengi, çan biçimli mantar; kururken şapkasında açık renkli halkalar oluşur. Solungaçları koyu kahve, benekli; spor izi koyu kahvedir. Bazı örnekleri hafif sanrı yapabilir; çocukların ağzına aldığı en sık mantarlardandır. Küçük kahverengi mantarların hiçbirini toplama.",
+      "karistirilanlar": [
+        "Çayır mantarı"
+      ],
+      "ozellikler": {
+        "sapkaRengi": [
+          "kahverengi",
+          "krem-sari"
+        ],
+        "sapkaYuzeyi": [
+          "duz"
+        ],
+        "kucukKahverengi": [
+          "evet"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "kahverengi",
+          "koyu"
+        ],
+        "halka": [
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "zemin": [
+          "toprak",
+          "cayir"
+        ],
+        "sporIzi": [
+          "koyu",
+          "kahverengi"
+        ]
+      },
+      "fotograf": {
+        "dosya": "fotograflar/cim-mantari.jpg",
+        "cekan": "Alan Rockefeller",
+        "lisans": "CC BY-SA 4.0",
+        "kaynak": "Wikimedia Commons, Panaeolus foenisecii Cupertino.jpg"
+      }
     }
   ]
 }

@@ -11,6 +11,8 @@ Ağaç gövdesindeki raf mantarları, jelimsi mantarlar ve kuş yuvası mantarla
 
 ## 1. öncelik: sık görülen zehirliler ve karıştırılanlar
 
+**Eklendi (v115, 2026-11-02, Metin: "zehirlileri ekle").** Ölçüm (eğitime girmemiş, üç fotoğraflı gözlemler): kırmızı Russula 12 gözlemin 9'unda, kıvrık kenarlı 6'nın 5'inde, bulut huni 6'nın 6'sında doğru; listedeki türlerde üç fotoğrafla 125 gözlemin 113'ü doğru (önce de 113), "muhtemelen" (≥0,9) 67'nin 67'si doğru. Tek fotoğrafla sabit deneme setinde %79 → %77 (tür sayısı 41 → 56). Limoni amanita ve ipeksi entolomanın ansiklopedi fotoğrafı Commons'tan elle seçildi (Vikipedi'deki yanlış/yok).
+
 | Tür | Önerilen Türkçe ad | TR | Durum (taslak) | Neyle karışır |
 | --- | --- | --- | --- | --- |
 | Coprinopsis picacea | Saksağan mürekkep mantarı | 40 | zehirli (mide) | kırçıl mürekkep |

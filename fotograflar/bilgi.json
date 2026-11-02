@@ -244,5 +244,95 @@
     "dosya": "Schoenfussroehrling.jpg",
     "lisans": "CC BY-SA 3.0",
     "cekan": "W.J.Pilsak"
+  },
+  "saksagan-murekkep": {
+    "madde": "Coprinopsis picacea",
+    "dosya": "Coprinopsis_picacea_2024_G1.jpg",
+    "lisans": "CC BY 4.0",
+    "cekan": "George Chernilevsky"
+  },
+  "kizaran-semsiye": {
+    "madde": "Chlorophyllum rhacodes",
+    "dosya": "Chlorophyllum_rhacodes_LC0093.jpg",
+    "lisans": "CC BY-SA 2.0 de",
+    "cekan": "Jörg Hempel"
+  },
+  "bulut-huni": {
+    "madde": "Clitocybe nebularis",
+    "dosya": "Nevelzwam_(nebularis)_tussen_afgevallen_beukenblad_(d.j.b.)_01.jpg",
+    "lisans": "CC BY-SA 4.0",
+    "cekan": "Dominicus Johannes Bergsma"
+  },
+  "limoni-amanita": {
+    "madde": "Amanita citrina",
+    "dosya": "Amanita citrina (4503847751).jpg",
+    "lisans": "CC BY 2.0",
+    "cekan": "Jason Hollinger"
+  },
+  "sari-panter": {
+    "madde": "Amanita gemmata",
+    "dosya": "Amanita_gemmata_von_hms.jpg",
+    "lisans": "CC BY 3.0",
+    "cekan": "Hans-Martin Scheibner"
+  },
+  "turp-mycena": {
+    "madde": "Mycena pura",
+    "dosya": "Rettichhelmling002.JPG",
+    "lisans": "CC BY-SA 3.0",
+    "cekan": "Thomas Pruß"
+  },
+  "kivrik-kenar": {
+    "madde": "Paxillus involutus",
+    "dosya": "Navadne_podvihanke_(Paxillus_involutus).jpg",
+    "lisans": "CC BY-SA 4.0",
+    "cekan": "Petar Milošević"
+  },
+  "kirmizi-kirmit": {
+    "madde": "Russula emetica",
+    "dosya": "Russula_emetica_in_Poland.jpg",
+    "lisans": "CC BY-SA 4.0",
+    "cekan": "MichalPL"
+  },
+  "alev-mantari": {
+    "madde": "Gymnopilus junonius",
+    "dosya": "Gymnopilus_junonius-02.jpg",
+    "lisans": "CC BY 2.5",
+    "cekan": "Tony Wills"
+  },
+  "tugla-basli": {
+    "madde": "Hypholoma lateritium",
+    "dosya": "HypholomaSublateritium.jpg",
+    "lisans": "CC BY-SA 3.0",
+    "cekan": "Archenzo"
+  },
+  "kul-tricholoma": {
+    "madde": "Tricholoma terreum",
+    "dosya": "Tricholoma_terreum_20061105wa.jpg",
+    "lisans": "CC BY-SA 3.0",
+    "cekan": "User:Strobilomyces"
+  },
+  "saksi-mantari": {
+    "madde": "Leucocoprinus birnbaumii",
+    "dosya": "Leucocoprinus_birnbaumii_growing_on_potting_mix.jpg",
+    "lisans": "CC0",
+    "cekan": "Impudicuss"
+  },
+  "cim-mantari": {
+    "madde": "Panaeolina foenisecii",
+    "dosya": "Panaeolus_foenisecii_Cupertino.jpg",
+    "lisans": "CC BY-SA 4.0",
+    "cekan": "Alan Rockefeller"
+  },
+  "murekkep": {
+    "madde": "Coprinopsis atramentaria",
+    "dosya": "Coprinopsis_atramentaria_3_-_Lindsey.jpg",
+    "lisans": "CC BY-SA 3.0",
+    "cekan": "James Lindsey at Ecology of Commanster"
+  },
+  "ipeksi-entoloma": {
+    "madde": "Entoloma sericeum",
+    "dosya": "DSC00821 (50545455397).jpg",
+    "lisans": "CC BY-SA 2.0",
+    "cekan": "Dr. Hans-Günter Wagner"
   }
 }

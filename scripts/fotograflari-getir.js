@@ -56,6 +56,23 @@ const MADDELER = {
   terleme: 'Clitocybe rivulosa',
   yuksuk: 'Verpa bohemica',
   'aci-corek': 'Caloboletus calopus',
+  // 2026-11-02: sık görülen zehirliler (TASLAK)
+  'saksagan-murekkep': 'Coprinopsis picacea',
+  'kizaran-semsiye': 'Chlorophyllum rhacodes',
+  'bulut-huni': 'Clitocybe nebularis',
+  // Vikipedi'deki ana fotoğraf A. citrina değil ("Amanita sp.", halkasız); limoni amanita ve ipeksi entolomanın fotoğrafı Commons'tan elle seçildi, yeniden getirme.
+  'limoni-amanita': 'Amanita citrina',
+  'sari-panter': 'Amanita gemmata',
+  'turp-mycena': 'Mycena pura',
+  'murekkep': 'Coprinopsis atramentaria',
+  'kivrik-kenar': 'Paxillus involutus',
+  'kirmizi-kirmit': 'Russula emetica',
+  'alev-mantari': 'Gymnopilus junonius',
+  'tugla-basli': 'Hypholoma lateritium',
+  'kul-tricholoma': 'Tricholoma terreum',
+  'ipeksi-entoloma': 'Entoloma sericeum',
+  'saksi-mantari': 'Leucocoprinus birnbaumii',
+  'cim-mantari': 'Panaeolina foenisecii',
 };
 
 // Commons'ta makine tarafından okunamayan çeken adları, dosya sayfalarından elle okundu (26 Ekim 2026).
@@ -122,7 +139,7 @@ mkdirSync(HAM, { recursive: true });
 const sonuc = istenen.length && existsSync(BILGI_DOSYASI) ? JSON.parse(readFileSync(BILGI_DOSYASI, 'utf8')) : {};
 const bekle = (ms) => new Promise((coz) => setTimeout(coz, ms));
 for (const [id, madde] of Object.entries(MADDELER).filter(([id]) => !istenen.length || istenen.includes(id))) {
-  await bekle(1500); // Wikimedia sunucularını yormamak için
+  await bekle(Number(process.env.MANTAR_BEKLE ?? 1500)); // Wikimedia sunucularını yormamak için
   try {
     const dosya = await anaFotograf(madde);
     if (!dosya) { console.log(`${id}: ana fotoğraf yok`); continue; }
