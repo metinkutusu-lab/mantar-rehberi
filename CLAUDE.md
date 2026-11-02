@@ -149,6 +149,10 @@ GBIF ve iNaturalist (gözlem ve fotoğraflar, lisansı kontrol et), Index Fungor
 
 ## Yapılacaklar (ileride)
 
+- **Bulgaristan sürümü (Metin, 2026-11-02: "ileride; uygulama tutarsa sonra diğer ülkeler"):** Dil seçimi (Bulgarca) ve ülke seçimi; Bulgaristan haritasında Mantar ara, oradaki türler ve mevsimleri (GBIF Bulgaristan kayıtları), Bulgaristan'ın acil numaraları (112; zehir danışma hattı araştırılmalı) ve yasal metinler. Önce: Türkiye'de tür listesi oturmalı ve mikolog onaylamalı; arayüz metinleri tek dil dosyasında toplanmalı (şu an kodun içinde Türkçe). Tür listesi sıralamasında Bulgaristan gözlemleri zaten kullanılıyor (`notlar/eklenecek-turler.md`). MVP kapsamında "çoklu dil yok" yazıyordu; Metin'in bu isteğiyle Aşama 3'e alındı.
+
+- **Sık görülen türleri ekle (Metin, 2026-11-02):** `notlar/eklenecek-turler.md`'deki sırayla, önce sık görülen zehirliler, sonra yenenler (zehirli benzeriyle). Hepsi TASLAK; mikolog onayı gerekir.
+
 - **Boyut ölçümü denendi ve bırakıldı (2026-11-01):** Fotoğraftan şapka genişliği için telefonun odak uzaklığı denendi (`focusDistance`; Metin'in telefonu söylemiyor, odak taramasıyla bulundu). Metin'in telefonunda 4 cm'lik nesneye 18 cm dedi ve tarama için düğmeye basıp sabit tutmak zahmetliydi → kaldırıldı. Soru olarak da eklenmeyecek (Metin: "soru sıkıcı"). Yeniden düşünülürse: telefonun derinlik kamerası (ARCore) yalnızca mağaza uygulamasında var.
 
 - **Uydu haritası gelince "Haritanın ortasına kaydet"i aç (Metin'in kararı, 2026-11-01):** Bizim haritada orman içinde tam nokta görünmediği için Mantar ara'daki "Haritanın ortasına kaydet" kodda kalır ama pasif (gizli) durur; yalnızca "Bulunduğum yere kaydet" kullanılır. Uydu haritası (Esri World Imagery, Metin'in hesap açması gerekir) eklenince yeniden etkinleştirilecek.
