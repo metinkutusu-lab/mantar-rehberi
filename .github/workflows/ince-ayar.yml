@@ -12,9 +12,9 @@ on:
     paths: ['notlar/ince-ayar-baslat.txt']
 
 env:
-  # 2026-11-02: MobileNetV3 benimsendi (mantar-modeli-2); şimdi EfficientNetV2-B0 onunla kıyaslanıyor (Metin, 2026-11-01).
+  # 2026-11-03: EfficientNetV2-B0 yalnızca +1,6 puan, iki kat büyük; Metin: "V3'te kal". Yeniden çalıştırılırsa MobileNetV3 denenir.
   KLASOR: vendor/mantar-modeli-3
-  TABAN: efficientnet_v2_b0
+  TABAN: mobilenet_v3_large
 
 permissions:
   contents: write
