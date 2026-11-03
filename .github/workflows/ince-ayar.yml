@@ -12,7 +12,8 @@ on:
     paths: ['notlar/ince-ayar-baslat.txt']
 
 env:
-  # 2026-11-03: EfficientNetV2-B0 yalnızca +1,6 puan, iki kat büyük; Metin: "V3'te kal". Yeniden çalıştırılırsa MobileNetV3 denenir.
+  # 2026-11-03: EfficientNetV2-B0 yalnızca +1,6 puan, iki kat büyük; Metin: "V3'te kal".
+  # 2026-11-03: MobileNetV3 yeniden ince ayarlanır, bu kez gözlemlerin alttan/yandan fotoğraflarıyla da (inat-ek-getir.js).
   KLASOR: vendor/mantar-modeli-3
   TABAN: mobilenet_v3_large
 
@@ -43,6 +44,7 @@ jobs:
         run: |
           node scripts/kaynaklari-indir.js
           node scripts/inat-getir.js
+          node scripts/inat-ek-getir.js
           node scripts/egitim-listesi.js
           node scripts/mantar-degil-getir.js
 
@@ -72,6 +74,8 @@ jobs:
         with:
           path: |
             fotograflar/inat
+            fotograflar/inat-ek
+            fotograflar/inat-ek-kaynaklar.json
             fotograflar/referans
             fotograflar/deneme
             fotograflar/mantar-degil
@@ -93,6 +97,8 @@ jobs:
         with:
           path: |
             fotograflar/inat
+            fotograflar/inat-ek
+            fotograflar/inat-ek-kaynaklar.json
             fotograflar/referans
             fotograflar/deneme
             fotograflar/mantar-degil

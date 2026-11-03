@@ -57,7 +57,8 @@ const istenenTurler = process.argv.slice(2);
 const turler = (istenenTurler.length ? istenenTurler : Object.keys(kaynaklar)).filter((id) => KATEGORILER[id]);
 
 async function turuIndir(id) {
-  if (ek[id]?.length) return console.log(`${id}: zaten var (${ek[id].length})`);
+  // Dosyaları duruyorsa yeniden indirilmez (GitHub'da kaynak listesi depodan gelir ama fotoğraflar yoktur).
+  if (ek[id]?.length && ek[id].every((k) => existsSync(path.join(KOK, 'fotograflar', 'inat-ek', id, k.dosya)))) return console.log(`${id}: zaten var (${ek[id].length})`);
   const liste = (kaynaklar[id] ?? []).slice(0, GOZLEM_BASINA);
   const gozlemler = await fotoListesi(id, new Set(liste.map((k) => k.gozlem)));
   const klasor = path.join(KOK, 'fotograflar', 'inat-ek', id);

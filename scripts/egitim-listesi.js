@@ -13,6 +13,9 @@ const lisans = new Map();
 for (const t of turler) lisans.set(t.fotograf.dosya, t.fotograf.lisans);
 for (const [id, l] of Object.entries(oku('fotograflar/referans-kaynaklar.json'))) for (const k of l) lisans.set(`fotograflar/referans/${id}/${k.dosya}`, k.lisans);
 for (const [id, l] of Object.entries(oku('fotograflar/inat-kaynaklar.json'))) for (const k of l) lisans.set(`fotograflar/inat/${id}/${k.dosya}`, k.lisans);
+// Gözlemlerin 2. ve 3. fotoğrafları (alttan, yandan; scripts/inat-ek-getir.js). 2026-11-03: model bunlarla da ince ayarlanır
+// (Metin: "daha doğru tahmin"); kullanıcı da üç açıdan çekiyor.
+for (const [id, l] of Object.entries(oku('fotograflar/inat-ek-kaynaklar.json'))) for (const k of l) lisans.set(`fotograflar/inat-ek/${id}/${k.dosya}`, k.lisans);
 const dosyalar = (klasor) => {
   const tam = path.join(KOK, klasor);
   return existsSync(tam) ? readdirSync(tam).filter((d) => /^\d+\.jpe?g$/i.test(d)).sort().map((d) => `${klasor}/${d}`) : [];
@@ -21,7 +24,8 @@ const dosyalar = (klasor) => {
 const siniflar = turler.map((t) => t.id);
 const ornekler = [];
 turler.forEach((t, sinif) => {
-  for (const dosya of [t.fotograf.dosya, ...dosyalar(`fotograflar/referans/${t.id}`), ...dosyalar(`fotograflar/inat/${t.id}`)]) {
+  const ekler = (oku('fotograflar/inat-ek-kaynaklar.json')[t.id] ?? []).map((k) => `fotograflar/inat-ek/${t.id}/${k.dosya}`);
+  for (const dosya of [t.fotograf.dosya, ...dosyalar(`fotograflar/referans/${t.id}`), ...dosyalar(`fotograflar/inat/${t.id}`), ...ekler]) {
     if (egitimeUygunLisans(lisans.get(dosya)) && existsSync(path.join(KOK, dosya))) ornekler.push({ dosya, sinif });
   }
 });
