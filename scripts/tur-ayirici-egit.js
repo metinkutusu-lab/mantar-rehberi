@@ -70,13 +70,21 @@ const LISANSLAR = new Map();
 for (const t of turler) LISANSLAR.set(t.fotograf.dosya, t.fotograf.lisans);
 for (const [id, liste] of Object.entries(jsonOku('fotograflar/referans-kaynaklar.json'))) for (const k of liste) LISANSLAR.set(`fotograflar/referans/${id}/${k.dosya}`, k.lisans);
 for (const [id, liste] of Object.entries(jsonOku('fotograflar/inat-kaynaklar.json'))) for (const k of liste) LISANSLAR.set(`fotograflar/inat/${id}/${k.dosya}`, k.lisans);
+// Gözlemlerin 2. ve 3. fotoğrafları (alttan, yandan; scripts/inat-ek-getir.js, 2026-11-03). Yalnızca MANTAR_EK_ACILAR=1 ile
+// kullanılır: ayırıcıya eklemek üç fotoğrafla 1. sırayı %90 → %87 düşürdü, ilk 3'ü %97 → %98 çıkardı (125 gözlem); benimsenmedi.
+const EK_ACILAR = process.env.MANTAR_EK_ACILAR === '1';
+for (const [id, liste] of Object.entries(jsonOku('fotograflar/inat-ek-kaynaklar.json'))) for (const k of liste) LISANSLAR.set(`fotograflar/inat-ek/${id}/${k.dosya}`, k.lisans);
+const ekAciDosyalari = (id) => {
+  const tam = path.join(KOK, 'fotograflar/inat-ek', id);
+  return EK_ACILAR && existsSync(tam) ? readdirSync(tam).filter((d) => /\.jpe?g$/i.test(d)).sort().map((d) => `fotograflar/inat-ek/${id}/${d}`) : [];
+};
 for (const [sinif, liste] of Object.entries(jsonOku('fotograflar/alt-yapi-kaynaklar.json'))) for (const k of liste) LISANSLAR.set(`fotograflar/alt-yapi/${sinif}/${k.dosya}`, k.lisans);
 const DEGIL_KAYNAKLARI = jsonOku('fotograflar/mantar-degil-kaynaklar.json');
 for (const [grup, liste] of Object.entries(DEGIL_KAYNAKLARI)) for (const k of liste) LISANSLAR.set(`fotograflar/mantar-degil/${grup}/${k.dosya}`, k.lisans);
 // MANTAR_DENEY_TUM_LISANSLAR=1 yalnızca karşılaştırma ölçümü içindir (lisans süzgecinin etkisini görmek); yayına çıkan
 // dosya hiçbir zaman bununla üretilmez (scripts/haftalik-guncelle.js kullanmaz).
 const egitimeUygun = (dosya) => (process.env.MANTAR_DENEY_TUM_LISANSLAR === '1' && OLC ? LISANSLAR.has(dosya) : egitimeUygunLisans(LISANSLAR.get(dosya)));
-const turunFotograflari = (t) => [t.fotograf.dosya, ...klasorDosyalari(`fotograflar/referans/${t.id}`), ...klasorDosyalari(`fotograflar/inat/${t.id}`)].filter(egitimeUygun);
+const turunFotograflari = (t) => [t.fotograf.dosya, ...klasorDosyalari(`fotograflar/referans/${t.id}`), ...klasorDosyalari(`fotograflar/inat/${t.id}`), ...ekAciDosyalari(t.id)].filter(egitimeUygun);
 const degilDosyalari = () => Object.keys(DEGIL_KAYNAKLARI).flatMap((g) => klasorDosyalari(`fotograflar/mantar-degil/${g}`)).filter(egitimeUygun);
 const cokluDenemeDosyalari = () => (existsSync(path.join(KOK, 'fotograflar/coklu-deneme'))
   ? readdirSync(path.join(KOK, 'fotograflar/coklu-deneme'), { recursive: true }).map((d) => d.replaceAll(path.sep, '/')).filter((d) => /\.jpe?g$/i.test(d)).map((d) => `fotograflar/coklu-deneme/${d}`)
@@ -99,7 +107,7 @@ const isler = MANTAR_MI
     id: t.id,
     tehlikeli: t.zehirlilik !== 'yenen',
     ana: egitimeUygun(t.fotograf.dosya) ? t.fotograf.dosya : null,
-    ekler: [...klasorDosyalari(`fotograflar/referans/${t.id}`), ...klasorDosyalari(`fotograflar/inat/${t.id}`)].filter(egitimeUygun),
+    ekler: [...klasorDosyalari(`fotograflar/referans/${t.id}`), ...klasorDosyalari(`fotograflar/inat/${t.id}`), ...ekAciDosyalari(t.id)].filter(egitimeUygun),
     // Sabit deneme seti (scripts/deneme-seti.js): eğitime hiç girmez, yalnızca ölçümde kullanılır.
     deneme: klasorDosyalari(`fotograflar/deneme/${t.id}`),
   }));

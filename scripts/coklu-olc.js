@@ -25,7 +25,11 @@ const sunucu = createServer((istek, yanit) => {
 const tarayici = await chromium.launch({ executablePath: yol });
 const sayfa = await tarayici.newPage();
 await sayfa.goto(`http://localhost:${sunucu.address().port}/__bos`);
-const sonuc = await sayfa.evaluate(async (gozlemler) => {
+// MANTAR_TTA: her fotoğrafa birkaç biçimde bakılır ve hepsinin puanı birlikte ortalanır (ör. "t,a,y": olduğu gibi,
+// aynalanmış, %70 yakınlaştırılmış). Uygulamada denenmeden önce burada ölçülür (2026-11-03).
+const BICIMLER = { t: {}, a: { cevir: true }, y: { yakinlik: 0.7 }, z: { yakinlik: 0.5 }, ya: { yakinlik: 0.7, cevir: true } };
+const TTA = (process.env.MANTAR_TTA ?? 't').split(',').map((b) => BICIMLER[b]);
+const sonuc = await sayfa.evaluate(async ({ gozlemler, TTA }) => {
   const f = await import('/js/fotoTanima.js');
   await f.modeliHazirla();
   const ayirici = await f.ayiriciyiYukle();
@@ -38,10 +42,12 @@ const sonuc = await sayfa.evaluate(async (gozlemler) => {
       const r = new Image();
       r.src = `/${d}`;
       await r.decode();
-      izler.push(await f.parmakIzi(r, {}));
+      const bicimler = [];
+      for (const b of TTA) bicimler.push(await f.parmakIzi(r, b));
+      izler.push(bicimler);
     }
     for (const [ad, sec] of Object.entries(birlesimler)) {
-      const olas = f.benzerlikleriHesapla(sec.map((i) => izler[i]), ayirici);
+      const olas = f.benzerlikleriHesapla(sec.flatMap((i) => izler[i]), ayirici);
       const s = sira(olas, g.id);
       const c = sayac[ad];
       if (s === 0) c.ilk1++;
@@ -51,7 +57,7 @@ const sonuc = await sayfa.evaluate(async (gozlemler) => {
     }
   }
   return sayac;
-}, gozlemler);
+}, { gozlemler, TTA });
 await tarayici.close();
 sunucu.close();
 const y = (a, b) => `%${Math.round((a / Math.max(1, b)) * 100)}`;
