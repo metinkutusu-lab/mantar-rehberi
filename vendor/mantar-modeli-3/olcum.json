@@ -1,0 +1,16 @@
+{
+ "_aciklama": "İnce ayarlı modelin sabit deneme setindeki ölçümü ve yayındaki modelinki (scripts/ince-ayar-dene.js).",
+ "tarih": "2026-11-03",
+ "yeni": {
+  "fotograf": 425,
+  "ilk1": 0.7670588235294118,
+  "ilk3": 0.8988235294117647,
+  "ornek": 13477
+ },
+ "eski": {
+  "fotograf": 425,
+  "ilk1": 0.7435294117647059,
+  "ilk3": 0.88,
+  "ornek": 13477
+ }
+}
