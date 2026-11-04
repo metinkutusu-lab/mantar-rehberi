@@ -168,6 +168,7 @@ function tanimlaCiz() {
   if (egitim.tekrar || !tanimlamaAcilabilirMi(durumuOku())) {
     // Mevsim kartları yalnızca ana ekranda görünür; eğitim sırasında yer kaplamasın.
     document.getElementById('mevsim').hidden = true;
+    document.getElementById('ana-dugmeler').hidden = true;
     kap.replaceChildren(egitimAdimiCiz());
     return;
   }
