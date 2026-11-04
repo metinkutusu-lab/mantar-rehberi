@@ -162,10 +162,14 @@ GBIF ve iNaturalist (gözlem ve fotoğraflar, lisansı kontrol et), Index Fungor
 
 - İlk sürüm hangi bölgeye odaklanacak (Karadeniz, Ege, tüm Türkiye)?
 - Ücretsiz mi, ücretli mi, abonelik mi? (Şimdilik hiçbir yere ödeme yapılmıyor.)
-- Fotoğraf modeli ilk sürümde yok; Aşama 2'de değerlendirilecek.
 - Acil ekranındaki belirti metinleri UZEM yayınlarıyla ve bir hekimle doğrulanmalı (şu an taslak).
 
 ## Çalışma biçimi
+
+- **Geliştirme düzeni (Metin, 2026-11-04):** Yeni özellikleri claude.ai'deki proje sohbetindeki Claude geliştirir. Bilgisayardaki klasörde çalışan Claude (Claude Code) kendi başına özellik eklemez; yalnızca GitHub'daki son hâli indirip klasörü güncel tutar (`git pull --rebase origin main`). Bu düzen Metin değiştirene kadar geçerlidir.
+- **Şu anki durum (2026-11-04):** Uygulama v118; 62 tür (hepsi TASLAK, mikolog onayı bekliyor); yayındaki model `vendor/mantar-modeli-3/` (çok açılı fotoğraflarla ince ayarlı MobileNetV3, ~6 MB); üç fotoğrafla 125 gözlemde 1. sırada %90, ilk 3'te %99. EfficientNetV2 benimsenmedi.
+- **Ayakta duran kararlar (2026-11-02/04):** Tanımlama sonucuna lezzet sırası ya da sıra numarası yazılmaz. Eski yenen ama artık zehirli sayılan türler zehirli gösterilir (kıvrık kenarlı, kül rengi tricholoma). Beyaz trüf listede yok. Kızaran amanita, torbalı pluteus ve kırmızı ayaklı çörek bilerek yok. Bulgaristan sürümü ileride.
+- **İnce ayar işi uyarısı:** `.github/workflows/ince-ayar.yml` şu an `KLASOR: vendor/mantar-modeli-3`; yeniden çalıştırmadan önce yeni bir klasör adı verilmeli (yayındaki modelin üstüne yazmasın). İş sürerken (~6 saat) main'e yükleme yapılmamalı: `sw.js` ve `js/surum.js` çakışır, geçiş adımı durur (2026-11-02'de oldu).
 
 - Metin programlama bilmiyor: tek yol öner, seçenek listesi sunma; kendisinin yapması gereken her adımı nereye tıklayacağıyla anlat.
 - Proje sahibine danışmadan repo oluşturma.
