@@ -1255,3 +1255,33 @@ body.harita-tam-ekran { overflow: hidden; }
   .takip-cubuk-dolgu { transition: none; }
 }
 .takip-baslik .metin-dugme { margin: 0 0 0 auto; padding: 8px 4px; }
+
+/* Ana sayfanın en üstündeki iki büyük düğme (Metin, 2026-11-04: "butonlar çok aşağıda"). */
+.ana-dugmeler { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 4px 0 0; }
+.ana-dugmeler[hidden] { display: none; }
+.ana-dugme { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 84px; padding: 12px 8px; font-size: 16px; line-height: 1.2; text-align: center; text-decoration: none; }
+.ana-dugme .ikon { width: 28px; height: 28px; }
+.tanimla-giris .yanina-al { margin-top: 16px; }
+
+/* Aradığın mantarlar, mevsim şeridinin başında (js/takipMantarlari.js). */
+.mevsim-foto.aranan { width: 76px; gap: 2px; cursor: pointer; }
+.mevsim-foto.aranan .takip-foto { width: 52px; height: 52px; padding: 3px; }
+.mevsim-foto.aranan .mevsim-foto-resim { width: 100%; height: 100%; border: none; box-shadow: none; }
+.aranan-durum { font-size: 10.5px; font-weight: 700; line-height: 1.15; color: var(--soluk); text-align: center; }
+.mevsim-foto.aranan .takip-cubuk { width: 46px; height: 4px; margin-top: 1px; }
+.mevsim-foto.aranan.durum-verimli .takip-foto { background: var(--turuncu); animation: takip-nabiz 1.8s ease-in-out infinite; }
+.mevsim-foto.aranan.durum-verimli .aranan-durum { color: var(--turuncu); }
+.mevsim-foto.aranan.durum-verimli .takip-cubuk-dolgu { background: var(--turuncu); }
+.mevsim-foto.aranan.durum-bekle .takip-foto { background: var(--marka-acik); }
+.mevsim-foto.aranan.durum-bekle .aranan-durum { color: var(--marka); }
+.mevsim-foto.aranan.durum-mevsimDisi, .mevsim-foto.aranan.durum-yok { opacity: 0.7; }
+.mevsim-foto.aranan.durum-mevsimDisi .mevsim-foto-resim { filter: grayscale(0.8); }
+.aranan-sec { cursor: pointer; }
+.aranan-sec-daire { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; border: 2px dashed var(--marka); color: var(--marka); font-size: 22px; font-weight: 700; line-height: 1; }
+.aranan-sec.acik .aranan-sec-daire { border-style: solid; background: var(--marka-acik); font-size: 18px; }
+.aranan-ayrac { flex: 0 0 auto; width: 1px; margin: 4px 4px 18px; background: var(--cizgi); }
+.ana-kart > .takip-secici { margin: 4px 0 12px; padding: 12px 0; border-top: 1px solid var(--cizgi); border-bottom: 1px solid var(--cizgi); }
+.ana-kart > .takip-secici[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .mevsim-foto.aranan.durum-verimli .takip-foto { animation: none; }
+}

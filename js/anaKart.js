@@ -2,13 +2,13 @@
 // - Üstte mantar mevsimi ve takip edilen yerin çubukları; altında Şimdi güncelle / Takibi bırak.
 // - (i) düğmesi bütün açıklamaları tek yerde açar: mevsim tarihleri, nereye bakmalı, yerin yağmur ayrıntıları.
 // - "Yerlerim": kayıtlı ve gizli yerlerin tek listesi, yer arama, konum ve elle yağmur tarihi.
-import { cubukCiz, el, ikon, kucukFotograf } from './dom.js';
+import { cubukCiz, el, kucukFotograf } from './dom.js';
 import { MEVSIM_NOTU, SICAKLIK_IPUCU, mevsimDurumu } from './mevsim.js';
 import { turleriYukle } from './turler.js';
 import { aranmaSirasinaGore, mevsimdeMi } from './uygunluk.js';
 import { KAYNAK_NOTU, YAGMUR_NOTU } from './yagmur.js';
 import { aramaBolumu, takipBilgisi, takipSatiri } from './yagmurKarti.js';
-import { takipMantarlari } from './takipMantarlari.js';
+import { arananTurIdleri, takipBilgiMetni, takipKutulari, takipSecici } from './takipMantarlari.js';
 import { konumBolumu, yerlerimAcildi, yerlerimListesi } from './yerlerim.js';
 
 const tarih = (t) => t.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' });
@@ -23,30 +23,42 @@ const mevsimBilgisi = el('div', { className: 'bilgi-bolum' });
 const YUMRULAR = new Set(['kara-truf', 'keme']);
 const mevsimFotolari = el('div', { className: 'mevsim-fotolari', role: 'list', 'aria-label': 'Bu mevsimin mantarları' });
 const fotoKaynaklari = el('p', { className: 'not' });
+const takipNotu = el('p', { className: 'not' });
 
 const bilgiPaneli = el('div', { className: 'bilgi-paneli', hidden: true },
   mevsimBilgisi,
   takipBilgisi(),
+  takipNotu,
   el('p', { className: 'not', textContent: `${YAGMUR_NOTU} ${KAYNAK_NOTU}` }),
   fotoKaynaklari,
 );
 
+// Aranan mantarlar (js/takipMantarlari.js) şeridin başında; mevsim listesinde tekrar edilmezler (Metin, 2026-11-04).
+let cizimSirasi = 0;
 async function mevsimFotolariniCiz() {
+  const bu = ++cizimSirasi;
   const ay = new Date().getMonth() + 1;
-  const secilen = aranmaSirasinaGore((await turleriYukle())
-    .filter((t) => t.zehirlilik === 'yenen' && t.aylar?.length && mevsimdeMi(t, ay) && t.fotograf?.dosya))
+  const turler = await turleriYukle();
+  const aranan = new Set(arananTurIdleri());
+  const secilen = aranmaSirasinaGore(turler
+    .filter((t) => t.zehirlilik === 'yenen' && t.aylar?.length && mevsimdeMi(t, ay) && t.fotograf?.dosya && !aranan.has(t.id)))
     .sort((x, y) => YUMRULAR.has(x.id) - YUMRULAR.has(y.id));
-  mevsimFotolari.replaceChildren(...secilen.map((t) => {
+  const notMetni = await takipBilgiMetni();
+  if (bu !== cizimSirasi) return; // Arada yeni bir çizim başladıysa eskisi yazılmasın.
+  mevsimFotolari.replaceChildren(...takipKutulari(turler), ...secilen.map((t) => {
     const d = el('button', { type: 'button', className: 'mevsim-foto', onclick: () => document.dispatchEvent(new CustomEvent('ansiklopedide-ac', { detail: t.id })) },
       kucukFotograf(t, 'mevsim-foto-resim'), el('span', { className: 'mevsim-foto-ad', textContent: t.ad.replace(/\s*\(.*\)$/, '') }));
     d.setAttribute('role', 'listitem');
     d.setAttribute('aria-label', `${t.ad.replace(/\s*\(.*\)$/, '')}: ansiklopedide aç`);
     return d;
   }));
-  fotoKaynaklari.textContent = secilen.length
-    ? `Üstteki fotoğraflar (bu mevsimin mantarları): ${secilen.map((t) => `${t.ad.replace(/\s*\(.*\)$/, '')}: ${t.fotograf.cekan ?? t.fotograf.ceken ?? ''}, ${t.fotograf.lisans}`).join('; ')}.`
+  takipNotu.textContent = notMetni;
+  const fotolu = [...turler.filter((t) => aranan.has(t.id) && t.fotograf), ...secilen];
+  fotoKaynaklari.textContent = fotolu.length
+    ? `Üstteki fotoğraflar: ${fotolu.map((t) => `${t.ad.replace(/\s*\(.*\)$/, '')}: ${t.fotograf.cekan ?? t.fotograf.ceken ?? ''}, ${t.fotograf.lisans}`).join('; ')}.`
     : '';
 }
+document.addEventListener('mevsim-seridi-yenile', () => mevsimFotolariniCiz());
 
 const bilgiDugmesi = el('button', {
   type: 'button',
@@ -82,11 +94,11 @@ const kart = el('section', { className: 'kart ana-kart' },
     mevsimFotolari,
     bilgiDugmesi,
   ),
+  // Aradığın mantarların seçicisi şeridin hemen altında açılır.
+  takipSecici(),
   mevsimSatiri,
   takipSatiri(),
-  takipMantarlari(),
-  // Kısa ad ve harita+büyüteç simgesi (Metin, 2026-10-28: uzun yazı göze hoş gelmiyordu; açıklama Mantar ara'nın (i)'sinde).
-  el('a', { className: 'birincil ara-baglanti', href: '#mantar-ara', 'aria-label': 'Mantar ara: haritada uygun yerler' }, ikon('haritaAra'), el('span', { textContent: 'Mantar ara' })),
+  // "Mantar ara" düğmesi 2026-11-04'te sayfanın en üstüne, Fotoğrafla tanımla'nın yanına taşındı (js/tanimla.js).
   bilgiPaneli,
   yerlerim,
 );

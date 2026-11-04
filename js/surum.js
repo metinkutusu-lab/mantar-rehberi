@@ -1,4 +1,4 @@
 // Uygulamanın sürümü ve yayın tarihi (Metin'in isteği, 2026-10-27: "güncelleme geldi mi anlayamıyorum; hangi sürüm, ne zaman").
 // SURUM, sw.js'teki SURUM ile aynı olmalı (test denetler). TARIH'i `npm run yukle` sürüm değişince kendisi yazar.
-export const SURUM = 'v118';
-export const TARIH = '2026-11-03';
+export const SURUM = 'v119';
+export const TARIH = '2026-11-04';

@@ -14,7 +14,7 @@ export const AZAMI_TAKIP_MANTARI = 3;
 export const TAKIP_NOTU = 'Yaklaşık bir ipucudur: mantarın çıkması toprağa, ağaca ve sıcaklığa da bağlıdır. Bulduğun her mantarı Tanımla ile incele.';
 
 // Bölüm ilk çağrıda kurulur (hesap kısmı testte tarayıcı olmadan da çalışsın).
-let kap = null;
+let seciciKap = null;
 let secimAcik = false;
 const kisaAd = (t) => t.ad.replace(/\s*\(.*\)$/, '');
 const tarihYaz = (t) => t.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' });
@@ -33,53 +33,98 @@ function secimiYaz(liste) {
  */
 export function turDurumu(tur, daily, bugun = new Date()) {
   const ay = bugun.getMonth() + 1;
-  if (!mevsimdeMi(tur, ay)) return { durum: 'mevsimDisi', yazi: `Mevsimi değil (${ayAraligi(tur.aylar)})`, yuzde: 0 };
-  if (!daily) return { durum: 'bilgiYok', yazi: 'Yağmur bilgisi bekleniyor', yuzde: 0 };
+  if (!mevsimdeMi(tur, ay)) return { durum: 'mevsimDisi', yazi: `Mevsimi değil (${ayAraligi(tur.aylar)})`, kisa: 'Mevsimi değil', yuzde: 0 };
+  if (!daily) return { durum: 'bilgiYok', yazi: 'Yağmur bilgisi bekleniyor', kisa: 'Bekleniyor', yuzde: 0 };
   const profilAdi = tur.yagmurSonrasi ?? 'orta';
   const profil = GECIKME_PROFILLERI[profilAdi] ?? GECIKME_PROFILLERI.orta;
   const p = mantarPenceresi(gunlukKayitlar(daily), bugun, profilAdi);
   if (p.durum === 'verimli') {
     const s = p.simdiki;
-    return { durum: 'verimli', yazi: s.verimliKalanGun <= 1 ? 'En uygun dönemin son günü' : `Şimdi en uygun dönem · ${s.verimliKalanGun} gün daha`, yuzde: Math.round((s.verimliKalanGun / s.verimliToplamGun) * 100) };
+    return { durum: 'verimli', yazi: s.verimliKalanGun <= 1 ? 'En uygun dönemin son günü' : `Şimdi en uygun dönem · ${s.verimliKalanGun} gün daha`, kisa: s.verimliKalanGun <= 1 ? 'Son gün' : 'En uygun', yuzde: Math.round((s.verimliKalanGun / s.verimliToplamGun) * 100) };
   }
   if (p.durum === 'bekle') {
     const kalan = p.siradaki.kalanGun;
-    return { durum: 'bekle', yazi: kalan <= 1 ? 'En uygun dönem yarın başlıyor' : `En uygun döneme ${kalan} gün`, yuzde: Math.round(Math.max(0, profil.bas - kalan) / profil.bas * 100) };
+    return { durum: 'bekle', yazi: kalan <= 1 ? 'En uygun dönem yarın başlıyor' : `En uygun döneme ${kalan} gün`, kisa: kalan <= 1 ? 'Yarın' : `${kalan} gün sonra`, yuzde: Math.round(Math.max(0, profil.bas - kalan) / profil.bas * 100) };
   }
   if (p.durum === 'azaliyor') {
-    return { durum: 'azaliyor', yazi: `Azalıyor · ${p.simdiki.kalanGun} gün içinde kurur`, yuzde: Math.round((p.simdiki.kalanGun / Math.max(1, p.simdiki.azalmaToplamGun)) * 100) };
+    return { durum: 'azaliyor', yazi: `Azalıyor · ${p.simdiki.kalanGun} gün içinde kurur`, kisa: 'Azalıyor', yuzde: Math.round((p.simdiki.kalanGun / Math.max(1, p.simdiki.azalmaToplamGun)) * 100) };
   }
   if (p.tahmin) {
     const bas = new Date(p.tahmin.tarih.getTime() + profil.bas * 864e5);
-    return { durum: 'yok', yazi: `Yağmur bekleniyor (${tarihYaz(p.tahmin.tarih)}); en uygun dönem ${tarihYaz(bas)} civarı`, yuzde: 0 };
+    return { durum: 'yok', yazi: `Yağmur bekleniyor (${tarihYaz(p.tahmin.tarih)}); en uygun dönem ${tarihYaz(bas)} civarı`, kisa: 'Yağmur bekleniyor', yuzde: 0 };
   }
-  return { durum: 'yok', yazi: 'Son haftalarda büyük yağmur yok; mantar zor çıkar', yuzde: 0 };
+  return { durum: 'yok', yazi: 'Son haftalarda büyük yağmur yok; mantar zor çıkar', kisa: 'Yağmur yok', yuzde: 0 };
 }
 
-function satirCiz(tur, daily) {
+// Şerit yeniden çizilsin (js/anaKart.js dinler).
+const seridiYenile = () => document.dispatchEvent(new Event('mevsim-seridi-yenile'));
+
+// Takip edilen yer varken aranan türlerin kimlikleri (şeritte bunlar başa alınır, mevsim listesinde tekrar edilmez).
+export function arananTurIdleri() {
+  return durumuOku().takipYeri ? secilenler() : [];
+}
+
+// Şeritteki tek aranan tür: fotoğraf, ad, kısa durum ve altında dolan küçük çubuk. Dokununca ansiklopedideki sayfası açılır.
+function kutuCiz(tur, daily) {
   const d = turDurumu(tur, daily);
   const dolgu = el('span', { className: 'takip-cubuk-dolgu' });
   // Çubuk boştan dolarak açılır (canlılık); hareket azaltma tercihi olan telefonda CSS hareketi kapatır.
   requestAnimationFrame(() => requestAnimationFrame(() => { dolgu.style.width = `${d.yuzde}%`; }));
-  return el('button', {
+  const k = el('button', {
     type: 'button',
-    className: `takip-tur durum-${d.durum}`,
+    className: `mevsim-foto aranan durum-${d.durum}`,
     onclick: () => document.dispatchEvent(new CustomEvent('ansiklopedide-ac', { detail: tur.id })),
-    'aria-label': `${kisaAd(tur)}: ${d.yazi}`,
   },
-  el('span', { className: 'takip-foto' }, kucukFotograf(tur, 'takip-foto-resim')),
-  el('span', { className: 'takip-govde' },
-    el('strong', { textContent: kisaAd(tur) }),
-    el('span', { className: 'takip-yazi', textContent: d.yazi }),
-    el('span', { className: 'takip-cubuk', 'aria-hidden': 'true' }, dolgu),
-  ));
+  el('span', { className: 'takip-foto' }, kucukFotograf(tur, 'mevsim-foto-resim')),
+  el('span', { className: 'mevsim-foto-ad', textContent: kisaAd(tur) }),
+  el('span', { className: 'aranan-durum', textContent: d.kisa }),
+  el('span', { className: 'takip-cubuk', 'aria-hidden': 'true' }, dolgu));
+  k.setAttribute('role', 'listitem');
+  k.setAttribute('aria-label', `Aradığın mantar, ${kisaAd(tur)}: ${d.yazi}. Ansiklopedide aç`);
+  return k;
 }
 
-function seciciCiz(turler) {
+/**
+ * Mevsim şeridinin başına girecek kutular: aranan türler ve "Seç / Değiştir" kutusu.
+ * Takip edilen yer yoksa boş liste (bölüm daha önce de yalnızca takip edilen yer varken görünüyordu).
+ */
+export function takipKutulari(turler) {
+  const { takipYeri, takipVerisi } = durumuOku();
+  if (!takipYeri) return [];
+  const secili = secilenler().map((id) => turler.find((t) => t.id === id)).filter(Boolean);
+  const sec = el('button', {
+    type: 'button',
+    className: `mevsim-foto aranan-sec${secimAcik ? ' acik' : ''}`,
+    'aria-expanded': String(secimAcik),
+    onclick: () => { secimAcik = !secimAcik; seciciCiz(); seridiYenile(); },
+  },
+  el('span', { className: 'aranan-sec-daire', 'aria-hidden': 'true', textContent: secimAcik ? '✕' : secili.length ? '✎' : '+' }),
+  el('span', { className: 'mevsim-foto-ad', textContent: secimAcik ? 'Kapat' : secili.length ? 'Değiştir' : 'Aradığını seç' }));
+  sec.setAttribute('role', 'listitem');
+  sec.setAttribute('aria-label', secimAcik ? 'Seçimi kapat' : `Aradığın mantarları ${secili.length ? 'değiştir' : 'seç'}: ${takipYeri.ad} için ne zaman en uygun dönemde olduklarını gösterir`);
+  const kutular = secili.map((t) => kutuCiz(t, takipVerisi?.daily));
+  return [...kutular, sec, el('span', { className: 'aranan-ayrac', 'aria-hidden': 'true' })];
+}
+
+// (i) panelindeki açıklama: aranan türlerin uzun durum yazıları ve not.
+export async function takipBilgiMetni() {
+  const { takipYeri, takipVerisi } = durumuOku();
+  if (!takipYeri) return '';
+  const turler = await turleriYukle();
+  const secili = secilenler().map((id) => turler.find((t) => t.id === id)).filter(Boolean);
+  if (!secili.length) return '';
+  return `Aradığın mantarlar (${takipYeri.ad}): ${secili.map((t) => `${kisaAd(t)}: ${turDurumu(t, takipVerisi?.daily).yazi}`).join('; ')}. ${TAKIP_NOTU}`;
+}
+
+async function seciciCiz() {
+  if (!seciciKap) return;
+  seciciKap.hidden = !secimAcik || !durumuOku().takipYeri;
+  if (seciciKap.hidden) { seciciKap.replaceChildren(); return; }
+  const turler = await turleriYukle();
   const secili = new Set(secilenler());
   const yenen = aranmaSirasinaGore(turler.filter((t) => t.zehirlilik === 'yenen' && t.fotograf?.dosya));
-  const not = el('p', { className: 'not', textContent: `En çok ${AZAMI_TAKIP_MANTARI} mantar seçebilirsin.` });
-  return el('div', { className: 'takip-secici' },
+  const not = el('p', { className: 'not', textContent: `Aradığın mantarları seç (en çok ${AZAMI_TAKIP_MANTARI}); ${durumuOku().takipYeri.ad} için her birinin ne zaman en uygun dönemde olduğunu göstereyim.` });
+  seciciKap.replaceChildren(
     not,
     el('div', { className: 'takip-secenekler' }, ...yenen.map((t) => {
       const d = el('button', {
@@ -91,42 +136,24 @@ function seciciCiz(turler) {
           else if (secili.size < AZAMI_TAKIP_MANTARI) secili.add(t.id);
           else { not.textContent = `En çok ${AZAMI_TAKIP_MANTARI} mantar seçebilirsin; önce birini çıkar.`; return; }
           secimiYaz([...secili]);
-          ciz();
+          seciciCiz();
+          seridiYenile();
         },
       }, kucukFotograf(t, 'takip-secenek-resim'), el('span', { textContent: kisaAd(t) }));
       d.querySelector('img')?.setAttribute('loading', 'eager');
       return d;
     })),
-    el('button', { type: 'button', className: 'birincil', textContent: 'Tamam', onclick: () => { secimAcik = false; ciz(); } }),
+    el('button', { type: 'button', className: 'birincil', textContent: 'Tamam', onclick: () => { secimAcik = false; seciciCiz(); seridiYenile(); } }),
   );
 }
 
-async function ciz() {
-  if (!kap) return;
-  const { takipYeri, takipVerisi } = durumuOku();
-  kap.hidden = !takipYeri;
-  if (!takipYeri) return;
-  const turler = await turleriYukle();
-  const secili = secilenler().map((id) => turler.find((t) => t.id === id)).filter(Boolean);
-  const baslik = el('div', { className: 'takip-baslik' },
-    el('strong', { textContent: 'Aradığın mantarlar' }),
-    el('button', { type: 'button', className: 'metin-dugme', textContent: secimAcik ? 'Kapat' : secili.length ? 'Değiştir' : 'Seç', onclick: () => { secimAcik = !secimAcik; ciz(); } }),
-  );
-  const govde = [];
-  if (secimAcik) govde.push(seciciCiz(turler));
-  if (!secili.length && !secimAcik) {
-    govde.push(el('p', { className: 'not', textContent: `Aradığın mantarları seç; ${takipYeri.ad} için her birinin ne zaman en uygun dönemde olduğunu göstereyim.` }));
+// Şeridin altında açılan seçici (kartı js/anaKart.js kurar).
+export function takipSecici() {
+  if (!seciciKap) {
+    seciciKap = el('section', { className: 'takip-secici', hidden: true, 'aria-label': 'Aradığın mantarları seç' });
+    // Takip edilen yer bırakılınca ya da değişince seçici ve şerit yenilenir.
+    document.addEventListener('takip-guncellendi', () => { seciciCiz(); seridiYenile(); });
   }
-  govde.push(...secili.map((t) => satirCiz(t, takipVerisi?.daily)));
-  if (secili.length) govde.push(el('p', { className: 'not', textContent: TAKIP_NOTU }));
-  kap.replaceChildren(baslik, ...govde);
-}
-
-export function takipMantarlari() {
-  if (!kap) {
-    kap = el('section', { className: 'takip-mantarlari', hidden: true, 'aria-label': 'Aradığın mantarlar' });
-    document.addEventListener('takip-guncellendi', () => ciz());
-  }
-  ciz();
-  return kap;
+  seciciCiz();
+  return seciciKap;
 }

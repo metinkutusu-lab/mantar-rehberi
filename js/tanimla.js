@@ -33,6 +33,7 @@ export function tanimlamaCiz(hedef, secenekler) {
 function ciz() {
   // Mevsim çubuğu yalnızca giriş ekranında görünür; adımlar ve sonuç sırasında yer kaplamasın.
   document.getElementById('mevsim').hidden = durum.asama !== 'giris';
+  anaDugmeleriCiz();
   if (durum.asama === 'hizli') {
     hizliCiz(kap, { bitir: hizliBitti, vazgec: () => git('giris') });
     return;
@@ -67,7 +68,30 @@ export function tanimlamaKapat() {
 
 // Tek tanımlama yolu: fotoğrafla başlayan hızlı tanımlama (Metin'in kararı, 2026-10-26: eski 15 soruluk
 // adım adım akış kaldırıldı). Kurallar ve sonuç değerlendirmesi aynıdır.
-// Sade giriş (Metin'in isteği, 2026-10-26): büyük "Fotoğrafla tanımla" düğmesi (2026-11-02: (i) kaldırıldı; kamera ne çekileceğini
+// Ana sayfanın en üstündeki iki büyük düğme, yan yana (Metin, 2026-11-04: "mantar ara ve fotoğrafla tanımla butonları çok
+// aşağıda"). Fotoğrafla başlar, yalnızca olası türleri ayıran soruları sorar (güvenlik soruları her zaman), sesli yönlendirir.
+// Mantar ara haritayı açar. Yalnızca giriş ekranında görünür.
+function anaDugmeleriCiz() {
+  const anaDugmeler = document.getElementById('ana-dugmeler');
+  if (!anaDugmeler) return;
+  anaDugmeler.hidden = durum.asama !== 'giris';
+  if (anaDugmeler.childElementCount) return;
+  anaDugmeler.append(
+    el('button', {
+      type: 'button',
+      className: 'birincil ana-dugme',
+      onclick: () => {
+        sifirla();
+        hizliBaslat();
+        git('hizli');
+      },
+    }, ikon('kamera'), el('span', { textContent: 'Fotoğrafla tanımla' })),
+    el('a', { className: 'birincil ana-dugme', href: '#mantar-ara', 'aria-label': 'Mantar ara: haritada uygun yerler' },
+      ikon('haritaAra'), el('span', { textContent: 'Mantar ara' })),
+  );
+}
+
+// Sade giriş (Metin'in isteği, 2026-10-26; büyük "Fotoğrafla tanımla" düğmesi 2026-11-04'te en üste, anaDugmeleriCiz'e taşındı) (2026-11-02: (i) kaldırıldı; kamera ne çekileceğini
 // gösteriyor, "Bilmiyorum seç, tahmin etme" uyarısı tanımlamada kontrollerin başında);
 // hemen altında "Yanına al" (sepet dahil).
 function girisCiz() {
@@ -79,18 +103,6 @@ function girisCiz() {
     ['sepet', 'Sepet, mantarları toplamak için (naylon poşette mantar ezilip bozulur)'],
   ];
   return el('div', { className: 'tanimla-giris' },
-    // Fotoğrafla başlar, yalnızca olası türleri ayıran soruları sorar (güvenlik soruları her zaman), sesli yönlendirir.
-    el('div', { className: 'tanimla-ust' },
-      el('button', {
-        type: 'button',
-        className: 'birincil tanimla-dugme',
-        onclick: () => {
-          sifirla();
-          hizliBaslat();
-          git('hizli');
-        },
-      }, ikon('kamera'), el('span', { textContent: 'Fotoğrafla tanımla' })),
-    ),
     // Kapalıyken tek satır: başlık ve simgeler; dokununca açıklamalı liste açılır.
     el('details', { className: 'kart acilir yanina-al' },
       el('summary', {},
