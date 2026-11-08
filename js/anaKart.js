@@ -103,6 +103,20 @@ const kart = el('section', { className: 'kart ana-kart' },
   yerlerim,
 );
 
+// Mevsim adının önündeki renkli yaprak (Metin, 2026-11-08: "mevsimi çağrıştıran güzel bir yaprak koysak").
+// İlkbahar taze yeşil, yaz koyu yeşil, sonbahar turuncu-kahve akçaağaç yaprağı, kış buz mavisi kırağılı yaprak.
+// Sabit metinlerdir; kullanıcı girdisi içermez.
+const YAPRAK = '<path class="yaprak-govde" d="M4.5 19.5C4.5 10.5 10 4 20 4c0 10-5.5 15.5-15.5 15.5z"/><path class="yaprak-damar" d="M4.5 19.5 15 9M9.5 14.2V10.5M12.4 11.4h3.4"/>';
+const AKCAAGAC = '<path class="yaprak-govde" d="M12 2.5l1.7 3.4 2.4-1-.4 3.6 3.3-1.3-1 3.1 3.3 1.2-3.6 2.7.9 2.2-4.1-.7-1 2.6H12.6v3.9h-1.2v-3.9H10.5l-1-2.6-4.1.7.9-2.2-3.6-2.7 3.3-1.2-1-3.1 3.3 1.3-.4-3.6 2.4 1z"/><path class="yaprak-damar" d="M12 18.1V6.5M12 13l-4-3.5M12 13l4-3.5"/>';
+const KIRAGI = '<circle class="yaprak-kiragi" cx="14.5" cy="7" r="0.9"/><circle class="yaprak-kiragi" cx="17.3" cy="9.6" r="0.7"/><circle class="yaprak-kiragi" cx="9" cy="17.3" r="0.7"/>';
+const MEVSIM_YAPRAKLARI = { ilkbahar: YAPRAK, yaz: YAPRAK, sonbahar: AKCAAGAC, kis: YAPRAK + KIRAGI };
+
+export function mevsimYapragi(tur) {
+  const y = el('span', { className: `mevsim-yaprak yaprak-${tur}`, 'aria-hidden': 'true' });
+  y.innerHTML = `<svg viewBox="0 0 24 24">${MEVSIM_YAPRAKLARI[tur] || YAPRAK}</svg>`;
+  return y;
+}
+
 // Mevsim satırı ve açıklaması; gün değişince yeniden çizilir.
 export function mevsimiYenile() {
   mevsimFotolariniCiz();
@@ -112,7 +126,7 @@ export function mevsimiYenile() {
     el('div', { className: 'mevsim-ust' },
       // Mevsim dışında sıradaki mevsimin adı ve başlamasına kalan gün yazar (Metin, 2026-10-27: "bitince sıradaki sezona
       // kadar şu kadar gün kaldı mı yazacak?").
-      el('strong', { textContent: d.icinde ? d.ad : `Sıradaki: ${d.ad}` }),
+      el('strong', { className: 'mevsim-ad' }, mevsimYapragi(d.tur), d.icinde ? d.ad : `Sıradaki: ${d.ad}`),
       el('span', { className: 'mevsim-gun', textContent: d.icinde ? `${d.kalanGun} gün kaldı` : `${d.kalanGun} gün sonra başlıyor` }),
     ),
     cubukCiz(Math.round((d.icinde ? d.kalanOran : 0) * 100), 'Mantar mevsiminin kalan kısmı'),
