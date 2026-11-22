@@ -347,16 +347,18 @@ test('mantar var mı: mantar görünmeyen fotoğrafta tahmin yapılmaz; ayırıc
   assert.doesNotMatch(oku('js/kurallar.js'), /mantarYok|mantarGorunmeyenler/);
 });
 
-test('listede mi: türlere belirgin benzemeyen mantarda tür adı öne çıkarılmaz; benzerlik yoksa uyarı da yok', () => {
+test('listede mi: benzerlik düşükse tür adları gizlenmez, uyarıyla birlikte en yakın 3 tür gösterilir (2026-11-22)', () => {
   assert.equal(listedeBenzemiyor({ kanlica: 0.3, 'tuylu-sut': 0.25, sinek: 0.45 }), true);
   assert.equal(listedeBenzemiyor({ kanlica: 0.8, 'tuylu-sut': 0.2 }), false);
   assert.equal(listedeBenzemiyor({}), false);
-  // Yalnızca kartı değiştirir: sonucun rengini veren kurallar buna bakmaz; kartta "yenir" anlamına gelen söz yok.
+  // Yalnızca kartın üstüne not ekler: sonucun rengini veren kurallar buna bakmaz; notta "yenir" anlamına gelen söz yok.
   const kod = oku('js/hizliTanimla.js');
-  assert.match(kod, /if \(listedeBenzemiyor\(h\.benzerlikler\) && !h\.enYakiniGoster\)/);
+  assert.match(kod, /const dusuk = benzerlikVar && listedeBenzemiyor\(h\.benzerlikler\)/);
+  assert.doesNotMatch(kod, /Yine de en yakın türleri göster/);
   assert.doesNotMatch(oku('js/kurallar.js'), /listedeYok|listedeBenzemiyor/);
-  const kart = kod.slice(kod.indexOf('Listemizdeki türlere belirgin benzemiyor'), kod.indexOf('Yine de en yakın türleri göster'));
-  assert.deepEqual(yasakIfadeler(kart), []);
+  const not = kod.slice(kod.indexOf('Benzerlik düşük.'), kod.indexOf('bir uzmana göster.', kod.indexOf('Benzerlik düşük.')));
+  assert.ok(not.length > 0);
+  assert.deepEqual(yasakIfadeler(not), []);
 });
 
 test('büyük galeri fotoğrafı tek seferde küçültülmez: önce yarıya yarıya küçültülür (2026-11-22)', () => {

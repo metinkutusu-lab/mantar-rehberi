@@ -63,7 +63,6 @@ const h = {
   oneriler: {}, // fotoğraftan bulunan, henüz onaylanmamış cevaplar { soru: değer }
   mantarYok: [], // mantar görünmeyen fotoğraflar (ör. ['ust']); doluysa tahmin yapılmaz
   mantarOnay: false, // kullanıcı "Fotoğrafta mantar var" dedi: mantar denetimi atlanır
-  enYakiniGoster: false, // kullanıcı listede yokken de en yakın türleri görmek istedi
   reddedilen: new Set(), // kullanıcının "Değiştir" dediği öneriler (bir daha önerilmez)
   cekim: null, // sıradaki/çekilen fotoğraf ('ust' | 'alt' | 'yan' | 'dip'); null = fotoğraflar tamam
   atlanan: new Set(), // atlanan isteğe bağlı fotoğraflar (ayak dibi)
@@ -104,7 +103,7 @@ export function hizliSifirla() {
   ekraniAcikTut('tanimlama', false);
   for (const url of Object.values(h.fotograflar)) URL.revokeObjectURL(url);
   sayaclariDurdur();
-  Object.assign(h, { basladi: false, cevaplar: {}, sorulanlar: [], fotograflar: {}, izler: [], benzerlikler: {}, oneriler: {}, mantarYok: [], mantarOnay: false, enYakiniGoster: false, reddedilen: new Set(), cekim: null, atlanan: new Set(), kameraYok: false, acik: null, sayaclar: {} });
+  Object.assign(h, { basladi: false, cevaplar: {}, sorulanlar: [], fotograflar: {}, izler: [], benzerlikler: {}, oneriler: {}, mantarYok: [], mantarOnay: false, reddedilen: new Set(), cekim: null, atlanan: new Set(), kameraYok: false, acik: null, sayaclar: {} });
 }
 
 // Ekrandan çıkınca kamera, mikrofon ve ses kapanır.
@@ -486,19 +485,6 @@ function adaylarCiz() {
       sayi,
     );
   }
-  // Listedeki türlere belirgin benzemiyor (Metin, 2026-11-02: "listede yoksa bu mantar yok desin"): başka bir türün adı öne
-  // çıkarılmaz; kullanıcı isterse en yakın türler yine gösterilir. Sıralama ve sonucun rengi değişmez.
-  if (listedeBenzemiyor(h.benzerlikler) && !h.enYakiniGoster) {
-    return el('div', { className: 'kart kiyas mantar-yok' },
-      el('h3', { className: 'kart-baslik', textContent: 'Listemizdeki türlere belirgin benzemiyor' }),
-      el('p', { textContent: `Uygulama ${turler.length} türü tanır; fotoğraflar bunların hiçbirine belirgin benzemiyor. Listede olmayan bir tür olabilir, bu yüzden bir tür adı vermiyoruz. Bu mantarı yeme; bir uzmana göster.` }),
-      el('p', { className: 'not', textContent: 'Aşağıdaki kontroller yine zehirli türleri ayırır.' }),
-      el('button', { type: 'button', className: 'metin-dugme', textContent: 'Yine de en yakın türleri göster', onclick: () => {
-        h.enYakiniGoster = true;
-        ciz();
-      } }),
-    );
-  }
   // Tahmin yokken uzun liste gösterilmez; 5 ve altına inince gösterilir.
   if (!benzerlikVar && liste.length > 5) {
     const bekliyor = kiyasAcik() && ucFotografTamam() && ['yok', 'yukleniyor'].includes(modelDurumu());
@@ -510,8 +496,13 @@ function adaylarCiz() {
       eksik ? el('p', { className: 'not', textContent: 'Üç fotoğraf (üstten, alttan, yandan) tamamlanınca üçüne birlikte bakılıp en çok benzeyenler gösterilir.' }) : '',
     );
   }
+  // Benzerlik düşükse (Metin, 2026-11-22: "türünü söylemezse bu programı kimse kullanmaz"): tür adları gizlenmez, en çok
+  // benzeyen 3 tür yine gösterilir; üstte benzerliğin düşük olduğu ve listede olmayan bir tür olabileceği dürüstçe yazılır.
+  // (2026-11-02'deki "Listemizdeki türlere belirgin benzemiyor" kartı adları gizliyordu.) Sıralama ve sonucun rengi değişmez.
+  const dusuk = benzerlikVar && listedeBenzemiyor(h.benzerlikler);
   return el('div', { className: 'kart kiyas' },
     el('h3', { className: 'kart-baslik', textContent: benzerlikVar ? 'Fotoğrafa göre en çok benzeyenler' : 'Olası türler' }),
+    dusuk ? el('p', { className: 'not dusuk-benzerlik', textContent: `Benzerlik düşük. Bu mantar uygulamanın tanıdığı ${turler.length} türün dışında bir tür olabilir; bu mantarı yeme, bir uzmana göster.` }) : '',
     sayi,
     ...liste.slice(0, 3).map((tur, i) => kiyasKartiCiz(tur, i === 0)),
     el('p', { className: 'not', textContent: 'Bu bir tahmindir. Aşağıdaki kontroller zehirli benzerleri ayırır; zehirli bir tür elenmeden sonuç kırmızı kalır.' }),
@@ -527,7 +518,7 @@ function fotografKoy(tur, url) {
   if (h.fotograflar[tur]) URL.revokeObjectURL(h.fotograflar[tur]);
   h.fotograflar[tur] = url;
   h.atlanan.delete(tur);
-  if (KIYAS_FOTOGRAFLARI.includes(tur)) Object.assign(h, { mantarOnay: false, enYakiniGoster: false });
+  if (KIYAS_FOTOGRAFLARI.includes(tur)) Object.assign(h, { mantarOnay: false });
   if (kiyasAcik() && KIYAS_FOTOGRAFLARI.includes(tur)) izleriHesapla();
 }
 

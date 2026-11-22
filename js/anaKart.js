@@ -117,6 +117,8 @@ export function mevsimYapragi(tur) {
   return y;
 }
 
+const kisaMevsimAdi = (ad) => ad.replace(/ mantar mevsimi$/, '');
+
 // Mevsim satırı ve açıklaması; gün değişince yeniden çizilir.
 export function mevsimiYenile() {
   mevsimFotolariniCiz();
@@ -126,7 +128,9 @@ export function mevsimiYenile() {
     el('div', { className: 'mevsim-ust' },
       // Mevsim dışında sıradaki mevsimin adı ve başlamasına kalan gün yazar (Metin, 2026-10-27: "bitince sıradaki sezona
       // kadar şu kadar gün kaldı mı yazacak?").
-      el('strong', { className: 'mevsim-ad' }, mevsimYapragi(d.tur), d.icinde ? d.ad : `Sıradaki: ${d.ad}`),
+      // Satırda yalnızca mevsimin adı (Metin, 2026-11-22: "Sonbahar mantar mevsimi" iki satıra taşıyıp sayfayı aşağı
+      // itiyordu); yaprak simgesi ve kalan gün zaten mantar mevsimini anlatıyor. Uzun ad (i) panelinde duruyor.
+      el('strong', { className: 'mevsim-ad' }, mevsimYapragi(d.tur), d.icinde ? kisaMevsimAdi(d.ad) : `Sıradaki: ${kisaMevsimAdi(d.ad)}`),
       el('span', { className: 'mevsim-gun', textContent: d.icinde ? `${d.kalanGun} gün kaldı` : `${d.kalanGun} gün sonra başlıyor` }),
     ),
     cubukCiz(Math.round((d.icinde ? d.kalanOran : 0) * 100), 'Mantar mevsiminin kalan kısmı'),
