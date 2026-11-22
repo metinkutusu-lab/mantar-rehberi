@@ -513,7 +513,7 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 /* Mantar mevsimi çubuğu */
 #mevsim[hidden] { display: none; }
 .mevsim-ust { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: 15.5px; }
-.mevsim-ad { display: inline-flex; align-items: flex-start; gap: 7px; }
+.mevsim-ad { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
 .mevsim-yaprak { flex: none; width: 26px; height: 26px; margin-top: -2px; }
 .mevsim-yaprak svg { width: 100%; height: 100%; display: block; }
 .yaprak-damar { fill: none; stroke-width: 1.3; stroke-linecap: round; }
