@@ -358,3 +358,11 @@ test('listede mi: türlere belirgin benzemeyen mantarda tür adı öne çıkarı
   const kart = kod.slice(kod.indexOf('Listemizdeki türlere belirgin benzemiyor'), kod.indexOf('Yine de en yakın türleri göster'));
   assert.deepEqual(yasakIfadeler(kart), []);
 });
+
+test('büyük galeri fotoğrafı tek seferde küçültülmez: önce yarıya yarıya küçültülür (2026-11-22)', () => {
+  // 4000x3000'lik fotoğraf doğrudan 224'e çizilince ayrıntı karıncalanıyor ve tür tanınmıyordu.
+  const kod = oku('js/fotoTanima.js');
+  const kare = kod.slice(kod.indexOf('export function kareCiz'), kod.indexOf('export async function parmakIzi'));
+  assert.match(kare, /while \(sk > BOYUT \* 2\)/);
+  assert.match(kare, /imageSmoothingQuality = 'high'/);
+});

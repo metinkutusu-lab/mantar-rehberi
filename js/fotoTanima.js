@@ -228,15 +228,36 @@ export function kareCiz(kaynak, { yakinlik = 1, cevir = false } = {}) {
   const genislik = kaynak.videoWidth || kaynak.naturalWidth || kaynak.width;
   const yukseklik = kaynak.videoHeight || kaynak.naturalHeight || kaynak.height;
   const kenar = Math.min(genislik, yukseklik) * yakinlik;
+  // Büyük fotoğraf (telefonun 4000x3000'lik galeri fotoğrafı) tek seferde 224'e küçültülürse tarayıcı piksellerin çoğunu
+  // atlar, ince ayrıntı karıncalanır ve model türü tanıyamaz (2026-11-22, Metin: "galeriden yükleyince tanımıyor";
+  // telefonda kanlıca 0,40 → adım adım küçültünce 0,60). Bu yüzden kare önce yarıya yarıya küçültülür.
+  let parca = kaynak;
+  let sx = (genislik - kenar) / 2;
+  let sy = (yukseklik - kenar) / 2;
+  let sk = kenar;
+  while (sk > BOYUT * 2) {
+    const yeni = Math.round(sk / 2);
+    const ara = document.createElement('canvas');
+    ara.width = yeni;
+    ara.height = yeni;
+    const ac = ara.getContext('2d');
+    ac.imageSmoothingQuality = 'high';
+    ac.drawImage(parca, sx, sy, sk, sk, 0, 0, yeni, yeni);
+    parca = ara;
+    sx = 0;
+    sy = 0;
+    sk = yeni;
+  }
   const tuval = document.createElement('canvas');
   tuval.width = BOYUT;
   tuval.height = BOYUT;
   const c = tuval.getContext('2d');
+  c.imageSmoothingQuality = 'high';
   if (cevir) {
     c.translate(BOYUT, 0);
     c.scale(-1, 1);
   }
-  c.drawImage(kaynak, (genislik - kenar) / 2, (yukseklik - kenar) / 2, kenar, kenar, 0, 0, BOYUT, BOYUT);
+  c.drawImage(parca, sx, sy, sk, sk, 0, 0, BOYUT, BOYUT);
   return tuval;
 }
 
