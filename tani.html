@@ -17,6 +17,9 @@
 <h1>MushKey tanı testi</h1>
 <p>Bekle, yaklaşık yarım dakika sürer. Bitince bu ekranın görüntüsünü gönder.</p>
 <pre id="cikti">Başladı…</pre>
+<p><strong>2. adım:</strong> "Bitti." yazınca aşağıdaki düğmeye bas ve galeriden aynı mantarın üç fotoğrafını (üstten, alttan, yandan) birlikte seç. Fotoğraflar telefondan çıkmaz.</p>
+<input type="file" id="galeri" accept="image/*" multiple>
+<pre id="cikti2"></pre>
 <script type="module">
 const cikti = document.getElementById('cikti');
 const yaz = (s) => { cikti.textContent += '\n' + s; };
@@ -44,6 +47,48 @@ async function dene(m, ay, mm, etiket) {
     }
   }
 }
+// Galeriden seçilen fotoğraflar, uygulamadaki gibi (img + kareCiz) ve önceden küçültülerek ayrı ayrı denenir.
+function galeriyiHazirla(m, ay, mm) {
+  const c2 = document.getElementById('cikti2');
+  const y2 = (s) => { c2.textContent += s + '\n'; };
+  const ilk = (be) => Object.entries(be).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([k, v]) => `${k} ${v.toFixed(2)}`).join(', ');
+  document.getElementById('galeri').onchange = async (olay) => {
+    c2.textContent = 'Deneniyor…\n';
+    const izler = [];
+    const kucukIzler = [];
+    try {
+      for (const dosya of olay.target.files) {
+        const url = URL.createObjectURL(dosya);
+        const img = new Image();
+        img.src = url;
+        await img.decode();
+        const iz = await m.parmakIzi(img);
+        izler.push(iz);
+        // Aynı fotoğraf önce 448 piksele adım adım küçültülerek.
+        let kaynak = img;
+        let g = img.naturalWidth;
+        let h = img.naturalHeight;
+        while (Math.min(g, h) > 448) {
+          g = Math.round(g / 2); h = Math.round(h / 2);
+          const t = document.createElement('canvas'); t.width = g; t.height = h;
+          const c = t.getContext('2d'); c.imageSmoothingQuality = 'high'; c.drawImage(kaynak, 0, 0, g, h);
+          kaynak = t;
+        }
+        const kIz = await m.parmakIzi(kaynak);
+        kucukIzler.push(kIz);
+        y2(`${dosya.name}: ${img.naturalWidth}x${img.naturalHeight}, ${Math.round(dosya.size / 1024)} KB`);
+        y2(`  olduğu gibi: mantar=${m.mantarOlasiligi(iz, mm).toFixed(2)} | ${ilk(m.benzerlikleriHesapla([iz], ay))}`);
+        y2(`  küçültülerek: mantar=${m.mantarOlasiligi(kIz, mm).toFixed(2)} | ${ilk(m.benzerlikleriHesapla([kIz], ay))}`);
+      }
+      y2(`\nÜÇÜ BİRLİKTE (olduğu gibi): ${ilk(m.benzerlikleriHesapla(izler, ay))}`);
+      y2(`ÜÇÜ BİRLİKTE (küçültülerek): ${ilk(m.benzerlikleriHesapla(kucukIzler, ay))}`);
+      y2('\nBitti.');
+    } catch (e) {
+      y2(`HATA: ${e}`);
+    }
+  };
+}
+
 try {
   const { SURUM } = await import('./js/surum.js');
   yaz(`Sürüm: ${SURUM} · ${navigator.userAgent}`);
@@ -63,7 +108,9 @@ try {
   await dene(m, ay, mm, 'Telefonun ekran kartıyla');
   await tf.setBackend('cpu');
   await dene(m, ay, mm, 'İşlemciyle (yavaş ama kesin)');
+  await tf.setBackend('webgl');
   yaz('\nBitti.');
+  galeriyiHazirla(m, ay, mm);
 } catch (e) {
   yaz(`HATA: ${e}\n${e.stack ?? ''}`);
 }
