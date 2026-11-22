@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MushKey tanı testi</title>
+<style>
+  body { font: 16px/1.4 system-ui, sans-serif; margin: 16px; background: #fbf7f0; color: #3b2a1e; }
+  h1 { font-size: 20px; }
+  pre { white-space: pre-wrap; font-size: 13px; background: #fff; padding: 10px; border-radius: 8px; }
+</style>
+</head>
+<body>
+<!-- Fotoğraf tanımanın telefonda doğru çalışıp çalışmadığını gösteren deneme sayfası (2026-11-22; Metin: "mantarları tanımıyor").
+     Uygulamanın bilinen fotoğraflarını telefondaki modelle tanır ve sonuçları yazar. Hiçbir yere bir şey göndermez.
+     Uygulamanın bir parçası değildir; menüde görünmez. -->
+<h1>MushKey tanı testi</h1>
+<p>Bekle, yaklaşık yarım dakika sürer. Bitince bu ekranın görüntüsünü gönder.</p>
+<pre id="cikti">Başladı…</pre>
+<script type="module">
+const cikti = document.getElementById('cikti');
+const yaz = (s) => { cikti.textContent += '\n' + s; };
+const RESIMLER = [
+  ['kanlica', './fotograflar/kanlica.jpg'],
+  ['sinek', './fotograflar/sinek.jpg'],
+  ['horozmantari', './fotograflar/horozmantari.jpg'],
+  ['mantar değil (simge)', './ikonlar/ikon-512.png'],
+];
+async function resim(adres) {
+  const b = await (await fetch(adres)).blob();
+  return createImageBitmap(b);
+}
+async function dene(m, ay, mm, etiket) {
+  yaz(`\n--- ${etiket} (${window.tf.getBackend()}) ---`);
+  for (const [ad, adres] of RESIMLER) {
+    try {
+      const iz = await m.parmakIzi(await resim(adres));
+      const be = m.benzerlikleriHesapla([iz], ay);
+      const ilk = Object.entries(be).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([k, v]) => `${k} ${v.toFixed(2)}`).join(', ');
+      const nan = iz.some((x) => !Number.isFinite(x));
+      yaz(`${ad}: mantar=${m.mantarOlasiligi(iz, mm).toFixed(2)} | ${ilk}${nan ? ' | BOZUK SAYI' : ''}`);
+    } catch (e) {
+      yaz(`${ad}: HATA ${e}`);
+    }
+  }
+}
+try {
+  const { SURUM } = await import('./js/surum.js');
+  yaz(`Sürüm: ${SURUM} · ${navigator.userAgent}`);
+  const m = await import('./js/fotoTanima.js');
+  await m.modeliHazirla();
+  const tf = window.tf;
+  const gl = tf.getBackend() === 'webgl' ? tf.backend().gpgpu?.gl : null;
+  yaz(`Model: ${m.modelDurumu()} · arka uç: ${tf.getBackend()}`);
+  if (gl) {
+    const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+    yaz(`Ekran kartı: ${dbg ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : '?'}`);
+    yaz(`32 bit hesap: ${tf.env().getBool('WEBGL_RENDER_FLOAT32_CAPABLE')} · sürüm: ${tf.env().getNumber('WEBGL_VERSION')}`);
+  }
+  const ay = await m.ayiriciyiYukle();
+  const mm = await m.mantarMiAyiricisiniYukle();
+  yaz(`Tür ayırıcısı: ${Object.keys(ay.turler ?? {}).length} tür · mantar var mı ayırıcısı: ${Object.keys(mm.turler ?? {}).length ? 'yüklendi' : 'YÜKLENEMEDİ'}`);
+  await dene(m, ay, mm, 'Telefonun ekran kartıyla');
+  await tf.setBackend('cpu');
+  await dene(m, ay, mm, 'İşlemciyle (yavaş ama kesin)');
+  yaz('\nBitti.');
+} catch (e) {
+  yaz(`HATA: ${e}\n${e.stack ?? ''}`);
+}
+</script>
+</body>
+</html>
