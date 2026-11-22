@@ -1054,7 +1054,7 @@ figcaption, .not, .tur-govde p { overflow-wrap: anywhere; }
 .surum-durum { flex-basis: 100%; font-weight: 650; margin-top: 2px; }
 .surum-son { color: #2f7d32; }
 .surum-iniyor, .surum-bakiliyor { color: var(--marka); }
-.surum-internetsiz { color: var(--turuncu); }
+.surum-internetsiz, .surum-ulasilamadi { color: var(--turuncu); }
 .surum-dugme { flex-shrink: 0; width: 46px; height: 46px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: var(--marka-acik); color: var(--marka); border: 1px solid var(--cizgi); }
 .surum-dugme .ikon { width: 24px; height: 24px; }
 .surum-dugme.donuyor .ikon { animation: surum-don 0.9s linear infinite; }

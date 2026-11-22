@@ -5,7 +5,7 @@ import { SURUM, TARIH } from './surum.js';
 
 const satir = el('div', { className: 'surum-satiri' });
 let kayit = null;
-let durum = 'bilinmiyor'; // 'bilinmiyor' | 'bakiliyor' | 'son' | 'iniyor' | 'internetsiz'
+let durum = 'bilinmiyor'; // 'bilinmiyor' | 'bakiliyor' | 'son' | 'iniyor' | 'internetsiz' | 'ulasilamadi'
 let sonBakis = null;
 
 const DURUM_YAZILARI = {
@@ -14,6 +14,9 @@ const DURUM_YAZILARI = {
   son: 'Son sürüm yüklü',
   iniyor: 'Yeni sürüm iniyor; uygulama kendini yenileyecek…',
   internetsiz: 'İnternet yok; denetlenemedi',
+  // İnternet var ama yeni sürüm dosyası alınamadı (ör. yayın sunucusu yanıt vermedi). Metin, 2026-11-08: internet varken
+  // "İnternet yok" yazıyordu.
+  ulasilamadi: 'Yeni sürüme şu an ulaşılamadı; biraz sonra yeniden dene',
 };
 
 const tarihYazisi = () => new Date(`${TARIH}T12:00:00`).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
@@ -61,7 +64,7 @@ export async function guncellemeyiDenetle() {
     await kayit.update();
     durum = kayit.installing || kayit.waiting ? 'iniyor' : 'son';
   } catch {
-    durum = 'internetsiz';
+    durum = navigator.onLine ? 'ulasilamadi' : 'internetsiz';
   }
   sonBakis = new Date();
   ciz();
