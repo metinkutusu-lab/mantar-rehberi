@@ -15,6 +15,9 @@ const ULKELER = ['TR', 'GR', 'BG', 'CY', 'MK', 'AL', 'RS', 'ME', 'BA', 'HR', 'SI
 const bekle = (ms) => new Promise((coz) => setTimeout(coz, ms));
 // iNaturalist yeni adları (GBIF bunları eski adla eşleştiremiyor; scripts/inat-getir.js ile aynı).
 const EK_ADLAR = { 'mor-kadife': ['Collybia nuda'] };
+// Yıl boyu yetiştirilip satılan türler (2026-11-23, kültür mantarı): fotoğrafların çoğu marketten/evden gelir,
+// doğadaki gözlem ayları bunları cezalandırmasın diye her ay 1 yazılır.
+const YIL_BOYU = new Set(['kultur']);
 
 async function aylar(ad, alan) {
   const p = new URLSearchParams({ [alan]: ad, basisOfRecord: 'HUMAN_OBSERVATION', limit: '0', facet: 'month', facetLimit: '12' });
@@ -38,6 +41,7 @@ for (const [id, adlar] of Object.entries(KATEGORILER)) {
   // Komşu aylarla yumuşatılır (bir ay erken/geç çıkan mantar cezalanmasın), en yoğun ay 1 olur.
   const yumusak = toplam.map((n, i) => (toplam[(i + 11) % 12] + 2 * n + toplam[(i + 1) % 12]) / 4);
   const enCok = Math.max(...yumusak);
+  if (YIL_BOYU.has(id)) { sonuc[id] = { kayit: adet, yilBoyu: true, aylar: new Array(12).fill(1) }; console.log(`${id}: yıl boyu`); continue; }
   sonuc[id] = { kayit: adet, aylar: enCok > 0 ? yumusak.map((n) => Number((n / enCok).toFixed(3))) : null };
   console.log(`${id}: ${adet} kayıt`);
 }

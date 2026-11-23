@@ -1,6 +1,6 @@
 // Çevrimdışı çalışma: uygulamanın bütün dosyaları ilk açılışta cihaza kaydedilir.
 // Yeni dosya eklenince DOSYALAR listesine ekle ve SURUM'u artır.
-const SURUM = 'v123';
+const SURUM = 'v124';
 // GitHub Pages'te aynı adreste başka uygulamalar da olabilir: önbellek adı bu uygulamaya ve adresine özeldir,
 // yalnızca kendi eski sürümlerini siler.
 const ONEK = `mantar-rehberi:${self.registration.scope}:`;
@@ -91,6 +91,7 @@ const DOSYALAR = [
   './fotograflar/ayi-mantari.jpg',
   './fotograflar/buyuk-semsiye.jpg',
   './fotograflar/cayir.jpg',
+  './fotograflar/kultur.jpg',
   './fotograflar/cortinarius.jpg',
   './fotograflar/entoloma.jpg',
   './fotograflar/galerina.jpg',
