@@ -874,6 +874,10 @@ button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .deklansor-ic { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 19px; font-weight: 800; }
 .deklansor-ic .ikon { width: 40px; height: 40px; stroke-width: 1.8; }
 .deklansor:active { transform: translateX(-50%) scale(0.97); }
+.deklansor { touch-action: none; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; }
+.deklansor.basildi { background: #e8963f; color: #fff; }
+.kamera.cekiliyor::after { content: ''; position: absolute; inset: 0; z-index: 4; background: #fff; pointer-events: none; animation: cekim-flas 0.35s ease-out forwards; }
+@keyframes cekim-flas { from { opacity: 0.8; } to { opacity: 0; } }
 .sayac { margin: 14px 0 0; padding: 14px; border-radius: 14px; border: 1px solid var(--cizgi); background: var(--yuzey-2); text-align: center; }
 .sayac p { margin: 0 0 6px; }
 .sayac-sure { display: block; font-size: 40px; font-weight: 850; letter-spacing: -0.02em; margin: 2px 0 10px; font-variant-numeric: tabular-nums; }

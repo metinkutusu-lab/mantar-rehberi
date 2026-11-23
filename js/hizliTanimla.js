@@ -707,9 +707,29 @@ function rehberCiz(tur) {
 // Telefon döndürülünce üst çubuğun yüksekliği yeniden ölçülür (yatay kamera onun altından başlar).
 window.addEventListener('resize', () => document.documentElement.style.setProperty('--ust-bar-yuksekligi', `${document.querySelector('.ust-bar')?.offsetHeight ?? 56}px`));
 
+// Çek düğmesi (Metin, 2026-11-23: "bir, iki, üç kere bastım, güçlü basınca çekti"): telefon, dokunurken parmak
+// azıcık kayınca bunu kaydırma sayıp tıklamayı yutuyordu. Artık parmak düğmeye değdiği an çekilir (kayma önemsiz),
+// düğme hemen kararır ve ekran bir an beyazlar; aynı dokunuşun ardından gelen tıklama ikinci kez çekmez.
+// Ekran çekimden sonra yeniden çizildiği için zaman düğmede değil burada tutulur (parmak kalkınca gelen tıklama
+// yeni düğmeye düşüp sıradaki fotoğrafı da çekmesin).
+let sonCekim = 0;
 function cekDugmesi(tur) {
-  const d = el('button', { type: 'button', className: 'deklansor', onclick: () => fotografCek(tur) },
+  const cek = () => {
+    if (Date.now() - sonCekim < 700) return;
+    sonCekim = Date.now();
+    d.classList.add('basildi');
+    const kamera = d.closest('.kamera');
+    kamera?.classList.add('cekiliyor');
+    setTimeout(() => { d.classList.remove('basildi'); kamera?.classList.remove('cekiliyor'); }, 700);
+    fotografCek(tur);
+  };
+  const d = el('button', { type: 'button', className: 'deklansor', onclick: cek },
     el('span', { className: 'deklansor-ic' }, ikon('kamera'), el('span', { textContent: 'Çek' })));
+  d.addEventListener('pointerdown', (e) => {
+    if (e.button > 0) return;
+    e.preventDefault();
+    cek();
+  });
   d.setAttribute('aria-label', 'Fotoğrafı çek');
   return d;
 }
