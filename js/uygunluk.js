@@ -75,6 +75,11 @@ export const ARANMA_SIRASI = [
   'yenen-kirmit', 'kircil-murekkep', 'kavak', 'cayir-halka', 'buyuk-huni', 'sumuklu-corek', 'kumeli',
   // 2026-11-23: marketteki kültür mantarı (doğada nadir)
   'kultur',
+  // 2026-11-23: listede olmayan sık türlerden yenenler (TASLAK)
+  'kestane-corek',
+  'ametist',
+  'parlak-murekkep',
+  'armut-puf',
 ];
 
 export function aranmaSirasinaGore(turler) {
