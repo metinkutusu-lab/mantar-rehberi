@@ -49,3 +49,11 @@ Ağaç gövdesindeki raf mantarları, jelimsi mantarlar ve kuş yuvası mantarla
 | Lyophyllum decastes | Kümeli mantar | 10 | entoloma |
 | Neoboletus erythropus | Kırmızı ayaklı çörek | 9 | şeytan mantarı |
 | Craterellus cornucopioides | Borazan mantarı | 13 | — (zehirli benzeri bulunamazsa eklenmez) |
+
+## 3. tur: iNaturalist açık verisiyle sayım (2026-11-23)
+
+Metin (2026-11-23): "Doğadayken hangi fotoğrafı çekerse çeksin hepsini tespit etsin." Bu kez sayım iNaturalist'in açık veri dökümünden (araştırma düzeyi gözlemler) yapıldı: Türkiye ve çevresi (enlem 34–48, boylam 12–50) ve yalnızca Türkiye. Likenler, raf ve jelimsi ağaç mantarları yine alınmadı.
+
+**Eklenen 16 tür (hepsi TASLAK, mikolog onaysız).** Yenenler (her biri zehirli benzerleriyle): kestane çörek (Imleria badia), ametist (Laccaria amethystina), armut puf (Apioperdon pyriforme), parlak mürekkep (Coprinellus micaceus). Zehirli ya da yenmez sayılanlar: kırmızı kafes (Clathrus ruber), kokarca (Phallus impudicus), kirli çörek (Suillellus luridus), sivri pullu şemsiye (Echinoderma asperum), kararan konik (Hygrocybe conica), yeşil halkalı (Stropharia aeruginosa), gri amanita (Amanita excelsa), pullu ak amanita (Saproamanita vittadinii), ak şemsiye (Leucoagaricus leucothites; bazı kaynaklar yenir der, ak köygöçürenlerle karıştığı için zehirli sayıldı), gevrek başlı (Candolleomyces candolleanus; küçük kahverengi), tilki huni (Paralepista flaccida), porselen (Oudemansiella mucida).
+
+Bilerek yine eklenmedi: kızaran amanita, torbalı pluteus, kırmızı ayaklı çörek, borazan, kirpi mantarı (önceki kararlar). Sıradaki adaylar (sık ama bu turda yok): Laccaria laccata, Coprinellus disseminatus, Bolbitius titubans, Volvariella bombycina, Xerocomus subtomentosus, Pluteus cervinus, Tricholomopsis rutilans, Strobilomyces strobilaceus, toprak yıldızları (Geastrum), Craterellus tubaeformis.
