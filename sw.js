@@ -1,6 +1,6 @@
 // Çevrimdışı çalışma: uygulamanın bütün dosyaları ilk açılışta cihaza kaydedilir.
 // Yeni dosya eklenince DOSYALAR listesine ekle ve SURUM'u artır.
-const SURUM = 'v124';
+const SURUM = 'v125';
 // GitHub Pages'te aynı adreste başka uygulamalar da olabilir: önbellek adı bu uygulamaya ve adresine özeldir,
 // yalnızca kendi eski sürümlerini siler.
 const ONEK = `mantar-rehberi:${self.registration.scope}:`;
@@ -192,6 +192,9 @@ self.addEventListener('activate', (olay) => {
           if (a.url.includes('parmak-izleri.json') || eskiModel) await model.delete(a);
         }
       })
+      // Yeni sürümde tür ayırıcıları hemen tazelenir (2026-11-23: v124'te eklenen kültür mantarını ilk tanımlamada
+      // eski ayırıcı kullanıldığı için tanımadı). İnternet yoksa eskisi kalır.
+      .then(ayiricilariTazele)
       .then(() => self.clients.claim()),
   );
 });
@@ -225,6 +228,21 @@ async function haritaYaniti(istek) {
 
 // Tür ayırıcısı güncellenebilir (yeni fotoğraflarla yeniden eğitilince): cihazdaki kopya hemen kullanılır,
 // internet varsa arkada yenisi indirilip saklanır (bir sonraki tanımlamada kullanılır). Büyük model dosyaları yeniden inmez.
+const AYIRICI_YOLU = /\/vendor\/(mobilenet|mantar-modeli[^/]*)\/(tur-ayirici|alt-yapi|sapka-rengi|mantar-mi)\.json$/;
+
+async function ayiricilariTazele() {
+  const onbellek = await caches.open(MODEL_ONBELLEGI);
+  for (const a of await onbellek.keys()) {
+    if (!AYIRICI_YOLU.test(new URL(a.url).pathname)) continue;
+    try {
+      const yanit = await fetch(a.url, { cache: 'no-cache' });
+      if (yanit.ok) await onbellek.put(a, yanit);
+    } catch {
+      // İnternet yok: cihazdaki kopya kalır.
+    }
+  }
+}
+
 async function izYaniti(olay) {
   const onbellek = await caches.open(MODEL_ONBELLEGI);
   const kayitli = await onbellek.match(olay.request, { ignoreSearch: true });
@@ -257,7 +275,7 @@ self.addEventListener('fetch', (olay) => {
     return;
   }
   const yol = new URL(olay.request.url).pathname;
-  if (new URL(olay.request.url).origin === self.location.origin && /\/vendor\/(mobilenet|mantar-modeli[^/]*)\/(tur-ayirici|alt-yapi|sapka-rengi|mantar-mi)\.json$/.test(yol)) {
+  if (new URL(olay.request.url).origin === self.location.origin && AYIRICI_YOLU.test(yol)) {
     olay.respondWith(izYaniti(olay));
     return;
   }

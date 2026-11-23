@@ -334,3 +334,10 @@ test('tür verisi: her kayıt geçerli ve kural 8\'e uygun', () => {
     assert.deepEqual(turSayfasiHatalari(tur), [], tur.ad);
   }
 });
+
+test('yeni sürümde tür ayırıcıları hemen tazelenir (v124: ilk tanımlamada eski ayırıcı kullanılmasın)', () => {
+  const sw = readFileSync(path.join(KOK, 'sw.js'), 'utf8');
+  const etkin = sw.slice(sw.indexOf("addEventListener('activate'"), sw.indexOf('async function haritaOnbelleginiSinirla'));
+  assert.match(etkin, /\.then\(ayiricilariTazele\)/);
+  assert.match(sw, /async function ayiricilariTazele\(\)[\s\S]*?cache: 'no-cache'[\s\S]*?catch/);
+});
