@@ -368,3 +368,11 @@ test('büyük galeri fotoğrafı tek seferde küçültülmez: önce yarıya yar�
   assert.match(kare, /while \(sk > BOYUT \* 2\)/);
   assert.match(kare, /imageSmoothingQuality = 'high'/);
 });
+
+test('Çek düğmesi parmak değer değmez çeker; kayma dokunuşu yutmaz, ikinci tıklama iki kez çekmez', () => {
+  const kod = oku('js/hizliTanimla.js');
+  const dugme = kod.slice(kod.indexOf('let sonCekim'), kod.indexOf('function kameraCiz'));
+  assert.match(dugme, /addEventListener\('pointerdown'/);
+  assert.match(dugme, /Date\.now\(\) - sonCekim < \d+/);
+  assert.match(oku('css/stil.css'), /\.deklansor \{[^}]*touch-action: none/);
+});
