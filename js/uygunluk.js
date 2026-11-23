@@ -73,6 +73,8 @@ export const ARANMA_SIRASI = [
   'keme', 'casir', 'mor-kadife', 'buyuk-semsiye', 'istiridye', 'tavuk', 'ballica', 'cayir', 'puf',
   // 2026-11-02: sık toplanan yenenler (TASLAK sıra)
   'yenen-kirmit', 'kircil-murekkep', 'kavak', 'cayir-halka', 'buyuk-huni', 'sumuklu-corek', 'kumeli',
+  // 2026-11-23: marketteki kültür mantarı (doğada nadir)
+  'kultur',
 ];
 
 export function aranmaSirasinaGore(turler) {

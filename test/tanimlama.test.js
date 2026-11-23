@@ -273,7 +273,7 @@ test('fotoğraflar: her türün fotoğrafı var, lisansı ticari kullanıma uygu
     assert.ok(existsSync(path.join(KOK, f.dosya)), `${tur.ad}: ${f.dosya} bulunamadı`);
     assert.ok(sw.includes(`'./${f.dosya}'`), `${f.dosya} sw.js'de çevrimdışı listede olmalı`);
     assert.ok(f.cekan?.trim(), `${tur.ad}: çeken adı zorunlu (lisans gereği)`);
-    assert.match(f.kaynak, /Wikimedia Commons/, tur.ad);
+    assert.match(f.kaynak, /Wikimedia Commons|iNaturalist, gözlem \d+/, tur.ad);
     assert.match(f.lisans, /^(CC0|Public domain|CC BY(-SA)? \d)/i, `${tur.ad}: lisans ${f.lisans}`);
     assert.doesNotMatch(f.lisans, /NC|ND/, `${tur.ad}: ticari olmayan veya türetilemez lisans kullanılamaz`);
   }

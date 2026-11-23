@@ -20,6 +20,7 @@ export const KATEGORILER = {
   'ayi-mantari': ['Boletus edulis', 'Boletus aereus', 'Boletus reticulatus'],
   seytan: ['Rubroboletus satanas'],
   cayir: ['Agaricus campestris'],
+  kultur: ['Agaricus bisporus'],
   'sariya-boyanan': ['Agaricus xanthodermus'],
   entoloma: ['Entoloma sinuatum'],
   istiridye: ['Pleurotus ostreatus'],

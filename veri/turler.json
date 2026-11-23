@@ -1561,6 +1561,105 @@
       "yagmurSonrasi": "hizli"
     },
     {
+      "id": "kultur",
+      "ad": "Kültür mantarı",
+      "bilimselAd": "Agaricus bisporus",
+      "zehirlilik": "yenen",
+      "mikologOnayi": false,
+      "kaynak": "TASLAK: genel alan rehberi bilgisi, doğrulanmadı (2026-11-23, Metin'in isteği: marketteki mantarı da tanısın). Özellikler çayır mantarıyla aynı cinsten (Agaricus) derlendi; zehirli benzerler çayır mantarınınkiyle aynı (TASLAK). Aylar ve arama ipucu: genel kaynaklardan (doğada ilkbahar ve sonbahar; gübreli toprak, kompost), TASLAK.",
+      "aciklama": "Marketlerde satılan beyaz ya da kahverengi (kestane) mantar. Doğada gübreli toprakta, bahçe, kompost ve yol kenarlarında da çıkar. Solungaçları gençken pembemsi, sonra koyu kahverengidir; hiçbir zaman beyaz kalmaz. Ayakta halka vardır, ayak dibinde torba yoktur.",
+      "ozellikler": {
+        "sapkaRengi": [
+          "beyaz",
+          "krem-sari",
+          "kahverengi"
+        ],
+        "sapkaYuzeyi": [
+          "duz",
+          "lifli",
+          "pul"
+        ],
+        "altYapi": [
+          "solungac"
+        ],
+        "solungacRengi": [
+          "pembe",
+          "kahverengi",
+          "koyu"
+        ],
+        "halka": [
+          "evet",
+          "hayir"
+        ],
+        "volva": [
+          "hayir"
+        ],
+        "sut": [
+          "yok"
+        ],
+        "kesinceRenk": [
+          "degismedi",
+          "kirmizi-pembe"
+        ],
+        "ezince": [
+          "degismedi",
+          "kirmizi-kahve"
+        ],
+        "zemin": [
+          "cayir",
+          "toprak"
+        ],
+        "sporIzi": [
+          "kahverengi",
+          "koyu"
+        ]
+      },
+      "zehirliBenzerler": [
+        {
+          "ad": "Köygöçüren",
+          "fark": "Köygöçürenin solungaçları beyazdır ve ayak dibinde torba (volva) vardır. Kültür mantarının solungaçları pembe veya kahverengidir, dipte torba yoktur."
+        },
+        {
+          "ad": "Ak köygöçürenler",
+          "fark": "Ak köygöçürenler baştan sona beyazdır, solungaçları da beyazdır ve dipte torba vardır."
+        },
+        {
+          "ad": "Sarıya boyanan mantar",
+          "fark": "Sarıya boyanan mantarın şapkası ve ayak dibi çizilince hemen parlak sarıya döner ve mürekkep gibi kötü kokar."
+        },
+        {
+          "ad": "Terleme mantarı",
+          "fark": "Terleme mantarının solungaçları beyazımsıdır ve hiç pembeleşmez, ayağa doğru iner; halkası yoktur. Kültür mantarının solungaçları pembeden çikolata rengine döner ve ayağında halka vardır."
+        },
+        {
+          "ad": "İpeksi entoloma",
+          "fark": "İpeksi entolomanın solungaçları ve spor izi pembe; kültür mantarının olgun solungaçları çikolata kahvesi, spor izi koyu kahvedir. İpeksi entolomanın halkası yoktur."
+        },
+        {
+          "ad": "Çim mantarı",
+          "fark": "Çim mantarı çok küçüktür, ayağı ince ve kırılgandır, halkası yoktur. Kültür mantarının ayağında halka vardır ve eti etlidir."
+        }
+      ],
+      "pufNoktasi": "Solungaçları gençken pembemsi, sonra koyu kahverengidir; asla beyaz kalmaz. Ayakta halka vardır, dipte torba yoktur. Kesince ya da ezince ayak dibi parlak sarıya dönmez, hoş mantar kokar.",
+      "zehirlenmeNedeni": "Doğada toplanınca sarıya boyanan mantar (ayak dibi kesince parlak sarıya döner, mürekkep gibi kokar) ve solungaçları hep beyaz kalan, torbalı ölümcül beyaz köygöçüren ile karıştırılır.",
+      "yagmurSonrasi": "hizli",
+      "aylar": [
+        4,
+        5,
+        6,
+        9,
+        10,
+        11
+      ],
+      "aramaIpucu": "Çoğunlukla yetiştirilip satılır. Doğada gübreli toprakta, bahçede, kompost ve yol kenarında yerde ara; ormanda aranmaz.",
+      "fotograf": {
+        "dosya": "fotograflar/kultur.jpg",
+        "cekan": "Karim Haddad",
+        "lisans": "CC BY 4.0",
+        "kaynak": "iNaturalist, gözlem 35241169 (fotoğraf 55549692)"
+      }
+    },
+    {
       "id": "sariya-boyanan",
       "ad": "Sarıya boyanan mantar",
       "bilimselAd": "Agaricus xanthodermus",
